@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "../Math/Vector3.h"
+#include "../Math/Vector2.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -22,6 +23,12 @@ namespace MathTest
 			sv.zx = vec.xx;
 			Assert::AreEqual(sv.z, vec.x);
 			Assert::AreEqual(sv.x, vec.x);
+
+			Vector2 v2;
+			v2 = vec.xz;
+
+			Assert::AreEqual(v2.x, vec.x);
+			Assert::AreEqual(v2.y, vec.z);
 		}
 
 	};

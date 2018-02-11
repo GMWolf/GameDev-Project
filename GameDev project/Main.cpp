@@ -1,37 +1,40 @@
+#pragma once
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-int main(void) {
-	
-	if (!glfwInit()) {
-		return 1;
-	}
+#include <glfwApplication.h>
+#include <ApplicationAdapter.h>
+#include <VertexFormat.h>
+#include <VertexBuffer.h>
+#include <Vector3.h>
+class Game : public ApplicationAdapter {
+public:
 
-	GLFWwindow* window = glfwCreateWindow(640, 480, "Title", NULL, NULL);
 
-	if (!window) {
-		return 1;
-	}
-
-	glfwMakeContextCurrent(window);
-	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-
-	while (!glfwWindowShouldClose(window))
-	{
-		int width, height;
+	virtual void init() override {
+		VertexFormat format;
+		format.add(VertexAttribute::POSITION);
+		format.add(VertexAttribute::COLOUR);
 		
-		glfwGetFramebufferSize(window, &width, &height);
-		float ratio = width / (float)height;
-		glViewport(0, 0, width, height);
+		
+
+	}
+
+	virtual void render() override{
+		glClearColor(1, 0, 0, 1);
 		glClear(GL_COLOR_BUFFER_BIT);
-		
-		glfwSwapBuffers(window);
-		glfwPollEvents();
 	}
 
+};
 
-	glfwDestroyWindow(window);
+int main(void) {
 
-	glfwTerminate();
+	glfwConfiguration config;
+	config.title = "yo!";
+
+	Game game;
+	glfwApplication app(game, config);
+	app.init();
+
 	return 0;
 }
