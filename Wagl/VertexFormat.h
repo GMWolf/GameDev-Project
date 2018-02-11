@@ -29,28 +29,14 @@ public:
 	
 	VertexFormat& add(VertexAttribute attribute);
 
-	int getStride(int attributeNumber);
+	int getStride();
 	int getOffset(int attributeNumber);
-private:
-	void markDirty();
 
 	std::vector<VertexAttribute> attributes;
+private:
+	void markDirty();
 	mutable int stride;
 	mutable int* offsets;
 };
 
-int GetGLTypeSize(int type)
-{
-	switch (type) {
-	case GL_FLOAT: return 32;
-	case GL_INT: return 32;
-	case GL_UNSIGNED_INT: return 32;
-	case GL_BYTE:return 8;
-	case GL_UNSIGNED_BYTE:return 8;
-	case GL_SHORT: return 16;
-	case GL_UNSIGNED_SHORT: return 16;
-	case GL_HALF_FLOAT: return 16;
-	case GL_DOUBLE:return 64;
-	}
-	throw std::invalid_argument("Unknown type " + type);
-}
+int GetGLTypeSize(int type);

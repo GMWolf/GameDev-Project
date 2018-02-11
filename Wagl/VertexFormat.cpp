@@ -19,11 +19,10 @@ VertexFormat & VertexFormat::add(VertexAttribute attribute)
 	return *this;
 }
 
-int VertexFormat::getStride(int attributeNumber)
+int VertexFormat::getStride()
 {
-	
-	if (stride == -1) {
-		int stride = 0;
+	if (stride < 0) {
+		stride = 0;
 		for (int i = 0; i < attributes.size(); i++) {
 			stride += attributes[i].size();
 		}
@@ -68,3 +67,19 @@ const VertexAttribute VertexAttribute::POSITION = { GL_FLOAT, 3, "position" };
 const VertexAttribute VertexAttribute::TEXTURE_COORDINATES = { GL_FLOAT, 2, "tex_coord" };
 const VertexAttribute VertexAttribute::COLOUR = { GL_FLOAT, 4, "colour" };
 const VertexAttribute VertexAttribute::NORMAL = { GL_FLOAT, 3, "normal" };
+
+int GetGLTypeSize(int type)
+{
+	switch (type) {
+	case GL_FLOAT: return 4;
+	case GL_INT: return 4;
+	case GL_UNSIGNED_INT: return 4;
+	case GL_BYTE:return 1;
+	case GL_UNSIGNED_BYTE:return 1;
+	case GL_SHORT: return 2;
+	case GL_UNSIGNED_SHORT: return 2;
+	case GL_HALF_FLOAT: return 2;
+	case GL_DOUBLE:return 8;
+	}
+	throw std::invalid_argument("Unknown type " + type);
+}

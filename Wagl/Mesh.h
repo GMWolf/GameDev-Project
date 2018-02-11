@@ -5,10 +5,8 @@
 class Mesh
 {
 public:
-	Mesh();
+	Mesh(VertexFormat format, VertexBuffer buffer);
 	~Mesh();
-
-	
 
 private:
 

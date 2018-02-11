@@ -1,9 +1,10 @@
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include "VertexBuffer.h"
 
 VertexBuffer::VertexBuffer()
 {
 	glGenBuffers(1, &vbo);
-	
 }
 
 

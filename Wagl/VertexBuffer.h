@@ -9,7 +9,7 @@ public:
 	~VertexBuffer();
 
 	void bufferData(const GLsizeiptr size, const void* data);
-private:
+
 	GLuint vbo;
 };
 

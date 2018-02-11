@@ -2,7 +2,7 @@
 
 
 
-Mesh::Mesh()
+Mesh::Mesh(VertexFormat format, VertexBuffer buffer) : format(format), vb(buffer)
 {
 }
 
