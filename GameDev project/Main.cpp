@@ -11,6 +11,8 @@
 #include <iostream>
 #include <Shader.h>
 #include <ShaderProgram.h>
+#include <Mesh.h>
+#include <Model.h>
 class Game : public ApplicationAdapter {
 public:
 
@@ -19,56 +21,41 @@ public:
 		
 		Shader<GL_VERTEX_SHADER> basicVert("shaders/basicVert.glsl");
 		Shader<GL_FRAGMENT_SHADER> basicFrag("shaders/basicFrag.glsl");
-		ShaderProgram basicProgram(basicVert, basicFrag);
-		basicProgram.use();
+		basicProgram = new ShaderProgram(basicVert, basicFrag);
+
 
 		VertexFormat format;
 		format.add(VertexAttribute::POSITION);
 		format.add(VertexAttribute::COLOUR);
 
+		Mesh* mesh = new Mesh(format, GL_STATIC_DRAW);
+
 		float vertices[] = {
-			0.0f,  0.5f, 0.0f,  1.0f, 0.0f, 0.0f, 1.0f,
-			0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f, 1.0f,
-			-0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f, 1.0f
+			-0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+			0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+			0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+			-0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f,1.0f
 		};
 
-		//vb->bufferData(sizeof(vertices), vertices);
-		glGenVertexArrays(1, &vao);
-		glBindVertexArray(vao);
-		
-		GLuint vbo;
-		glGenBuffers(1, &vbo);
+		GLuint elements[] = {
+			0, 1, 2, 2, 3, 0
+		};
 
-		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		mesh->setVertexData(4, vertices);
+		mesh->setElementsData(6, elements);
 
-		for (int i = 0; i < format.attributes.size(); i++) {
-			VertexAttribute attribute = format.attributes[i];
-			GLint attribPos = basicProgram.GetAttributeLocation(attribute.alias);
-			glVertexAttribPointer(attribPos, attribute.elementCount, attribute.type, GL_FALSE, format.getStride(), (void*)format.getOffset(i));
-			glEnableVertexAttribArray(attribPos);
-		}
-
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindVertexArray(0);
+		model = new Model(mesh, basicProgram);
 	}
 
 	virtual void render() override{
 		glClearColor(1, 1, 1, 1);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glBindVertexArray(vao);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-		glBindVertexArray(0);
-
-		/*glUseProgram(shaderProgram);
-		glBindVertexArray(vao);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-		glBindVertexArray(0);*/
+		model->draw();
 	}
 
-	VertexBuffer* vb;
-	GLuint vao;
+	ShaderProgram* basicProgram;
+	Model* model;
 };
 
 int main(void) {
