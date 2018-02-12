@@ -1,5 +1,5 @@
 #include "Texture.h"
-
+#include <SOIL.h>
 
 
 Texture::Texture(std::string file, bool mipmap, bool compress)

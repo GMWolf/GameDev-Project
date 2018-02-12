@@ -15,6 +15,8 @@ public:
 			: location(location), type(type), size(size) {
 		}
 
+		void operator=(GLint rhs) const;
+
 		GLenum type;
 		GLsizei size;
 		GLint location;

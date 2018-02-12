@@ -15,6 +15,7 @@
 #include <Mesh.h>
 #include <Model.h>
 #include <Material.h>
+#include <Texture.h>
 class Game : public ApplicationAdapter {
 public:
 
@@ -58,6 +59,10 @@ public:
 		mesh->setVertexData(4, vertices);
 		mesh->setElementsData(6, elements);
 
+		texture = new Texture("textures/texture.jpg");
+
+		basicProgram->Getuniform("tex") = texture->glTex;
+
 		model = new Model(mesh, basicProgram);
 	}
 
@@ -71,12 +76,13 @@ public:
 	virtual void end() override {
 		delete model;
 		delete mesh;
-
+		delete texture;
 		delete basicProgram;
 	}
 
 	ShaderProgram* basicProgram;
 	Mesh * mesh;
+	Texture* texture;
 	Model* model;
 };
 

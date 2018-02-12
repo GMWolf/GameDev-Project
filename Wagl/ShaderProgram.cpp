@@ -93,3 +93,10 @@ void ShaderProgram::link()
 	glDetachShader(program, fragmentShader);
 }
 
+void ShaderProgram::Uniform::operator=(GLint rhs) const
+{
+	if (type != GL_INT) {
+		return;
+	}
+	glUniform1i(location, rhs);
+}
