@@ -16,6 +16,7 @@
 #include <Model.h>
 #include <Material.h>
 #include <Texture.h>
+
 class Game : public ApplicationAdapter {
 public:
 
@@ -60,8 +61,14 @@ public:
 		mesh->setElementsData(6, elements);
 
 		texture = new Texture("textures/texture.jpg");
+		appleTex = new Texture("textures/apple.jpg");
 
-		basicProgram->Getuniform("tex") = texture->glTex;
+		texture->bind(0);
+		basicProgram->Getuniform("tex") = 0;
+
+		appleTex->bind(1);
+		basicProgram->Getuniform("tex2") = 1;
+
 
 		model = new Model(mesh, basicProgram);
 	}
@@ -83,6 +90,7 @@ public:
 	ShaderProgram* basicProgram;
 	Mesh * mesh;
 	Texture* texture;
+	Texture* appleTex;
 	Model* model;
 };
 

@@ -1,5 +1,4 @@
 #include "ShaderProgram.h"
-
 #include <iostream>
 
 ShaderProgram::ShaderProgram(Shader<GL_VERTEX_SHADER>& vertex, Shader<GL_FRAGMENT_SHADER>& fragment)
@@ -50,12 +49,14 @@ void ShaderProgram::registerUniforms()
 	GLenum type;
 	GLint location;
 
+	int samplerId = 0;
 	for (int i = 0; i < count; i++) {
-		
 		glGetActiveUniform(program, i, bufSize, &length, &size, &type, name);
 
+		std::string strname(name);
+
 		location = glGetUniformLocation(program, name);
-		uniforms[std::string(name)] = Uniform(location, type, size);
+		uniforms[strname] = Uniform(program, location, type, size);
 	}
 }
 
@@ -93,10 +94,66 @@ void ShaderProgram::link()
 	glDetachShader(program, fragmentShader);
 }
 
+bool ShaderProgram::isSamplerType(GLenum type)
+{
+	switch (type) {
+	case GL_SAMPLER_1D:
+	case GL_SAMPLER_2D:
+	case GL_SAMPLER_3D:
+	case GL_SAMPLER_CUBE:
+	case GL_SAMPLER_1D_SHADOW:
+	case GL_SAMPLER_2D_SHADOW:
+	case GL_SAMPLER_CUBE_SHADOW:
+		return true;
+	}
+
+	return false;
+}
+
 void ShaderProgram::Uniform::operator=(GLint rhs) const
 {
-	if (type != GL_INT) {
+	if (type != GL_INT && !isSamplerType(type)) {
+		std::cout << "Cannot assign GLint to uniform" << std::endl;
 		return;
 	}
-	glUniform1i(location, rhs);
+	glProgramUniform1i(program, location, rhs);
 }
+
+void ShaderProgram::Uniform::operator=(GLuint rhs) const
+{
+	if (type != GL_UNSIGNED_INT && !isSamplerType(type)) {
+		std::cout << "Cannot assign uint to uniform" << std::endl;
+		return;
+	}
+	glProgramUniform1ui(program, location, rhs);
+}
+
+
+
+void ShaderProgram::Uniform::operator=(const Vector3& rhs) const
+{
+	if (type != GL_FLOAT_VEC3) {
+		std::cout << "Cannot assign Vector3 to uniform" << std::endl;
+		return;
+	}
+	glProgramUniform3f(program, location, rhs.x, rhs.y, rhs.z);
+}
+
+void ShaderProgram::Uniform::operator=(const Vector2& rhs) const
+{
+	if (type != GL_FLOAT_VEC2) {
+		std::cout << "Cannot assign Vector2 to uniform" << std::endl;
+		return;
+	}
+	glProgramUniform2f(program, location, rhs.x, rhs.y);
+}
+
+
+void ShaderProgram::Uniform::operator=(const GLfloat rhs) const
+{
+	if (type != GL_FLOAT) {
+		return;
+	}
+	glProgramUniform1f(program, location, rhs);
+}
+

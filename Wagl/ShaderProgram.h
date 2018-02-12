@@ -4,6 +4,9 @@
 #include "Shader.h"
 #include <string>
 #include <map>
+#include <Vector2.h>
+#include <Vector3.h>
+#include "Texture.h"
 class ShaderProgram
 {
 public:
@@ -11,17 +14,23 @@ public:
 		Uniform() {
 		}
 
-		Uniform(GLint location, GLenum type, GLsizei size)
-			: location(location), type(type), size(size) {
+		Uniform(GLuint program, GLint location, GLenum type, GLsizei size)
+			:program(program), location(location), type(type), size(size) {
 		}
 
-		void operator=(GLint rhs) const;
+		void operator=(const GLint rhs) const;
+		void operator=(const GLuint rhs) const;
+		void operator=(const GLfloat rhs) const;
+		
 
+		void operator=(const Vector3& rhs) const;
+		void operator=(const Vector2& rhs) const;
+
+		GLuint program;
 		GLenum type;
 		GLsizei size;
 		GLint location;
 	};
-
 
 	struct Attribute {
 		Attribute() {
@@ -50,6 +59,8 @@ private:
 	void registerUniforms();
 	void registerAttributes();
 	void link();
+
+	static bool isSamplerType(GLenum type);
 
 	std::map<std::string, Uniform> uniforms;
 	std::map<std::string, Attribute> attributes;

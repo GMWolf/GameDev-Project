@@ -9,6 +9,8 @@ public:
 	Texture(std::string file, bool mipmap = true, bool compress = false);
 	~Texture();
 
+	void bind();
+	void bind(GLint textureUnit);
 
 	GLuint glTex;
 };
