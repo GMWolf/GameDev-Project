@@ -10,6 +10,10 @@ public:
 	Vector2(float x, float y) : x(x), y(y) {
 	}
 
+	template<int S, int A, int B>
+	Vector2(Swizzle2<S, A, B> sw) : x(sw.items[A]), y(sw.items[B]) {
+	}
+
 
 #pragma region arithmetic operators
 	inline Vector2 operator+(const Vector2 &rhs) const {

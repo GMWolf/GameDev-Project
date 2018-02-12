@@ -64,7 +64,7 @@ inline int VertexAttribute::size() {
 }
 
 const VertexAttribute VertexAttribute::POSITION = { GL_FLOAT, 3, "position" };
-const VertexAttribute VertexAttribute::TEXTURE_COORDINATES = { GL_FLOAT, 2, "tex_coord" };
+const VertexAttribute VertexAttribute::TEXTURE_COORDINATES = { GL_FLOAT, 2, "texCoord" };
 const VertexAttribute VertexAttribute::COLOUR = { GL_FLOAT, 4, "colour" };
 const VertexAttribute VertexAttribute::NORMAL = { GL_FLOAT, 3, "normal" };
 

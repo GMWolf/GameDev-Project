@@ -10,6 +10,7 @@ public:
 	~ShaderProgram();
 
 	int GetAttributeLocation(std::string attribute);
+	int GetUniformLocation(std::string uniform);
 	void use();
 
 private:

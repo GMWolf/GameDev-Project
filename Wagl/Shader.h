@@ -34,6 +34,7 @@ public:
 	}
 	~Shader()
 	{
+		glDeleteShader(glShader);
 	}
 private:
 

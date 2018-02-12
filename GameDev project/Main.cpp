@@ -7,12 +7,14 @@
 #include <VertexFormat.h>
 #include <VertexBuffer.h>
 #include <Vector3.h>
+#include <Vector2.h>
 #include <string>
 #include <iostream>
 #include <Shader.h>
 #include <ShaderProgram.h>
 #include <Mesh.h>
 #include <Model.h>
+#include <Material.h>
 class Game : public ApplicationAdapter {
 public:
 
@@ -26,15 +28,27 @@ public:
 
 		VertexFormat format;
 		format.add(VertexAttribute::POSITION);
+		format.add(VertexAttribute::TEXTURE_COORDINATES);
 		format.add(VertexAttribute::COLOUR);
 
-		Mesh* mesh = new Mesh(format, GL_STATIC_DRAW);
+		mesh = new Mesh(format, GL_STATIC_DRAW);
 
 		float vertices[] = {
-			-0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-			0.5f,  0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-			0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-			-0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 1.0f,1.0f
+			-0.5f, 0.5f, 0.0f,
+			0.0f, 1.0f,
+			1.0f, 0.0f, 0.0f, 1.0f,
+
+			0.5f,  0.5f, 0.0f, 
+			1.0f, 1.0f,
+			0.0f, 1.0f, 0.0f, 1.0f,
+
+			0.5f, -0.5f, 0.0f,
+			1.0f, 0.0f,
+			0.0f, 0.0f, 1.0f, 1.0f,
+
+			-0.5f, -0.5f, 0.0f,
+			0.0f, 0.0f,
+			1.0f, 1.0f, 1.0f,1.0f
 		};
 
 		GLuint elements[] = {
@@ -45,6 +59,11 @@ public:
 		mesh->setElementsData(6, elements);
 
 		model = new Model(mesh, basicProgram);
+
+
+		Material material(basicProgram);
+		material.set("foo", Vector3(0, 0, 0));
+		material.get<Vector3>("foo").xz = Vector2(1, 1).xy;
 	}
 
 	virtual void render() override{
@@ -54,7 +73,15 @@ public:
 		model->draw();
 	}
 
+	virtual void end() override {
+		delete model;
+		delete mesh;
+
+		delete basicProgram;
+	}
+
 	ShaderProgram* basicProgram;
+	Mesh * mesh;
 	Model* model;
 };
 

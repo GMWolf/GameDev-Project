@@ -1,7 +1,5 @@
 #include "Mesh.h"
 
-
-
 Mesh::Mesh(VertexFormat format, int usage) : format(format), usage(usage)
 {
 	glGenBuffers(2, buffers);

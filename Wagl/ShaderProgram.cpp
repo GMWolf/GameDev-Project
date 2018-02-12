@@ -9,14 +9,20 @@ ShaderProgram::ShaderProgram(Shader<GL_VERTEX_SHADER>& vertex, Shader<GL_FRAGMEN
 	link();
 }
 
-
 ShaderProgram::~ShaderProgram()
 {
+	glDeleteProgram(program);
 }
 
 int ShaderProgram::GetAttributeLocation(std::string attribute)
 {
 	return glGetAttribLocation(program, attribute.c_str());
+}
+
+int ShaderProgram::GetUniformLocation(std::string uniform)
+{
+	
+	return glGetUniformLocation(program, uniform.c_str());
 }
 
 void ShaderProgram::use()
@@ -31,4 +37,6 @@ void ShaderProgram::link()
 	glAttachShader(program, fragmentShader);
 	glBindFragDataLocation(program, 0, "outColor");
 	glLinkProgram(program);
+	glDetachShader(program, vertexShader);
+	glDetachShader(program, fragmentShader);
 }

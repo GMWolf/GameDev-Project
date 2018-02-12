@@ -87,7 +87,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)soil\Simple OpenGL Image Libray\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)soil\Simple OpenGL Image Library\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Lib>
       <AdditionalDependencies>opengl32.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\glfw3.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -99,7 +99,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)soil\Simple OpenGL Image Libray\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)soil\Simple OpenGL Image Library\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Lib>
       <AdditionalDependencies>opengl32.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\glfw3.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -113,7 +113,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)soil\Simple OpenGL Image Libray\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)soil\Simple OpenGL Image Library\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -131,7 +131,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)soil\Simple OpenGL Image Libray\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)soil\Simple OpenGL Image Library\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -144,19 +144,24 @@
   <ItemGroup>
     <ClInclude Include="ApplicationAdapter.h" />
     <ClInclude Include="glfwApplication.h" />
+    <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Uniform.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="VertexFormat.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ApplicationAdapter.cpp" />
     <ClCompile Include="glfwApplication.cpp" />
+    <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="VertexFormat.cpp" />
   </ItemGroup>
