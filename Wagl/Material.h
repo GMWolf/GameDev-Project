@@ -15,11 +15,16 @@ public:
 
 	template<class T>
 	void set(std::string name, T value) {
-		(*reinterpret_cast<Uniform<T>*>(uniforms[name])) = value;
+		get<T>(name) = value;
 	}
 
 	template<class T>
 	T& get(std::string name) {
+
+		if (uniforms.count(name) == 0) {
+			uniforms[name] = new Uniform<T>(name, shader);
+		}
+
 		return (*reinterpret_cast<Uniform<T>*>(uniforms[name])).value;
 	}
 

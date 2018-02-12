@@ -5,8 +5,8 @@ class Uniform {
 public:
 	friend class Material;
 
-	Uniform(std::string name) : name(name){
-		
+	Uniform(std::string name, ShaderProgram* shader){
+		location = shader->GetUniformLocation(name);
 	}
 
 	void operator=(T rhs) {
