@@ -59,11 +59,6 @@ public:
 		mesh->setElementsData(6, elements);
 
 		model = new Model(mesh, basicProgram);
-
-
-		Material material(basicProgram);
-		material.set("foo", Vector3(0, 0, 0));
-		material.get<Vector3>("foo").xz = Vector2(1, 1).xy;
 	}
 
 	virtual void render() override{

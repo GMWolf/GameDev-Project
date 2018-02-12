@@ -7,10 +7,10 @@
 
 struct VertexAttribute
 {
-	VertexAttribute(int type, int elementCount, std::string alias);
+	VertexAttribute(GLenum type, GLsizei elementCount, std::string alias);
 
-	int type;
-	int elementCount;
+	GLenum type;
+	GLsizei elementCount;
 	std::string alias;
 
 	int size();

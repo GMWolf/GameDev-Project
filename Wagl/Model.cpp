@@ -1,5 +1,5 @@
 #include "Model.h"
-
+#include <iostream>
 Model::Model(Mesh * mesh, ShaderProgram * shader)
 	:mesh(mesh), shader(shader), attribsBounded(false)
 {
@@ -31,18 +31,34 @@ void Model::bindAttributes()
 	int stride = mesh->format.getStride();
 
 	for (int i = 0; i < mesh->format.attributes.size(); i++) {
-		VertexAttribute attribute = mesh->format.attributes[i];
-		GLint attribPos = shader->GetAttributeLocation(attribute.alias);
-		int offset = mesh->format.getOffset(i);
-		glVertexAttribPointer(attribPos, attribute.elementCount, attribute.type, GL_FALSE, stride, (void*)offset);
-		glEnableVertexAttribArray(attribPos);
-	}
+		VertexAttribute vertAttrib = mesh->format.attributes[i];
 
+		if (shader->hasAttribute(vertAttrib.alias)) {
+			ShaderProgram::Attribute shdAttrib = shader->GetAttribute(vertAttrib.alias);
+
+			//Only required that size be the same.
+			//That is because glVertexAttribPointer and glGetActiveAttrib do not use same type.
+			//Why, ogl? why must you be like that?
+
+			if (vertAttrib.size() != shdAttrib.size * GetGLTypeSize(shdAttrib.type)) {
+				std::cout << "Attribute " << vertAttrib.alias << " Size mismatch. Could not be bound" << std::endl;
+				
+			}
+			else {
+
+				GLint location = shdAttrib.location;
+				int offset = mesh->format.getOffset(i);
+				glVertexAttribPointer(location, vertAttrib.elementCount, vertAttrib.type, GL_FALSE, stride, (void*)offset);
+				glEnableVertexAttribArray(location);
+			}
+		}
+	}
 
 	glBindVertexArray(0);
 
 	attribsBounded = true;
 }
+
 
 void Model::draw()
 {
@@ -55,3 +71,4 @@ void Model::draw()
 	glDrawElements(GL_TRIANGLES, mesh->vertexCount, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 }
+

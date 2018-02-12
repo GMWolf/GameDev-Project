@@ -11,5 +11,5 @@ uniform sampler2D tex;
 
 void main()
 {
-    outColor = texture(tex, IN.Texcoord) * IN.colour;
+    outColor =  IN.colour;
 }
