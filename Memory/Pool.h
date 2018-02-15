@@ -27,8 +27,6 @@ private:
 	int blockSize;
 	std::vector<T*> blocks;
 	std::deque<T*> available;
-
-
 };
 
 template<class T>
