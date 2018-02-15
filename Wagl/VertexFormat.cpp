@@ -19,6 +19,29 @@ VertexFormat & VertexFormat::add(VertexAttribute attribute)
 	return *this;
 }
 
+VertexAttribute & VertexFormat::findAttribute(std::string alias, bool& found)
+{
+	for (VertexAttribute attribute : attributes) {
+		if (attribute.alias == alias) {
+			found = true;
+			return attribute;
+		}
+	}
+
+	found = false;
+	return attributes[0];
+}
+
+int VertexFormat::getAttributeNumber(VertexAttribute attribute)
+{
+	for (int i = 0; i < attributes.size(); i++) {
+		if (attributes[i] == attribute) {
+			return i;
+		}
+	}
+	return -1;
+}
+
 int VertexFormat::getStride()
 {
 	if (stride < 0) {
@@ -61,6 +84,11 @@ VertexAttribute::VertexAttribute(GLenum type, GLsizei elementCount, std::string 
 
 inline int VertexAttribute::size() {
 	return GetGLTypeSize(type) * elementCount;
+}
+
+bool VertexAttribute::operator==(const VertexAttribute & rhs)
+{
+	return type == rhs.type && elementCount == rhs.elementCount && alias == rhs.alias;
 }
 
 const VertexAttribute VertexAttribute::POSITION = { GL_FLOAT, 3, "position" };

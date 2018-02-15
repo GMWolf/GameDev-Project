@@ -15,6 +15,8 @@ struct VertexAttribute
 
 	int size();
 
+	bool operator==(const VertexAttribute& rhs);
+
 	static const VertexAttribute POSITION;
 	static const VertexAttribute TEXTURE_COORDINATES;
 	static const VertexAttribute COLOUR;
@@ -28,6 +30,10 @@ public:
 	~VertexFormat();
 	
 	VertexFormat& add(VertexAttribute attribute);
+
+	VertexAttribute& findAttribute(std::string alias, bool& found);
+
+	int getAttributeNumber(VertexAttribute attribute);
 
 	int getStride();
 	int getOffset(int attributeNumber);

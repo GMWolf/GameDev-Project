@@ -121,17 +121,17 @@ public:
 			float z;
 		};
 
-		Swizzle2<4, 0, 0> xx;
-		Swizzle2<4, 0, 1> xy;
-		Swizzle2<4, 0, 2> xz;
-		Swizzle2<4, 1, 0> yx;
-		Swizzle2<4, 1, 1> yy;
-		Swizzle2<4, 1, 2> yz;
-		Swizzle2<4, 2, 0> zx;
-		Swizzle2<4, 2, 1> zy;
-		Swizzle2<4, 2, 2> zz;
+		Swizzle2<3, 0, 0> xx;
+		Swizzle2<3, 0, 1> xy;
+		Swizzle2<3, 0, 2> xz;
+		Swizzle2<3, 1, 0> yx;
+		Swizzle2<3, 1, 1> yy;
+		Swizzle2<3, 1, 2> yz;
+		Swizzle2<3, 2, 0> zx;
+		Swizzle2<3, 2, 1> zy;
+		Swizzle2<3, 2, 2> zz;
 
-		float items[4];
+		float items[3];
 	};
 
 };
