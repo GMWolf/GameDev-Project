@@ -35,42 +35,13 @@ public:
 		format.add(VertexAttribute::TEXTURE_COORDINATES);
 		format.add(VertexAttribute::COLOUR);
 
-		/*mesh = new Mesh(format, GL_STATIC_DRAW);
-
-		float vertices[] = {
-			-0.5f, 0.5f, 0.0f,
-			0.0f, 1.0f,
-			1.0f, 0.0f, 0.0f, 1.0f,
-
-			0.5f,  0.5f, 0.0f, 
-			1.0f, 1.0f,
-			0.0f, 1.0f, 0.0f, 1.0f,
-
-			0.5f, -0.5f, 0.0f,
-			1.0f, 0.0f,
-			0.0f, 0.0f, 1.0f, 1.0f,
-
-			-0.5f, -0.5f, 0.0f,
-			0.0f, 0.0f,
-			1.0f, 1.0f, 1.0f,1.0f
-		};
-
-		GLuint elements[] = {
-			0, 1, 2, 2, 3, 0
-		};
-
-		mesh->setVertexData(4, vertices);
-		mesh->setElementsData(6, elements);*/
-
 		MeshBuilder builder(format);
-
 		builder.set(VertexAttribute::POSITION, {
 			Vector3(-0.5f, 0.5f, 0.0f),
 			Vector3(0.5f,  0.5f, 0.0f),
 			Vector3(0.5f, -0.5f, 0.0f),
 			Vector3(-0.5f, -0.5f, 0.0f)
 		});
-
 		builder.set(VertexAttribute::TEXTURE_COORDINATES, {
 			Vector2(0.0f, 1.0f),
 			Vector2(1.0f, 1.0f),
