@@ -171,7 +171,6 @@ public:
 		GENERATE_SWIZZLE_3_1(3, w);
 
 		//Generating 256 members!
-
 #define GENERATE_SWIZZLE_4_0(id0, id1, id2, pre) \
 		Swizzle4<4, id0, id1, id2, 0> pre##x; \
 		Swizzle4<4, id0, id1, id2, 1> pre##y; \
