@@ -11,6 +11,11 @@ public:
 	Vector4(float x, float y, float z, float w) : x(x), y(y), z(z) {
 	}
 
+	template<int A, int B, int C, int D>
+	Vector4(Swizzle4<4, A, B, C, D> sz)
+		: x(sz.items[A]), y(sz.items[B]), z(sz.items[C]), w(sz.items[D]) {
+	}
+
 
 #pragma region arithmetic operators
 	inline Vector4 operator+(const Vector4 &rhs) const {
@@ -147,9 +152,51 @@ public:
 		Swizzle2<4, 3, 1> wy;
 		Swizzle2<4, 3, 2> wz;
 		Swizzle2<4, 3, 3> ww;
-		
+
+#define GENERATE_SWIZZLE_3_0(id0, id1, pre) \
+		Swizzle3<4, id0, id1, 0> pre##x; \
+		Swizzle3<4, id0, id1, 1> pre##y; \
+		Swizzle3<4, id0, id1, 2> pre##z; \
+		Swizzle3<4, id0, id1, 3> pre##w;
+
+#define GENERATE_SWIZZLE_3_1(id0, pre) \
+		GENERATE_SWIZZLE_3_0(id0, 0, pre##x) \
+		GENERATE_SWIZZLE_3_0(id0, 1, pre##y) \
+		GENERATE_SWIZZLE_3_0(id0, 2, pre##z) \
+		GENERATE_SWIZZLE_3_0(id0, 3, pre##w)
+
+		GENERATE_SWIZZLE_3_1(0, x);
+		GENERATE_SWIZZLE_3_1(1, y);
+		GENERATE_SWIZZLE_3_1(2, z);
+		GENERATE_SWIZZLE_3_1(3, w);
+
+		//Generating 256 members!
+
+#define GENERATE_SWIZZLE_4_0(id0, id1, id2, pre) \
+		Swizzle4<4, id0, id1, id2, 0> pre##x; \
+		Swizzle4<4, id0, id1, id2, 1> pre##y; \
+		Swizzle4<4, id0, id1, id2, 2> pre##z; \
+		Swizzle4<4, id0, id1, id2, 3> pre##w;
+
+#define GENERATE_SWIZZLE_4_1(id0, id1, pre) \
+		GENERATE_SWIZZLE_4_0(id0, id1, 0, pre##x) \
+		GENERATE_SWIZZLE_4_0(id0, id1, 1, pre##y) \
+		GENERATE_SWIZZLE_4_0(id0, id1, 2, pre##z) \
+		GENERATE_SWIZZLE_4_0(id0, id1, 3, pre##w)
+
+#define GENERATE_SWIZZLE_4_2(id0, pre) \
+		GENERATE_SWIZZLE_4_1(id0, 0, pre##x) \
+		GENERATE_SWIZZLE_4_1(id0, 1, pre##y) \
+		GENERATE_SWIZZLE_4_1(id0, 2, pre##z) \
+		GENERATE_SWIZZLE_4_1(id0, 3, pre##w)
+
+		GENERATE_SWIZZLE_4_2(0, x);
+		GENERATE_SWIZZLE_4_2(1, y);
+		GENERATE_SWIZZLE_4_2(2, z);
+		GENERATE_SWIZZLE_4_2(3, w);
 
 		float items[4];
 	};
+
 
 };

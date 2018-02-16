@@ -70,7 +70,6 @@ public:
 		appleTex->bind(1);
 		basicProgram->Getuniform("tex2") = 1;
 
-
 		model = new Model(mesh, basicProgram);
 	}
 
