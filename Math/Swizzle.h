@@ -17,10 +17,15 @@ class Swizzle3 {
 public:
 
 	template<int rs, int rA, int rB, int rC>
-	void operator=(Swizzle3<rs, rA, rB, rC>& rhs) {
+	Swizzle3<size, A, B, C>& operator=(const Swizzle3<rs, rA, rB, rC>& rhs) {
 		items[A] = rhs.items[rA];
 		items[B] = rhs.items[rB];
 		items[C] = rhs.items[rC];
+		return *this;
+	};
+
+	inline float& operator[](const int i) const {
+		return items[i];
 	};
 
 	float items[size];
@@ -29,6 +34,11 @@ public:
 template<int size, int A, int B, int C, int D>
 class Swizzle4 {
 public:
+
+
+	inline float& operator[](const int i){
+		return items[i];
+	};
 
 
 	inline float operator[](const int i) const{

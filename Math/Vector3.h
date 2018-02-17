@@ -1,5 +1,6 @@
 #pragma once
 #include "Swizzle.h"
+#include <cmath>
 class Vector3 {
 
 public:
@@ -12,6 +13,10 @@ public:
 
 
 #pragma region arithmetic operators
+	inline Vector3 operator-() const {
+		return Vector3(-x, -y, -z);
+	}
+
 	inline Vector3 operator+(const Vector3 &rhs) const {
 		return Vector3(x + rhs.x, y + rhs.y, z + rhs.z);
 	}
@@ -109,9 +114,22 @@ public:
 		z = rhs.z;
 	}
 
-#pragma region SwizzleOperations
 
-#pragma endregion
+	void Normalize() {
+		float l = sqrt(x*x + y * y + z * z);
+		if (l != 0.0f) {
+			l = 1 / l;
+			x *= l;
+			y *= l;
+			z *= z;
+		}
+	}
+
+	static Vector3 Cross(const Vector3& lhs, const Vector3& rhs) {
+		return Vector3(lhs.y*rhs.z - lhs.z*rhs.y,
+			lhs.z*rhs.x - lhs.z*rhs.x,
+			lhs.x*rhs.y - lhs.y*rhs.x);
+	}
 
 
 	union {
@@ -160,10 +178,6 @@ public:
 		Swizzle3<3, 2, 2, 1> zzy;
 		Swizzle3<3, 2, 2, 2> zzz;
 #pragma endregion
-
-		
-
-
 
 		float items[3];
 	};

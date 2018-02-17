@@ -6,6 +6,7 @@
 #include <map>
 #include <Vector2.h>
 #include <Vector3.h>
+#include <Matrix4.h>
 #include "Texture.h"
 class ShaderProgram
 {
@@ -25,6 +26,8 @@ public:
 
 		void operator=(const Vector3& rhs) const;
 		void operator=(const Vector2& rhs) const;
+
+		void operator=(const Matrix4& rhs) const;
 
 		GLuint program;
 		GLenum type;

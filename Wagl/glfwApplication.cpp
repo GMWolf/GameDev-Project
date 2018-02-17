@@ -32,11 +32,10 @@ bool glfwApplication::init()
 
 	while (!glfwWindowShouldClose(window))
 	{
-		int width, height;
 
-		glfwGetFramebufferSize(window, &width, &height);
-		float ratio = width / (float)height;
-		glViewport(0, 0, width, height);
+		glfwGetFramebufferSize(window, &frameBufferWidth, &frameBufferHeight);
+		float ratio = frameBufferWidth / (float)frameBufferHeight;
+		glViewport(0, 0, frameBufferWidth, frameBufferHeight);
 		
 		app.render();
 

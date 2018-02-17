@@ -28,5 +28,7 @@ public:
 private:
 	ApplicationAdapter& app;
 	glfwConfiguration config;
+	int frameBufferWidth;
+	int frameBufferHeight;
 };
 

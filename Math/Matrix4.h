@@ -1,5 +1,6 @@
 #pragma once
 #include "Swizzle.h"
+#include "Vector3.h"
 #include <cstring>
 
 class Matrix4 {
@@ -7,6 +8,9 @@ class Matrix4 {
 public:
 	
 	Matrix4() {
+		for (int i = 0; i < 16; i++) {
+			items[i] = 0;
+		}
 	};
 
 	Matrix4(float e[16]) {
@@ -43,7 +47,50 @@ public:
 		return true;
 	}
 
+	Matrix4& operator=(const Matrix4& rhs) {
+		for (int i = 0; i < 16; i++) {
+			items[i] = rhs.items[i];
+		}
+		return *this;
+	}
 
+	static Matrix4 Perspective(float znear, float zfar, float aspect, float fov) {
+		Matrix4 matrix;
+		float h = 1.0f / tan(fov*3.141592653f / 360.f);
+		float n = znear - zfar;
+		matrix.items[0] = h / aspect;
+		matrix.items[5] = h;
+		matrix.items[10] = (zfar + znear) / n;
+		matrix.items[11] = -1.0f;
+		matrix.items[14] = 2.0f*(znear*zfar) / n;
+		matrix.items[15] = 0.0f;
+		return matrix;
+	}
+
+	static Matrix4 ViewMatrix(const Vector3& eye, const Vector3& lookat, const Vector3& up) {
+		Matrix4 view;
+		
+		view.position = (-eye).xyz;
+		
+		Vector3 forward = lookat - eye;
+		forward.Normalize();
+
+		Vector3 left = Vector3::Cross(forward, up);
+
+		view.forward = (-forward).xyz;
+		view.left = left.xyz;
+		view.up = up.xyz;
+		return view;
+	}
+
+	static Matrix4 Identity() {
+		Matrix4 m;
+		m.items[0] = 1.0f;
+		m.items[5] = 1.0f;
+		m.items[10] = 1.0f;
+		m.items[15] = 1.0f;
+		return m;
+	}
 	union {
 		float items[16];
 

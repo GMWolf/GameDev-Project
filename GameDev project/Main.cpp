@@ -19,6 +19,7 @@
 #include <Texture.h>
 #include <Pool.h>
 #include <MeshBuilder.h>
+#include <Renderer.h>
 class Game : public ApplicationAdapter {
 public:
 
@@ -99,7 +100,8 @@ int main(void) {
 	glfwConfiguration config;
 	config.title = "yo!";
 
-	Game game;
+	//Game game;
+	Renderer game(config.width, config.height);
 	glfwApplication app(game, config);
 	app.init();
 
