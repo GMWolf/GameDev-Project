@@ -67,7 +67,7 @@ void Model::draw()
 	}
 	shader->use();
 	glBindVertexArray(vao);
-	//
+	
 	glDrawElements(GL_TRIANGLES, mesh->vertexCount, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 }

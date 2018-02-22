@@ -22,7 +22,7 @@ void Renderer::render()
 	glClearColor(1, 1, 1, 1);
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fbo);
+	/*glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fbo);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	model->draw();
@@ -36,11 +36,13 @@ void Renderer::render()
 	glBlitFramebuffer(0, 0, width, height, 0, 0, halfWidth, halfHeight, GL_COLOR_BUFFER_BIT, GL_LINEAR);
 	
 	glReadBuffer(GL_COLOR_ATTACHMENT1);
-	glBlitFramebuffer(0, 0, width, height, halfWidth, 0, width, halfHeight, GL_COLOR_BUFFER_BIT, GL_LINEAR);
-	
+	glBlitFramebuffer(0, 0, width, height, halfWidth, 0, width, halfHeight, GL_COLOR_BUFFER_BIT, GL_LINEAR);*/
+
+	model->draw();
+	/*
 	glReadBuffer(GL_DEPTH_ATTACHMENT);
 	glBlitFramebuffer(0, 0, width, height, halfWidth, halfHeight, width, height, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
-
+	*/
 }
 
 void Renderer::init()
