@@ -148,6 +148,15 @@ void ShaderProgram::Uniform::operator=(const Vector2& rhs) const
 	glProgramUniform2f(program, location, rhs.x, rhs.y);
 }
 
+void ShaderProgram::Uniform::operator=(const Matrix4 & rhs) const
+{
+	if (type != GL_FLOAT_MAT4) {
+		std::cout << "Cannot assign Matrix to uniform" << std::endl;
+		return;
+	}
+	glProgramUniformMatrix4fv(program, location, 1, false, rhs.items);
+}
+
 
 void ShaderProgram::Uniform::operator=(const GLfloat rhs) const
 {

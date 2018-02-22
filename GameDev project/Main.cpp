@@ -19,6 +19,7 @@
 #include <Texture.h>
 #include <Pool.h>
 #include <MeshBuilder.h>
+#include <Renderer.h>
 class Game : public ApplicationAdapter {
 public:
 
@@ -42,7 +43,6 @@ public:
 			Vector3(0.5f, -0.5f, 0.0f),
 			Vector3(-0.5f, -0.5f, 0.0f)
 		});
-
 		builder.set(VertexAttribute::TEXTURE_COORDINATES, {
 			Vector2(0.0f, 1.0f),
 			Vector2(1.0f, 1.0f),
@@ -69,7 +69,6 @@ public:
 
 		appleTex->bind(1);
 		basicProgram->Getuniform("tex2") = 1;
-
 
 		model = new Model(mesh, basicProgram);
 	}
@@ -100,7 +99,8 @@ int main(void) {
 	glfwConfiguration config;
 	config.title = "yo!";
 
-	Game game;
+	//Game game;
+	Renderer game(config.width, config.height);
 	glfwApplication app(game, config);
 	app.init();
 

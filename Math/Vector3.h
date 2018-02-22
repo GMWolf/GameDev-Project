@@ -1,5 +1,6 @@
 #pragma once
 #include "Swizzle.h"
+#include <cmath>
 class Vector3 {
 
 public:
@@ -12,6 +13,10 @@ public:
 
 
 #pragma region arithmetic operators
+	inline Vector3 operator-() const {
+		return Vector3(-x, -y, -z);
+	}
+
 	inline Vector3 operator+(const Vector3 &rhs) const {
 		return Vector3(x + rhs.x, y + rhs.y, z + rhs.z);
 	}
@@ -109,9 +114,22 @@ public:
 		z = rhs.z;
 	}
 
-#pragma region SwizzleOperations
 
-#pragma endregion
+	void Normalize() {
+		float l = sqrt(x*x + y * y + z * z);
+		if (l != 0.0f) {
+			l = 1 / l;
+			x *= l;
+			y *= l;
+			z *= z;
+		}
+	}
+
+	static Vector3 Cross(const Vector3& lhs, const Vector3& rhs) {
+		return Vector3(lhs.y*rhs.z - lhs.z*rhs.y,
+			lhs.z*rhs.x - lhs.z*rhs.x,
+			lhs.x*rhs.y - lhs.y*rhs.x);
+	}
 
 
 	union {
@@ -121,6 +139,7 @@ public:
 			float z;
 		};
 
+#pragma region Swizzles
 		Swizzle2<3, 0, 0> xx;
 		Swizzle2<3, 0, 1> xy;
 		Swizzle2<3, 0, 2> xz;
@@ -130,6 +149,35 @@ public:
 		Swizzle2<3, 2, 0> zx;
 		Swizzle2<3, 2, 1> zy;
 		Swizzle2<3, 2, 2> zz;
+
+		Swizzle3<3, 0, 0, 0> xxx;
+		Swizzle3<3, 0, 0, 1> xxy;
+		Swizzle3<3, 0, 0, 2> xxz;
+		Swizzle3<3, 0, 1, 0> xyx;
+		Swizzle3<3, 0, 1, 1> xyy;
+		Swizzle3<3, 0, 1, 2> xyz;
+		Swizzle3<3, 0, 2, 0> xzx;
+		Swizzle3<3, 0, 2, 1> xzy;
+		Swizzle3<3, 0, 2, 2> xzz;
+		Swizzle3<3, 1, 0, 0> yxx;
+		Swizzle3<3, 1, 0, 1> yxy;
+		Swizzle3<3, 1, 0, 2> yxz;
+		Swizzle3<3, 1, 1, 0> yyx;
+		Swizzle3<3, 1, 1, 1> yyy;
+		Swizzle3<3, 1, 2, 2> yyz;
+		Swizzle3<3, 1, 2, 0> yzx;
+		Swizzle3<3, 1, 2, 1> yzy;
+		Swizzle3<3, 1, 2, 2> yzz;
+		Swizzle3<3, 2, 0, 0> zxx;
+		Swizzle3<3, 2, 0, 1> zxy;
+		Swizzle3<3, 2, 0, 2> zxz;
+		Swizzle3<3, 2, 1, 0> zyx;
+		Swizzle3<3, 2, 1, 1> zyy;
+		Swizzle3<3, 2, 1, 2> zyz;
+		Swizzle3<3, 2, 2, 0> zzx;
+		Swizzle3<3, 2, 2, 1> zzy;
+		Swizzle3<3, 2, 2, 2> zzz;
+#pragma endregion
 
 		float items[3];
 	};
