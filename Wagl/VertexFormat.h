@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <vector>
 #include <string>
+#include <initializer_list>
 
 struct VertexAttribute
 {
@@ -12,14 +13,9 @@ struct VertexAttribute
 	GLsizei elementCount;
 	std::string alias;
 
-	int size();
+	int size() const;
 
-	bool operator==(const VertexAttribute& rhs);
-
-	static const VertexAttribute POSITION;
-	static const VertexAttribute TEXTURE_COORDINATES;
-	static const VertexAttribute COLOUR;
-	static const VertexAttribute NORMAL;
+	bool operator==(const VertexAttribute& rhs) const;
 };
 
 class VertexFormat
@@ -27,15 +23,17 @@ class VertexFormat
 public:
 	VertexFormat();
 	~VertexFormat();
+
+	VertexFormat(std::initializer_list<const VertexAttribute> attributes);
 	
 	VertexFormat& add(VertexAttribute attribute);
 
-	VertexAttribute& findAttribute(std::string alias, bool& found);
+	const VertexAttribute& findAttribute(std::string alias, bool& found) const;
 
-	int getAttributeNumber(VertexAttribute attribute);
+	int getAttributeNumber(VertexAttribute attribute) const;
 
-	int getStride();
-	int getOffset(int attributeNumber);
+	int getStride() const;
+	int getOffset(int attributeNumber) const;
 
 	std::vector<VertexAttribute> attributes;
 private:

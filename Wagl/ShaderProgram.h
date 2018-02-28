@@ -4,10 +4,12 @@
 #include "Shader.h"
 #include <string>
 #include <map>
+#include <vector>
 #include <Vector2.h>
 #include <Vector3.h>
 #include <Matrix4.h>
 #include "Texture.h"
+
 class ShaderProgram
 {
 public:
@@ -51,7 +53,8 @@ public:
 	~ShaderProgram();
 
 
-	const Attribute& GetAttribute(const std::string attribute) const;
+	const Attribute& GetAttribute(const int index) const;
+	const Attribute& GetAttribute(const std::string name) const;
 	bool hasAttribute(const std::string attribute) const;
 	const Uniform& Getuniform(const std::string uniform) const;
 
@@ -66,7 +69,8 @@ private:
 	static bool isSamplerType(GLenum type);
 
 	std::map<std::string, Uniform> uniforms;
-	std::map<std::string, Attribute> attributes;
+	std::vector<Attribute> attributes;
+	std::map<std::string, int> attributeIndexMap;
 
 	GLuint vertexShader;
 	GLuint fragmentShader;

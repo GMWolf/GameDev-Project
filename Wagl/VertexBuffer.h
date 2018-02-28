@@ -9,12 +9,15 @@ class VertexBuffer
 {
 public:
 	friend class Model;
+	friend class VertexArray;
 
 	VertexBuffer(VertexFormat format, int usage);
 	~VertexBuffer();
 
 	void setVertexData(const int vertexCount, const void* data);
 	void setElementsData(const int vertexCount, const void* data);
+
+	void bind();
 
 private:
 	int usage;

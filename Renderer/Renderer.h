@@ -4,10 +4,9 @@
 #include <ApplicationAdapter.h>
 #include <ShaderProgram.h>
 #include <Shader.h>
-#include <VertexBuffer.h>
-#include <Model.h>
 #include <Texture.h>
 #include <Matrix4.h>
+#include "Mesh.h"
 class Renderer : public ApplicationAdapter
 {
 public:
@@ -31,8 +30,7 @@ private:
 	GLuint depthTexture;
 
 	ShaderProgram* geometryProgram;
-	VertexBuffer* mesh;
-	Model* model;
+	Mesh* mesh;
 	Texture* texture;
 	Matrix4 projection;
 	Matrix4 view;

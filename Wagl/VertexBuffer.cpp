@@ -29,3 +29,9 @@ void VertexBuffer::setElementsData(const int vertCount, const void * data)
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, usage);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
+
+void VertexBuffer::bind()
+{
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+}

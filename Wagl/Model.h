@@ -7,10 +7,10 @@
 class Model
 {
 public:
-	Model(VertexBuffer* mesh, ShaderProgram* shader);
+	Model(VertexBuffer* vb, ShaderProgram* shader);
 	~Model();
 
-	void setMesh(VertexBuffer* mesh);
+	void setMesh(VertexBuffer* vb);
 	void setShader(ShaderProgram* shader);
 
 	void bindAttributes();
@@ -19,7 +19,7 @@ public:
 
 private:
 
-	VertexBuffer * mesh;
+	VertexBuffer * vb;
 	ShaderProgram * shader;
 	GLuint vao;
 	bool attribsBounded;

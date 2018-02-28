@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "Renderer.h"
 #include <iostream>
-#include <VBBuilder.h>
-#include <VertexFormat.h>
 #include <Vector4.h>
 #include <Vector3.h>
 #include <Time.h>
@@ -25,43 +23,27 @@ void Renderer::init()
 	Shader<GL_FRAGMENT_SHADER> geometryFrag("shaders/geometryFrag.glsl");
 	geometryProgram = new ShaderProgram(geometryVert, geometryFrag);
 
-
-	VertexFormat format;
-	format.add(VertexAttribute::POSITION);
-	format.add(VertexAttribute::TEXTURE_COORDINATES);
-	format.add(VertexAttribute::NORMAL);
-
-	VBBuilder builder(format);
-	builder.set(VertexAttribute::POSITION, {
+	mesh = new Mesh();
+	mesh->positions = {
 		Vector3(-0.5f, 0.5f, 0.0f),
 		Vector3(0.5f,  0.5f, 0.0f),
 		Vector3(0.5f, -0.5f, 0.0f),
-		Vector3(-0.5f, -0.5f, 0.0f)
-		/*Vector3(-50.0f, 50.0f, 0.0f),
-		Vector3(50.0f,  50.0f, 0.0f),
-		Vector3(50.0f, -50.0f, 0.0f),
-		Vector3(-50.0f, -50.0f, 0.0f)*/
-		});
-	builder.set(VertexAttribute::TEXTURE_COORDINATES, {
+		Vector3(-0.5f, -0.5f, 0.0f) 
+	};
+	mesh->UVs = {
 		Vector2(0.0f, 1.0f),
 		Vector2(1.0f, 1.0f),
 		Vector2(1.0f, 0.0f),
 		Vector2(0.0f, 0.0f)
-		});
-	builder.set(VertexAttribute::NORMAL, {
+	};
+	mesh->normals = {
 		Vector3(1.0f, 0.0f, 0.0f),
 		Vector3(0.0f, 1.0f, 0.0f),
 		Vector3(0.0f, 0.0f, 1.0f),
 		Vector3(1.0f, 1.0f, 1.0f)
-		});
-
-	builder.setElems({
-		0,1,2,2,3,0
-		});
-
-	mesh = builder.build();
-
-	model = new Model(mesh, geometryProgram);
+	};
+	mesh->indices = { 0,1,2,2,3,0 };
+	mesh->update();
 
 	texture = new Texture("textures/texture.jpg");
 
@@ -102,7 +84,8 @@ void Renderer::render()
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fbo);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	model->draw();
+	geometryProgram->use();
+	mesh->draw();
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 

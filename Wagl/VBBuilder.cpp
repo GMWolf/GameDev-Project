@@ -1,8 +1,7 @@
 #include "VBBuilder.h"
 
-VBBuilder::VBBuilder(VertexFormat format) : format(format), vertexCount(0)
+VBBuilder::VBBuilder(const VertexFormat& format) : format(format), vertexCount(0)
 {
-
 }
 
 VBBuilder::~VBBuilder()
@@ -12,7 +11,7 @@ VBBuilder::~VBBuilder()
 	}
 }
 
-void VBBuilder::setElems(std::vector<int> elems)
+void VBBuilder::setElems(std::vector<int>& elems)
 {
 	elements = elems;
 }
@@ -25,8 +24,15 @@ void VBBuilder::setElems(std::initializer_list<int> elements)
 
 VertexBuffer * VBBuilder::build()
 {
-	VertexBuffer* mesh = new VertexBuffer(format, GL_STATIC_DRAW);
+	VertexBuffer* vb = new VertexBuffer(format, GL_STATIC_DRAW);
 
+	update(*vb);
+
+	return vb;
+}
+
+void VBBuilder::update(VertexBuffer & vb)
+{
 	char* vertData = new char[format.getStride() * vertexCount];
 
 	for (int atNum = 0; atNum < format.attributes.size(); atNum++) {
@@ -46,10 +52,9 @@ VertexBuffer * VBBuilder::build()
 	}
 
 
-	mesh->setVertexData(vertexCount, vertData);
-	mesh->setElementsData(elements.size(), elements.data());
+	vb.setVertexData(vertexCount, vertData);
+	vb.setElementsData(elements.size(), elements.data());
 
-	return mesh;
 
 	delete vertData;
 }

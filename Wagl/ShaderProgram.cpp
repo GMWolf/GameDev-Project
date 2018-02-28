@@ -15,14 +15,19 @@ ShaderProgram::~ShaderProgram()
 	glDeleteProgram(program);
 }
 
-const ShaderProgram::Attribute& ShaderProgram::GetAttribute(const std::string attributeName) const
+const ShaderProgram::Attribute& ShaderProgram::GetAttribute(const int attributeIndex) const
 {
-	return attributes.at(attributeName);
+	return attributes.at(attributeIndex);
+}
+
+const ShaderProgram::Attribute & ShaderProgram::GetAttribute(const std::string name) const
+{
+	return GetAttribute(attributeIndexMap.at(name));
 }
 
 bool ShaderProgram::hasAttribute(const std::string attribute) const
 {
-	return attributes.find(attribute) != attributes.end();
+	return attributeIndexMap.find(attribute) != attributeIndexMap.end();
 }
 
 const ShaderProgram::Uniform& ShaderProgram::Getuniform(const std::string uniformName) const
@@ -76,7 +81,8 @@ void ShaderProgram::registerAttributes()
 	for (int i = 0; i < count; i++) {
 		glGetActiveAttrib(program, i, bufSize, &length, &size, &type, name);
 		location = glGetAttribLocation(program, name);
-		attributes[std::string(name)] = Attribute(location, type, size);
+		attributes.emplace_back(location, type, size);
+		attributeIndexMap[std::string(name)] = i;
 	}
 
 }

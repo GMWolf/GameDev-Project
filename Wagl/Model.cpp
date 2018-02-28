@@ -1,7 +1,7 @@
 #include "Model.h"
 #include <iostream>
-Model::Model(VertexBuffer * mesh, ShaderProgram * shader)
-	:mesh(mesh), shader(shader), attribsBounded(false)
+Model::Model(VertexBuffer * vb, ShaderProgram * shader)
+	:vb(vb), shader(shader), attribsBounded(false)
 {
 	glGenVertexArrays(1, &vao);
 }
@@ -11,9 +11,9 @@ Model::~Model()
 	glDeleteVertexArrays(1, &vao);
 }
 
-void Model::setMesh(VertexBuffer * newMesh)
+void Model::setMesh(VertexBuffer * newVb)
 {
-	mesh = newMesh;
+	vb = newVb;
 	attribsBounded = false;
 }
 
@@ -26,13 +26,14 @@ void Model::setShader(ShaderProgram * newShader)
 void Model::bindAttributes()
 {
 	glBindVertexArray(vao);
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->vbo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->ebo);
-	int stride = mesh->format.getStride();
+	/*glBindBuffer(GL_ARRAY_BUFFER, vb->vbo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vb->ebo);*/
+	vb->bind();
+	int stride = vb->format.getStride();
 
-	for (int i = 0; i < mesh->format.attributes.size(); i++) {
-		VertexAttribute vertAttrib = mesh->format.attributes[i];
-
+	for (int i = 0; i < vb->format.attributes.size(); i++) {
+		VertexAttribute vertAttrib = vb->format.attributes[i];
+		
 		if (shader->hasAttribute(vertAttrib.alias)) {
 			ShaderProgram::Attribute shdAttrib = shader->GetAttribute(vertAttrib.alias);
 
@@ -45,9 +46,9 @@ void Model::bindAttributes()
 				
 			}
 			else {
-
 				GLint location = shdAttrib.location;
-				int offset = mesh->format.getOffset(i);
+				int offset = vb->format.getOffset(i);
+				std::cout << location << std::endl;
 				glVertexAttribPointer(location, vertAttrib.elementCount, vertAttrib.type, GL_FALSE, stride, (void*)offset);
 				glEnableVertexAttribArray(location);
 			}
@@ -67,8 +68,7 @@ void Model::draw()
 	}
 	shader->use();
 	glBindVertexArray(vao);
-	
-	glDrawElements(GL_TRIANGLES, mesh->vertexCount, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, vb->vertexCount, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 }
 

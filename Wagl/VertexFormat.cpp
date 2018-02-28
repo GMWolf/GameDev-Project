@@ -1,5 +1,5 @@
 #include "VertexFormat.h"
-
+#include <iostream>
 
 
 VertexFormat::VertexFormat()
@@ -12,6 +12,13 @@ VertexFormat::~VertexFormat()
 {
 }
 
+VertexFormat::VertexFormat(std::initializer_list<const VertexAttribute> attributes) {
+	for (VertexAttribute a : attributes) {
+		add(a);
+	}
+	markDirty();
+}
+
 VertexFormat & VertexFormat::add(VertexAttribute attribute)
 {
 	attributes.emplace_back(attribute);
@@ -19,7 +26,7 @@ VertexFormat & VertexFormat::add(VertexAttribute attribute)
 	return *this;
 }
 
-VertexAttribute & VertexFormat::findAttribute(std::string alias, bool& found)
+const VertexAttribute & VertexFormat::findAttribute(std::string alias, bool& found) const
 {
 	for (VertexAttribute attribute : attributes) {
 		if (attribute.alias == alias) {
@@ -29,10 +36,10 @@ VertexAttribute & VertexFormat::findAttribute(std::string alias, bool& found)
 	}
 
 	found = false;
-	return attributes[0];
+	return attributes.at(0);
 }
 
-int VertexFormat::getAttributeNumber(VertexAttribute attribute)
+int VertexFormat::getAttributeNumber(const VertexAttribute attribute) const
 {
 	for (int i = 0; i < attributes.size(); i++) {
 		if (attributes[i] == attribute) {
@@ -42,19 +49,19 @@ int VertexFormat::getAttributeNumber(VertexAttribute attribute)
 	return -1;
 }
 
-int VertexFormat::getStride()
+int VertexFormat::getStride() const 
 {
 	if (stride < 0) {
 		stride = 0;
 		for (int i = 0; i < attributes.size(); i++) {
-			stride += attributes[i].size();
+			stride += attributes.at(i).size();
 		}
 	}
 
 	return stride;
 }
 
-int VertexFormat::getOffset(int attributeNumber)
+int VertexFormat::getOffset(int attributeNumber) const
 {
 	if (offsets == nullptr) {
 		offsets = new int[attributes.size()];
@@ -82,19 +89,14 @@ VertexAttribute::VertexAttribute(GLenum type, GLsizei elementCount, std::string 
 {
 }
 
-inline int VertexAttribute::size() {
+inline int VertexAttribute::size() const {
 	return GetGLTypeSize(type) * elementCount;
 }
 
-bool VertexAttribute::operator==(const VertexAttribute & rhs)
+bool VertexAttribute::operator==(const VertexAttribute & rhs) const
 {
 	return type == rhs.type && elementCount == rhs.elementCount && alias == rhs.alias;
 }
-
-const VertexAttribute VertexAttribute::POSITION = { GL_FLOAT, 3, "position" };
-const VertexAttribute VertexAttribute::TEXTURE_COORDINATES = { GL_FLOAT, 2, "texCoord" };
-const VertexAttribute VertexAttribute::COLOUR = { GL_FLOAT, 4, "colour" };
-const VertexAttribute VertexAttribute::NORMAL = { GL_FLOAT, 3, "normal" };
 
 #define GENERATE_VEC_CASES(base, baseSize) \
 case base##_##VEC2: return (baseSize * 2); \
@@ -131,5 +133,6 @@ int GetGLTypeSize(int type)
 		GENERATE_VEC_CASES(GL_DOUBLE, 8)
 		GENERATE_MAT_CASES(GL_DOUBLE, 4)
 	}
+	std::cout << type << std::endl;
 	throw std::invalid_argument("Unknown type " + type);
 }

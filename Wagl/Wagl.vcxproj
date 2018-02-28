@@ -145,6 +145,7 @@
     <ClInclude Include="ApplicationAdapter.h" />
     <ClInclude Include="glfwApplication.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="VertexArray.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="VBBuilder.h" />
     <ClInclude Include="Model.h" />
@@ -158,6 +159,7 @@
     <ClCompile Include="ApplicationAdapter.cpp" />
     <ClCompile Include="glfwApplication.cpp" />
     <ClCompile Include="Material.cpp" />
+    <ClCompile Include="VertexArray.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="VBBuilder.cpp" />
     <ClCompile Include="Model.cpp" />

@@ -31,24 +31,24 @@ public:
 
 
 		VertexFormat format;
-		format.add(VertexAttribute::POSITION);
-		format.add(VertexAttribute::TEXTURE_COORDINATES);
-		format.add(VertexAttribute::COLOUR);
+		format.add(Mesh::Attributes::POSITION);
+		format.add(Mesh::Attributes::TEXTURE_COORDINATES);
+		format.add(Mesh::Attributes::COLOUR);
 
 		VBBuilder builder(format);
-		builder.set(VertexAttribute::POSITION, {
+		builder.set(Mesh::Attributes::POSITION, {
 			Vector3(-0.5f, 0.5f, 0.0f),
 			Vector3(0.5f,  0.5f, 0.0f),
 			Vector3(0.5f, -0.5f, 0.0f),
 			Vector3(-0.5f, -0.5f, 0.0f)
 		});
-		builder.set(VertexAttribute::TEXTURE_COORDINATES, {
+		builder.set(Mesh::Attributes::TEXTURE_COORDINATES, {
 			Vector2(0.0f, 1.0f),
 			Vector2(1.0f, 1.0f),
 			Vector2(1.0f, 0.0f),
 			Vector2(0.0f, 0.0f)
 		});
-		builder.set(VertexAttribute::COLOUR, {
+		builder.set(Mesh::Attributes::COLOUR, {
 			Vector4(1.0f, 0.0f, 0.0f, 1.0f),
 			Vector4(0.0f, 1.0f, 0.0f, 1.0f),
 			Vector4(0.0f, 0.0f, 1.0f, 1.0f),

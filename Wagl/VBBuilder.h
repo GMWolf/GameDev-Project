@@ -9,26 +9,27 @@
 class VBBuilder {
 public:
 
-	VBBuilder(VertexFormat format);
+	VBBuilder(const VertexFormat& format);
 	~VBBuilder();
 
 	template<class T>
-	void set(std::string alias, std::vector<T> data);
+	void set(std::string alias, std::vector<T>& data);
 
 	template<class T>
 	void set(VertexAttribute attribute, std::vector<T>& data);
 
-
 	template<class T>
 	void set(VertexAttribute attribute, std::initializer_list<T> data);
 
-	void setElems(std::vector<int> elements);
+	void setElems(std::vector<int>& elements);
 	void setElems(std::initializer_list<int> elements);
 
 	VertexBuffer* build();
+	
+	void update(VertexBuffer& vb);
 
 private:
-	VertexFormat format;
+	const VertexFormat& format;
 
 	std::map<int, void*> attribData;
 	std::vector<int> elements;
@@ -36,7 +37,7 @@ private:
 };
 
 template<class T>
-inline void VBBuilder::set(std::string alias, std::vector<T> data)
+inline void VBBuilder::set(std::string alias, std::vector<T>& data)
 {
 	bool found;
 	VertexAttribute& va = format.findAttribute(alias);
@@ -59,7 +60,6 @@ inline void VBBuilder::set(VertexAttribute attribute, std::vector<T>& data)
 	attribData[ai] = new T[data.size()];
 
 	memcpy(attribData[ai], data.data(), data.size() * attribute.size());
-
 
 	vertexCount = data.size();
 }
