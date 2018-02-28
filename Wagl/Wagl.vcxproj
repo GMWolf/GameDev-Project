@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{1971EBB7-9FBE-4288-8BF9-BEBF5E693C83}</ProjectGuid>
     <RootNamespace>Wagl</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -145,27 +145,25 @@
     <ClInclude Include="ApplicationAdapter.h" />
     <ClInclude Include="glfwApplication.h" />
     <ClInclude Include="Material.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="MeshBuilder.h" />
+    <ClInclude Include="VertexBuffer.h" />
+    <ClInclude Include="VBBuilder.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Time.h" />
-    <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="VertexFormat.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ApplicationAdapter.cpp" />
     <ClCompile Include="glfwApplication.cpp" />
     <ClCompile Include="Material.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="MeshBuilder.cpp" />
+    <ClCompile Include="VertexBuffer.cpp" />
+    <ClCompile Include="VBBuilder.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Time.cpp" />
-    <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="VertexFormat.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

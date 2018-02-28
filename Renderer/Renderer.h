@@ -4,7 +4,7 @@
 #include <ApplicationAdapter.h>
 #include <ShaderProgram.h>
 #include <Shader.h>
-#include <Mesh.h>
+#include <VertexBuffer.h>
 #include <Model.h>
 #include <Texture.h>
 #include <Matrix4.h>
@@ -31,7 +31,7 @@ private:
 	GLuint depthTexture;
 
 	ShaderProgram* geometryProgram;
-	Mesh* mesh;
+	VertexBuffer* mesh;
 	Model* model;
 	Texture* texture;
 	Matrix4 projection;

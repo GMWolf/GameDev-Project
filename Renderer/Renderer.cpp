@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Renderer.h"
 #include <iostream>
-#include <MeshBuilder.h>
+#include <VBBuilder.h>
 #include <VertexFormat.h>
 #include <Vector4.h>
 #include <Vector3.h>
@@ -31,7 +31,7 @@ void Renderer::init()
 	format.add(VertexAttribute::TEXTURE_COORDINATES);
 	format.add(VertexAttribute::NORMAL);
 
-	MeshBuilder builder(format);
+	VBBuilder builder(format);
 	builder.set(VertexAttribute::POSITION, {
 		Vector3(-0.5f, 0.5f, 0.0f),
 		Vector3(0.5f,  0.5f, 0.0f),

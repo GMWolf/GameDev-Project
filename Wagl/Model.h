@@ -2,15 +2,15 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "Mesh.h"
+#include "VertexBuffer.h"
 #include "ShaderProgram.h"
 class Model
 {
 public:
-	Model(Mesh* mesh, ShaderProgram* shader);
+	Model(VertexBuffer* mesh, ShaderProgram* shader);
 	~Model();
 
-	void setMesh(Mesh* mesh);
+	void setMesh(VertexBuffer* mesh);
 	void setShader(ShaderProgram* shader);
 
 	void bindAttributes();
@@ -19,7 +19,7 @@ public:
 
 private:
 
-	Mesh * mesh;
+	VertexBuffer * mesh;
 	ShaderProgram * shader;
 	GLuint vao;
 	bool attribsBounded;

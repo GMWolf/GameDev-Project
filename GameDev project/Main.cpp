@@ -5,7 +5,6 @@
 #include <glfwApplication.h>
 #include <ApplicationAdapter.h>
 #include <VertexFormat.h>
-#include <VertexBuffer.h>
 #include <Vector3.h>
 #include <Vector2.h>
 #include <Vector4.h>
@@ -13,12 +12,12 @@
 #include <iostream>
 #include <Shader.h>
 #include <ShaderProgram.h>
-#include <Mesh.h>
+#include <VertexBuffer.h>
 #include <Model.h>
 #include <Material.h>
 #include <Texture.h>
 #include <Pool.h>
-#include <MeshBuilder.h>
+#include <VBBuilder.h>
 #include <Renderer.h>
 class Game : public ApplicationAdapter {
 public:
@@ -36,7 +35,7 @@ public:
 		format.add(VertexAttribute::TEXTURE_COORDINATES);
 		format.add(VertexAttribute::COLOUR);
 
-		MeshBuilder builder(format);
+		VBBuilder builder(format);
 		builder.set(VertexAttribute::POSITION, {
 			Vector3(-0.5f, 0.5f, 0.0f),
 			Vector3(0.5f,  0.5f, 0.0f),
@@ -93,7 +92,7 @@ public:
 	}
 
 	ShaderProgram* basicProgram;
-	Mesh * mesh;
+	VertexBuffer * mesh;
 	Texture* texture;
 	Texture* appleTex;
 	Model* model;

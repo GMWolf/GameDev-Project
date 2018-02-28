@@ -4,13 +4,13 @@
 #include <vector>
 #include <map>
 #include <assert.h>
-#include "Mesh.h"
+#include "VertexBuffer.h"
 #include <initializer_list>
-class MeshBuilder {
+class VBBuilder {
 public:
 
-	MeshBuilder(VertexFormat format);
-	~MeshBuilder();
+	VBBuilder(VertexFormat format);
+	~VBBuilder();
 
 	template<class T>
 	void set(std::string alias, std::vector<T> data);
@@ -25,7 +25,7 @@ public:
 	void setElems(std::vector<int> elements);
 	void setElems(std::initializer_list<int> elements);
 
-	Mesh* build();
+	VertexBuffer* build();
 
 private:
 	VertexFormat format;
@@ -36,7 +36,7 @@ private:
 };
 
 template<class T>
-inline void MeshBuilder::set(std::string alias, std::vector<T> data)
+inline void VBBuilder::set(std::string alias, std::vector<T> data)
 {
 	bool found;
 	VertexAttribute& va = format.findAttribute(alias);
@@ -46,7 +46,7 @@ inline void MeshBuilder::set(std::string alias, std::vector<T> data)
 }
 
 template<class T>
-inline void MeshBuilder::set(VertexAttribute attribute, std::vector<T>& data)
+inline void VBBuilder::set(VertexAttribute attribute, std::vector<T>& data)
 {
 	assert(attribute.size() == sizeof(T));
 
@@ -65,7 +65,7 @@ inline void MeshBuilder::set(VertexAttribute attribute, std::vector<T>& data)
 }
 
 template<class T>
-inline void MeshBuilder::set(VertexAttribute attribute, std::initializer_list<T> data)
+inline void VBBuilder::set(VertexAttribute attribute, std::initializer_list<T> data)
 {
 	std::vector<T> d(data);
 	set(attribute, d);

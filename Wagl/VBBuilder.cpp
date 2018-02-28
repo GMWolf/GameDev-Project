@@ -1,31 +1,31 @@
-#include "MeshBuilder.h"
+#include "VBBuilder.h"
 
-MeshBuilder::MeshBuilder(VertexFormat format) : format(format), vertexCount(0)
+VBBuilder::VBBuilder(VertexFormat format) : format(format), vertexCount(0)
 {
 
 }
 
-MeshBuilder::~MeshBuilder()
+VBBuilder::~VBBuilder()
 {
 	for (auto ptr : attribData) {
 		delete[] ptr.second;
 	}
 }
 
-void MeshBuilder::setElems(std::vector<int> elems)
+void VBBuilder::setElems(std::vector<int> elems)
 {
 	elements = elems;
 }
 
-void MeshBuilder::setElems(std::initializer_list<int> elements)
+void VBBuilder::setElems(std::initializer_list<int> elements)
 {
 	std::vector<int> v(elements);
 	setElems(v);
 }
 
-Mesh * MeshBuilder::build()
+VertexBuffer * VBBuilder::build()
 {
-	Mesh* mesh = new Mesh(format, GL_STATIC_DRAW);
+	VertexBuffer* mesh = new VertexBuffer(format, GL_STATIC_DRAW);
 
 	char* vertData = new char[format.getStride() * vertexCount];
 

@@ -1,6 +1,6 @@
 #include "Model.h"
 #include <iostream>
-Model::Model(Mesh * mesh, ShaderProgram * shader)
+Model::Model(VertexBuffer * mesh, ShaderProgram * shader)
 	:mesh(mesh), shader(shader), attribsBounded(false)
 {
 	glGenVertexArrays(1, &vao);
@@ -11,7 +11,7 @@ Model::~Model()
 	glDeleteVertexArrays(1, &vao);
 }
 
-void Model::setMesh(Mesh * newMesh)
+void Model::setMesh(VertexBuffer * newMesh)
 {
 	mesh = newMesh;
 	attribsBounded = false;

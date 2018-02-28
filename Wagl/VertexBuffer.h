@@ -2,14 +2,32 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "VertexFormat.h"
+#include <Vector3.h>
+#include <vector>
+
 class VertexBuffer
 {
 public:
-	VertexBuffer();
+	friend class Model;
+
+	VertexBuffer(VertexFormat format, int usage);
 	~VertexBuffer();
 
-	void bufferData(const GLsizeiptr size, const void* data);
+	void setVertexData(const int vertexCount, const void* data);
+	void setElementsData(const int vertexCount, const void* data);
 
-	GLuint vbo;
+private:
+	int usage;
+	int vertexCount;
+	VertexFormat format;
+
+	union {
+		struct {
+			GLuint vbo; //vertex buffer object
+			GLuint ebo; //element buffer object
+		};
+
+		GLuint buffers[2];
+	};
+	
 };
-
