@@ -114,6 +114,12 @@ public:
 		z = rhs.z;
 	}
 
+	template<int s, int A, int B, int C>
+	void operator=(const Swizzle3<s, A, B, C>& rhs) {
+		x = rhs[A];
+		y = rhs[B];
+		z = rhs[C];
+	}
 
 	void Normalize() {
 		float l = sqrt(x*x + y * y + z * z);
@@ -121,13 +127,13 @@ public:
 			l = 1 / l;
 			x *= l;
 			y *= l;
-			z *= z;
+			z *= l;
 		}
 	}
 
 	static Vector3 Cross(const Vector3& lhs, const Vector3& rhs) {
 		return Vector3(lhs.y*rhs.z - lhs.z*rhs.y,
-			lhs.z*rhs.x - lhs.z*rhs.x,
+			lhs.z*rhs.x - lhs.x*rhs.z,
 			lhs.x*rhs.y - lhs.y*rhs.x);
 	}
 
@@ -183,3 +189,16 @@ public:
 	};
 
 };
+
+template<int s, int A, int B, int C>
+Vector3 operator*(Swizzle3<s, A, B, C>& lhs, const float rhs) {
+	return Vector3(lhs[A] * rhs, lhs[B] * rhs, lhs[C] * rhs);
+}
+
+template<int ls, int A, int B, int C>
+void operator+=(Swizzle3<ls, A, B, C>& lhs, Vector3 rhs) {
+	lhs[A] += rhs.x;
+	lhs[B] += rhs.y;
+	lhs[C] += rhs.z;
+};
+

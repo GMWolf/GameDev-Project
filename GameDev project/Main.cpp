@@ -72,6 +72,11 @@ public:
 		basicProgram->Getuniform("tex2") = 1;
 
 		model = new Model(mesh, basicProgram);
+
+
+		Vector4 foo(0, 0, 0, 0);
+		Vector4 flob = foo.zzzz;
+		foo.xyw = Vector3(0, 1, 2).xyz;
 	}
 
 	virtual void render() override{

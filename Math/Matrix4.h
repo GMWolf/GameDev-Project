@@ -2,7 +2,7 @@
 #include "Swizzle.h"
 #include "Vector3.h"
 #include <cstring>
-
+#include <iostream>
 class Matrix4 {
 
 public:
@@ -19,22 +19,22 @@ public:
 
 	Matrix4 operator*(const Matrix4& rhs) const {
 		Matrix4 ret;
-		ret.items[ 0] = rhs.c0 * r0;
-		ret.items[ 1] = rhs.c0 * r1;
-		ret.items[ 2] = rhs.c0 * r2;
-		ret.items[ 3] = rhs.c0 * r3;
-		ret.items[ 4] = rhs.c1 * r0;
-		ret.items[ 5] = rhs.c1 * r1;
-		ret.items[ 6] = rhs.c1 * r2;
-		ret.items[ 7] = rhs.c1 * r3;
-		ret.items[ 8] = rhs.c2 * r0;
-		ret.items[ 9] = rhs.c2 * r1;
-		ret.items[10] = rhs.c2 * r2;
-		ret.items[11] = rhs.c2 * r3;
-		ret.items[12] = rhs.c3 * r0;
-		ret.items[13] = rhs.c3 * r1;
-		ret.items[14] = rhs.c3 * r2;
-		ret.items[15] = rhs.c3 * r3;
+		ret.items[0]  = r0 * rhs.c0;
+		ret.items[1]  = r1 * rhs.c0;
+		ret.items[2]  = r2 * rhs.c0;
+		ret.items[3]  = r3 * rhs.c0;
+		ret.items[4]  = r0 * rhs.c1;
+		ret.items[5]  = r1 * rhs.c1;
+		ret.items[6]  = r2 * rhs.c1;
+		ret.items[7]  = r3 * rhs.c1;
+		ret.items[8]  = r0 * rhs.c2;
+		ret.items[9]  = r1 * rhs.c2;
+		ret.items[10] = r2 * rhs.c2;
+		ret.items[11] = r3 * rhs.c2;
+		ret.items[12] = r0 * rhs.c3;
+		ret.items[13] = r1 * rhs.c3;
+		ret.items[14] = r2 * rhs.c3;
+		ret.items[15] = r3 * rhs.c3;
 		return ret;
 	}
 
@@ -55,31 +55,53 @@ public:
 	}
 
 	static Matrix4 Perspective(float znear, float zfar, float aspect, float fov) {
-		Matrix4 matrix;
-		float h = 1.0f / tan(fov*3.141592653f / 360.f);
+		/*Matrix4 matrix = Matrix4::Identity();
+		float h = 1.0f / tan(fov*3.14159f / 360.f);
 		float n = znear - zfar;
 		matrix.items[0] = h / aspect;
 		matrix.items[5] = h;
 		matrix.items[10] = (zfar + znear) / n;
 		matrix.items[11] = -1.0f;
-		matrix.items[14] = 2.0f*(znear*zfar) / n;
+		matrix.items[14] = (2.0f*znear*zfar) / n;
 		matrix.items[15] = 0.0f;
+		return matrix;*/
+		
+		float tan = tanf(fov * (3.14159f / 360));
+		float h = znear * tan;
+		float w = h * aspect;
+		return Frustrum(-w, w, -h, h, znear, zfar);
+	}
+
+	static Matrix4 Frustrum(float left, float right, float bottom, float top, float zNear, float zFar) {
+		Matrix4 matrix = Identity();
+		matrix.items[0] = 2 * zNear / (right - left);
+		matrix.items[5] = 2 * zNear / (top - bottom);
+		matrix.items[8] = (right + left) / (right - left);
+		matrix.items[9] = (top + bottom) / (top - bottom);
+		matrix.items[10] = -(zFar + zNear) / (zFar - zNear);
+		matrix.items[11] = -1;
+		matrix.items[14] = -(2 * zFar*zNear) / (zFar - zNear);
+		matrix.items[15] = 0;
 		return matrix;
 	}
 
-	static Matrix4 ViewMatrix(const Vector3& eye, const Vector3& lookat, const Vector3& up) {
-		Matrix4 view;
+	static Matrix4 ViewMatrix(const Vector3& eye, const Vector3& target, const Vector3& up) {
+		Matrix4 view = Matrix4::Identity();
 		
 		view.position = (-eye).xyz;
 		
-		Vector3 forward = lookat - eye;
+		Vector3 forward = target - eye;
 		forward.Normalize();
 
-		Vector3 left = Vector3::Cross(forward, up);
+		Vector3 left = Vector3::Cross(up, forward);
+		left.Normalize();
 
+		/*view.r0.xyz = left.xyz;
+		view.r1.xyz = up.xyz;
+		view.r2.xyz = forward.xyz;*/
+		view.left = (left).xyz;
+		view.up = (-up).xyz;
 		view.forward = (-forward).xyz;
-		view.left = left.xyz;
-		view.up = up.xyz;
 		return view;
 	}
 
@@ -91,6 +113,7 @@ public:
 		m.items[15] = 1.0f;
 		return m;
 	}
+
 	union {
 		float items[16];
 

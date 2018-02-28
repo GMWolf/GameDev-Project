@@ -5,7 +5,7 @@
 #include <VertexFormat.h>
 #include <Vector4.h>
 #include <Vector3.h>
-
+#include <Time.h>
 Renderer::Renderer(int width, int height)
 	:width(width), height(height)
 {
@@ -15,32 +15,6 @@ Renderer::Renderer(int width, int height)
 
 Renderer::~Renderer()
 {
-}
-
-void Renderer::render()
-{
-	glClearColor(1, 1, 1, 1);
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fbo);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	model->draw();
-	
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glBindFramebuffer(GL_READ_FRAMEBUFFER, fbo);
-	int halfWidth = width / 2;
-	int halfHeight = height / 2;
-	glReadBuffer(GL_COLOR_ATTACHMENT0);
-	glBlitFramebuffer(0, 0, width, height, 0, 0, halfWidth, halfHeight, GL_COLOR_BUFFER_BIT, GL_LINEAR);
-	
-	glReadBuffer(GL_COLOR_ATTACHMENT1);
-	glBlitFramebuffer(0, 0, width, height, halfWidth, 0, width, halfHeight, GL_COLOR_BUFFER_BIT, GL_LINEAR);
-	
-	glReadBuffer(GL_DEPTH_ATTACHMENT);
-	glBlitFramebuffer(0, 0, width, height, halfWidth, halfHeight, width, height, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
-
 }
 
 void Renderer::init()
@@ -59,14 +33,14 @@ void Renderer::init()
 
 	MeshBuilder builder(format);
 	builder.set(VertexAttribute::POSITION, {
-		/*Vector3(-0.5f, 0.5f, 0.0f),
+		Vector3(-0.5f, 0.5f, 0.0f),
 		Vector3(0.5f,  0.5f, 0.0f),
 		Vector3(0.5f, -0.5f, 0.0f),
-		Vector3(-0.5f, -0.5f, 0.0f)*/
-		Vector3(-50.0f, 50.0f, 0.0f),
+		Vector3(-0.5f, -0.5f, 0.0f)
+		/*Vector3(-50.0f, 50.0f, 0.0f),
 		Vector3(50.0f,  50.0f, 0.0f),
 		Vector3(50.0f, -50.0f, 0.0f),
-		Vector3(-50.0f, -50.0f, 0.0f)
+		Vector3(-50.0f, -50.0f, 0.0f)*/
 		});
 	builder.set(VertexAttribute::TEXTURE_COORDINATES, {
 		Vector2(0.0f, 1.0f),
@@ -94,12 +68,58 @@ void Renderer::init()
 	texture->bind(0);
 	geometryProgram->Getuniform("diffuseTex") = 0;
 
-	Matrix4 proj = Matrix4::Perspective(0.01, 1000, (float)width / (float)height, 60);
-	Matrix4 view = Matrix4::ViewMatrix(Vector3(0, 0, 100), Vector3(0, 0, 0), Vector3(0, 1, 0));
-	mvp = view;
-	//mvp = Matrix4::Identity();
+	projection = Matrix4::Perspective(0.01, 100, width / ((float) height), 60);
+	view = Matrix4::ViewMatrix(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
-	geometryProgram->Getuniform("MVP") = mvp;
+	
+}
+
+void Renderer::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+	
+	/*if (key == GLFW_KEY_D && action == GLFW_PRESS) {
+		std::cout << "yo" << std::endl;
+		view.position += view.left * Time::delta;
+	}*/
+}
+
+
+void Renderer::render()
+{
+	bool left = glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS;
+	if (left) {
+		view.position += view.left * Time::delta * 2;
+	}
+	bool right = glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS;
+	if (right) {
+		view.position += -(view.left * Time::delta * 2);
+	}
+
+	geometryProgram->Getuniform("MVP") = projection * view;
+
+	glClearColor(1, 1, 1, 1);
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fbo);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	model->draw();
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glBindFramebuffer(GL_READ_FRAMEBUFFER, fbo);
+	int halfWidth = width / 2;
+	int halfHeight = height / 2;
+	glReadBuffer(GL_COLOR_ATTACHMENT0);
+	glBlitFramebuffer(0, 0, width, height, 0, 0, halfWidth, halfHeight, GL_COLOR_BUFFER_BIT, GL_LINEAR);
+
+	glReadBuffer(GL_COLOR_ATTACHMENT1);
+	glBlitFramebuffer(0, 0, width, height, halfWidth, 0, width, halfHeight, GL_COLOR_BUFFER_BIT, GL_LINEAR);
+
+	glReadBuffer(GL_DEPTH_ATTACHMENT);
+	glBlitFramebuffer(0, 0, width, height, halfWidth, halfHeight, width, height, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
+
 }
 
 void Renderer::end()

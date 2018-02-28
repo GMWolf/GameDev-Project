@@ -17,7 +17,7 @@ public:
 	virtual void render();
 	virtual void init();
 	virtual void end();
-
+	void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 private:
 
 	void GenerateFBO();
@@ -34,6 +34,7 @@ private:
 	Mesh* mesh;
 	Model* model;
 	Texture* texture;
-	Matrix4 mvp;
+	Matrix4 projection;
+	Matrix4 view;
 };
 
