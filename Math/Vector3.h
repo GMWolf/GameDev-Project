@@ -11,6 +11,9 @@ public:
 	Vector3(float x, float y, float z): x(x), y(y), z(z) {
 	}
 
+	template<int s, int A, int B, int C>
+	Vector3(Swizzle3<s, A, B, C>& sw);
+
 
 #pragma region arithmetic operators
 	inline Vector3 operator-() const {
@@ -202,3 +205,10 @@ void operator+=(Swizzle3<ls, A, B, C>& lhs, Vector3 rhs) {
 	lhs[C] += rhs.z;
 };
 
+template<int s, int A, int B, int C>
+inline Vector3::Vector3(Swizzle3<s, A, B, C>& sw)
+{
+	x = sw[A];
+	y = sw[B];
+	z = sw[C];
+}

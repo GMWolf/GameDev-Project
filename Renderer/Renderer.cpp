@@ -17,13 +17,15 @@ Renderer::~Renderer()
 
 void Renderer::init()
 {
+	glEnable(GL_DEPTH_TEST);
+
 	GenerateFBO();
 
 	Shader<GL_VERTEX_SHADER> geometryVert("shaders/geometryVert.glsl");
 	Shader<GL_FRAGMENT_SHADER> geometryFrag("shaders/geometryFrag.glsl");
 	geometryProgram = new ShaderProgram(geometryVert, geometryFrag);
 
-	mesh = new Mesh();
+	/*mesh = new Mesh();
 	mesh->positions = {
 		Vector3(-0.5f, 0.5f, 0.0f),
 		Vector3(0.5f,  0.5f, 0.0f),
@@ -43,7 +45,8 @@ void Renderer::init()
 		Vector3(1.0f, 1.0f, 1.0f)
 	};
 	mesh->indices = { 0,1,2,2,3,0 };
-	mesh->update();
+	mesh->update();*/
+	mesh = new Mesh(Mesh::Cube(Vector3(1, 1, 1)));
 
 	texture = new Texture("textures/texture.jpg");
 
@@ -51,7 +54,7 @@ void Renderer::init()
 	geometryProgram->Getuniform("diffuseTex") = 0;
 
 	projection = Matrix4::Perspective(0.01, 100, width / ((float) height), 60);
-	view = Matrix4::ViewMatrix(Vector3(0, 0, 1), Vector3(0, 0, 0), Vector3(0, 1, 0));
+	view = Matrix4::ViewMatrix(Vector3(0, 0, 3), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
 	
 }
@@ -69,17 +72,17 @@ void Renderer::render()
 {
 	bool left = glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS;
 	if (left) {
-		view.position += view.left * Time::delta * 2;
+		view.position += -(view.left * Time::delta * 2);
 	}
 	bool right = glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS;
 	if (right) {
-		view.position += -(view.left * Time::delta * 2);
+		view.position += (view.left * Time::delta * 2);
 	}
 
 	geometryProgram->Getuniform("MVP") = projection * view;
 
 	glClearColor(1, 1, 1, 1);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fbo);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -102,7 +105,6 @@ void Renderer::render()
 
 	glReadBuffer(GL_DEPTH_ATTACHMENT);
 	glBlitFramebuffer(0, 0, width, height, halfWidth, halfHeight, width, height, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
-
 }
 
 void Renderer::end()
