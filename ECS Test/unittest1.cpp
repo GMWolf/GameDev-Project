@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include <Entity.h>
-#include <Components.h>
+#include <ComponentManager.h>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

@@ -23,7 +23,7 @@ private:
 };
 
 template<int chunkSize, class T>
-inline T & HashedArrayTree<T>::at(const int i) const
+inline T & HashedArrayTree<chunkSize, T>::at(const int i) const
 {
 	int chunkIndex = i / chunkSize;
 	int objIndex = i % chunkSize;
@@ -40,7 +40,7 @@ inline T & HashedArrayTree<T>::at(const int i) const
 }
 
 template<int chunkSize, class T>
-inline HashedArrayTree<T>::put(const int i, T & o)
+inline HashedArrayTree<chunkSize, T>::put(const int i, T & o)
 {
 	int chunkIndex = i / chunkSize;
 	int objIndex = i % chunkSize;
@@ -51,7 +51,7 @@ inline HashedArrayTree<T>::put(const int i, T & o)
 }
 
 template<int chunkSize, class T>
-inline HashedArrayTree<T>::erase(const int i)
+inline HashedArrayTree<chunkSize, T>::erase(const int i)
 {
 	int chunkIndex = i / chunkSize;
 	int objIndex = i % chunkSize;
@@ -66,7 +66,7 @@ inline HashedArrayTree<T>::erase(const int i)
 }
 
 template<int chunkSize, class T>
-inline T & HashedArrayTree<T>::operator[](const int i)
+inline T & HashedArrayTree<chunkSize, T>::operator[](const int i)
 {
 	int chunkIndex = i / chunkIndex;
 	int objIndex = i % chunkIndex;
@@ -74,7 +74,7 @@ inline T & HashedArrayTree<T>::operator[](const int i)
 }
 
 template<int chunkSize, class T>
-inline T * HashedArrayTree<T>::getChunk()
+inline T * HashedArrayTree<chunkSize, T>::getChunk()
 {
 	if (chunkPool.empty()) {
 		return new T[chunkSize];
@@ -87,7 +87,7 @@ inline T * HashedArrayTree<T>::getChunk()
 }
 
 template<int chunkSize, class T>
-inline HashedArrayTree<T>::ensureChunk(int i)
+inline HashedArrayTree<chunkSize, T>::ensureChunk(int i)
 {
 	if (chunks.size() < i) {
 		chunks.resize(i, nullptr);

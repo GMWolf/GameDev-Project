@@ -20,7 +20,6 @@ public:
 private:
 	int id;
 
-
 	static int getNewId();
 	static int nextID;
 	static std::deque<int> ids;
@@ -28,13 +27,13 @@ private:
 };
 
 template<class T>
-inline T& Entity::get()
+T& Entity::get()
 {
 	return T::mapper.get<id>();
 }
 
 template<class T>
-inline void Entity::add(T & component)
+void Entity::add(T & component)
 {
 	T::mapper.put(id, component);
 	aspects.at(id).set(T::componentId);
