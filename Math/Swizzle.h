@@ -1,4 +1,5 @@
 #pragma once
+//Swizzle Idea adapted from https://github.com/g-truc/glm/blob/master/glm/detail/_swizzle.hpp
 
 template<int size, int A, int B>
 class Swizzle2 {
