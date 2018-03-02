@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameDev project", "GameDev project\GameDev project.vcxproj", "{04911B50-1F52-4C84-8A82-A91A557A67F0}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -34,6 +34,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Renderer", "Renderer\Render
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ECS", "ECS\ECS.vcxproj", "{A5956D56-7B1F-4FE8-8CD5-32892E6D58FE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1FE9B4FF-A5E5-425F-AECF-EACF5E796FCE} = {1FE9B4FF-A5E5-425F-AECF-EACF5E796FCE}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ECS Test", "ECS Test\ECS Test.vcxproj", "{C962B32B-47F5-4DED-BBFA-4EFFD0F689F2}"
 	ProjectSection(ProjectDependencies) = postProject

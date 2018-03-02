@@ -6,23 +6,19 @@ Entity::Entity(int id) : id(id)
 
 Entity Entity::Create()
 {
-	int id = getNewId();
-	aspects.put(id, Aspect());
+	int id = entityManager.createEntity();
 	return Entity(id);
 }
 
 void Entity::Destroy(Entity e)
 {
-	aspects.erase(e.id);
-	ids.push_back(e.id);
+	entityManager.destroyEntity(e.id);
 }
 
-inline int Entity::getNewId() {
-	if (ids.empty()) {
-		int _id = ids.front();
-		ids.pop_front();
-		return _id;
-	}
-
-	return nextID++;
+bool Entity::operator==(const Entity & rhs) const
+{
+	return id == rhs.id;
 }
+
+EntityManager Entity::entityManager;
+
