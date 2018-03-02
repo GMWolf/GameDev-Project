@@ -101,6 +101,14 @@ namespace ECSTest
 
 			Assert::AreEqual(42, e.get<component1>().x);
 		}
+
+		TEST_METHOD(aspect_building) {
+			Aspect aspect = Aspect::getAspect<component1, component3>();
+
+			Assert::IsTrue(aspect.has<component1>());
+			Assert::IsTrue(aspect.has<component3>());
+			Assert::IsFalse(aspect.has<component2>());
+		}
 		
 
 	};

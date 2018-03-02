@@ -15,14 +15,28 @@ public:
 	void set(const unsigned int i);
 	void unset(const unsigned int i);
 
+	template<class component>
+	bool has();
+
 	unsigned int bits;
 };
 
 template<class ...components>
 inline Aspect Aspect::getAspect()
 {
-	/*auto ids = {
-		components
-	}*/
-	return Aspect();
+	auto ids = {
+		components::componentId...
+	};
+
+	Aspect aspect;
+	for (int i : ids) {
+		aspect.set(i);
+	}
+	return aspect;
+}
+
+template<class component>
+inline bool Aspect::has()
+{
+	return bits & (1 << component::componentId);
 }
