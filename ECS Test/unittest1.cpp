@@ -41,9 +41,9 @@ namespace ECSTest
 		
 		TEST_METHOD(unique_Component_IDs)
 		{
-			int c1id = component1::componentMapper.componentId;
-			int c2id = component2::componentMapper.componentId;
-			int c3id = component3::componentMapper.componentId;
+			int c1id = component1::componentId;
+			int c2id = component2::componentId;
+			int c3id = component3::componentId;
 			Logger::WriteMessage(std::string("comp 1 id: " + std::to_string(c1id)).c_str());
 			Logger::WriteMessage(std::string("comp 2 id: " + std::to_string(c2id)).c_str());
 			Logger::WriteMessage(std::string("comp 3 id: " + std::to_string(c3id)).c_str());

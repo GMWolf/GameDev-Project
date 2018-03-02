@@ -19,6 +19,7 @@ void Aspect::set(const unsigned int i)
 	bits |= 1 << i;
 }
 
+
 void Aspect::unset(const unsigned int i)
 {
 	bits &= ~(1 << i);

@@ -2,8 +2,6 @@
 #include <HashedArrayTree.h>
 #include <utility>
 
-int __next_component_id = 0;
-
 template<class T, int chunkSize = 64>
 class ComponentMapper
 {
@@ -19,15 +17,10 @@ public:
 	template<class... Args>
 	T& put(int componentId, T& component);
 
-
-	static const int componentId;
-
 private:
 	HashedArrayTree<chunkSize, T> components;
 };
 
-template<class T, int chunkSize>
-const int ComponentMapper<T, chunkSize>::componentId = __next_component_id++;
 
 template<class T, int chunkSize>
 inline ComponentMapper<T, chunkSize>::ComponentMapper()

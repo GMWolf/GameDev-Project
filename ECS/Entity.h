@@ -47,12 +47,12 @@ template<class T>
 void Entity::add(T & component)
 {
 	T::componentMapper.put(id, component);
-	entityManager.aspects.at(id).set(T::componentMapper.componentId);
+	entityManager.aspects.at(id).set(T::componentId);
 }
 
 template<class T, class ...Args>
 void Entity::emplace(Args && ... args)
 {
 	T::componentMapper.emplace(id, std::forward<Args> args...);
-	entityManager.aspects.at(id).set(T::componentMapper.componentId);
+	entityManager.aspects.at(id).set(T::componentId);
 }
