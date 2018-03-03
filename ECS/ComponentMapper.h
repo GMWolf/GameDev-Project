@@ -17,6 +17,8 @@ public:
 	template<class... Args>
 	T& put(int componentId, T& component);
 
+	void erase(int componentId);
+
 private:
 	HashedArrayTree<chunkSize, T> components;
 };
@@ -36,6 +38,12 @@ template<class T, int chunkSize>
 inline T & ComponentMapper<T, chunkSize>::get(int componentId)
 {
 	return components.at(componentId);
+}
+
+template<class T, int chunkSize>
+inline void ComponentMapper<T, chunkSize>::erase(int componentId)
+{
+	components.erase(componentId);
 }
 
 template<class T, int chunkSize>

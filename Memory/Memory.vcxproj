@@ -126,6 +126,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DynBitset.h" />
+    <ClInclude Include="FlatSet.h" />
     <ClInclude Include="HashedArrayTree.h" />
     <ClInclude Include="Pool.h" />
   </ItemGroup>

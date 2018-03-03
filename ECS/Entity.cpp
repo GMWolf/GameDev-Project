@@ -13,6 +13,12 @@ Entity Entity::Create()
 void Entity::Destroy(Entity e)
 {
 	entityManager.destroyEntity(e.id);
+	
+}
+
+bool Entity::has(Aspect aspect)
+{
+	return aspect.subAspect(entityManager.aspects.at(id));
 }
 
 bool Entity::operator==(const Entity & rhs) const

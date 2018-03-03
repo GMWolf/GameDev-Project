@@ -20,7 +20,6 @@ const int Component<T, chunkSize>::componentId = __next_component_id++;
 template<class T, int chunkSize>
 const Aspect Component<T, chunkSize>::componentAspect = Aspect::compAspect<T>();
 
-
 template<class T, int chunkSize>
 ComponentMapper<T, chunkSize> Component<T, chunkSize>::componentMapper;
 

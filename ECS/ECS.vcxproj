@@ -131,11 +131,15 @@
     <ClInclude Include="ComponentMapper.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="EntitySubscription.h" />
+    <ClInclude Include="SubscriptionManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Aspect.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
+    <ClCompile Include="EntitySubscription.cpp" />
+    <ClCompile Include="SubscriptionManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

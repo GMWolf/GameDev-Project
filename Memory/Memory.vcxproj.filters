@@ -21,5 +21,11 @@
     <ClInclude Include="HashedArrayTree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FlatSet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DynBitset.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

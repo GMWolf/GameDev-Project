@@ -2,7 +2,7 @@
 #include <deque>
 #include "Aspect.h"
 #include "EntityManager.h"
-
+#include "SubscriptionManager.h"
 /*
 ** A Wrapper for an entity ID
 ** Lightweight so its ok to pass it around
@@ -27,7 +27,19 @@ public:
 	template<class T, class... Args>
 	void emplace(Args&& ... args);
 
+	template<class T>
+	void remove();
+
+	template<class T>
+	bool has();
+
+	bool has(Aspect aspect);
+
 	bool operator==(const Entity& rhs) const;
+
+	int getId() {
+		return id;
+	}
 
 private:
 	int id;
@@ -47,12 +59,28 @@ template<class T>
 void Entity::add(T & component)
 {
 	T::componentMapper.put(id, component);
-	entityManager.aspects.at(id).set(T::componentId);
+	entityManager.aspects.at(id).set<T>();
+	SubscriptionManager::bitTouched(id, T::componentId);
 }
 
 template<class T, class ...Args>
 void Entity::emplace(Args && ... args)
 {
 	T::componentMapper.emplace(id, std::forward<Args> args...);
-	entityManager.aspects.at(id).set(T::componentId);
+	entityManager.aspects.at(id).set<T>();
+	SubscriptionManager::bitTouched(id, T::componentId);
+}
+
+template<class T>
+inline void Entity::remove()
+{
+	T::componentMapper.erase(id);
+	entityManager.aspects.at(id).unset<T>();
+	SubscriptionManager::bitTouched(id, T::componentId);
+}
+
+template<class T>
+inline bool Entity::has()
+{
+	return entityManager.aspects.at(id).has<T>();
 }

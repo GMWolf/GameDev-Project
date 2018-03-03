@@ -3,6 +3,8 @@
 #include <Entity.h>
 #include <ComponentMapper.h>
 #include <Component.h>
+#include <sstream>
+#include <iterator>
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace ECSTest
@@ -108,6 +110,68 @@ namespace ECSTest
 			Assert::IsTrue(aspect.has<component1>());
 			Assert::IsTrue(aspect.has<component3>());
 			Assert::IsFalse(aspect.has<component2>());
+		}
+
+		TEST_METHOD(Entity_match_aspect) {
+			Aspect aspect = Aspect::getAspect<component2, component3>();
+
+			Entity e1 = Entity::Create();
+
+			Assert::IsFalse(e1.has(aspect));
+			e1.add(component2(1, 1));
+			Assert::IsFalse(e1.has(aspect));
+			e1.add(component3());
+			Assert::IsTrue(e1.has(aspect));
+			e1.add(component1(1,1));
+			Assert::IsTrue(e1.has(aspect));
+
+			Entity::Destroy(e1);
+		}
+
+		TEST_METHOD(entity_subscription) {
+			Aspect aspect = Aspect::getAspect<component1, component3>();
+
+			EntitySubscription& sub = SubscriptionManager::getSubscription(aspect);
+
+			Entity e1 = Entity::Create();
+			Entity e2 = Entity::Create();
+
+			std::ostringstream oss;
+
+			oss << sub.entities.size();
+			Logger::WriteMessage(oss.str().c_str());
+			
+			Assert::IsTrue(sub.entities.empty());
+
+			e1.add(component1(0, 0));
+			SubscriptionManager::update();
+
+			Assert::IsTrue(sub.entities.empty());
+			
+			e1.add(component3());
+			SubscriptionManager::update();
+
+			Assert::IsTrue(std::vector<int>{e1.getId()} == sub.entities);
+
+			e1.add(component2(1,1));
+			SubscriptionManager::update();
+			Assert::IsTrue(std::vector<int>{e1.getId()} == sub.entities);
+
+			e2.add(component1(0, 0));
+			e2.add(component3());
+			SubscriptionManager::update();
+
+			Assert::IsTrue(std::vector<int>{e1.getId(), e2.getId()} == sub.entities);
+
+			e1.remove<component1>();
+			SubscriptionManager::update();
+
+			Assert::IsTrue(std::vector<int>{e2.getId()} ==  sub.entities);
+
+			Entity::Destroy(e1);
+			Entity::Destroy(e2);
+
+			Assert::IsTrue(sub.entities.empty());
 		}
 		
 

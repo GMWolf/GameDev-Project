@@ -13,6 +13,11 @@ Aspect Aspect::operator&(const Aspect & rhs) const
 	return Aspect(bits & rhs.bits);
 }
 
+bool Aspect::operator<(const Aspect & rhs) const
+{
+	return bits < rhs.bits;
+}
+
 bool Aspect::subAspect(const Aspect & rhs) const
 {
 	return (bits & rhs.bits) == bits;
@@ -32,4 +37,9 @@ void Aspect::set(const unsigned int i)
 void Aspect::unset(const unsigned int i)
 {
 	bits &= ~(1 << i);
+}
+
+bool Aspect::has(const int i) const
+{
+	return bits & (1 << i);
 }

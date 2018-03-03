@@ -43,7 +43,7 @@ inline Pool<T>::~Pool()
 template<class T>
 inline void Pool<T>::free(T * o)
 {
-	o->~();
+	o->~T();
 	available.push_back(o);
 }
 
@@ -63,7 +63,7 @@ inline void Pool<T>::addBlock() {
 	T* newBlock = new T[blockSize];
 	blocks.push_back(newBlock);
 
-	for (int i = blockSize - 1; i >= 0; i++) {
+	for (int i = 0 ; i <= blockSize; i++) {
 		available.push_back(newBlock + i);
 	}
 }
@@ -103,8 +103,10 @@ inline T * Pool<T>::create(Ts ...args)
 		addBlock();
 	}
 
-	T* newT = available.pop_back();
-	newT->T(args...);
+	T* newT = available.back();
+	available.pop_back();
+
+	new (newT) T(args...);
 
 	return newT;
 }

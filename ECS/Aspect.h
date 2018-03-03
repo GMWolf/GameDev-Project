@@ -14,6 +14,8 @@ public:
 
 	Aspect operator&(const Aspect& rhs) const;
 
+	bool operator<(const Aspect& rhs) const;
+
 
 	bool subAspect(const Aspect& rhs) const;
 	bool intersects(const Aspect& rhs) const;
@@ -29,7 +31,9 @@ public:
 	void unset();
 
 	template<class component>
-	bool has();
+	bool has() const;
+
+	bool has(const int i) const;
 
 
 
@@ -67,7 +71,7 @@ inline void Aspect::unset()
 }
 
 template<class component>
-inline bool Aspect::has()
+inline bool Aspect::has() const
 {
 	return (bits & component::componentAspect.bits);
 }
