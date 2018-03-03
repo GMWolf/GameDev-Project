@@ -8,6 +8,7 @@ class baseComponentMapper
 public:
 	virtual void v_erase(int compoenntid) = 0;
 
+	//Construct On First Use (static init order fiasco)
 	static std::vector<baseComponentMapper*> * mappers();
 };
 
