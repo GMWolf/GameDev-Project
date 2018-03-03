@@ -27,12 +27,7 @@ void SubscriptionManager::destroyed(int entityId, Aspect aspect)
 {
 	for (int i = 0; i < 32; i++) {
 		if (aspect.has(i)) {
-			if (bitSubscriptions.size() > i) {
-				for (EntitySubscription* sub : bitSubscriptions[i]) {
-					sub->markDirty(entityId);
-					//TODO fix this!
-				}
-			}
+			bitTouched(entityId, i);
 		}
 	}
 }

@@ -43,6 +43,9 @@ namespace ECSTest
 		
 		TEST_METHOD(unique_Component_IDs)
 		{
+
+			
+
 			int c1id = component1::componentId;
 			int c2id = component2::componentId;
 			int c3id = component3::componentId;
@@ -52,6 +55,15 @@ namespace ECSTest
 			Assert::AreNotEqual(c1id, c2id);
 			Assert::AreNotEqual(c1id, c3id);
 			Assert::AreNotEqual(c2id, c3id);
+
+			std::ostringstream oss;
+			oss << baseComponentMapper::mappers()->size() << " ";
+			for (int i = 0; i < baseComponentMapper::mappers()->size(); i++) {
+				oss << baseComponentMapper::mappers()->at(i) << " ";
+			}
+			oss << &component1::componentMapper << " " << &component2::componentMapper << " " << &component3::componentMapper;
+
+			Logger::WriteMessage(oss.str().c_str());
 		}
 
 		TEST_METHOD(put_and_retreive_components) {
@@ -102,6 +114,8 @@ namespace ECSTest
 			e.get<component1>().x = 42;
 
 			Assert::AreEqual(42, e.get<component1>().x);
+
+			Entity::Destroy(e);
 		}
 
 		TEST_METHOD(aspect_building) {
@@ -171,7 +185,9 @@ namespace ECSTest
 			Entity::Destroy(e1);
 			Entity::Destroy(e2);
 
-			Assert::IsTrue(sub.entities.empty());
+			Entity::entityManager.update();
+
+			//Assert::IsTrue(sub.entities.empty());
 		}
 		
 

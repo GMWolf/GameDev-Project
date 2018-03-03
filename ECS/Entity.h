@@ -35,16 +35,22 @@ public:
 
 	bool has(Aspect aspect);
 
+	void clear();
+
+	Aspect getAspect();
+
 	bool operator==(const Entity& rhs) const;
 
 	int getId() {
 		return id;
 	}
 
+	Aspect & aspect;
+
+	static EntityManager entityManager;
 private:
 	int id;
 
-	static EntityManager entityManager;
 };
 
 
@@ -59,7 +65,7 @@ template<class T>
 void Entity::add(T & component)
 {
 	T::componentMapper.put(id, component);
-	entityManager.aspects.at(id).set<T>();
+	aspect.set<T>();
 	SubscriptionManager::bitTouched(id, T::componentId);
 }
 
@@ -67,7 +73,7 @@ template<class T, class ...Args>
 void Entity::emplace(Args && ... args)
 {
 	T::componentMapper.emplace(id, std::forward<Args> args...);
-	entityManager.aspects.at(id).set<T>();
+	aspect.set<T>();
 	SubscriptionManager::bitTouched(id, T::componentId);
 }
 
@@ -75,12 +81,12 @@ template<class T>
 inline void Entity::remove()
 {
 	T::componentMapper.erase(id);
-	entityManager.aspects.at(id).unset<T>();
+	aspect.unset<T>();
 	SubscriptionManager::bitTouched(id, T::componentId);
 }
 
 template<class T>
 inline bool Entity::has()
 {
-	return entityManager.aspects.at(id).has<T>();
+	return aspect.has<T>();
 }

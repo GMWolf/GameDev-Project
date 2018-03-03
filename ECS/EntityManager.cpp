@@ -11,6 +11,15 @@ EntityManager::~EntityManager()
 {
 }
 
+void EntityManager::update()
+{
+	for (int id : limbo) {
+		aspects.erase(id);
+		ids.push_back(id);
+	}
+	limbo.clear();
+}
+
 
 inline int EntityManager::getNewId() {
 	if (!ids.empty()) {
@@ -36,6 +45,5 @@ int EntityManager::createEntity()
 
 void EntityManager::destroyEntity(int entityId)
 {
-	aspects.erase(entityId);
-	ids.push_back(entityId);
+	limbo.push_back(entityId);
 }

@@ -1,4 +1,7 @@
 #pragma once
+
+#define ASPECT_SIZE 32
+
 class Aspect {
 
 public:
@@ -34,8 +37,6 @@ public:
 	bool has() const;
 
 	bool has(const int i) const;
-
-
 
 	unsigned int bits;
 };
