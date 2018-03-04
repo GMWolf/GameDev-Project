@@ -20,6 +20,9 @@ public:
 	}
 
 	bool operator[](int i) {
+		if (data.size() <= i) {
+			data.resize(i + 1, false);
+		}
 		return data[i];
 	};
 

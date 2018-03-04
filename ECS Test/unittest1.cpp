@@ -164,6 +164,9 @@ namespace ECSTest
 			
 			e1.add(component3());
 			SubscriptionManager::update();
+			
+			Logger::WriteMessage("ok");
+			Logger::WriteMessage(std::to_string(sub.entities.size()).c_str());
 
 			Assert::IsTrue(std::vector<int>{e1.getId()} == sub.entities);
 
@@ -181,13 +184,16 @@ namespace ECSTest
 			SubscriptionManager::update();
 
 			Assert::IsTrue(std::vector<int>{e2.getId()} ==  sub.entities);
+			Assert::IsFalse(sub.entities.empty());
+
 
 			Entity::Destroy(e1);
 			Entity::Destroy(e2);
 
+			SubscriptionManager::update();
 			Entity::entityManager.update();
 
-			//Assert::IsTrue(sub.entities.empty());
+			Assert::IsTrue(sub.entities.empty());
 		}
 		
 

@@ -9,7 +9,6 @@ public:
 
 	static void bitTouched(int entityId, int bit);
 
-	static void destroyed(int entityId, Aspect aspect);
 
 	static EntitySubscription& getSubscription(const Aspect aspect);
 
