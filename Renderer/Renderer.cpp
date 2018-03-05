@@ -84,7 +84,8 @@ void Renderer::render()
 	glClearColor(1, 1, 1, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fbo);
+	//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fbo);
+	frameBuffer->bindDraw();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	geometryProgram->use();
@@ -94,17 +95,20 @@ void Renderer::render()
 
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glBindFramebuffer(GL_READ_FRAMEBUFFER, fbo);
+	
+	frameBuffer->bindRead();
 	int halfWidth = width / 2;
 	int halfHeight = height / 2;
-	glReadBuffer(GL_COLOR_ATTACHMENT0);
+	frameBuffer->blit(GL_COLOR_ATTACHMENT0, 0, 0, width, height, 0, 0, halfWidth, halfHeight, GL_COLOR_BUFFER_BIT, GL_LINEAR);
+	frameBuffer->blit(GL_COLOR_ATTACHMENT1, 0, 0, width, height, halfWidth, 0, width, halfHeight, GL_COLOR_BUFFER_BIT, GL_LINEAR);
+	/*glReadBuffer(GL_COLOR_ATTACHMENT0);
 	glBlitFramebuffer(0, 0, width, height, 0, 0, halfWidth, halfHeight, GL_COLOR_BUFFER_BIT, GL_LINEAR);
 
 	glReadBuffer(GL_COLOR_ATTACHMENT1);
 	glBlitFramebuffer(0, 0, width, height, halfWidth, 0, width, halfHeight, GL_COLOR_BUFFER_BIT, GL_LINEAR);
 
 	glReadBuffer(GL_DEPTH_ATTACHMENT);
-	glBlitFramebuffer(0, 0, width, height, halfWidth, halfHeight, width, height, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
+	glBlitFramebuffer(0, 0, width, height, halfWidth, halfHeight, width, height, GL_DEPTH_BUFFER_BIT, GL_NEAREST);*/
 }
 
 void Renderer::end()
@@ -113,28 +117,12 @@ void Renderer::end()
 
 void Renderer::GenerateFBO()
 {
-	glGenFramebuffers(1, &fbo);
-	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fbo);
-
-	glGenTextures(1, &diffuseTexture);
-	glBindTexture(GL_TEXTURE_2D, diffuseTexture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, width, height, 0, GL_RGB, GL_FLOAT, 0);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, diffuseTexture, 0);
-
-	glGenTextures(1, &normalTexture);
-	glBindTexture(GL_TEXTURE_2D, normalTexture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, width, height, 0, GL_RGB, GL_FLOAT, 0);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, normalTexture, 0);
-
-	glGenTextures(1, &depthTexture);
-	glBindTexture(GL_TEXTURE_2D, depthTexture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTexture, 0);
-
-	GLenum drawBuffers[] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
-	glDrawBuffers(2, drawBuffers);
-
-	GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+	frameBuffer = new FrameBuffer(width, height);
+	diffuseTexture =  frameBuffer->createTexture(GL_RGB32F, GL_RGB, GL_FLOAT, GL_COLOR_ATTACHMENT0, true);
+	normalTexture = frameBuffer->createTexture(GL_RGB32F, GL_RGB, GL_FLOAT, GL_COLOR_ATTACHMENT1, true);
+	depthTexture = frameBuffer->createTexture(GL_DEPTH_COMPONENT32F, GL_DEPTH_COMPONENT, GL_FLOAT, GL_DEPTH_ATTACHMENT, false);
+	
+	GLenum status = frameBuffer->status();
 	if (status != GL_FRAMEBUFFER_COMPLETE) {
 		std::cout << "FB error, status:" << status << std::endl;
 		return;

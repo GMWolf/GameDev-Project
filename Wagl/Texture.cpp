@@ -2,6 +2,13 @@
 #include <SOIL.h>
 
 
+Texture::Texture(int width, int height, GLenum formatInternal, GLenum format, GLenum type)
+{
+	glGenTextures(1, &glTex);
+	bind();
+	glTexImage2D(GL_TEXTURE_2D, 0, formatInternal, width, height, 0, format, type, 0);
+}
+
 Texture::Texture(std::string file, bool mipmap, bool compress)
 {
 	unsigned int flags = 0;

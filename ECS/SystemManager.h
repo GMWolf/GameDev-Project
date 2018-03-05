@@ -9,6 +9,9 @@ public:
 	
 	static void update();
 
+	
+	static void addSystem(System* system);
+
 	static std::vector<System*> systems;
 
 };

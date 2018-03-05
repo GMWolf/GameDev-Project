@@ -24,6 +24,11 @@ void SubscriptionManager::bitTouched(int entityId, int bit)
 			sub->markDirty(entityId);
 		}
 	}
+	/*for (EntitySubscription& es : subscriptions) {
+		if (es.aspect.bits & bit) {
+			es.markDirty(entityId);
+		}
+	}*/
 }
 
 EntitySubscription& SubscriptionManager::getSubscription(const Aspect aspect)
@@ -32,15 +37,12 @@ EntitySubscription& SubscriptionManager::getSubscription(const Aspect aspect)
 
 	if (aspectSubscriptions.find(aspect) == aspectSubscriptions.end()) {
 		subscriptions.emplace_back(aspect);
-		subscription = &subscriptions.back();
+		subscription = &(subscriptions.back());
 		aspectSubscriptions[aspect] = subscription;
 
 		for (int i = 0; i < ASPECT_SIZE; i++) {
 			if (aspect.has(i)) {
-				if (bitSubscriptions.size() <= i) {
-					bitSubscriptions.resize(i+1);
-				}
-				bitSubscriptions.at(i).push_back(subscription);
+				bitSubscriptions[i].push_back(subscription);
 			}
 		}
 	}

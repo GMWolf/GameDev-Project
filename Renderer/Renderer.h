@@ -7,6 +7,7 @@
 #include <Texture.h>
 #include <Matrix4.h>
 #include "Mesh.h"
+#include <FrameBuffer.h>
 class Renderer : public ApplicationAdapter
 {
 public:
@@ -25,9 +26,11 @@ private:
 	int height;
 
 	GLuint fbo;
-	GLuint diffuseTexture;
-	GLuint normalTexture;
-	GLuint depthTexture;
+	FrameBuffer* frameBuffer;
+
+	Texture* diffuseTexture;
+	Texture* normalTexture;
+	Texture* depthTexture;
 
 	ShaderProgram* geometryProgram;
 	Mesh* mesh;

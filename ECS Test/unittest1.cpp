@@ -195,6 +195,34 @@ namespace ECSTest
 
 			Assert::IsTrue(sub.entities.empty());
 		}
+
+		TEST_METHOD(multiple_subscriptions) {
+			EntitySubscription& sub12 = SubscriptionManager::getSubscription(Aspect::getAspect<component1, component2>());
+			EntitySubscription& sub2 = SubscriptionManager::getSubscription(Aspect::getAspect<component2>());
+
+			int i = 0;
+			for (std::vector<EntitySubscription*>& subs : SubscriptionManager::bitSubscriptions) {
+				Logger::WriteMessage(("bit " + std::to_string(i++)).c_str());
+				for (EntitySubscription* sub : subs) {
+					std::ostringstream oss;
+					oss << sub;
+					Logger::WriteMessage(oss.str().c_str());
+				}
+			}
+
+			Logger::WriteMessage(std::to_string(sub12.entities.size()).c_str());
+			Assert::IsTrue(sub12.entities.empty());
+			//Assert::IsTrue(sub2.entities.empty());
+
+			Entity e1 = Entity::Create();
+			Entity e2 = Entity::Create();
+
+			//e1.add(component1(0,0));
+
+			/*Assert::IsTrue(sub12.entities.empty());
+			Assert::IsTrue(sub2.entities == std::vector<int>{e1.getId()});*/
+
+		}
 		
 
 	};

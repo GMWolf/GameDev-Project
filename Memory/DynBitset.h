@@ -8,7 +8,7 @@ public:
 			data.resize(i + 1, false);
 		}
 
-		data[i] = true;
+		data.at(i) = true;
 	}
 
 	void reset(int i) {
