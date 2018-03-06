@@ -1,6 +1,6 @@
 #include "VertexBuffer.h"
 
-VertexBuffer::VertexBuffer(VertexFormat format, int usage) : format(format), usage(usage)
+VertexBuffer::VertexBuffer(VertexFormat format, int usage) : format(format), usage(usage), vertexCount(0)
 {
 	glGenBuffers(2, buffers);
 }

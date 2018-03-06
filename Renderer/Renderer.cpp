@@ -1,16 +1,21 @@
 #include "stdafx.h"
 #include "Renderer.h"
 #include <iostream>
-#include <Vector4.h>
 #include <Vector3.h>
 #include <DeltaTime.h>
 #include <ShaderProgramLoader.h>
 #include <ImageLoader.h>
+#include "meshLoader.h"
+#include <Transform.h>
+#include "MeshFilter.h"
+#include "Lights.h"
 
-Renderer::Renderer(int width, int height)
-	:width(width), height(height)
+Renderer::Renderer(GLFWwindow* window, int width, int height)
+	: width(width), height(height), 
+	renderEntities(SubscriptionManager::getSubscription(Aspect::getAspect<Transform, MeshFilter>())), 
+	lights(SubscriptionManager::getSubscription(Aspect::getAspect<Transform, PointLight>())),
+	window(window)
 {
-
 }
 
 
@@ -20,7 +25,9 @@ Renderer::~Renderer()
 
 void Renderer::init()
 {
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
+	glCullFace(GL_BACK);
+	glEnable(GL_CULL_FACE);
 	GenerateFBO();
 
 	geometryProgram = ShaderProgramLoader::Load("shaders/geometry.shd");
@@ -29,17 +36,7 @@ void Renderer::init()
 	resolveProgram->Getuniform("screenSize") = Vector2(width, height);
 
 	lightProgram->Getuniform("screenSize") = Vector2(width, height);
-	lightProgram->Getuniform("lightPos") = Vector3(1, 1, 1);
-	lightProgram->Getuniform("intensity") = 1.f;
 	lightProgram->Getuniform("MVP") = Matrix4::Identity();
-
-	
-	MeshData cube = Mesh::Cube(Vector3(1, 1, 1));
-	MeshData floor = Mesh::Quad(Vector3(-100, -0.5, -100), Vector3(100, -0.5, -100), Vector3(100, -0.5, 100), Vector3(-100, -0.5, 100),
-		Vector2(0,0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1),
-		Vector3(0, 1, 0), Vector3(0, 1, 0), Vector3(0, 1, 0), Vector3(0, 1, 0));
-
-	mesh = new Mesh(cube + floor);
 
 	quad = new Mesh(Mesh::Quad(Vector3(-1, -1, 0), Vector3(1, -1, 0), Vector3(1, 1, 0), Vector3(-1, 1, 0),
 		Vector2(0, 0), Vector2(0, 1), Vector2(1, 1), Vector2(0, 1),
@@ -54,11 +51,7 @@ void Renderer::init()
 	view = Matrix4::ViewMatrix(Vector3(0, 0, 3), Vector3(0, 0, 0), Vector3(0, 1, 0));
 }
 
-void Renderer::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-
-}
-
-void Renderer::render()
+void Renderer::update()
 {
 	bool left = glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS;
 	if (left) {
@@ -84,8 +77,14 @@ void Renderer::render()
 	if (backward) {
 		view.position += -(view.forward * DeltaTime::delta * 2);
 	}
+	render();
+}
 
-	glClearColor(1, 1, 1, 1);
+void Renderer::render() const
+{
+	
+	glClearColor(0, 0, 0, 1);
+
 	geometryPass();
 	lightPass();
 	resolvePass();
@@ -111,9 +110,7 @@ void Renderer::GenerateFBO()
 		std::cout << "geometry FB error, status:" << status << std::endl;
 		return;
 	}
-	else {
-		std::cout << "geometry FB all good" << std::endl;
-	}
+	std::cout << "geometry FB all good" << std::endl;
 
 	lightBuffer = new FrameBuffer(width, height);
 	lightTexture = lightBuffer->createTexture(GL_RGB32F, GL_RGB, GL_FLOAT, GL_COLOR_ATTACHMENT0, true);
@@ -123,29 +120,43 @@ void Renderer::GenerateFBO()
 		std::cout << "light FB error, status:" << status << std::endl;
 		return;
 	}
-	else {
-		std::cout << "light FB all good" << std::endl;
-	}
-	
+	std::cout << "light FB all good" << std::endl;
+
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void Renderer::geometryPass()
+void Renderer::geometryPass() const
 {
+	glDepthMask(GL_TRUE);
+	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_BLEND);
+
 	//Geometry pass
 	geometryBuffer->bindDraw();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	geometryProgram->Getuniform("MVP") = projection * view;
+	
 	geometryProgram->use();
-	mesh->draw();
+
+	const Matrix4 mv = projection * view;
+	for (Entity e : renderEntities) {
+		geometryProgram->Getuniform("MVP") = mv * e.get<Transform>();
+		//std::cout << e.getId() << std::endl;
+		e.get<MeshFilter>().mesh->draw();
+	}
 }
 
-void Renderer::lightPass()
+void Renderer::lightPass() const
 {
+	glEnable(GL_BLEND);
+	glBlendEquation(GL_FUNC_ADD);
+	glBlendFunc(GL_ONE, GL_ONE);
+	glDepthMask(GL_FALSE);
+	glDisable(GL_DEPTH_TEST);
+
 	//Light pass
 	lightBuffer->bindDraw();
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT);
 	//geometryBuffer->bindRead();
 	positionTexture->bind(0);
 	lightProgram->Getuniform("positionTex") = 0;
@@ -154,11 +165,24 @@ void Renderer::lightPass()
 	lightProgram->Getuniform("normalTex") = 1;
 
 	lightProgram->use();
-	quad->draw();
+
+	for(Entity light : lights)
+	{
+
+		lightProgram->Getuniform("lightPos") = light.get<Transform>().position;
+		lightProgram->Getuniform("intensity") = light.get<PointLight>().intensity;
+
+		quad->draw();
+	}
+
 }
 
-void Renderer::resolvePass()
+void Renderer::resolvePass() const
 {
+	glDepthMask(GL_TRUE);
+	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_BLEND);
+
 	//Final pass
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -168,7 +192,11 @@ void Renderer::resolvePass()
 	texture->bind(1);
 	resolveProgram->Getuniform("diffuseTex") = 1;
 
-	resolveProgram->Getuniform("MVP") = projection * view;
 	resolveProgram->use();
-	mesh->draw();
+	const Matrix4 mv = projection * view;
+	for (Entity e : renderEntities) {
+		geometryProgram->Getuniform("MVP") = mv * e.get<Transform>();
+		//std::cout << e.getId() << '\n';
+		e.get<MeshFilter>().mesh->draw();
+	}
 }

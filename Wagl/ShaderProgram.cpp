@@ -52,15 +52,13 @@ void ShaderProgram::registerUniforms()
 	GLsizei length;
 	GLsizei size;
 	GLenum type;
-	GLint location;
 
-	int samplerId = 0;
 	for (int i = 0; i < count; i++) {
 		glGetActiveUniform(program, i, bufSize, &length, &size, &type, name);
 
 		std::string strname(name);
 
-		location = glGetUniformLocation(program, name);
+		const GLint location = glGetUniformLocation(program, name);
 		uniforms[strname] = Uniform(program, location, type, size);
 	}
 }
@@ -111,9 +109,15 @@ bool ShaderProgram::isSamplerType(GLenum type)
 	case GL_SAMPLER_2D_SHADOW:
 	case GL_SAMPLER_CUBE_SHADOW:
 		return true;
-	}
 
-	return false;
+	default: return false;
+	}
+}
+
+ShaderProgram::Uniform::Uniform(GLuint program, GLint location, GLenum type, GLsizei size): program(program),
+                                                                                            location(location),
+                                                                                            type(type), size(size)
+{
 }
 
 void ShaderProgram::Uniform::operator=(GLint rhs) const

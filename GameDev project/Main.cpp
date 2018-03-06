@@ -4,21 +4,70 @@
 
 #include <glfwApplication.h>
 #include <ApplicationAdapter.h>
-#include <VertexFormat.h>
-#include <Vector3.h>
-#include <Vector2.h>
-#include <Vector4.h>
 #include <string>
-#include <iostream>
-#include <Shader.h>
-#include <ShaderProgram.h>
-#include <VertexBuffer.h>
-#include <Model.h>
-#include <Material.h>
-#include <Texture.h>
-#include <Pool.h>
-#include <VBBuilder.h>
 #include <Renderer.h>
+#include <SystemManager.h>
+#include <Transform.h>
+#include <MeshFilter.h>
+#include <MeshLoader.h>
+#include <Mesh.h>
+#include <Entity.h>
+#include <Lights.h>
+
+class Game : public ApplicationAdapter{
+
+public:
+	Game(int width, int height) : width(width), height(height), suzane(nullptr)
+	{
+	}
+
+	void render() override
+	{
+		SystemManager::update();
+	}
+
+	void init() override
+	{
+
+		suzane = MeshLoader::LoadObj("models/suzane.obj");
+
+		SystemManager::addSystem(new Renderer(window, width, height));
+		SystemManager::init();
+
+		Entity eSuzane = Entity::create();
+		eSuzane.add(Transform());
+		eSuzane.add(MeshFilter(suzane));
+		eSuzane.get<MeshFilter>().mesh = suzane;
+
+		Entity eLightA = Entity::create();
+		eLightA.add(Transform());
+		eLightA.get<Transform>().position = Vector3(1, 1, 1).xyz;
+		eLightA.add(PointLight(2));
+
+		Entity eLightB = Entity::create();
+		eLightB.add(Transform());
+		eLightB.get<Transform>().position = Vector3(-1, -0.25, 0).xyz;
+		eLightB.add(PointLight(0.5));
+
+	}
+
+	void end() override
+	{
+		SystemManager::end();
+	}
+
+
+	void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) override
+	{
+
+	}
+private:
+	int width;
+	int height;
+
+	Mesh* suzane;
+
+};
 
 int main(void) {
 
@@ -28,7 +77,7 @@ int main(void) {
 	config.height = 720;
 
 	//Game game;
-	Renderer game(config.width, config.height);
+	Game game(config.width, config.height);
 	glfwApplication app(game, config);
 	app.init();
 

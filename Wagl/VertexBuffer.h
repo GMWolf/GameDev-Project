@@ -2,8 +2,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "VertexFormat.h"
-#include <Vector3.h>
-#include <vector>
 
 class VertexBuffer
 {

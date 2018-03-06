@@ -2,7 +2,7 @@
 #include "Camera.h"
 
 
-Camera::Camera() : position(*this)
+Camera::Camera() : position(*this), dirty(false)
 {
 }
 

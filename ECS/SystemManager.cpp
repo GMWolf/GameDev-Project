@@ -1,6 +1,13 @@
 #include "SystemManager.h"
 
 
+std::vector<System*> SystemManager::systems;
+
+void SystemManager::init() {
+	for (System* system : systems) {
+		system->init();
+	}
+}
 
 void SystemManager::update()
 {
@@ -8,6 +15,12 @@ void SystemManager::update()
 		system->update();
 		SubscriptionManager::update();
 		Entity::entityManager.update();
+	}
+}
+
+void SystemManager::end() {
+	for (System* system : systems) {
+		system->end();
 	}
 }
 

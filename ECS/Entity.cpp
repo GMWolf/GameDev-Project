@@ -1,25 +1,29 @@
 #include "Entity.h"
 #include "Component.h"
 
-Entity::Entity(int id) : id(id), aspect(entityManager.aspects.at(id))
+Entity::Entity(int id) : id(id)
 {
 }
 
-Entity Entity::Create()
+Entity Entity::create()
 {
 	int id = entityManager.createEntity();
 	return Entity(id);
 }
 
-void Entity::Destroy(Entity e)
+void Entity::destroy(Entity e)
 {
 	e.clear();
 	entityManager.destroyEntity(e.id);
 }
 
+Aspect& Entity::getAspect() {
+	return entityManager.aspects.at(id);
+}
+
 bool Entity::has(Aspect compare)
 {
-	return compare.subAspect(aspect);
+	return compare.subAspect(getAspect());
 }
 
 bool Entity::operator==(const Entity & rhs) const
@@ -29,10 +33,11 @@ bool Entity::operator==(const Entity & rhs) const
 
 void Entity::clear() {
 	for (int i = 0; i < ASPECT_SIZE; i++) {
-		if (aspect.has(i)) {
+		if (getAspect().has(i)) {
 			baseComponentMapper::mappers()->at(i)->v_erase(id);
-			aspect.unset(i);
+			getAspect().unset(i);
 			SubscriptionManager::bitTouched(id, i);
+
 		}
 	}
 }

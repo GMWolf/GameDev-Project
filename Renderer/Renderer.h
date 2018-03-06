@@ -1,53 +1,54 @@
 #pragma once
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <ApplicationAdapter.h>
 #include <ShaderProgram.h>
-#include <Shader.h>
 #include <Texture.h>
 #include <Matrix4.h>
 #include "Mesh.h"
 #include <FrameBuffer.h>
-class Renderer : public ApplicationAdapter
+#include <System.h>
+#include <EntitySubscription.h>
+class Renderer : public System
 {
 public:
-	Renderer(int width, int height);
+	Renderer(GLFWwindow* window, int width, int height);
 	~Renderer();
 
-	virtual void render();
-	virtual void init();
-	virtual void end();
-	void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+	void update() override;
+	void render() const;
+	void init() override;
+	void end() override;
 private:
 
 	void GenerateFBO();
 
-	void geometryPass();
-	void lightPass();
-	void resolvePass();
+	void geometryPass() const;
+	void lightPass() const;
+	void resolvePass() const;
 
 	int width;
 	int height;
 
-	FrameBuffer* geometryBuffer;
-	FrameBuffer* lightBuffer;
+	FrameBuffer* geometryBuffer{};
+	FrameBuffer* lightBuffer{};
 
-	Texture* positionTexture;
-	Texture* normalTexture;
-	Texture* depthTexture;
+	Texture* positionTexture{};
+	Texture* normalTexture{};
+	Texture* depthTexture{};
+	Texture* lightTexture{};
 
-	Texture* lightTexture;
+	ShaderProgram* geometryProgram{};
+	ShaderProgram* lightProgram{};
+	ShaderProgram* resolveProgram{};
 
-	ShaderProgram* geometryProgram;
-	ShaderProgram* lightProgram;
-	ShaderProgram* resolveProgram;
+	EntitySubscription& renderEntities;
+	EntitySubscription& lights;
 
+	Mesh* quad{};
 
-	Mesh* mesh;
-	Mesh* quad;
+	GLFWwindow* window;
 
-
-	Texture* texture;
+	Texture* texture{};
 	Matrix4 projection;
 	Matrix4 view;
 };

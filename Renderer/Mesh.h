@@ -1,12 +1,10 @@
 #pragma once
 #include <VertexBuffer.h>
 #include <VertexFormat.h>
-#include <VBBuilder.h>
 #include <VertexArray.h>
 #include <vector>
 #include <Vector3.h>
 #include <Vector2.h>
-#include <Vector4.h>
 
 
 struct MeshData {
@@ -57,7 +55,7 @@ public:
 
 	static const VertexFormat format;
 	
-	static struct Attributes {
+	struct Attributes {
 		static const VertexAttribute POSITION;
 		static const VertexAttribute TEXTURE_COORDINATES;
 		static const VertexAttribute COLOUR;

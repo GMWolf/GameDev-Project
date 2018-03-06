@@ -9,7 +9,7 @@ struct glfwConfiguration
 	glfwConfiguration() : glfwConfiguration(640, 480, "Title"){
 	}
 	glfwConfiguration(int width, int height, std::string)
-		: width(width), height(height), title(title), fullScreen(false) {
+		: width(width), height(height), title("title"), fullScreen(false) {
 	}
 	int width;
 	int height;

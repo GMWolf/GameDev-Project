@@ -66,7 +66,7 @@ template<class T, int chunkSize>
 template<class ...Args>
 inline T & ComponentMapper<T, chunkSize>::emplace(int componentId, Args && ...args)
 {
-	components.put(componentId, std::forward<Args>args...);
+	components.put(componentId, std::forward<Args>(args)...);
 	return components.at(componentId);
 }
 

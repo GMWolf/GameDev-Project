@@ -3,8 +3,14 @@
 class DynBitset {
 public:
 
-	void set(int i) {
+	DynBitset() : data(0)
+	{
+	}
+
+	void set(unsigned int i) {
+		bool resized = false;
 		if (data.size() <= i) {
+			resized = true;
 			data.resize(i + 1, false);
 		}
 
@@ -26,7 +32,8 @@ public:
 		return data[i];
 	};
 
-	int size() {
+	int size() const
+	{
 		return data.size();
 	}
 
@@ -36,5 +43,5 @@ public:
 
 
 private:
-	std::vector<bool> data;
+	std::vector<char> data;
 };

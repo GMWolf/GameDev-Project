@@ -9,12 +9,12 @@ VertexArray::VertexArray(VertexBuffer& vb)
 	glBindVertexArray(vao);
 	vb.bind();
 
-	int stride = vb.format.getStride();
+	const int stride = vb.format.getStride();
 
 	for (int i = 0; i < vb.format.attributes.size(); i++) {
-		VertexAttribute vertAttrib = vb.format.attributes[i];
+		const VertexAttribute vertAttrib = vb.format.attributes[i];
 
-		int offset = vb.format.getOffset(i);
+		const int offset = vb.format.getOffset(i);
 		glVertexAttribPointer(i, vertAttrib.elementCount, vertAttrib.type, GL_FALSE, stride, (void*)offset);
 		glEnableVertexAttribArray(i);
 	}
@@ -32,8 +32,6 @@ VertexArray::VertexArray(VertexBuffer & vb, ShaderProgram & shd)
 	for (int i = 0; i < vb.format.attributes.size(); i++) {
 		VertexAttribute vertAttrib = vb.format.attributes[i];
 
-		GLint location = shd.GetAttribute(vertAttrib.alias).location;
-
 		int offset = vb.format.getOffset(i);
 		glVertexAttribPointer(i, vertAttrib.elementCount, vertAttrib.type, GL_FALSE, stride, (void*)offset);
 		glEnableVertexAttribArray(i);
@@ -48,7 +46,7 @@ VertexArray::~VertexArray()
 	glDeleteVertexArrays(1, &vao);
 }
 
-void VertexArray::bind()
+void VertexArray::bind() const
 {
 	glBindVertexArray(vao);
 }

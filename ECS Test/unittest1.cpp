@@ -67,7 +67,7 @@ namespace ECSTest
 		}
 
 		TEST_METHOD(put_and_retreive_components) {
-			Entity e = Entity::Create();
+			Entity e = Entity::create();
 			e.add(component1(1, 2));
 
 			component1 c = e.get<component1>();
@@ -77,12 +77,12 @@ namespace ECSTest
 			Assert::AreEqual(1, c.x);
 			Assert::AreEqual(2, c.y);
 
-			Entity::Destroy(e);
+			Entity::destroy(e);
 		}
 
 		TEST_METHOD(Entity_Unique_Component) {
-			Entity a = Entity::Create();
-			Entity b = Entity::Create();
+			Entity a = Entity::create();
+			Entity b = Entity::create();
 
 			a.add(component1(1, 2));
 			b.add(component1(4, 5));
@@ -90,12 +90,12 @@ namespace ECSTest
 			Assert::AreNotEqual(a.get<component1>().x, b.get<component1>().x);
 			Assert::AreNotEqual(a.get<component1>().y, b.get<component1>().y);
 
-			Entity::Destroy(a);
-			Entity::Destroy(b);
+			Entity::destroy(a);
+			Entity::destroy(b);
 		}
 
 		TEST_METHOD(Component_have_unique_store) {
-			Entity a = Entity::Create();
+			Entity a = Entity::create();
 
 			a.add(component1(10, 11));
 			a.add(component2(6, 89));
@@ -103,11 +103,11 @@ namespace ECSTest
 			Assert::AreEqual(10, a.get<component1>().x);
 			Assert::AreEqual(89, a.get<component2>().bar);
 
-			Entity::Destroy(a);
+			Entity::destroy(a);
 		}
 
 		TEST_METHOD(modify_component) {
-			Entity e = Entity::Create();
+			Entity e = Entity::create();
 
 			e.add(component1(100, 5));
 
@@ -115,7 +115,7 @@ namespace ECSTest
 
 			Assert::AreEqual(42, e.get<component1>().x);
 
-			Entity::Destroy(e);
+			Entity::destroy(e);
 		}
 
 		TEST_METHOD(aspect_building) {
@@ -129,7 +129,7 @@ namespace ECSTest
 		TEST_METHOD(Entity_match_aspect) {
 			Aspect aspect = Aspect::getAspect<component2, component3>();
 
-			Entity e1 = Entity::Create();
+			Entity e1 = Entity::create();
 
 			Assert::IsFalse(e1.has(aspect));
 			e1.add(component2(1, 1));
@@ -139,7 +139,7 @@ namespace ECSTest
 			e1.add(component1(1,1));
 			Assert::IsTrue(e1.has(aspect));
 
-			Entity::Destroy(e1);
+			Entity::destroy(e1);
 		}
 
 		TEST_METHOD(entity_subscription) {
@@ -147,8 +147,8 @@ namespace ECSTest
 
 			EntitySubscription& sub = SubscriptionManager::getSubscription(aspect);
 
-			Entity e1 = Entity::Create();
-			Entity e2 = Entity::Create();
+			Entity e1 = Entity::create();
+			Entity e2 = Entity::create();
 
 			std::ostringstream oss;
 
@@ -187,8 +187,8 @@ namespace ECSTest
 			Assert::IsFalse(sub.entities.empty());
 
 
-			Entity::Destroy(e1);
-			Entity::Destroy(e2);
+			Entity::destroy(e1);
+			Entity::destroy(e2);
 
 			SubscriptionManager::update();
 			Entity::entityManager.update();
@@ -214,8 +214,8 @@ namespace ECSTest
 			Assert::IsTrue(sub12.entities.empty());
 			//Assert::IsTrue(sub2.entities.empty());
 
-			Entity e1 = Entity::Create();
-			Entity e2 = Entity::Create();
+			Entity e1 = Entity::create();
+			Entity e2 = Entity::create();
 
 			//e1.add(component1(0,0));
 

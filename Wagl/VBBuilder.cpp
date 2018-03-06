@@ -35,12 +35,10 @@ void VBBuilder::update(VertexBuffer & vb)
 {
 	char* vertData = new char[format.getStride() * vertexCount];
 
-	for (int atNum = 0; atNum < format.attributes.size(); atNum++) {
+	for (unsigned int atNum = 0; atNum < format.attributes.size(); atNum++) {
+		VertexAttribute attribute = format.attributes[atNum];
+		char* ad = attribData[atNum]; //attribute data
 		for (int i = 0; i < vertexCount; i++) {
-
-			VertexAttribute attribute = format.attributes[atNum];
-
-			char* ad = (char*)attribData[atNum]; //attribute data
 
 			char* vad = ad + (attribute.size() * i); //vertex attrib data
 
@@ -56,5 +54,5 @@ void VBBuilder::update(VertexBuffer & vb)
 	vb.setElementsData(elements.size(), elements.data());
 
 
-	delete vertData;
+	delete[] vertData;
 }

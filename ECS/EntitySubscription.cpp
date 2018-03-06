@@ -1,12 +1,13 @@
 #include "EntitySubscription.h"
 #include "Entity.h"
 
-EntitySubscription::EntitySubscription(Aspect aspect) : aspect(aspect) {
-	entities.clear();
+EntitySubscription::EntitySubscription(Aspect aspect) :  entities(0), aspect(aspect)
+{
+
 }
 
 EntitySubscription::EntitySubscription() : aspect(0) {
-	entities.clear();
+
 }
 
 void EntitySubscription::update()

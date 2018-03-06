@@ -13,7 +13,7 @@ Texture * ImageLoader::Load(std::string file, bool mipmap, bool compress)
 		flags |= SOIL_FLAG_COMPRESS_TO_DXT;
 	}
 
-	GLint glTex = SOIL_load_OGL_texture(file.c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, flags);
+	const GLint glTex = SOIL_load_OGL_texture(file.c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, flags);
 	return new Texture(glTex);
 }
 

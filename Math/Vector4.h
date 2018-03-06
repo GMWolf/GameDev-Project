@@ -40,7 +40,7 @@ public:
 
 	inline Vector4 operator/(const float rhs) const {
 		float s = 1 / rhs;
-		return operator*(rhs);
+		return operator*(s);
 	}
 
 	inline Vector4 operator*(const Vector4 &rhs) const {
@@ -116,11 +116,12 @@ public:
 	bool operator==(const Vector4& rhs) const {
 		return x == rhs.x && y == rhs.y && z == rhs.z && w == rhs.w;
 	}
-	void operator=(const Vector4& rhs) {
+	Vector4& operator=(const Vector4& rhs) {
 		x = rhs.x;
 		y = rhs.y;
 		z = rhs.z;
 		w = rhs.w;
+		return *this;
 	}
 
 #pragma region SwizzleOperations

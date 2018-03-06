@@ -2,6 +2,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <string>
+#include <iostream>
+
 template<int type>
 class Shader
 {
@@ -13,7 +15,7 @@ public:
 		const char* cstr = source.c_str();
 
 		glShader = glCreateShader(type);
-		glShaderSource(glShader, 1, &cstr, NULL);
+		glShaderSource(glShader, 1, &cstr, nullptr);
 		glCompileShader(glShader);
 
 		GLint status;
@@ -22,7 +24,7 @@ public:
 			std::cout << "Could not compile shader" << std::endl;
 
 			char error[2048];
-			glGetShaderInfoLog(glShader, sizeof(error), NULL, error);
+			glGetShaderInfoLog(glShader, sizeof(error), nullptr, error);
 			std::cout << error << std::endl;
 		}
 	}

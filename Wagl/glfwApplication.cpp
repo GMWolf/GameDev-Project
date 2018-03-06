@@ -35,6 +35,8 @@ bool glfwApplication::init()
 	app.window = window;
 	app.init();
 	
+	glFrontFace(GL_CCW);
+
 	while (!glfwWindowShouldClose(window))
 	{
 		DeltaTime::update();

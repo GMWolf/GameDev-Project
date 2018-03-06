@@ -11,9 +11,9 @@ public:
 
 	void clear();
 
-	auto begin();
+	auto begin() const;
 
-	auto end();
+	auto end() const;
 
 private:
 	std::vector<T> data;
@@ -43,13 +43,13 @@ inline void FlatSet<T>::clear()
 }
 
 template<class T>
-inline auto FlatSet<T>::begin()
+inline auto FlatSet<T>::begin() const
 {
 	return data.begin();
 }
 
 template<class T>
-inline auto FlatSet<T>::end()
+inline auto FlatSet<T>::end() const
 {
 	return data.end();
 }

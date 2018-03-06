@@ -10,9 +10,9 @@ public:
 	VertexArray(VertexBuffer& vb, ShaderProgram& shd);
 	~VertexArray();
 
-	void bind();
+	void bind() const;
 
 private:
-	GLuint vao;
+	GLuint vao{};
 };
 

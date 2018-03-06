@@ -2,7 +2,6 @@
 #include "Swizzle.h"
 #include "Vector3.h"
 #include <cstring>
-#include <iostream>
 class Matrix4 {
 
 public:

@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "Mesh.h"
+#include "VBBuilder.h"
 
-Mesh::Mesh() : vertexBuffer(format, GL_STATIC_DRAW), vertexArray(vertexBuffer)
+Mesh::Mesh() : vertexBuffer(format, GL_STATIC_DRAW), vertexArray(vertexBuffer), vertexCount(0)
 {
 }
 

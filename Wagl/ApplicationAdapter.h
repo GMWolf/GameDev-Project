@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 class ApplicationAdapter {
 public:
+	virtual ~ApplicationAdapter() = default;
 	virtual void render() = 0;
 	virtual void init();
 	virtual void end();

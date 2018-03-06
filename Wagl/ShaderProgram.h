@@ -8,7 +8,6 @@
 #include <Vector2.h>
 #include <Vector3.h>
 #include <Matrix4.h>
-#include "Texture.h"
 
 class ShaderProgram
 {
@@ -17,13 +16,11 @@ public:
 		Uniform() {
 		}
 
-		Uniform(GLuint program, GLint location, GLenum type, GLsizei size)
-			:program(program), location(location), type(type), size(size) {
-		}
+		Uniform(GLuint program, GLint location, GLenum type, GLsizei size);
 
-		void operator=(const GLint rhs) const;
-		void operator=(const GLuint rhs) const;
-		void operator=(const GLfloat rhs) const;
+		void operator=(GLint rhs) const;
+		void operator=(GLuint rhs) const;
+		void operator=(GLfloat rhs) const;
 		
 
 		void operator=(const Vector3& rhs) const;
@@ -42,7 +39,7 @@ public:
 		}
 
 		Attribute(GLint location, GLenum type, GLsizei size)
-			: location(location), type(type), size(size) {
+			: type(type), size(size), location(location) {
 		}
 		GLenum type;
 		GLsizei size;

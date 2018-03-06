@@ -132,7 +132,8 @@ int GetGLTypeSize(int type)
 	case GL_DOUBLE:return 8;
 		GENERATE_VEC_CASES(GL_DOUBLE, 8)
 		GENERATE_MAT_CASES(GL_DOUBLE, 4)
+	default: 
+		std::cout << type << std::endl;
+		throw std::invalid_argument("Unknown type " + type);
 	}
-	std::cout << type << std::endl;
-	throw std::invalid_argument("Unknown type " + type);
 }

@@ -31,7 +31,7 @@ public:
 private:
 	const VertexFormat& format;
 
-	std::map<int, void*> attribData;
+	std::map<int, char*> attribData;
 	std::vector<int> elements;
 	int vertexCount;
 };
@@ -40,7 +40,7 @@ template<class T>
 inline void VBBuilder::set(std::string alias, std::vector<T>& data)
 {
 	bool found;
-	VertexAttribute& va = format.findAttribute(alias);
+	const VertexAttribute& va = format.findAttribute(alias, found);
 	if (found) {
 		set(va, data);
 	}
@@ -51,13 +51,13 @@ inline void VBBuilder::set(VertexAttribute attribute, std::vector<T>& data)
 {
 	assert(attribute.size() == sizeof(T));
 
-	int ai = format.getAttributeNumber(attribute);
+	const int ai = format.getAttributeNumber(attribute);
 
 	if (attribData.find(ai) != attribData.end()) {
 		delete[] attribData[ai];
 	}
 
-	attribData[ai] = new T[data.size()];
+	attribData[ai] = new char[data.size() * sizeof(T)];
 
 	memcpy(attribData[ai], data.data(), data.size() * attribute.size());
 

@@ -9,6 +9,8 @@ public:
 	
 	static void update();
 
+	static void init();
+	static void end();
 	
 	static void addSystem(System* system);
 

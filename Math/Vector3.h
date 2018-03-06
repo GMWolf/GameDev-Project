@@ -42,7 +42,7 @@ public:
 
 	inline Vector3 operator/(const float rhs) const {
 		float s = 1 / rhs;
-		return operator*(rhs);
+		return operator*(s);
 	}
 
 	inline Vector3 operator*(const Vector3 &rhs) const {

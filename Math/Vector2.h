@@ -38,7 +38,7 @@ public:
 
 	inline Vector2 operator/(const float rhs) const {
 		float s = 1 / rhs;
-		return operator*(rhs);
+		return operator*(s);
 	}
 
 	inline Vector2 operator*(const Vector2 &rhs) const {
