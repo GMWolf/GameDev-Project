@@ -24,6 +24,8 @@ int main(void) {
 
 	glfwConfiguration config;
 	config.title = "yo!";
+	config.width = 1280;
+	config.height = 720;
 
 	//Game game;
 	Renderer game(config.width, config.height);

@@ -17,6 +17,7 @@ bool glfwApplication::init()
 	if (!glfwInit()) {
 		return false;
 	}
+	glfwSwapInterval(0);
 	GLFWmonitor* monitor = config.fullScreen ? glfwGetPrimaryMonitor() : NULL;
 	GLFWwindow* window = glfwCreateWindow(config.width, config.height, config.title.c_str(), monitor, NULL);
 
@@ -24,7 +25,7 @@ bool glfwApplication::init()
 		glfwTerminate();
 		return false;
 	}
-
+	
 	glfwMakeContextCurrent(window);
 	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
@@ -33,7 +34,7 @@ bool glfwApplication::init()
 
 	app.window = window;
 	app.init();
-
+	
 	while (!glfwWindowShouldClose(window))
 	{
 		DeltaTime::update();
@@ -45,7 +46,6 @@ bool glfwApplication::init()
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
-		
 	}
 
 	app.end();

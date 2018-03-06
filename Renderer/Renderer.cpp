@@ -72,7 +72,7 @@ void Renderer::render()
 	if (up) {
 		view.position += -(view.up * DeltaTime::delta * 2);
 	}
-	bool down = glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS;
+	bool down = glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS;
 	if (down) {
 		view.position += (view.up * DeltaTime::delta * 2);
 	}
@@ -90,14 +90,9 @@ void Renderer::render()
 	lightPass();
 	resolvePass();
 	
-	//geometryBuffer->bindRead();
 	geometryBuffer->blit(GL_COLOR_ATTACHMENT0, 0, 0, width, height, 0, 0, width / 4, height / 4, GL_COLOR_BUFFER_BIT, GL_LINEAR);
 	geometryBuffer->blit(GL_COLOR_ATTACHMENT1, 0, 0, width, height, width / 4, 0, width / 2, height / 4, GL_COLOR_BUFFER_BIT, GL_LINEAR);
 	lightBuffer->blit(GL_COLOR_ATTACHMENT0, 0, 0, width, height, width / 2, 0, width * 0.75, height / 4, GL_COLOR_BUFFER_BIT, GL_LINEAR);
-	/*lightBuffer->bindRead();
-	lightBuffer->blit(GL_COLOR_ATTACHMENT0, 0, 0, width, height, 0, halfHeight, halfWidth, height, GL_COLOR_BUFFER_BIT, GL_LINEAR);
-	*/
-
 }
 
 void Renderer::end()
