@@ -8,15 +8,16 @@ class Texture
 {
 public:
 	Texture(int width, int height, GLenum formatInternal, GLenum format, GLenum type);
-	Texture(std::string file, bool mipmap = true, bool compress = false);
+	Texture(GLint glTex);
 	~Texture();
 
 	void bind();
 	void bind(GLint textureUnit);
 
+	bool isBound();
 	
 	GLuint glTex;
 
-	static std::stack<Texture*> bindStack;
+	static Texture* bound;
 };
 

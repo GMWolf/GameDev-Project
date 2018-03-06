@@ -19,7 +19,14 @@ FrameBuffer::~FrameBuffer()
 Texture * FrameBuffer::createTexture(GLenum internalFormat, GLenum format, GLenum type, GLenum attachement, bool drawBuffer)
 {
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fbo);
-	Texture* t = new Texture(width, height, internalFormat, format, type);
+	GLuint glTex;
+	glGenTextures(1, &glTex);
+	glBindTexture(GL_TEXTURE_2D, glTex);
+	glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format, type, 0);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	Texture* t = new Texture(glTex);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, attachement, GL_TEXTURE_2D, t->glTex, 0);
 	if (drawBuffer) {
 		drawBuffers.push_back(attachement);

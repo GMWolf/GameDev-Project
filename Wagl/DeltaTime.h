@@ -1,5 +1,5 @@
 #pragma once
-class Time
+class DeltaTime
 {
 public:
 	static double delta;

@@ -1,12 +1,12 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "Time.h"
+#include "DeltaTime.h"
 
 
 
-double Time::delta = 0;
+double DeltaTime::delta = 0;
 
-void Time::update()
+void DeltaTime::update()
 {
 	delta = glfwGetTime();
 	glfwSetTime(0);

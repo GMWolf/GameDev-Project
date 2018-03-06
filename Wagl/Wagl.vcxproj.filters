@@ -39,9 +39,6 @@
     <ClInclude Include="Material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Time.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="VertexBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -52,6 +49,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FrameBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DeltaTime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -77,9 +77,6 @@
     <ClCompile Include="Material.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Time.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="VertexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -90,6 +87,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FrameBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DeltaTime.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

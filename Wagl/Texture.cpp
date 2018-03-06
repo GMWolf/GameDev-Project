@@ -1,26 +1,23 @@
 #include "Texture.h"
-#include <SOIL.h>
 
+
+Texture* Texture::bound;
 
 Texture::Texture(int width, int height, GLenum formatInternal, GLenum format, GLenum type)
 {
+	Texture* preBound = bound;
+
 	glGenTextures(1, &glTex);
 	bind();
 	glTexImage2D(GL_TEXTURE_2D, 0, formatInternal, width, height, 0, format, type, 0);
+
+	if (preBound) {
+		preBound->bind();
+	}
 }
 
-Texture::Texture(std::string file, bool mipmap, bool compress)
+Texture::Texture(GLint glTex) : glTex(glTex)
 {
-	unsigned int flags = 0;
-	if (mipmap) {
-		flags |= SOIL_FLAG_MIPMAPS;
-	}
-
-	if (compress) {
-		flags |= SOIL_FLAG_COMPRESS_TO_DXT;
-	}
-
-	glTex = SOIL_load_OGL_texture(file.c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, flags);
 }
 
 Texture::~Texture()
@@ -31,10 +28,17 @@ Texture::~Texture()
 void Texture::bind()
 {
 	glBindTexture(GL_TEXTURE_2D, glTex);
+	bound = this;
 }
 
 void Texture::bind(GLint textureUnit)
 {
 	glActiveTexture(GL_TEXTURE0 + textureUnit);
 	glBindTexture(GL_TEXTURE_2D, glTex);
+	bound = this;
+}
+
+bool Texture::isBound()
+{
+	return bound == this;
 }

@@ -153,7 +153,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Texture.h" />
-    <ClInclude Include="Time.h" />
+    <ClInclude Include="DeltaTime.h" />
     <ClInclude Include="VertexFormat.h" />
   </ItemGroup>
   <ItemGroup>
@@ -167,7 +167,7 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="Time.cpp" />
+    <ClCompile Include="DeltaTime.cpp" />
     <ClCompile Include="VertexFormat.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

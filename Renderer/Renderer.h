@@ -22,18 +22,31 @@ private:
 
 	void GenerateFBO();
 
+	void geometryPass();
+	void lightPass();
+	void resolvePass();
+
 	int width;
 	int height;
 
-	GLuint fbo;
-	FrameBuffer* frameBuffer;
+	FrameBuffer* geometryBuffer;
+	FrameBuffer* lightBuffer;
 
-	Texture* diffuseTexture;
+	Texture* positionTexture;
 	Texture* normalTexture;
 	Texture* depthTexture;
 
+	Texture* lightTexture;
+
 	ShaderProgram* geometryProgram;
+	ShaderProgram* lightProgram;
+	ShaderProgram* resolveProgram;
+
+
 	Mesh* mesh;
+	Mesh* quad;
+
+
 	Texture* texture;
 	Matrix4 projection;
 	Matrix4 view;

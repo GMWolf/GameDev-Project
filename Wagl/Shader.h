@@ -1,7 +1,6 @@
 #pragma once
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <fstream>
 #include <string>
 template<int type>
 class Shader
@@ -9,10 +8,8 @@ class Shader
 public:
 	friend class ShaderProgram;
 
-	Shader(std::string file)
+	Shader(std::string source)
 	{
-		std::string source;
-		loadFile(file, source);
 		const char* cstr = source.c_str();
 
 		glShader = glCreateShader(type);
@@ -28,9 +25,6 @@ public:
 			glGetShaderInfoLog(glShader, sizeof(error), NULL, error);
 			std::cout << error << std::endl;
 		}
-		else {
-			std::cout << "Loaded " << file << std::endl;
-		}
 	}
 	~Shader()
 	{
@@ -38,18 +32,7 @@ public:
 	}
 private:
 
-	bool loadFile(std::string file, std::string & string)
-	{
-		std::ifstream is(file);
-		if (!is) {
-			std::cout << "Could not open " << file << std::endl;
-			return false;
-		}
-
-		string.assign((std::istreambuf_iterator<char>(is)), (std::istreambuf_iterator<char>()));
-		is.close();
-		return true;
-	}
+	
 	GLuint glShader;
 };
 

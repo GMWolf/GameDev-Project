@@ -1,5 +1,5 @@
 #include "glfwApplication.h"
-#include "Time.h"
+#include "DeltaTime.h"
 glfwApplication* glfwApplication::appCallback = nullptr;
 
 glfwApplication::glfwApplication(ApplicationAdapter& app, glfwConfiguration config) 
@@ -36,7 +36,7 @@ bool glfwApplication::init()
 
 	while (!glfwWindowShouldClose(window))
 	{
-		Time::update();
+		DeltaTime::update();
 		glfwGetFramebufferSize(window, &frameBufferWidth, &frameBufferHeight);
 		float ratio = frameBufferWidth / (float)frameBufferHeight;
 		glViewport(0, 0, frameBufferWidth, frameBufferHeight);
