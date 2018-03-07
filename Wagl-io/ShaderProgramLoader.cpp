@@ -19,9 +19,18 @@ ShaderProgram * ShaderProgramLoader::Load(std::string file)
 	Shader<GL_VERTEX_SHADER>* vs = ShaderLoader::Load<GL_VERTEX_SHADER>(vertexFile);
 	Shader<GL_FRAGMENT_SHADER>* fs = ShaderLoader::Load<GL_FRAGMENT_SHADER>(fragmentFile);
 
-	ShaderProgram* p = new ShaderProgram(vs, fs);
+	Shader<GL_GEOMETRY_SHADER>* gs = nullptr;
+	if (j.find("geometry") != j.end())
+	{
+		const std::string geometryFile = j["geometry"].get<std::string>();
+		gs = ShaderLoader::Load<GL_GEOMETRY_SHADER>(geometryFile);
+	}
+
+
+	ShaderProgram* p = new ShaderProgram(vs, gs, fs);
 	delete vs;
 	delete fs;
+	delete gs;
 	return p;
 }
 

@@ -1,16 +1,18 @@
 #pragma once
 #include <Component.h>
+#include <Vector3.h>
 
 COMPONENT(PointLight, 8)
 {
 
-	PointLight() : intensity(1)
+	PointLight() : colour(1, 1, 1) , radius(1)
 	{
 	}
 
-	PointLight(const float intensity) : intensity(intensity)
+	PointLight(Vector3 colour, float radius) : colour(colour), radius(radius)
 	{
 	}
 
-	float intensity;
+	Vector3 colour;
+	float radius;
 };

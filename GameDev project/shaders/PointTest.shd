@@ -1,0 +1,5 @@
+{
+	"vertex" : "shaders/PointTestVert.glsl",
+	"fragment" : "shaders/PointTestFrag.glsl",
+	"geometry" : "shaders/pointTestGeo.glsl"
+}

@@ -47,6 +47,7 @@ public:
 	};
 
 	ShaderProgram(Shader<GL_VERTEX_SHADER>* vertex, Shader<GL_FRAGMENT_SHADER>* fragment);
+	ShaderProgram(Shader<GL_VERTEX_SHADER>* vertex, Shader<GL_GEOMETRY_SHADER>* geometry, Shader<GL_FRAGMENT_SHADER>* fragment);
 	~ShaderProgram();
 
 
@@ -71,6 +72,7 @@ private:
 
 	GLuint vertexShader;
 	GLuint fragmentShader;
+	GLuint geometryShader;
 
 	GLuint program;
 };

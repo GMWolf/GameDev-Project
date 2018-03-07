@@ -11,6 +11,7 @@ public:
 	~VertexArray();
 
 	void bind() const;
+	static void unbind();
 
 private:
 	GLuint vao{};

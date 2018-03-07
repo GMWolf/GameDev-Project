@@ -107,7 +107,8 @@ void Mesh::combine_internal(Mesh & other)
 void Mesh::draw()
 {
 	vertexArray.bind();
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, (void*)0);
+	VertexArray::unbind();
 }
 
 const VertexAttribute Mesh::Attributes::POSITION = { GL_FLOAT, 3, "position" };

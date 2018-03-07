@@ -21,6 +21,9 @@ public:
 	template<class T>
 	void set(VertexAttribute attribute, std::initializer_list<T> data);
 
+	template<class T>
+	void set(int ai, std::vector<T>& data);
+
 	void setElems(std::vector<int>& elements);
 	void setElems(std::initializer_list<int> elements);
 
@@ -53,6 +56,21 @@ inline void VBBuilder::set(VertexAttribute attribute, std::vector<T>& data)
 
 	const int ai = format.getAttributeNumber(attribute);
 
+	set(ai, data);
+}
+
+template<class T>
+inline void VBBuilder::set(VertexAttribute attribute, std::initializer_list<T> data)
+{
+	std::vector<T> d(data);
+	set(attribute, d);
+}
+
+template <class T>
+void VBBuilder::set(int ai, std::vector<T>& data)
+{
+	VertexAttribute attribute = format.attributes[ai];
+
 	if (attribData.find(ai) != attribData.end()) {
 		delete[] attribData[ai];
 	}
@@ -62,11 +80,4 @@ inline void VBBuilder::set(VertexAttribute attribute, std::vector<T>& data)
 	memcpy(attribData[ai], data.data(), data.size() * attribute.size());
 
 	vertexCount = data.size();
-}
-
-template<class T>
-inline void VBBuilder::set(VertexAttribute attribute, std::initializer_list<T> data)
-{
-	std::vector<T> d(data);
-	set(attribute, d);
 }

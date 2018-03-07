@@ -8,6 +8,8 @@
 #include <FrameBuffer.h>
 #include <System.h>
 #include <EntitySubscription.h>
+#include "LightMesh.h"
+
 class Renderer : public System
 {
 public:
@@ -45,6 +47,8 @@ private:
 	EntitySubscription& lights;
 
 	Mesh* quad{};
+
+	mutable LightMesh lightMesh;
 
 	GLFWwindow* window;
 

@@ -36,7 +36,6 @@ void Renderer::init()
 	resolveProgram->Getuniform("screenSize") = Vector2(width, height);
 
 	lightProgram->Getuniform("screenSize") = Vector2(width, height);
-	lightProgram->Getuniform("MVP") = Matrix4::Identity();
 
 	quad = new Mesh(Mesh::Quad(Vector3(-1, -1, 0), Vector3(1, -1, 0), Vector3(1, 1, 0), Vector3(-1, 1, 0),
 		Vector2(0, 0), Vector2(0, 1), Vector2(1, 1), Vector2(0, 1),
@@ -141,6 +140,7 @@ void Renderer::geometryPass() const
 	const Matrix4 mv = projection * view;
 	for (Entity e : renderEntities) {
 		geometryProgram->Getuniform("MVP") = mv * e.get<Transform>();
+		geometryProgram->Getuniform("model") = e.get<Transform>();
 		//std::cout << e.getId() << std::endl;
 		e.get<MeshFilter>().mesh->draw();
 	}
@@ -148,6 +148,20 @@ void Renderer::geometryPass() const
 
 void Renderer::lightPass() const
 {
+
+	lightMesh.clear();
+
+	for(Entity light : lights)
+	{
+		Transform& t = light.get<Transform>();
+		PointLight& pl = light.get<PointLight>();
+		//std::cout << light.getId() << "\n";
+		//std::cout << pl.radius << "\n";
+
+		lightMesh.addLight(t.position, pl.colour, pl.radius);
+	}
+
+	//glDisable(GL_CULL_FACE);
 	glEnable(GL_BLEND);
 	glBlendEquation(GL_FUNC_ADD);
 	glBlendFunc(GL_ONE, GL_ONE);
@@ -158,23 +172,26 @@ void Renderer::lightPass() const
 	lightBuffer->bindDraw();
 	glClear(GL_COLOR_BUFFER_BIT);
 	//geometryBuffer->bindRead();
+
+	//lightProgram->Getuniform("mvp") = projection * view;
+
+	lightProgram->Getuniform("view") = view;
+	//lightProgram->Getuniform("projection") = projection;
+	/*lightProgram->Getuniform("view") = Matrix4::Identity();
+	lightProgram->Getuniform("projection") = projection * view;*/
+
 	positionTexture->bind(0);
 	lightProgram->Getuniform("positionTex") = 0;
 
-	normalTexture->bind(1);
-	lightProgram->Getuniform("normalTex") = 1;
+	normalTexture->bind(2);
+	lightProgram->Getuniform("normalTex") = 2;
+
+	
 
 	lightProgram->use();
 
-	for(Entity light : lights)
-	{
-
-		lightProgram->Getuniform("lightPos") = light.get<Transform>().position;
-		lightProgram->Getuniform("intensity") = light.get<PointLight>().intensity;
-
-		quad->draw();
-	}
-
+	lightMesh.draw();
+	//glEnable(GL_CULL_FACE);
 }
 
 void Renderer::resolvePass() const
@@ -195,7 +212,8 @@ void Renderer::resolvePass() const
 	resolveProgram->use();
 	const Matrix4 mv = projection * view;
 	for (Entity e : renderEntities) {
-		geometryProgram->Getuniform("MVP") = mv * e.get<Transform>();
+		resolveProgram->Getuniform("MVP") = mv * e.get<Transform>();
+		resolveProgram->Getuniform("model") = e.get<Transform>();
 		//std::cout << e.getId() << '\n';
 		e.get<MeshFilter>().mesh->draw();
 	}

@@ -39,15 +39,21 @@ public:
 		eSuzane.add(MeshFilter(suzane));
 		eSuzane.get<MeshFilter>().mesh = suzane;
 
+		Entity eSuzane2 = Entity::create();
+		eSuzane2.add(Transform());
+		eSuzane2.get<Transform>().position = Vector3(-2, -1, -1).xyz;
+		eSuzane2.add(MeshFilter(suzane));
+		eSuzane2.get<MeshFilter>().mesh = suzane;
+
 		Entity eLightA = Entity::create();
 		eLightA.add(Transform());
 		eLightA.get<Transform>().position = Vector3(1, 1, 1).xyz;
-		eLightA.add(PointLight(2));
+		eLightA.add(PointLight(Vector3(0.25, 0.25, 1), 2));
 
 		Entity eLightB = Entity::create();
 		eLightB.add(Transform());
 		eLightB.get<Transform>().position = Vector3(-1, -0.25, 0).xyz;
-		eLightB.add(PointLight(0.5));
+		eLightB.add(PointLight(Vector3(1, 0.25, 0.25), 2));
 
 	}
 

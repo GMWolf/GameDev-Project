@@ -1,4 +1,5 @@
 {
 	"vertex" : "shaders/lightVert.glsl",
-	"fragment" : "shaders/lightFrag.glsl"
+	"fragment" : "shaders/lightFrag.glsl",
+	"geometry" : "shaders/lightGeometry.glsl"
 }

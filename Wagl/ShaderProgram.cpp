@@ -1,10 +1,16 @@
 #include "ShaderProgram.h"
 #include <iostream>
 
-ShaderProgram::ShaderProgram(Shader<GL_VERTEX_SHADER>* vertex, Shader<GL_FRAGMENT_SHADER>* fragment)
+ShaderProgram::ShaderProgram(Shader<GL_VERTEX_SHADER>* vertex, Shader<GL_FRAGMENT_SHADER>* fragment) : ShaderProgram(vertex, nullptr, fragment)
+{
+}
+
+ShaderProgram::ShaderProgram(Shader<35633>* vertex, Shader<36313>* geometry, Shader<35632>* fragment)
 {
 	vertexShader = vertex->glShader;
 	fragmentShader = fragment->glShader;
+	geometryShader = geometry == nullptr ? 0 : geometry->glShader;
+
 	link();
 	registerAttributes();
 	registerUniforms();
@@ -92,10 +98,16 @@ void ShaderProgram::link()
 	program = glCreateProgram();
 	glAttachShader(program, vertexShader);
 	glAttachShader(program, fragmentShader);
+
+	if (geometryShader) glAttachShader(program, geometryShader);
+
+
 	glBindFragDataLocation(program, 0, "outColor");
 	glLinkProgram(program);
+
 	glDetachShader(program, vertexShader);
 	glDetachShader(program, fragmentShader);
+	if (geometryShader) glDetachShader(program, geometryShader);
 }
 
 bool ShaderProgram::isSamplerType(GLenum type)

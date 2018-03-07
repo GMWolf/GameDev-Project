@@ -18,6 +18,7 @@ VertexArray::VertexArray(VertexBuffer& vb)
 		glVertexAttribPointer(i, vertAttrib.elementCount, vertAttrib.type, GL_FALSE, stride, (void*)offset);
 		glEnableVertexAttribArray(i);
 	}
+
 	glBindVertexArray(0);
 }
 
@@ -51,4 +52,7 @@ void VertexArray::bind() const
 	glBindVertexArray(vao);
 }
 
-
+void VertexArray::unbind()
+{
+	glBindVertexArray(0);
+}
