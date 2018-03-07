@@ -46,7 +46,7 @@ public:
 		GLint location;
 	};
 
-	ShaderProgram(Shader<GL_VERTEX_SHADER>& vertex, Shader<GL_FRAGMENT_SHADER>& fragment);
+	ShaderProgram(Shader<GL_VERTEX_SHADER>* vertex, Shader<GL_FRAGMENT_SHADER>* fragment);
 	~ShaderProgram();
 
 

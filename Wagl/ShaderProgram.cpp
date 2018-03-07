@@ -1,10 +1,10 @@
 #include "ShaderProgram.h"
 #include <iostream>
 
-ShaderProgram::ShaderProgram(Shader<GL_VERTEX_SHADER>& vertex, Shader<GL_FRAGMENT_SHADER>& fragment)
+ShaderProgram::ShaderProgram(Shader<GL_VERTEX_SHADER>* vertex, Shader<GL_FRAGMENT_SHADER>* fragment)
 {
-	vertexShader = vertex.glShader;
-	fragmentShader = fragment.glShader;
+	vertexShader = vertex->glShader;
+	fragmentShader = fragment->glShader;
 	link();
 	registerAttributes();
 	registerUniforms();

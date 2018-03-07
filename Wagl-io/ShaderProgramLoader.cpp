@@ -16,10 +16,13 @@ ShaderProgram * ShaderProgramLoader::Load(std::string file)
 	const std::string vertexFile = j["vertex"].get<std::string>();
 	const std::string fragmentFile = j["fragment"].get<std::string>();
 
-	Shader<GL_VERTEX_SHADER> vs = ShaderLoader::Load<GL_VERTEX_SHADER>(vertexFile);
-	Shader<GL_FRAGMENT_SHADER> fs = ShaderLoader::Load<GL_FRAGMENT_SHADER>(fragmentFile);
+	Shader<GL_VERTEX_SHADER>* vs = ShaderLoader::Load<GL_VERTEX_SHADER>(vertexFile);
+	Shader<GL_FRAGMENT_SHADER>* fs = ShaderLoader::Load<GL_FRAGMENT_SHADER>(fragmentFile);
 
-	return new ShaderProgram(vs, fs);
+	ShaderProgram* p = new ShaderProgram(vs, fs);
+	delete vs;
+	delete fs;
+	return p;
 }
 
 ShaderProgramLoader::ShaderProgramLoader()
