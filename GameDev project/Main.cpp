@@ -36,24 +36,30 @@ public:
 
 		Entity eSuzane = Entity::create();
 		eSuzane.add(Transform());
+		eSuzane.get<Transform>().position = Vector3(1, 0, 0).xyz;
 		eSuzane.add(MeshFilter(suzane));
 		eSuzane.get<MeshFilter>().mesh = suzane;
 
 		Entity eSuzane2 = Entity::create();
 		eSuzane2.add(Transform());
-		eSuzane2.get<Transform>().position = Vector3(-2, -1, -1).xyz;
+		eSuzane2.get<Transform>().position = Vector3(-1, 0, 0).xyz;
 		eSuzane2.add(MeshFilter(suzane));
 		eSuzane2.get<MeshFilter>().mesh = suzane;
 
 		Entity eLightA = Entity::create();
 		eLightA.add(Transform());
-		eLightA.get<Transform>().position = Vector3(1, 1, 1).xyz;
-		eLightA.add(PointLight(Vector3(0.25, 0.25, 1), 2));
+		eLightA.get<Transform>().position = Vector3(0 , 0.25, 1.5).xyz;
+		eLightA.add(PointLight(Vector3(0.75, 1, 1)*1, 25));
 
-		Entity eLightB = Entity::create();
-		eLightB.add(Transform());
-		eLightB.get<Transform>().position = Vector3(-1, -0.25, 0).xyz;
-		eLightB.add(PointLight(Vector3(1, 0.25, 0.25), 2));
+		Entity eLightsa = Entity::create();
+		eLightsa.add(Transform());
+		eLightsa.get<Transform>().position = Vector3(-1, -0.25, -1).xyz;
+		eLightsa.add(PointLight(Vector3(1, 0.25, 0.25), 2));
+
+		Entity eLightsb = Entity::create();
+		eLightsb.add(Transform());
+		eLightsb.get<Transform>().position = Vector3(1, -0.25, -1).xyz;
+		eLightsb.add(PointLight(Vector3(0.25, 0.25, 1), 2));
 
 	}
 

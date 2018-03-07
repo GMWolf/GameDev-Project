@@ -46,7 +46,7 @@ void Renderer::init()
 	/*texture->bind(0);
 	geometryProgram->Getuniform("diffuseTex") = 0;*/
 
-	projection = Matrix4::Perspective(0.01, 100, width / ((float) height), 60);
+	projection = Matrix4::Perspective(0.01, 10, width / ((float) height), 60);
 	view = Matrix4::ViewMatrix(Vector3(0, 0, 3), Vector3(0, 0, 0), Vector3(0, 1, 0));
 }
 
@@ -81,7 +81,6 @@ void Renderer::update()
 
 void Renderer::render() const
 {
-	
 	glClearColor(0, 0, 0, 1);
 
 	geometryPass();
@@ -89,8 +88,7 @@ void Renderer::render() const
 	resolvePass();
 	
 	geometryBuffer->blit(GL_COLOR_ATTACHMENT0, 0, 0, width, height, 0, 0, width / 4, height / 4, GL_COLOR_BUFFER_BIT, GL_LINEAR);
-	geometryBuffer->blit(GL_COLOR_ATTACHMENT1, 0, 0, width, height, width / 4, 0, width / 2, height / 4, GL_COLOR_BUFFER_BIT, GL_LINEAR);
-	lightBuffer->blit(GL_COLOR_ATTACHMENT0, 0, 0, width, height, width / 2, 0, width * 0.75, height / 4, GL_COLOR_BUFFER_BIT, GL_LINEAR);
+	lightBuffer->blit(GL_COLOR_ATTACHMENT0, 0, 0, width, height, width / 4, 0, width /2, height / 4, GL_COLOR_BUFFER_BIT, GL_LINEAR);
 }
 
 void Renderer::end()
@@ -100,8 +98,7 @@ void Renderer::end()
 void Renderer::GenerateFBO()
 {
 	geometryBuffer = new FrameBuffer(width, height);
-	positionTexture = geometryBuffer->createTexture(GL_RGB32F, GL_RGB, GL_FLOAT, GL_COLOR_ATTACHMENT0, true);
-	normalTexture = geometryBuffer->createTexture(GL_RGB32F, GL_RGB, GL_FLOAT, GL_COLOR_ATTACHMENT1, true);
+	normalTexture = geometryBuffer->createTexture(GL_RGB32F, GL_RGB, GL_FLOAT, GL_COLOR_ATTACHMENT0, true);
 	depthTexture = geometryBuffer->createTexture(GL_DEPTH_COMPONENT32F, GL_DEPTH_COMPONENT, GL_FLOAT, GL_DEPTH_ATTACHMENT, false);
 	
 	GLenum status = geometryBuffer->status();
@@ -155,13 +152,10 @@ void Renderer::lightPass() const
 	{
 		Transform& t = light.get<Transform>();
 		PointLight& pl = light.get<PointLight>();
-		//std::cout << light.getId() << "\n";
-		//std::cout << pl.radius << "\n";
 
 		lightMesh.addLight(t.position, pl.colour, pl.radius);
 	}
 
-	//glDisable(GL_CULL_FACE);
 	glEnable(GL_BLEND);
 	glBlendEquation(GL_FUNC_ADD);
 	glBlendFunc(GL_ONE, GL_ONE);
@@ -171,27 +165,20 @@ void Renderer::lightPass() const
 	//Light pass
 	lightBuffer->bindDraw();
 	glClear(GL_COLOR_BUFFER_BIT);
-	//geometryBuffer->bindRead();
-
-	//lightProgram->Getuniform("mvp") = projection * view;
 
 	lightProgram->Getuniform("view") = view;
-	//lightProgram->Getuniform("projection") = projection;
-	/*lightProgram->Getuniform("view") = Matrix4::Identity();
-	lightProgram->Getuniform("projection") = projection * view;*/
+	lightProgram->Getuniform("invView") = view.inverse();
+	lightProgram->Getuniform("invProjection") = projection.inverse();
 
-	positionTexture->bind(0);
-	lightProgram->Getuniform("positionTex") = 0;
+	depthTexture->bind(0);
+	lightProgram->Getuniform("depthTex") = 0;
 
 	normalTexture->bind(2);
 	lightProgram->Getuniform("normalTex") = 2;
-
 	
-
 	lightProgram->use();
 
 	lightMesh.draw();
-	//glEnable(GL_CULL_FACE);
 }
 
 void Renderer::resolvePass() const

@@ -6,7 +6,6 @@ layout(location = 2) in vec3 normal;
 
 uniform mat4 MVP;
 uniform mat4 model;
-//uniform mat4 World;
 
 out Vertex	{
 	vec3 Position;

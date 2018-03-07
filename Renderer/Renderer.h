@@ -34,7 +34,6 @@ private:
 	FrameBuffer* geometryBuffer{};
 	FrameBuffer* lightBuffer{};
 
-	Texture* positionTexture{};
 	Texture* normalTexture{};
 	Texture* depthTexture{};
 	Texture* lightTexture{};

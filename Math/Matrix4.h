@@ -51,62 +51,60 @@ public:
 	}
 
 	//taken from Software rasterizer, in turn Yoinked from the Open Source Doom 3 release - all credit goes to id software!
-	Matrix4 inverse() {
-		float det, invDet;
-
+	Matrix4 inverse() const {
 		Matrix4 mat(*this);
 
 		//mat.items[0];
 
 		// 2x2 sub-determinants required to calculate 4x4 determinant
-		float det2_01_01 = mat.items[0] * mat.items[5] - mat.items[1] * mat.items[4];
-		float det2_01_02 = mat.items[0] * mat.items[6] - mat.items[2] * mat.items[4];
-		float det2_01_03 = mat.items[0] * mat.items[7] - mat.items[3] * mat.items[4];
-		float det2_01_12 = mat.items[1] * mat.items[6] - mat.items[2] * mat.items[5];
-		float det2_01_13 = mat.items[1] * mat.items[7] - mat.items[3] * mat.items[5];
-		float det2_01_23 = mat.items[2] * mat.items[7] - mat.items[3] * mat.items[6];
+		const float det2_01_01 = mat.items[0] * mat.items[5] - mat.items[1] * mat.items[4];
+		const float det2_01_02 = mat.items[0] * mat.items[6] - mat.items[2] * mat.items[4];
+		const float det2_01_03 = mat.items[0] * mat.items[7] - mat.items[3] * mat.items[4];
+		const float det2_01_12 = mat.items[1] * mat.items[6] - mat.items[2] * mat.items[5];
+		const float det2_01_13 = mat.items[1] * mat.items[7] - mat.items[3] * mat.items[5];
+		const float det2_01_23 = mat.items[2] * mat.items[7] - mat.items[3] * mat.items[6];
 
 		// 3x3 sub-determinants required to calculate 4x4 determinant
-		float det3_201_012 = mat.items[8] * det2_01_12 - mat.items[9] * det2_01_02 + mat.items[10] * det2_01_01;
-		float det3_201_013 = mat.items[8] * det2_01_13 - mat.items[9] * det2_01_03 + mat.items[11] * det2_01_01;
-		float det3_201_023 = mat.items[8] * det2_01_23 - mat.items[10] * det2_01_03 + mat.items[11] * det2_01_02;
-		float det3_201_123 = mat.items[9] * det2_01_23 - mat.items[10] * det2_01_13 + mat.items[11] * det2_01_12;
+		const float det3_201_012 = mat.items[8] * det2_01_12 - mat.items[9] * det2_01_02 + mat.items[10] * det2_01_01;
+		const float det3_201_013 = mat.items[8] * det2_01_13 - mat.items[9] * det2_01_03 + mat.items[11] * det2_01_01;
+		const float det3_201_023 = mat.items[8] * det2_01_23 - mat.items[10] * det2_01_03 + mat.items[11] * det2_01_02;
+		const float det3_201_123 = mat.items[9] * det2_01_23 - mat.items[10] * det2_01_13 + mat.items[11] * det2_01_12;
 
-		det = (-det3_201_123 * mat.items[12] + det3_201_023 * mat.items[13] - det3_201_013 * mat.items[14] + det3_201_012 * mat.items[15]);
+		float det = (-det3_201_123 * mat.items[12] + det3_201_023 * mat.items[13] - det3_201_013 * mat.items[14] + det3_201_012 * mat.items[15]);
 
 
-		invDet = 1.0f / det;
+		float invDet = 1.0f / det;
 
 		// remaining 2x2 sub-determinants
-		float det2_03_01 = mat.items[0] * mat.items[13] - mat.items[1] * mat.items[12];
-		float det2_03_02 = mat.items[0] * mat.items[14] - mat.items[2] * mat.items[12];
-		float det2_03_03 = mat.items[0] * mat.items[15] - mat.items[3] * mat.items[12];
-		float det2_03_12 = mat.items[1] * mat.items[14] - mat.items[2] * mat.items[13];
-		float det2_03_13 = mat.items[1] * mat.items[15] - mat.items[3] * mat.items[13];
-		float det2_03_23 = mat.items[2] * mat.items[15] - mat.items[3] * mat.items[14];
+		const float det2_03_01 = mat.items[0] * mat.items[13] - mat.items[1] * mat.items[12];
+		const float det2_03_02 = mat.items[0] * mat.items[14] - mat.items[2] * mat.items[12];
+		const float det2_03_03 = mat.items[0] * mat.items[15] - mat.items[3] * mat.items[12];
+		const float det2_03_12 = mat.items[1] * mat.items[14] - mat.items[2] * mat.items[13];
+		const float det2_03_13 = mat.items[1] * mat.items[15] - mat.items[3] * mat.items[13];
+		const float det2_03_23 = mat.items[2] * mat.items[15] - mat.items[3] * mat.items[14];
 
-		float det2_13_01 = mat.items[4] * mat.items[13] - mat.items[5] * mat.items[12];
-		float det2_13_02 = mat.items[4] * mat.items[14] - mat.items[6] * mat.items[12];
-		float det2_13_03 = mat.items[4] * mat.items[15] - mat.items[7] * mat.items[12];
-		float det2_13_12 = mat.items[5] * mat.items[14] - mat.items[6] * mat.items[13];
-		float det2_13_13 = mat.items[5] * mat.items[15] - mat.items[7] * mat.items[13];
-		float det2_13_23 = mat.items[6] * mat.items[15] - mat.items[7] * mat.items[14];
+		const float det2_13_01 = mat.items[4] * mat.items[13] - mat.items[5] * mat.items[12];
+		const float det2_13_02 = mat.items[4] * mat.items[14] - mat.items[6] * mat.items[12];
+		const float det2_13_03 = mat.items[4] * mat.items[15] - mat.items[7] * mat.items[12];
+		const float det2_13_12 = mat.items[5] * mat.items[14] - mat.items[6] * mat.items[13];
+		const float det2_13_13 = mat.items[5] * mat.items[15] - mat.items[7] * mat.items[13];
+		const float det2_13_23 = mat.items[6] * mat.items[15] - mat.items[7] * mat.items[14];
 
 		// remaining 3x3 sub-determinants
-		float det3_203_012 = mat.items[8] * det2_03_12 - mat.items[9] * det2_03_02 + mat.items[10] * det2_03_01;
-		float det3_203_013 = mat.items[8] * det2_03_13 - mat.items[9] * det2_03_03 + mat.items[11] * det2_03_01;
-		float det3_203_023 = mat.items[8] * det2_03_23 - mat.items[10] * det2_03_03 + mat.items[11] * det2_03_02;
-		float det3_203_123 = mat.items[9] * det2_03_23 - mat.items[10] * det2_03_13 + mat.items[11] * det2_03_12;
+		const float det3_203_012 = mat.items[8] * det2_03_12 - mat.items[9] * det2_03_02 + mat.items[10] * det2_03_01;
+		const float det3_203_013 = mat.items[8] * det2_03_13 - mat.items[9] * det2_03_03 + mat.items[11] * det2_03_01;
+		const float det3_203_023 = mat.items[8] * det2_03_23 - mat.items[10] * det2_03_03 + mat.items[11] * det2_03_02;
+		const float det3_203_123 = mat.items[9] * det2_03_23 - mat.items[10] * det2_03_13 + mat.items[11] * det2_03_12;
 
-		float det3_213_012 = mat.items[8] * det2_13_12 - mat.items[9] * det2_13_02 + mat.items[10] * det2_13_01;
-		float det3_213_013 = mat.items[8] * det2_13_13 - mat.items[9] * det2_13_03 + mat.items[11] * det2_13_01;
-		float det3_213_023 = mat.items[8] * det2_13_23 - mat.items[10] * det2_13_03 + mat.items[11] * det2_13_02;
-		float det3_213_123 = mat.items[9] * det2_13_23 - mat.items[10] * det2_13_13 + mat.items[11] * det2_13_12;
+		const float det3_213_012 = mat.items[8] * det2_13_12 - mat.items[9] * det2_13_02 + mat.items[10] * det2_13_01;
+		const float det3_213_013 = mat.items[8] * det2_13_13 - mat.items[9] * det2_13_03 + mat.items[11] * det2_13_01;
+		const float det3_213_023 = mat.items[8] * det2_13_23 - mat.items[10] * det2_13_03 + mat.items[11] * det2_13_02;
+		const float det3_213_123 = mat.items[9] * det2_13_23 - mat.items[10] * det2_13_13 + mat.items[11] * det2_13_12;
 
-		float det3_301_012 = mat.items[12] * det2_01_12 - mat.items[13] * det2_01_02 + mat.items[14] * det2_01_01;
-		float det3_301_013 = mat.items[12] * det2_01_13 - mat.items[13] * det2_01_03 + mat.items[15] * det2_01_01;
-		float det3_301_023 = mat.items[12] * det2_01_23 - mat.items[14] * det2_01_03 + mat.items[15] * det2_01_02;
-		float det3_301_123 = mat.items[13] * det2_01_23 - mat.items[14] * det2_01_13 + mat.items[15] * det2_01_12;
+		const float det3_301_012 = mat.items[12] * det2_01_12 - mat.items[13] * det2_01_02 + mat.items[14] * det2_01_01;
+		const float det3_301_013 = mat.items[12] * det2_01_13 - mat.items[13] * det2_01_03 + mat.items[15] * det2_01_01;
+		const float det3_301_023 = mat.items[12] * det2_01_23 - mat.items[14] * det2_01_03 + mat.items[15] * det2_01_02;
+		const float det3_301_123 = mat.items[13] * det2_01_23 - mat.items[14] * det2_01_13 + mat.items[15] * det2_01_12;
 
 		mat.items[0] = -det3_213_123 * invDet;
 		mat.items[4] = +det3_213_023 * invDet;
