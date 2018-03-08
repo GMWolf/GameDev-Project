@@ -4,6 +4,8 @@
 #include "DeltaTime.h"
 #include "Vector2.h"
 #include <iostream>
+#include "VelocitySystem.h"
+#include "Lights.h"
 
 PlayerControlSystem::PlayerControlSystem(GLFWwindow* window):
 	playerControled(SubscriptionManager::getSubscription(Aspect::getAspect<PlayerControl, Transform>())), 
@@ -49,11 +51,11 @@ void PlayerControlSystem::update()
 		if (right) {
 			t.position += (t.rotation.left * DeltaTime::delta * 2);
 		}
-		bool up = glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS;
+		bool up = glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS;
 		if (up) {
 			t.position += (t.rotation.up * DeltaTime::delta * 2);
 		}
-		bool down = glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS;
+		bool down = glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS;
 		if (down) {
 			t.position += -(t.rotation.up * DeltaTime::delta * 2);
 		}
@@ -68,6 +70,15 @@ void PlayerControlSystem::update()
 		
 		t.rotation = Matrix4::Rotation(Vector3(0, 1, 0), -diff.x / 1000) * t.rotation;
 		t.rotation = Matrix4::Rotation(t.rotation.left, -diff.y / 1000) * t.rotation;
+
+		bool shoot = glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS;
+		if (shoot) {
+			Entity e = Entity::create();
+			e.add(Transform());
+			e.get<Transform>().position = t.position;
+			e.add(Velocity(t.rotation.forward * -5));
+			e.add(PointLight(Vector3(0.25, 0.25, 1), 2));
+		}
 
 	}
 }

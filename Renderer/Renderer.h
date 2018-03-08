@@ -51,7 +51,6 @@ private:
 
 	mutable LightMesh lightMesh;
 
-	Texture* texture{};
 	Matrix4 projection;
 	Matrix4 view;
 };

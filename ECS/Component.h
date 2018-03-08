@@ -1,7 +1,6 @@
 #pragma once
 #include "ComponentMapper.h"
 #include "Aspect.h"
-#include <vector>
 class Components {
 public:
 	static int next_component_id;

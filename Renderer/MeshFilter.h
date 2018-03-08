@@ -4,11 +4,14 @@
 
 COMPONENT(MeshFilter, 16) {
 
-	MeshFilter() : mesh(nullptr) {
+	MeshFilter() : mesh(nullptr), texture(nullptr)
+	{
 	};
 
-	MeshFilter(Mesh* mesh) : mesh(mesh) {
+	MeshFilter(Mesh* mesh, Texture* texture) : mesh(mesh), texture(texture)
+	{
 	};
 
 	Mesh* mesh;
+	Texture* texture;
 };

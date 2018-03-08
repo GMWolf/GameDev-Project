@@ -18,11 +18,13 @@
 #include "CameraTransformSystem.h"
 #include "Camera.h"
 #include "MovementSystem.h"
+#include "../Assets/AssetManager.h"
+#include "VelocitySystem.h"
 
 class Game : public ApplicationAdapter{
 
 public:
-	Game(int width, int height) : width(width), height(height), suzane(nullptr)
+	Game(int width, int height) : width(width), height(height)
 	{
 	}
 
@@ -39,13 +41,17 @@ public:
 
 	void init() override
 	{
+		Mesh* suzane = assetManager.getMesh("models/suzane.obj");
+		Mesh* cube = new Mesh(Mesh::Cube(Vector3(1, 1, 1)));
+		assetManager.manage("cube", cube);
 
-		suzane = MeshLoader::LoadObj("models/suzane.obj");
-		cube = new Mesh(Mesh::Cube(Vector3(1, 1, 1)));
+		Texture* cobble1 = assetManager.getTexture("textures/texture.jpg");
+		Texture* cobble2 = assetManager.getTexture("textures/Cobblestone5_albedo.tga");
 
 
 		SystemManager::addSystem(new PlayerControlSystem(window));
 		SystemManager::addSystem(new CameraTransformSystem());
+		SystemManager::addSystem(new VelocitySystem());
 		SystemManager::addSystem(new Renderer(width, height));
 		SystemManager::addSystem(new RotateSystem());
 		SystemManager::init();
@@ -53,12 +59,12 @@ public:
 		Entity eSuzane = Entity::create();
 		eSuzane.add(Transform());
 		eSuzane.get<Transform>().position = Vector3(1, 0, 0);
-		eSuzane.add(MeshFilter(suzane));
+		eSuzane.add(MeshFilter(suzane, cobble1));
 
 		Entity eSuzane2 = Entity::create();
 		eSuzane2.add(Transform());
 		eSuzane2.get<Transform>().position = Vector3(-1, 0, 0);
-		eSuzane2.add(MeshFilter(suzane));
+		eSuzane2.add(MeshFilter(suzane, cobble2));
 		eSuzane2.add(Rotate(0.01));
 
 		Entity eLightA = Entity::create();
@@ -83,7 +89,7 @@ public:
 
 		Entity floor = Entity::create();
 		floor.add(Transform());
-		floor.add(MeshFilter(cube));
+		floor.add(MeshFilter(cube, cobble2));
 		Transform& ft = floor.get<Transform>();
 		ft.scale = Vector3(100, 0.1, 100);
 		ft.position = Vector3(0, -1, 0);
@@ -93,8 +99,6 @@ public:
 	void end() override
 	{
 		SystemManager::end();
-		delete suzane;
-		delete cube;
 	}
 
 
@@ -106,9 +110,7 @@ private:
 	int width;
 	int height;
 
-	Mesh* suzane;
-	Mesh* cube;
-
+	AssetManager assetManager;
 };
 
 int main(void) {

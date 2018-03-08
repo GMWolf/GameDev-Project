@@ -27,12 +27,18 @@
     <ClCompile Include="MovementSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VelocitySystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RotateSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MovementSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VelocitySystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

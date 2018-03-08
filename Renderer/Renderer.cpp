@@ -42,8 +42,6 @@ void Renderer::init()
 		Vector2(0, 0), Vector2(0, 1), Vector2(1, 1), Vector2(0, 1),
 		Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)));
 
-	texture = ImageLoader::Load("textures/texture.jpg");
-
 	/*texture->bind(0);
 	geometryProgram->Getuniform("diffuseTex") = 0;*/
 
@@ -201,7 +199,7 @@ void Renderer::resolvePass() const
 	lightTexture->bind(0);
 	resolveProgram->Getuniform("lightTex") = 0;
 
-	texture->bind(1);
+	//texture->bind(1);
 	resolveProgram->Getuniform("diffuseTex") = 1;
 
 	resolveProgram->use();
@@ -211,6 +209,7 @@ void Renderer::resolvePass() const
 		resolveProgram->Getuniform("MVP") = mv * model;
 		resolveProgram->Getuniform("model") = model;
 		//std::cout << e.getId() << '\n';
+		e.get<MeshFilter>().texture->bind(1);
 		e.get<MeshFilter>().mesh->draw();
 	}
 }
