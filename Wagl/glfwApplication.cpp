@@ -2,7 +2,7 @@
 #include "DeltaTime.h"
 glfwApplication* glfwApplication::appCallback = nullptr;
 
-glfwApplication::glfwApplication(ApplicationAdapter& app, glfwConfiguration config) 
+glfwApplication::glfwApplication(ApplicationAdapter& app, glfwConfiguration config)
 	: app(app), config(config)
 {
 }
@@ -37,7 +37,7 @@ bool glfwApplication::init()
 	
 	glFrontFace(GL_CCW);
 
-	while (!glfwWindowShouldClose(window))
+	while (!glfwWindowShouldClose(window) && !app.ShouldClose)
 	{
 		DeltaTime::update();
 		glfwGetFramebufferSize(window, &frameBufferWidth, &frameBufferHeight);

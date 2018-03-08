@@ -9,6 +9,7 @@
 #include <System.h>
 #include <EntitySubscription.h>
 #include "LightMesh.h"
+#include "Vector2.h"
 
 class Renderer : public System
 {
@@ -44,6 +45,8 @@ private:
 
 	EntitySubscription& renderEntities;
 	EntitySubscription& lights;
+
+	Vector2 mousePrevious;
 
 	Mesh* quad{};
 

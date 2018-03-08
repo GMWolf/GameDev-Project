@@ -24,6 +24,12 @@ public:
 	void render() override
 	{
 		SystemManager::update();
+
+		if (glfwGetKey(window, GLFW_KEY_ESCAPE))
+		{
+			ShouldClose = true;
+		}
+
 	}
 
 	void init() override
@@ -48,18 +54,18 @@ public:
 
 		Entity eLightA = Entity::create();
 		eLightA.add(Transform());
-		eLightA.get<Transform>().position = Vector3(0 , 0.25, 1.5).xyz;
+		eLightA.get<Transform>().position = Vector3(0 , 1.5, 1.5).xyz;
 		eLightA.add(PointLight(Vector3(0.75, 1, 1)*1, 25));
 
 		Entity eLightsa = Entity::create();
 		eLightsa.add(Transform());
-		eLightsa.get<Transform>().position = Vector3(-1, -0.25, -1).xyz;
-		eLightsa.add(PointLight(Vector3(1, 0.25, 0.25), 2));
+		eLightsa.get<Transform>().position = Vector3(-1, -1, 0.5).xyz;
+		eLightsa.add(PointLight(Vector3(1, 0, 0), 3));
 
 		Entity eLightsb = Entity::create();
 		eLightsb.add(Transform());
-		eLightsb.get<Transform>().position = Vector3(1, -0.25, -1).xyz;
-		eLightsb.add(PointLight(Vector3(0.25, 0.25, 1), 2));
+		eLightsb.get<Transform>().position = Vector3(1, -1, 0.5).xyz;
+		eLightsb.add(PointLight(Vector3(0, 0, 1), 3));
 
 	}
 

@@ -25,7 +25,7 @@ public:
 	}
 
 	inline Vector2 operator-(const Vector2 &rhs) const {
-		return Vector2(x - rhs.y, y - rhs.y);
+		return Vector2(x - rhs.x, y - rhs.y);
 	}
 
 	inline Vector2 operator-(const float rhs) const {

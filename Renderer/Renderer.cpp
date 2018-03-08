@@ -25,6 +25,7 @@ Renderer::~Renderer()
 
 void Renderer::init()
 {
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	//glEnable(GL_DEPTH_TEST);
 	glCullFace(GL_BACK);
 	glEnable(GL_CULL_FACE);
@@ -48,34 +49,55 @@ void Renderer::init()
 
 	projection = Matrix4::Perspective(0.01, 10, width / ((float) height), 60);
 	view = Matrix4::ViewMatrix(Vector3(0, 0, 3), Vector3(0, 0, 0), Vector3(0, 1, 0));
+
+
+	double xpos, ypos;
+	glfwGetCursorPos(window, &xpos, &ypos);
+
+	mousePrevious = Vector2(xpos, ypos);
 }
 
 void Renderer::update()
 {
+	Vector3 pos = view.position;
 	bool left = glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS;
 	if (left) {
-		view.position += (view.left * DeltaTime::delta * 2);
+		pos += (view.left * DeltaTime::delta * 2);
 	}
 	bool right = glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS;
 	if (right) {
-		view.position += -(view.left * DeltaTime::delta * 2);
+		pos += -(view.left * DeltaTime::delta * 2);
 	}
 	bool up = glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS;
 	if (up) {
-		view.position += -(view.up * DeltaTime::delta * 2);
+		pos += -(view.up * DeltaTime::delta * 2);
 	}
 	bool down = glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS;
 	if (down) {
-		view.position += (view.up * DeltaTime::delta * 2);
+		pos += (view.up * DeltaTime::delta * 2);
 	}
 	bool forward = glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS;
 	if (forward) {
-		view.position += (view.forward * DeltaTime::delta * 2);
+		pos += (view.forward * DeltaTime::delta * 2);
 	}
 	bool backward = glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS;
 	if (backward) {
-		view.position += -(view.forward * DeltaTime::delta * 2);
+		pos += -(view.forward * DeltaTime::delta * 2);
 	}
+	view.position = pos.xyz;
+
+	double xpos;
+	double ypos;
+	glfwGetCursorPos(window, &xpos, &ypos);
+	
+	Vector2 cursorPos(xpos, ypos);
+
+	Vector2 diff = cursorPos - mousePrevious;
+	mousePrevious = cursorPos;
+
+	view =  Matrix4::Rotation(Vector3(0, 1, 0), diff.x / 1000) * view;
+	view =  Matrix4::Rotation(view.left, diff.y / 1000) * view;
+
 	render();
 }
 

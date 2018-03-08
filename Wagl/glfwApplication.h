@@ -24,7 +24,7 @@ public:
 	~glfwApplication();
 
 	bool init();
-	
+
 private:
 	static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	static glfwApplication* appCallback;

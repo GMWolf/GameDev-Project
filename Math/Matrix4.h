@@ -198,6 +198,30 @@ public:
 		return m;
 	}
 
+	static Matrix4 Rotation(Vector3 axis, float angle)
+	{
+		Matrix4 m = Matrix4::Identity();
+
+		axis.Normalize();
+
+		float c = cos(angle);
+		float s = sin(angle);
+
+		m.items[0] = (axis.x * axis.x) * (1.0f - c) + c;
+		m.items[1] = (axis.y * axis.x) * (1.0f - c) + (axis.z * s);
+		m.items[2] = (axis.z * axis.x) * (1.0f - c) - (axis.y * s);
+
+		m.items[4] = (axis.x * axis.y) * (1.0f - c) - (axis.z * s);
+		m.items[5] = (axis.y * axis.y) * (1.0f - c) + c;
+		m.items[6] = (axis.z * axis.y) * (1.0f - c) + (axis.x * s);
+
+		m.items[8] = (axis.x * axis.z) * (1.0f - c) + (axis.y * s);
+		m.items[9] = (axis.y * axis.z) * (1.0f - c) - (axis.x * s);
+		m.items[10] = (axis.z * axis.z) * (1.0f - c) + c;
+
+		return m;
+	}
+
 	union {
 		float items[16];
 

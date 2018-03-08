@@ -35,7 +35,6 @@ void main()
 {
 
 	vec2 texCoord = gl_FragCoord.xy / screenSize;
-	//vec3 geoPosition = texture(positionTex, texCoord).xyz;
 	float depth = texture(depthTex, texCoord).r;
 	vec3 geoPosition = WorldPosFromDepth(depth, texCoord);
 	vec3 normal = normalize(texture(normalTex, texCoord).xyz);
