@@ -71,13 +71,7 @@ void VBBuilder::set(int ai, std::vector<T>& data)
 {
 	VertexAttribute attribute = format.attributes[ai];
 
-	if (attribData.find(ai) != attribData.end()) {
-		delete[] attribData[ai];
-	}
-
-	attribData[ai] = new char[data.size() * sizeof(T)];
-
-	memcpy(attribData[ai], data.data(), data.size() * attribute.size());
+	attribData[ai] = (char*) data.data();
 
 	vertexCount = data.size();
 }

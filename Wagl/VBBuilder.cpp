@@ -6,9 +6,6 @@ VBBuilder::VBBuilder(const VertexFormat& format) : format(format), vertexCount(0
 
 VBBuilder::~VBBuilder()
 {
-	for (auto ptr : attribData) {
-		delete[] ptr.second;
-	}
 }
 
 void VBBuilder::setElems(std::vector<int>& elems)
