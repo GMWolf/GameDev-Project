@@ -9,12 +9,14 @@
 #include <Transform.h>
 #include "MeshFilter.h"
 #include "Lights.h"
+#include "Camera.h"
 
 Renderer::Renderer(GLFWwindow* window, int width, int height)
-	: width(width), height(height), 
-	renderEntities(SubscriptionManager::getSubscription(Aspect::getAspect<Transform, MeshFilter>())), 
-	lights(SubscriptionManager::getSubscription(Aspect::getAspect<Transform, PointLight>())),
-	window(window)
+	: width(width), height(height),
+	  renderEntities(SubscriptionManager::getSubscription(Aspect::getAspect<Transform, MeshFilter>())),
+	  lights(SubscriptionManager::getSubscription(Aspect::getAspect<Transform, PointLight>())), 
+	  camera(SubscriptionManager::getSubscription(Aspect::getAspect<Camera>())),
+	  window(window)
 {
 }
 
@@ -47,19 +49,13 @@ void Renderer::init()
 	/*texture->bind(0);
 	geometryProgram->Getuniform("diffuseTex") = 0;*/
 
-	projection = Matrix4::Perspective(0.01, 10, width / ((float) height), 60);
+	projection = Matrix4::Perspective(0.01, 1000, width / ((float) height), 60);
 	view = Matrix4::ViewMatrix(Vector3(0, 0, 3), Vector3(0, 0, 0), Vector3(0, 1, 0));
-
-
-	double xpos, ypos;
-	glfwGetCursorPos(window, &xpos, &ypos);
-
-	mousePrevious = Vector2(xpos, ypos);
 }
 
 void Renderer::update()
 {
-	Vector3 pos = view.position;
+	/*Vector3 pos = view.position;
 	bool left = glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS;
 	if (left) {
 		pos += (view.left * DeltaTime::delta * 2);
@@ -84,19 +80,10 @@ void Renderer::update()
 	if (backward) {
 		pos += -(view.forward * DeltaTime::delta * 2);
 	}
-	view.position = pos.xyz;
+	view.position = pos.xyz;*/
 
-	double xpos;
-	double ypos;
-	glfwGetCursorPos(window, &xpos, &ypos);
-	
-	Vector2 cursorPos(xpos, ypos);
-
-	Vector2 diff = cursorPos - mousePrevious;
-	mousePrevious = cursorPos;
-
-	view =  Matrix4::Rotation(Vector3(0, 1, 0), diff.x / 1000) * view;
-	view =  Matrix4::Rotation(view.left, diff.y / 1000) * view;
+	Entity camEntity = camera.getFirst();
+	view = camEntity.get<Camera>().view;
 
 	render();
 }
@@ -158,8 +145,9 @@ void Renderer::geometryPass() const
 
 	const Matrix4 mv = projection * view;
 	for (Entity e : renderEntities) {
-		geometryProgram->Getuniform("MVP") = mv * e.get<Transform>();
-		geometryProgram->Getuniform("model") = e.get<Transform>();
+		const Matrix4 model = e.get<Transform>().getMatrix();
+		geometryProgram->Getuniform("MVP") = mv * model ;
+		geometryProgram->Getuniform("model") = model;
 		//std::cout << e.getId() << std::endl;
 		e.get<MeshFilter>().mesh->draw();
 	}
@@ -221,8 +209,9 @@ void Renderer::resolvePass() const
 	resolveProgram->use();
 	const Matrix4 mv = projection * view;
 	for (Entity e : renderEntities) {
-		resolveProgram->Getuniform("MVP") = mv * e.get<Transform>();
-		resolveProgram->Getuniform("model") = e.get<Transform>();
+		const Matrix4 model = e.get<Transform>().getMatrix();
+		resolveProgram->Getuniform("MVP") = mv * model;
+		resolveProgram->Getuniform("model") = model;
 		//std::cout << e.getId() << '\n';
 		e.get<MeshFilter>().mesh->draw();
 	}

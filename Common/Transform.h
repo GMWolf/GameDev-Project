@@ -3,16 +3,29 @@
 #include <Matrix4.h>
 #include <Entity.h>
 
-COMPONENT(Transform, 128), Matrix4 {
+COMPONENT(Transform, 128) {
 
-	Transform() : Matrix4(Matrix4::Identity()), parent(-1){
+	Transform() : rotation(Matrix4::Identity()), position(0,0,0), scale(1,1,1), parent(-1){
 	}
 
-	Transform(Matrix4 matrix) : Matrix4(matrix), parent(-1){
+	Transform(Entity parent) : rotation(Matrix4::Identity()),  position(0, 0, 0), scale(1, 1, 1), parent(parent) {
 	}
 
-	Transform(Matrix4 matrix, Entity parent) : Matrix4(matrix),  parent(parent) {
-	}
+
+	Matrix4 rotation;
+	Vector3 position;
+	Vector3 scale;
 
 	Entity parent;
+
+	const Matrix4 getMatrix() const
+	{
+		Matrix4 mat = rotation;
+		mat.items[0] *= scale.x;
+		mat.items[5] *= scale.y;
+		mat.items[10] *= scale.z;
+		mat.position = position.xyz;
+		return mat;
+	}
+
 };

@@ -3,7 +3,6 @@
 
 EntitySubscription::EntitySubscription(Aspect aspect) :  entities(0), aspect(aspect)
 {
-
 }
 
 EntitySubscription::EntitySubscription() : aspect(0) {

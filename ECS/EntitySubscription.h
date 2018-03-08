@@ -22,6 +22,11 @@ public:
 		return entities.end();
 	}
 
+	int getFirst()
+	{
+		return entities.at(0);
+	}
+
 	void markDirty(int entityId);
 
 	const Aspect aspect;

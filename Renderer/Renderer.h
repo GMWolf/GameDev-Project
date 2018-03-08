@@ -45,8 +45,7 @@ private:
 
 	EntitySubscription& renderEntities;
 	EntitySubscription& lights;
-
-	Vector2 mousePrevious;
+	EntitySubscription& camera;
 
 	Mesh* quad{};
 
