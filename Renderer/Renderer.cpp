@@ -11,12 +11,11 @@
 #include "Lights.h"
 #include "Camera.h"
 
-Renderer::Renderer(GLFWwindow* window, int width, int height)
+Renderer::Renderer(int width, int height)
 	: width(width), height(height),
 	  renderEntities(SubscriptionManager::getSubscription(Aspect::getAspect<Transform, MeshFilter>())),
 	  lights(SubscriptionManager::getSubscription(Aspect::getAspect<Transform, PointLight>())), 
-	  camera(SubscriptionManager::getSubscription(Aspect::getAspect<Camera>())),
-	  window(window)
+	  camera(SubscriptionManager::getSubscription(Aspect::getAspect<Camera>()))
 {
 }
 
@@ -27,7 +26,6 @@ Renderer::~Renderer()
 
 void Renderer::init()
 {
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	//glEnable(GL_DEPTH_TEST);
 	glCullFace(GL_BACK);
 	glEnable(GL_CULL_FACE);

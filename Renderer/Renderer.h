@@ -14,7 +14,7 @@
 class Renderer : public System
 {
 public:
-	Renderer(GLFWwindow* window, int width, int height);
+	Renderer(int width, int height);
 	~Renderer();
 
 	void update() override;
@@ -50,8 +50,6 @@ private:
 	Mesh* quad{};
 
 	mutable LightMesh lightMesh;
-
-	GLFWwindow* window;
 
 	Texture* texture{};
 	Matrix4 projection;

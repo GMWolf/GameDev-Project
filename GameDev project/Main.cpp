@@ -46,7 +46,7 @@ public:
 
 		SystemManager::addSystem(new PlayerControlSystem(window));
 		SystemManager::addSystem(new CameraTransformSystem());
-		SystemManager::addSystem(new Renderer(window, width, height));
+		SystemManager::addSystem(new Renderer(width, height));
 		SystemManager::addSystem(new RotateSystem());
 		SystemManager::init();
 

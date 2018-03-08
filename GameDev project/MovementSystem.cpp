@@ -17,6 +17,8 @@ PlayerControlSystem::~PlayerControlSystem()
 
 void PlayerControlSystem::init()
 {
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
 	double xpos, ypos;
 	glfwGetCursorPos(window, &xpos, &ypos);
 
