@@ -56,6 +56,7 @@ public:
 		SystemManager::addSystem(new RotateSystem());
 		SystemManager::init();
 
+
 		Entity eSuzane = Entity::create();
 		eSuzane.add(Transform());
 		eSuzane.get<Transform>().position = Vector3(1, 0, 0);

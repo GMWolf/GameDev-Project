@@ -3,6 +3,7 @@
 #include "Aspect.h"
 #include "EntityManager.h"
 #include "SubscriptionManager.h"
+#include <json.hpp>
 /*
 ** A Wrapper for an entity ID
 ** Lightweight so its ok to pass it around
@@ -16,6 +17,7 @@ public:
 	Entity(int id);
 
 	static Entity create();
+	static Entity create(nlohmann::json);
 	static void destroy(Entity e);
 
 	template<class T>
@@ -52,6 +54,7 @@ private:
 
 };
 
+Entity operator"" _entity(const char* s, std::size_t n);
 
 
 template<class T>

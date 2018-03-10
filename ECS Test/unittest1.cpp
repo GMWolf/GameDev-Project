@@ -5,37 +5,65 @@
 #include <Component.h>
 #include <sstream>
 #include <iterator>
+#include "../json/json.hpp"
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+
+COMPONENT(component1, 16) {
+	component1()
+	{
+	};
+
+	component1(int x, int y) : x(x), y(y) {
+	}
+
+	bool operator==(const component1& rhs) const {
+		return ((x == rhs.x) && (y == rhs.y));
+	}
+
+	int x = -5;
+	int y = -25;
+
+	void load(const nlohmann::json& j)
+	{
+		x = j.at("x").get<int>();
+		y = j.at("y").get<int>();
+	}
+};
+
+
+
+COMPONENT(component2, 16) {
+	component2() {
+	};
+	component2(int foo, int bar) : foo(foo), bar(bar) {
+	}
+
+	int foo = -10;
+	int bar = -25;
+
+	void load(const nlohmann::json& j)
+	{
+		foo = j.at("foo").get<int>();
+		bar = j.at("bar").get<int>();
+	}
+};
+
+
+
+COMPONENT(component3, 16) {
+	component3() {};
+	int huhu;
+	float whaa;
+
+	void load(const nlohmann::json& j)
+	{
+		huhu = j.at("huhu").get<int>();
+		whaa = j.at("whaa").get<float>();
+	}
+};
 
 namespace ECSTest
 {		
-
-	struct component1 : public Component<component1, 16> {
-
-		component1(int x, int y) : x(x), y(y) {
-		}
-
-		bool operator==(const component1& rhs) const {
-			return ((x == rhs.x) && (y == rhs.y));
-		}
-
-		int x = -5;
-		int y = -25;
-	};
-
-	COMPONENT(component2, 16) {
-
-		component2(int foo, int bar) : foo(foo), bar(bar) {
-		}
-
-		int foo = -10;
-		int bar = -25;
-	};
-
-	COMPONENT(component3, 16) {
-		int huhu;
-		float whaa;
-	};
 
 	TEST_CLASS(UnitTest1)
 	{
@@ -222,6 +250,37 @@ namespace ECSTest
 			/*Assert::IsTrue(sub12.entities.empty());
 			Assert::IsTrue(sub2.entities == std::vector<int>{e1.getId()});*/
 
+		}
+
+		TEST_METHOD(ecs_names)
+		{
+			Assert::IsTrue("component1" == component1::componentName);
+			Assert::IsTrue("component2" == component2::componentName);
+			Assert::IsTrue("component3" == component3::componentName);
+		}
+
+		TEST_METHOD(ecs_json)
+		{
+			Entity e = R"(
+				{
+					"component1" : {
+						"x" : 6,
+						"y" : 409
+					},
+					"component2" : {
+						"foo" : -34,
+						"bar" : 88
+					}
+				}
+			)"_entity;
+
+
+			Assert::IsTrue(e.has(Aspect::getAspect<component1>()));
+			Assert::IsTrue(e.has(Aspect::getAspect<component2>()));
+			Assert::IsTrue(e.get<component1>().x == 6);
+			Assert::IsTrue(e.get<component1>().y == 409);
+			Assert::IsTrue(e.get<component2>().foo == -34);
+			Assert::IsTrue(e.get<component2>().bar == 88);
 		}
 		
 

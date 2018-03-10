@@ -24,6 +24,8 @@ public:
 	bool intersects(const Aspect& rhs) const;
 
 	void set(const unsigned int i);
+
+	void set(const Aspect& rhs);
 	
 	template<class component>
 	void set();

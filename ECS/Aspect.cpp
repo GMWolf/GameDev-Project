@@ -33,6 +33,11 @@ void Aspect::set(const unsigned int i)
 	bits |= 1 << i;
 }
 
+void Aspect::set(const Aspect& rhs)
+{
+	bits |= rhs.bits;
+}
+
 
 void Aspect::unset(const unsigned int i)
 {

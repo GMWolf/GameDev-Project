@@ -3,6 +3,7 @@
 #include <Matrix4.h>
 #include <Entity.h>
 
+
 COMPONENT(Transform, 128) {
 
 	Transform() : rotation(Matrix4::Identity()), position(0,0,0), scale(1,1,1), parent(-1){
@@ -27,5 +28,4 @@ COMPONENT(Transform, 128) {
 		mat.position = position.xyz;
 		return mat;
 	}
-
 };

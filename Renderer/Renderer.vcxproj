@@ -94,7 +94,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)soil\src;$(SolutionDir)wagl;$(SolutionDir)Math;$(SolutionDir)glad\include;$(SolutionDir)Wagl-io;$(SolutionDir)ECS;$(SolutionDir)Memory;$(SolutionDir)Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)soil\src;$(SolutionDir)wagl;$(SolutionDir)Math;$(SolutionDir)glad\include;$(SolutionDir)Wagl-io;$(SolutionDir)ECS;$(SolutionDir)Memory;$(SolutionDir)Common;$(SolutionDir)Json;$(SolutionDir)Typestring;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -112,7 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)soil\src;$(SolutionDir)wagl;$(SolutionDir)Math;$(SolutionDir)glad\include;$(SolutionDir)Wagl-io;$(SolutionDir)ECS;$(SolutionDir)Memory;$(SolutionDir)Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)soil\src;$(SolutionDir)wagl;$(SolutionDir)Math;$(SolutionDir)glad\include;$(SolutionDir)Wagl-io;$(SolutionDir)ECS;$(SolutionDir)Memory;$(SolutionDir)Common;$(SolutionDir)Json;$(SolutionDir)Typestring;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -132,7 +132,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)soil\src;$(SolutionDir)wagl;$(SolutionDir)Math;$(SolutionDir)glad\include;$(SolutionDir)Wagl-io;$(SolutionDir)ECS;$(SolutionDir)Memory;$(SolutionDir)Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)soil\src;$(SolutionDir)wagl;$(SolutionDir)Math;$(SolutionDir)glad\include;$(SolutionDir)Wagl-io;$(SolutionDir)ECS;$(SolutionDir)Memory;$(SolutionDir)Common;$(SolutionDir)Json;$(SolutionDir)Typestring;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -154,7 +154,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)soil\src;$(SolutionDir)wagl;$(SolutionDir)Math;$(SolutionDir)glad\include;$(SolutionDir)Wagl-io;$(SolutionDir)ECS;$(SolutionDir)Memory;$(SolutionDir)Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)soil\src;$(SolutionDir)wagl;$(SolutionDir)Math;$(SolutionDir)glad\include;$(SolutionDir)Wagl-io;$(SolutionDir)ECS;$(SolutionDir)Memory;$(SolutionDir)Common;$(SolutionDir)Json;$(SolutionDir)Typestring;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

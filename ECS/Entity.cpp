@@ -7,8 +7,22 @@ Entity::Entity(int id) : id(id)
 
 Entity Entity::create()
 {
-	int id = entityManager.createEntity();
+	const int id = entityManager.createEntity();
 	return Entity(id);
+}
+
+Entity Entity::create(nlohmann::json json)
+{
+	Entity e = create();
+	
+	for (nlohmann::json::iterator it = json.begin(); it != json.end(); ++it) {
+		baseComponentMapper* mapper = baseComponentMapper::mappersByName()->at(it.key());
+		mapper->put(e.getId(), it.value());
+		e.getAspect().set(mapper->getAspect());
+		SubscriptionManager::bitTouched(e.getId(), mapper->getId());
+	}
+
+	return e;
 }
 
 void Entity::destroy(Entity e)
@@ -29,6 +43,11 @@ bool Entity::has(Aspect compare)
 bool Entity::operator==(const Entity & rhs) const
 {
 	return id == rhs.id;
+}
+
+Entity operator ""_entity(const char* s, std::size_t n)
+{
+	return Entity::create(nlohmann::json::parse(s, s + n));
 }
 
 void Entity::clear() {
