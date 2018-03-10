@@ -6,7 +6,7 @@ class ShaderLoader
 {
 public:
 	template<int type>
-	static Shader<type>* Load(std::string file);
+	static wagl::Shader<type>* Load(std::string file);
 
 private:
 
@@ -15,10 +15,10 @@ private:
 };
 
 template<int type>
-Shader<type>* ShaderLoader::Load(std::string file)
+wagl::Shader<type>* ShaderLoader::Load(std::string file)
 {
 	std::string source;
 	File::read(file, source);
 
-	return new Shader<type>(source);
+	return new wagl::Shader<type>(source);
 }

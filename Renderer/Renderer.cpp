@@ -102,7 +102,7 @@ void Renderer::end()
 
 void Renderer::GenerateFBO()
 {
-	geometryBuffer = new FrameBuffer(width, height);
+	geometryBuffer = new wagl::FrameBuffer(width, height);
 	normalTexture = geometryBuffer->createTexture(GL_RGB32F, GL_RGB, GL_FLOAT, GL_COLOR_ATTACHMENT0, true);
 	depthTexture = geometryBuffer->createTexture(GL_DEPTH_COMPONENT32F, GL_DEPTH_COMPONENT, GL_FLOAT, GL_DEPTH_ATTACHMENT, false);
 	
@@ -113,7 +113,7 @@ void Renderer::GenerateFBO()
 	}
 	std::cout << "geometry FB all good" << std::endl;
 
-	lightBuffer = new FrameBuffer(width, height);
+	lightBuffer = new wagl::FrameBuffer(width, height);
 	lightTexture = lightBuffer->createTexture(GL_RGB32F, GL_RGB, GL_FLOAT, GL_COLOR_ATTACHMENT0, true);
 
 	status = lightBuffer->status();

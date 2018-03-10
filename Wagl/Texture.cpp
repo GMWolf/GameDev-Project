@@ -1,9 +1,9 @@
 #include "Texture.h"
 
 
-Texture* Texture::bound;
+wagl::Texture* wagl::Texture::bound;
 
-Texture::Texture(int width, int height, GLenum formatInternal, GLenum format, GLenum type)
+wagl::Texture::Texture(int width, int height, GLenum formatInternal, GLenum format, GLenum type)
 {
 	Texture* preBound = bound;
 
@@ -16,29 +16,29 @@ Texture::Texture(int width, int height, GLenum formatInternal, GLenum format, GL
 	}
 }
 
-Texture::Texture(GLint glTex) : glTex(glTex)
+wagl::Texture::Texture(GLint glTex) : glTex(glTex)
 {
 }
 
-Texture::~Texture()
+wagl::Texture::~Texture()
 {
 	glDeleteTextures(1, &glTex);
 }
 
-void Texture::bind()
+void wagl::Texture::bind()
 {
 	glBindTexture(GL_TEXTURE_2D, glTex);
 	bound = this;
 }
 
-void Texture::bind(GLint textureUnit)
+void wagl::Texture::bind(GLint textureUnit)
 {
 	glActiveTexture(GL_TEXTURE0 + textureUnit);
 	glBindTexture(GL_TEXTURE_2D, glTex);
 	bound = this;
 }
 
-bool Texture::isBound()
+bool wagl::Texture::isBound()
 {
 	return bound == this;
 }

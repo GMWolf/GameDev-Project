@@ -20,7 +20,7 @@ void LightMesh::draw()
 	va.bind();
 	glDrawElements(GL_POINTS, elements.size(), GL_UNSIGNED_INT, (void*)0);
 	//glDrawArrays(GL_POINTS, 0, vertexCount);
-	VertexArray::unbind();
+	wagl::VertexArray::unbind();
 }
 
 void LightMesh::addLight(const Vector3& position, const Vector3& colour, const float radius)
@@ -47,7 +47,7 @@ void LightMesh::updateBuffers()
 {
 	if (!dirty) return;
 
-	VBBuilder builder(format);
+	wagl::VBBuilder builder(format);
 	builder.set(0, positions);
 	builder.set(1, colours);
 	builder.set(2, radii);
@@ -58,7 +58,7 @@ void LightMesh::updateBuffers()
 }
 
 
-const VertexFormat LightMesh::format = {
+const wagl::VertexFormat LightMesh::format = {
 	{GL_FLOAT, 3, "position"},
 	{GL_FLOAT, 3, "colour"},
 	{GL_FLOAT, 1, "radius"}

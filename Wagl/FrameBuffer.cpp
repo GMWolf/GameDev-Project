@@ -2,13 +2,13 @@
 
 
 
-FrameBuffer::FrameBuffer(int width, int height) : width(width), height(height)
+wagl::FrameBuffer::FrameBuffer(int width, int height) : width(width), height(height)
 {
 	glGenFramebuffers(1, &fbo);
 }
 
 
-FrameBuffer::~FrameBuffer()
+wagl::FrameBuffer::~FrameBuffer()
 {
 	glDeleteFramebuffers(1, &fbo);
 	for (Texture* tex : textures) {
@@ -16,7 +16,7 @@ FrameBuffer::~FrameBuffer()
 	}
 }
 
-Texture * FrameBuffer::createTexture(GLenum internalFormat, GLenum format, GLenum type, GLenum attachement, bool drawBuffer)
+wagl::Texture * wagl::FrameBuffer::createTexture(GLenum internalFormat, GLenum format, GLenum type, GLenum attachement, bool drawBuffer)
 {
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fbo);
 	GLuint glTex;
@@ -38,29 +38,29 @@ Texture * FrameBuffer::createTexture(GLenum internalFormat, GLenum format, GLenu
 	return t;
 }
 
-void FrameBuffer::bindRead()
+void wagl::FrameBuffer::bindRead()
 {
 	glBindFramebuffer(GL_READ_FRAMEBUFFER, fbo);
 }
 
-void FrameBuffer::bindDraw()
+void wagl::FrameBuffer::bindDraw()
 {
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fbo);
 }
 
-void FrameBuffer::bind()
+void wagl::FrameBuffer::bind()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 }
 
-void FrameBuffer::blit(GLenum attachement, GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter)
+void wagl::FrameBuffer::blit(GLenum attachement, GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter)
 {
 	bindRead();
 	glReadBuffer(attachement);
 	glBlitFramebuffer(srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
 }
 
-GLenum FrameBuffer::status()
+GLenum wagl::FrameBuffer::status()
 {
 	bind();
 	return glCheckFramebufferStatus(GL_FRAMEBUFFER);

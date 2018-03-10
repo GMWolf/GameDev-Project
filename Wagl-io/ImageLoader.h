@@ -4,7 +4,7 @@
 class ImageLoader
 {
 public:
-	static Texture* Load(std::string file, bool mipmap = true, bool compress = false);
+	static wagl::Texture* Load(std::string file, bool mipmap = true, bool compress = false);
 
 private:
 	ImageLoader();

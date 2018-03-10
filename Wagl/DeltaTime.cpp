@@ -4,9 +4,9 @@
 
 
 
-double DeltaTime::delta = 0;
+double wagl::DeltaTime::delta = 0;
 
-void DeltaTime::update()
+void wagl::DeltaTime::update()
 {
 	delta = glfwGetTime();
 	glfwSetTime(0);

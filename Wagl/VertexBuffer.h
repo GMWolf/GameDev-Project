@@ -2,33 +2,34 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "VertexFormat.h"
+namespace wagl {
+	class VertexBuffer
+	{
+	public:
+		friend class Model;
+		friend class VertexArray;
 
-class VertexBuffer
-{
-public:
-	friend class Model;
-	friend class VertexArray;
+		VertexBuffer(VertexFormat format, int usage);
+		~VertexBuffer();
 
-	VertexBuffer(VertexFormat format, int usage);
-	~VertexBuffer();
+		void setVertexData(const int vertexCount, const void* data);
+		void setElementsData(const int vertexCount, const void* data);
 
-	void setVertexData(const int vertexCount, const void* data);
-	void setElementsData(const int vertexCount, const void* data);
+		void bind();
 
-	void bind();
+	private:
+		int usage;
+		int vertexCount;
+		VertexFormat format;
 
-private:
-	int usage;
-	int vertexCount;
-	VertexFormat format;
+		union {
+			struct {
+				GLuint vbo; //vertex buffer object
+				GLuint ebo; //element buffer object
+			};
 
-	union {
-		struct {
-			GLuint vbo; //vertex buffer object
-			GLuint ebo; //element buffer object
+			GLuint buffers[2];
 		};
 
-		GLuint buffers[2];
 	};
-	
-};
+}

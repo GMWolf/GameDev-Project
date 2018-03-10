@@ -41,11 +41,11 @@ void AssetManager::manage(std::string name, Mesh* mesh)
 	meshMap[name] = mesh;
 }
 
-Texture* AssetManager::getTexture(std::string file)
+wagl::Texture* AssetManager::getTexture(std::string file)
 {
 	if (textureMap.find(file) == textureMap.end())
 	{
-		Texture* texture = ImageLoader::Load(file);
+		wagl::Texture* texture = ImageLoader::Load(file);
 		textureMap[file] = texture;
 		return texture;
 	}

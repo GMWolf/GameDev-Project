@@ -22,9 +22,9 @@ private:
 	std::vector<float> radii{};
 	std::vector<int> elements{};
 
-	
-	VertexBuffer vb;
-	VertexArray va;
+
+	wagl::VertexBuffer vb;
+	wagl::VertexArray va;
 
 	int vertexCount;
 
@@ -32,6 +32,6 @@ private:
 
 	bool dirty;
 
-	static const VertexFormat format;
+	static const wagl::VertexFormat format;
 };
 

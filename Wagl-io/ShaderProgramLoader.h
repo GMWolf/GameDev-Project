@@ -8,7 +8,7 @@ class ShaderProgramLoader
 {
 public:
 
-	static ShaderProgram* Load(std::string file);
+	static wagl::ShaderProgram* Load(std::string file);
 	
 private:
 	ShaderProgramLoader();

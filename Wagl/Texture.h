@@ -2,20 +2,23 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-class Texture
-{
-public:
-	Texture(int width, int height, GLenum formatInternal, GLenum format, GLenum type);
-	Texture(GLint glTex);
-	~Texture();
+namespace wagl {
 
-	void bind();
-	void bind(GLint textureUnit);
+	class Texture
+	{
+	public:
+		Texture(int width, int height, GLenum formatInternal, GLenum format, GLenum type);
+		Texture(GLint glTex);
+		~Texture();
 
-	bool isBound();
-	
-	GLuint glTex;
+		void bind();
+		void bind(GLint textureUnit);
 
-	static Texture* bound;
-};
+		bool isBound();
 
+		GLuint glTex;
+
+		static Texture* bound;
+	};
+
+}

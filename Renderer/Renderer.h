@@ -32,16 +32,16 @@ private:
 	int width;
 	int height;
 
-	FrameBuffer* geometryBuffer{};
-	FrameBuffer* lightBuffer{};
+	wagl::FrameBuffer* geometryBuffer{};
+	wagl::FrameBuffer* lightBuffer{};
 
-	Texture* normalTexture{};
-	Texture* depthTexture{};
-	Texture* lightTexture{};
+	wagl::Texture* normalTexture{};
+	wagl::Texture* depthTexture{};
+	wagl::Texture* lightTexture{};
 
-	ShaderProgram* geometryProgram{};
-	ShaderProgram* lightProgram{};
-	ShaderProgram* resolveProgram{};
+	wagl::ShaderProgram* geometryProgram{};
+	wagl::ShaderProgram* lightProgram{};
+	wagl::ShaderProgram* resolveProgram{};
 
 	EntitySubscription& renderEntities;
 	EntitySubscription& lights;

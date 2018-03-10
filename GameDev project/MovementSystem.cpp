@@ -45,27 +45,27 @@ void PlayerControlSystem::update()
 		
 		bool left = glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS;
 		if (left) {
-			t.position += -(t.rotation.left * DeltaTime::delta * 2);
+			t.position += -(t.rotation.left * wagl::DeltaTime::delta * 2);
 		}
 		bool right = glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS;
 		if (right) {
-			t.position += (t.rotation.left * DeltaTime::delta * 2);
+			t.position += (t.rotation.left * wagl::DeltaTime::delta * 2);
 		}
 		bool up = glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS;
 		if (up) {
-			t.position += (t.rotation.up * DeltaTime::delta * 2);
+			t.position += (t.rotation.up * wagl::DeltaTime::delta * 2);
 		}
 		bool down = glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS;
 		if (down) {
-			t.position += -(t.rotation.up * DeltaTime::delta * 2);
+			t.position += -(t.rotation.up * wagl::DeltaTime::delta * 2);
 		}
 		bool forward = glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS;
 		if (forward) {
-			t.position += -(t.rotation.forward * DeltaTime::delta * 2);
+			t.position += -(t.rotation.forward * wagl::DeltaTime::delta * 2);
 		}
 		bool backward = glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS;
 		if (backward) {
-			t.position += (t.rotation.forward * DeltaTime::delta * 2);
+			t.position += (t.rotation.forward * wagl::DeltaTime::delta * 2);
 		}
 		
 		t.rotation = Matrix4::Rotation(Vector3(0, 1, 0), -diff.x / 1000) * t.rotation;

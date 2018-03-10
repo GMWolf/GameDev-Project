@@ -6,7 +6,7 @@
 
 using json = nlohmann::json;
 
-ShaderProgram * ShaderProgramLoader::Load(std::string file)
+wagl::ShaderProgram * ShaderProgramLoader::Load(std::string file)
 {
 	std::string str;
 	File::read(file, str);
@@ -16,10 +16,10 @@ ShaderProgram * ShaderProgramLoader::Load(std::string file)
 	const std::string vertexFile = j["vertex"].get<std::string>();
 	const std::string fragmentFile = j["fragment"].get<std::string>();
 
-	Shader<GL_VERTEX_SHADER>* vs = ShaderLoader::Load<GL_VERTEX_SHADER>(vertexFile);
-	Shader<GL_FRAGMENT_SHADER>* fs = ShaderLoader::Load<GL_FRAGMENT_SHADER>(fragmentFile);
+	wagl::Shader<GL_VERTEX_SHADER>* vs = ShaderLoader::Load<GL_VERTEX_SHADER>(vertexFile);
+	wagl::Shader<GL_FRAGMENT_SHADER>* fs = ShaderLoader::Load<GL_FRAGMENT_SHADER>(fragmentFile);
 
-	Shader<GL_GEOMETRY_SHADER>* gs = nullptr;
+	wagl::Shader<GL_GEOMETRY_SHADER>* gs = nullptr;
 	if (j.find("geometry") != j.end())
 	{
 		const std::string geometryFile = j["geometry"].get<std::string>();
@@ -27,7 +27,7 @@ ShaderProgram * ShaderProgramLoader::Load(std::string file)
 	}
 
 
-	ShaderProgram* p = new ShaderProgram(vs, gs, fs);
+	wagl::ShaderProgram* p = new wagl::ShaderProgram(vs, gs, fs);
 	delete vs;
 	delete fs;
 	delete gs;

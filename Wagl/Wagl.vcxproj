@@ -145,11 +145,9 @@
     <ClInclude Include="ApplicationAdapter.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="glfwApplication.h" />
-    <ClInclude Include="Material.h" />
     <ClInclude Include="VertexArray.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="VBBuilder.h" />
-    <ClInclude Include="Model.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Texture.h" />
@@ -160,11 +158,9 @@
     <ClCompile Include="ApplicationAdapter.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="glfwApplication.cpp" />
-    <ClCompile Include="Material.cpp" />
     <ClCompile Include="VertexArray.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="VBBuilder.cpp" />
-    <ClCompile Include="Model.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="DeltaTime.cpp" />

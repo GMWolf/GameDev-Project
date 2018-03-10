@@ -5,41 +5,44 @@
 #include <string>
 #include <initializer_list>
 
-struct VertexAttribute
-{
-	VertexAttribute(GLenum type, GLsizei elementCount, std::string alias);
+namespace wagl {
 
-	GLenum type;
-	GLsizei elementCount;
-	std::string alias;
+	struct VertexAttribute
+	{
+		VertexAttribute(GLenum type, GLsizei elementCount, std::string alias);
 
-	int size() const;
+		GLenum type;
+		GLsizei elementCount;
+		std::string alias;
 
-	bool operator==(const VertexAttribute& rhs) const;
-};
+		int size() const;
 
-class VertexFormat
-{
-public:
-	VertexFormat();
-	~VertexFormat();
+		bool operator==(const VertexAttribute& rhs) const;
+	};
 
-	VertexFormat(std::initializer_list<const VertexAttribute> attributes);
-	
-	VertexFormat& add(VertexAttribute attribute);
+	class VertexFormat
+	{
+	public:
+		VertexFormat();
+		~VertexFormat();
 
-	const VertexAttribute& findAttribute(std::string alias, bool& found) const;
+		VertexFormat(std::initializer_list<const VertexAttribute> attributes);
 
-	int getAttributeNumber(VertexAttribute attribute) const;
+		VertexFormat& add(VertexAttribute attribute);
 
-	int getStride() const;
-	int getOffset(int attributeNumber) const;
+		const VertexAttribute& findAttribute(std::string alias, bool& found) const;
 
-	std::vector<VertexAttribute> attributes;
-private:
-	void markDirty();
-	mutable int stride;
-	mutable int* offsets;
-};
+		int getAttributeNumber(VertexAttribute attribute) const;
 
-int GetGLTypeSize(int type);
+		int getStride() const;
+		int getOffset(int attributeNumber) const;
+
+		std::vector<VertexAttribute> attributes;
+	private:
+		void markDirty();
+		mutable int stride;
+		mutable int* offsets;
+	};
+
+	int GetGLTypeSize(int type);
+}

@@ -8,10 +8,10 @@ COMPONENT(MeshFilter, 16) {
 	{
 	};
 
-	MeshFilter(Mesh* mesh, Texture* texture) : mesh(mesh), texture(texture)
+	MeshFilter(Mesh* mesh, wagl::Texture* texture) : mesh(mesh), texture(texture)
 	{
 	};
 
 	Mesh* mesh;
-	Texture* texture;
+	wagl::Texture* texture;
 };

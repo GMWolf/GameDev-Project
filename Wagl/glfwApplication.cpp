@@ -1,18 +1,18 @@
 #include "glfwApplication.h"
 #include "DeltaTime.h"
-glfwApplication* glfwApplication::appCallback = nullptr;
+wagl::glfwApplication* wagl::glfwApplication::appCallback = nullptr;
 
-glfwApplication::glfwApplication(ApplicationAdapter& app, glfwConfiguration config)
+wagl::glfwApplication::glfwApplication(ApplicationAdapter& app, glfwConfiguration config)
 	: app(app), config(config)
 {
 }
 
 
-glfwApplication::~glfwApplication()
+wagl::glfwApplication::~glfwApplication()
 {
 }
 
-bool glfwApplication::init()
+bool wagl::glfwApplication::init()
 {
 	if (!glfwInit()) {
 		return false;
@@ -59,7 +59,7 @@ bool glfwApplication::init()
 	return true;
 }
 
-void glfwApplication::keyCallback(GLFWwindow * window, int key, int scancode, int action, int mods)
+void wagl::glfwApplication::keyCallback(GLFWwindow * window, int key, int scancode, int action, int mods)
 {
 	appCallback->app.keyCallback(window, key, scancode, action, mods);
 }

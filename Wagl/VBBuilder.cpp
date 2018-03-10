@@ -1,25 +1,25 @@
 #include "VBBuilder.h"
 
-VBBuilder::VBBuilder(const VertexFormat& format) : format(format), vertexCount(0)
+wagl::VBBuilder::VBBuilder(const VertexFormat& format) : format(format), vertexCount(0)
 {
 }
 
-VBBuilder::~VBBuilder()
+wagl::VBBuilder::~VBBuilder()
 {
 }
 
-void VBBuilder::setElems(std::vector<int>& elems)
+void wagl::VBBuilder::setElems(std::vector<int>& elems)
 {
 	elements = elems;
 }
 
-void VBBuilder::setElems(std::initializer_list<int> elements)
+void wagl::VBBuilder::setElems(std::initializer_list<int> elements)
 {
 	std::vector<int> v(elements);
 	setElems(v);
 }
 
-VertexBuffer * VBBuilder::build()
+wagl::VertexBuffer * wagl::VBBuilder::build()
 {
 	VertexBuffer* vb = new VertexBuffer(format, GL_STATIC_DRAW);
 
@@ -28,7 +28,7 @@ VertexBuffer * VBBuilder::build()
 	return vb;
 }
 
-void VBBuilder::update(VertexBuffer & vb)
+void wagl::VBBuilder::update(VertexBuffer & vb)
 {
 	char* vertData = new char[format.getStride() * vertexCount];
 

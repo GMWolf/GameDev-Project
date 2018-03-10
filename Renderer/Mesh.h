@@ -31,7 +31,7 @@ public:
 	MeshData operator+(Mesh& rhs);
 
 
-	VertexBuffer vertexBuffer;
+	wagl::VertexBuffer vertexBuffer;
 	union {
 		struct {
 			std::vector<Vector3> positions;
@@ -53,20 +53,20 @@ public:
 
 	static MeshData Cube(Vector3 size);
 
-	static const VertexFormat format;
+	static const wagl::VertexFormat format;
 	
 	struct Attributes {
-		static const VertexAttribute POSITION;
-		static const VertexAttribute TEXTURE_COORDINATES;
-		static const VertexAttribute COLOUR;
-		static const VertexAttribute NORMAL;
+		static const wagl::VertexAttribute POSITION;
+		static const wagl::VertexAttribute TEXTURE_COORDINATES;
+		static const wagl::VertexAttribute COLOUR;
+		static const wagl::VertexAttribute NORMAL;
 	};
 
 private:
 
 	void combine_internal(Mesh& other);
 
-	VertexArray vertexArray;
+	wagl::VertexArray vertexArray;
 	
 	int vertexCount;
 };

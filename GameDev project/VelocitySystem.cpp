@@ -13,7 +13,7 @@ void VelocitySystem::update()
 {
 	for (Entity e : velE)
 	{
-		e.get<Transform>().position += e.get<Velocity>().v * DeltaTime::delta;
+		e.get<Transform>().position += e.get<Velocity>().v * wagl::DeltaTime::delta;
 	}
 }
 

@@ -2,7 +2,7 @@
 #include "ImageLoader.h"
 #include <SOIL.h>
 
-Texture * ImageLoader::Load(std::string file, bool mipmap, bool compress)
+wagl::Texture * ImageLoader::Load(std::string file, bool mipmap, bool compress)
 {
 	unsigned int flags = 0;
 	if (mipmap) {
@@ -14,7 +14,7 @@ Texture * ImageLoader::Load(std::string file, bool mipmap, bool compress)
 	}
 
 	const GLint glTex = SOIL_load_OGL_texture(file.c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, flags);
-	return new Texture(glTex);
+	return new wagl::Texture(glTex);
 }
 
 ImageLoader::ImageLoader()

@@ -2,31 +2,31 @@
 #include <iostream>
 
 
-VertexFormat::VertexFormat()
+wagl::VertexFormat::VertexFormat()
 {
 	markDirty();
 }
 
 
-VertexFormat::~VertexFormat()
+wagl::VertexFormat::~VertexFormat()
 {
 }
 
-VertexFormat::VertexFormat(std::initializer_list<const VertexAttribute> attributes) {
+wagl::VertexFormat::VertexFormat(std::initializer_list<const VertexAttribute> attributes) {
 	for (VertexAttribute a : attributes) {
 		add(a);
 	}
 	markDirty();
 }
 
-VertexFormat & VertexFormat::add(VertexAttribute attribute)
+wagl::VertexFormat & wagl::VertexFormat::add(VertexAttribute attribute)
 {
 	attributes.emplace_back(attribute);
 	markDirty();
 	return *this;
 }
 
-const VertexAttribute & VertexFormat::findAttribute(std::string alias, bool& found) const
+const wagl::VertexAttribute & wagl::VertexFormat::findAttribute(std::string alias, bool& found) const
 {
 	for (VertexAttribute attribute : attributes) {
 		if (attribute.alias == alias) {
@@ -39,7 +39,7 @@ const VertexAttribute & VertexFormat::findAttribute(std::string alias, bool& fou
 	return attributes.at(0);
 }
 
-int VertexFormat::getAttributeNumber(const VertexAttribute attribute) const
+int wagl::VertexFormat::getAttributeNumber(const VertexAttribute attribute) const
 {
 	for (int i = 0; i < attributes.size(); i++) {
 		if (attributes[i] == attribute) {
@@ -49,7 +49,7 @@ int VertexFormat::getAttributeNumber(const VertexAttribute attribute) const
 	return -1;
 }
 
-int VertexFormat::getStride() const 
+int wagl::VertexFormat::getStride() const 
 {
 	if (stride < 0) {
 		stride = 0;
@@ -61,7 +61,7 @@ int VertexFormat::getStride() const
 	return stride;
 }
 
-int VertexFormat::getOffset(int attributeNumber) const
+int wagl::VertexFormat::getOffset(int attributeNumber) const
 {
 	if (offsets == nullptr) {
 		offsets = new int[attributes.size()];
@@ -75,7 +75,7 @@ int VertexFormat::getOffset(int attributeNumber) const
 	return offsets[attributeNumber];
 }
 
-void VertexFormat::markDirty()
+void wagl::VertexFormat::markDirty()
 {
 	stride = -1;
 	delete[] offsets;
@@ -84,16 +84,16 @@ void VertexFormat::markDirty()
 
 
 
-VertexAttribute::VertexAttribute(GLenum type, GLsizei elementCount, std::string alias)
+wagl::VertexAttribute::VertexAttribute(GLenum type, GLsizei elementCount, std::string alias)
 	: type(type), elementCount(elementCount), alias(alias)
 {
 }
 
-inline int VertexAttribute::size() const {
+inline int wagl::VertexAttribute::size() const {
 	return GetGLTypeSize(type) * elementCount;
 }
 
-bool VertexAttribute::operator==(const VertexAttribute & rhs) const
+bool wagl::VertexAttribute::operator==(const VertexAttribute & rhs) const
 {
 	return type == rhs.type && elementCount == rhs.elementCount && alias == rhs.alias;
 }
@@ -114,7 +114,7 @@ case base##_##MAT3x4: return (baseSize * 12); \
 case base##_##MAT4x2: return (baseSize * 8); \
 case base##_##MAT4x3: return (baseSize * 12);
 
-int GetGLTypeSize(int type)
+int wagl::GetGLTypeSize(int type)
 {
 	switch (type) {
 	case GL_FLOAT: return 4;

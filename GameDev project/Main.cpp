@@ -21,7 +21,7 @@
 #include "../Assets/AssetManager.h"
 #include "VelocitySystem.h"
 
-class Game : public ApplicationAdapter{
+class Game : public wagl::ApplicationAdapter{
 
 public:
 	Game(int width, int height) : width(width), height(height)
@@ -45,8 +45,8 @@ public:
 		Mesh* cube = new Mesh(Mesh::Cube(Vector3(1, 1, 1)));
 		assetManager.manage("cube", cube);
 
-		Texture* cobble1 = assetManager.getTexture("textures/texture.jpg");
-		Texture* cobble2 = assetManager.getTexture("textures/Cobblestone5_albedo.tga");
+		wagl::Texture* cobble1 = assetManager.getTexture("textures/texture.jpg");
+		wagl::Texture* cobble2 = assetManager.getTexture("textures/Cobblestone5_albedo.tga");
 
 
 		SystemManager::addSystem(new PlayerControlSystem(window));
@@ -114,15 +114,14 @@ private:
 };
 
 int main(void) {
-
-	glfwConfiguration config;
+	wagl::glfwConfiguration config;
 	config.title = "yo!";
 	config.width = 1280;
 	config.height = 720;
 
 	//Game game;
 	Game game(config.width, config.height);
-	glfwApplication app(game, config);
+	wagl::glfwApplication app(game, config);
 	app.init();
 
 	return 0;

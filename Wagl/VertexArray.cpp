@@ -2,7 +2,7 @@
 
 
 
-VertexArray::VertexArray(VertexBuffer& vb)
+wagl::VertexArray::VertexArray(VertexBuffer& vb)
 {
 	glGenVertexArrays(1, &vao);
 
@@ -22,7 +22,7 @@ VertexArray::VertexArray(VertexBuffer& vb)
 	glBindVertexArray(0);
 }
 
-VertexArray::VertexArray(VertexBuffer & vb, ShaderProgram & shd)
+wagl::VertexArray::VertexArray(VertexBuffer & vb, ShaderProgram & shd)
 {
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
@@ -42,17 +42,17 @@ VertexArray::VertexArray(VertexBuffer & vb, ShaderProgram & shd)
 
 
 
-VertexArray::~VertexArray()
+wagl::VertexArray::~VertexArray()
 {
 	glDeleteVertexArrays(1, &vao);
 }
 
-void VertexArray::bind() const
+void wagl::VertexArray::bind() const
 {
 	glBindVertexArray(vao);
 }
 
-void VertexArray::unbind()
+void wagl::VertexArray::unbind()
 {
 	glBindVertexArray(0);
 }
