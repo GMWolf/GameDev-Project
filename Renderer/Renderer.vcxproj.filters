@@ -45,6 +45,9 @@
     <ClInclude Include="CameraTransformSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Icosphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -63,6 +66,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CameraTransformSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Icosphere.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

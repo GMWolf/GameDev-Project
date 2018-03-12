@@ -22,16 +22,26 @@ private:
 	std::vector<float> radii{};
 	std::vector<int> elements{};
 
+	
 
-	wagl::VertexBuffer vb;
-	wagl::VertexArray va;
+	wagl::VertexBuffer instancePos_vb;
+	wagl::VertexBuffer instanceCol_vb;
+	wagl::VertexBuffer instanceR_vb;
+	wagl::VertexBuffer sphere_vb;
+	unsigned int sphereElementCount;
 
-	int vertexCount;
+	GLuint va;
+
+	int lightCount;
+
+
+
+	void generateSphereMesh();
 
 	void updateBuffers();
 
 	bool dirty;
 
-	static const wagl::VertexFormat format;
+	static const wagl::VertexFormat sphere_format;
 };
 

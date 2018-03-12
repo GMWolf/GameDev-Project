@@ -103,8 +103,8 @@ void Renderer::end()
 void Renderer::GenerateFBO()
 {
 	geometryBuffer = new wagl::FrameBuffer(width, height);
-	normalTexture = geometryBuffer->createTexture(GL_RGB32F, GL_RGB, GL_FLOAT, GL_COLOR_ATTACHMENT0, true);
-	depthTexture = geometryBuffer->createTexture(GL_DEPTH_COMPONENT32F, GL_DEPTH_COMPONENT, GL_FLOAT, GL_DEPTH_ATTACHMENT, false);
+	normalTexture = geometryBuffer->createTexture(GL_RGB16F, GL_RGB, GL_HALF_FLOAT, GL_COLOR_ATTACHMENT0, true);
+	depthTexture = geometryBuffer->createTexture(GL_DEPTH_COMPONENT16, GL_DEPTH_COMPONENT, GL_HALF_FLOAT, GL_DEPTH_ATTACHMENT, false);
 	
 	GLenum status = geometryBuffer->status();
 	if (status != GL_FRAMEBUFFER_COMPLETE) {
@@ -172,7 +172,8 @@ void Renderer::lightPass() const
 	lightBuffer->bindDraw();
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	lightProgram->Getuniform("view") = view;
+	//lightProgram->Getuniform("view") = view;
+	lightProgram->Getuniform("MVP") = projection * view;
 	lightProgram->Getuniform("invView") = view.inverse();
 	lightProgram->Getuniform("invProjection") = projection.inverse();
 

@@ -1,11 +1,45 @@
 #include "stdafx.h"
 #include "LightMesh.h"
 #include "VBBuilder.h"
+#include "Icosphere.h"
 
 
-LightMesh::LightMesh() : vb(format, GL_STATIC_DRAW),
-                         va(vb), vertexCount(0), dirty(true)
+LightMesh::LightMesh() : instancePos_vb({ { GL_FLOAT, 3, "position" } }, GL_STREAM_DRAW),
+						 instanceCol_vb({ {GL_FLOAT, 3, "colour"} }, GL_STREAM_DRAW),
+						 instanceR_vb({ { GL_FLOAT, 1, "radius" } }, GL_STREAM_DRAW),
+						 sphere_vb(LightMesh::sphere_format, GL_STATIC_DRAW)
 {
+	generateSphereMesh();
+
+	glGenVertexArrays(1, &va);
+	glBindVertexArray(va);
+
+	sphere_vb.bind();
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glEnableVertexAttribArray(0);
+
+	instancePos_vb.bind();
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glEnableVertexAttribArray(1);
+
+	instanceCol_vb.bind();
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glEnableVertexAttribArray(2);
+
+	instanceR_vb.bind();
+	glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glEnableVertexAttribArray(3);
+
+	sphere_vb.bind();
+
+
+	glVertexAttribDivisor(0, 0);
+	glVertexAttribDivisor(1, 1);
+	glVertexAttribDivisor(2, 1);
+	glVertexAttribDivisor(3, 1);
+
+	glBindVertexArray(0);
+
 	updateBuffers();
 }
 
@@ -17,10 +51,10 @@ LightMesh::~LightMesh()
 void LightMesh::draw()
 {
 	updateBuffers();
-	va.bind();
-	glDrawElements(GL_POINTS, elements.size(), GL_UNSIGNED_INT, (void*)0);
-	//glDrawArrays(GL_POINTS, 0, vertexCount);
-	wagl::VertexArray::unbind();
+	glBindVertexArray(va);
+	//glDrawElements(GL_POINTS, elements.size(), GL_UNSIGNED_INT, (void*)0);
+	glDrawElementsInstanced(GL_TRIANGLES, sphereElementCount, GL_UNSIGNED_INT, (void*)0, lightCount);
+	glBindVertexArray(0);
 }
 
 void LightMesh::addLight(const Vector3& position, const Vector3& colour, const float radius)
@@ -28,8 +62,8 @@ void LightMesh::addLight(const Vector3& position, const Vector3& colour, const f
 	positions.push_back(position);
 	colours.push_back(colour);
 	radii.push_back(radius);
-	elements.push_back(vertexCount);
-	vertexCount++;
+	elements.push_back(lightCount);
+	lightCount++;
 	dirty = true;
 }
 
@@ -39,27 +73,35 @@ void LightMesh::clear()
 	colours.clear();
 	radii.clear();
 	elements.clear();
-	vertexCount = 0;
+	lightCount = 0;
 	dirty = true;
+}
+
+
+void LightMesh::generateSphereMesh()
+{
+	std::vector<Vector3> vertices;
+	std::vector<unsigned int> elements;
+
+	Icosphere::generate(1, elements, vertices);
+
+	sphere_vb.setVertexData(vertices.size(), vertices.data());
+	sphere_vb.setElementsData(elements.size(), elements.data());
+
+	sphereElementCount = elements.size();
 }
 
 void LightMesh::updateBuffers()
 {
 	if (!dirty) return;
 
-	wagl::VBBuilder builder(format);
-	builder.set(0, positions);
-	builder.set(1, colours);
-	builder.set(2, radii);
-	builder.setElems(elements);
-	builder.update(vb);
+	instancePos_vb.setVertexData(positions.size(), positions.data());
+	instanceCol_vb.setVertexData(colours.size(), colours.data());
+	instanceR_vb.setVertexData(radii.size(), radii.data());
 	
 	dirty = false;
 }
 
-
-const wagl::VertexFormat LightMesh::format = {
-	{GL_FLOAT, 3, "position"},
-	{GL_FLOAT, 3, "colour"},
-	{GL_FLOAT, 1, "radius"}
+const wagl::VertexFormat LightMesh::sphere_format = {
+	{ GL_FLOAT, 3, "position" }
 };

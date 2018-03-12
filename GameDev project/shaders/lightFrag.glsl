@@ -33,7 +33,6 @@ vec3 WorldPosFromDepth(float depth, vec2 texCoord) {
 
 void main() 
 {
-
 	vec2 texCoord = gl_FragCoord.xy / screenSize;
 	float depth = texture(depthTex, texCoord).r;
 	vec3 geoPosition = WorldPosFromDepth(depth, texCoord);
@@ -42,15 +41,18 @@ void main()
 	
 	vec3 lightDir = IN.Position - geoPosition;
 	float lightDist = length(lightDir);
+	
 	lightDir /= lightDist;
 	
-	float intensity = (IN.Radius - lightDist) / IN.Radius;
+	float intensity = ((IN.Radius - lightDist) / IN.Radius) * max(dot(lightDir, normal), 0.0f)  ;
 	
-	if (intensity < 0.01) {
+	if (intensity <= 0.01f) {
 		discard;
 	}
 	
-	vec3 light = IN.Colour * intensity * dot(lightDir, normal);
-	LightOut = light;
+	
+	vec3 light = IN.Colour * intensity ;
+	
+	LightOut = clamp(light, 0.f, 1.0f);
 	//LightOut = vec3(geoPosition.xyz);
 }

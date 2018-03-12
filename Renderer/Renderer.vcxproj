@@ -169,6 +169,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraTransformSystem.h" />
+    <ClInclude Include="Icosphere.h" />
     <ClInclude Include="LightMesh.h" />
     <ClInclude Include="Lights.h" />
     <ClInclude Include="Mesh.h" />
@@ -180,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraTransformSystem.cpp" />
+    <ClCompile Include="Icosphere.cpp" />
     <ClCompile Include="LightMesh.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshLoader.cpp" />
