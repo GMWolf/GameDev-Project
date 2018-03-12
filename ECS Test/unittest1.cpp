@@ -6,6 +6,7 @@
 #include <sstream>
 #include <iterator>
 #include "../json/json.hpp"
+#include "Event.h"
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 COMPONENT(component1, 16) {
@@ -281,6 +282,37 @@ namespace ECSTest
 			Assert::IsTrue(e.get<component1>().y == 409);
 			Assert::IsTrue(e.get<component2>().foo == -34);
 			Assert::IsTrue(e.get<component2>().bar == 88);
+		}
+
+		EVENT(event1)
+		{
+			event1(int x, int y) : x(x), y(y)
+			{
+			};
+			int x;
+			int y;
+		};
+
+		TEST_METHOD(events)
+		{
+			EventQueue<event1> queue;
+
+			Assert::IsTrue(queue.events.empty());
+
+			event1::Emit(1, 2);
+
+			Assert::IsTrue(queue.events.size() == 1);
+			Assert::IsTrue(queue.events.back().x = 1);
+			Assert::IsTrue(queue.events.back().y = 2);
+
+			event1::Emit(4, 6);
+			Assert::IsTrue(queue.events.size() == 2);
+			Assert::IsTrue(queue.events.front().x = 1);
+			Assert::IsTrue(queue.events.front().y = 2);
+			queue.events.pop();
+			Assert::IsTrue(queue.events.size() == 1);
+			Assert::IsTrue(queue.events.front().x = 4);
+			Assert::IsTrue(queue.events.front().y = 5);
 		}
 		
 

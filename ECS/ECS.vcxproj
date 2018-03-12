@@ -130,8 +130,10 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentMapper.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityEvents.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="EntitySubscription.h" />
+    <ClInclude Include="Event.h" />
     <ClInclude Include="SubscriptionManager.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="SystemManager.h" />

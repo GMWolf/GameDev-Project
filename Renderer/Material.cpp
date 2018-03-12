@@ -2,10 +2,6 @@
 #include "Material.h"
 
 
-Pass::Pass()
-{
-}
-
 Material::Material()
 {
 }

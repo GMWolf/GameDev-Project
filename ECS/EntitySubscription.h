@@ -1,9 +1,12 @@
 #pragma once
 #include <vector>
-#include <map>
 #include "Aspect.h"
-#include <Pool.h>
 #include <DynBitset.h>
+
+class EntitySubscriptionObserver
+{
+	
+};
 
 class EntitySubscription
 {
