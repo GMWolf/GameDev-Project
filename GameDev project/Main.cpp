@@ -50,7 +50,7 @@ public:
 		wagl::Texture* cobble2N = assetManager.getTexture("textures/Cobblestone5_normal.tga");
 
 
-
+		
 		SystemManager::addSystem(new PlayerControlSystem(window));
 		SystemManager::addSystem(new CameraTransformSystem());
 		SystemManager::addSystem(new VelocitySystem());
