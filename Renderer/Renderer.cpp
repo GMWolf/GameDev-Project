@@ -32,10 +32,11 @@ void Renderer::init()
 	GenerateFBO();
 
 	geometryProgram = ShaderProgramLoader::Load("shaders/geometry.shd");
-	lightProgram = ShaderProgramLoader::Load("shaders/light.shd");
+	
 	resolveProgram = ShaderProgramLoader::Load("shaders/simpleDiffuse.shd");
 	resolveProgram->Getuniform("screenSize") = Vector2(width, height);
-
+	
+	lightProgram = ShaderProgramLoader::Load("shaders/light.shd");
 	lightProgram->Getuniform("screenSize") = Vector2(width, height);
 
 	quad = new Mesh(Mesh::Quad(Vector3(-1, -1, 0), Vector3(1, -1, 0), Vector3(1, 1, 0), Vector3(-1, 1, 0),
@@ -139,11 +140,14 @@ void Renderer::geometryPass() const
 	
 	geometryProgram->use();
 
+//	geometryProgram->Getuniform("normalTex") = 0;
+
 	const Matrix4 mv = projection * view;
 	for (Entity e : renderEntities) {
 		const Matrix4 model = e.get<Transform>().getMatrix();
 		geometryProgram->Getuniform("MVP") = mv * model ;
 		geometryProgram->Getuniform("model") = model;
+		e.get<MeshFilter>().normal->bind(0);
 		//std::cout << e.getId() << std::endl;
 		e.get<MeshFilter>().mesh->draw();
 	}

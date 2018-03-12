@@ -58,7 +58,7 @@ void main()
 	//phong
 	vec3 reflectDir = reflect(-lightDir, normal);
 	float specAngle = max(dot(reflectDir, normalize(-viewVertPos.xyz)), 0.0f);
-	float specular = pow(specAngle, 4.0f) * apparentLight;
+	float specular = pow(specAngle, 4.f) * apparentLight * 0.25;
 	
 	
 	

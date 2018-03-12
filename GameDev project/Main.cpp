@@ -47,6 +47,8 @@ public:
 
 		wagl::Texture* cobble1 = assetManager.getTexture("textures/texture.jpg");
 		wagl::Texture* cobble2 = assetManager.getTexture("textures/Cobblestone5_albedo.tga");
+		wagl::Texture* cobble2N = assetManager.getTexture("textures/Cobblestone5_normal.tga");
+
 
 
 		SystemManager::addSystem(new PlayerControlSystem(window));
@@ -60,13 +62,15 @@ public:
 		Entity eSuzane = Entity::create();
 		eSuzane.add(Transform());
 		eSuzane.get<Transform>().position = Vector3(1, 0, 0);
-		eSuzane.add(MeshFilter(suzane, cobble1));
+		eSuzane.add(MeshFilter(suzane, cobble2));
+		eSuzane.get<MeshFilter>().normal = cobble2N;
 
 		Entity eSuzane2 = Entity::create();
 		eSuzane2.add(Transform());
 		eSuzane2.get<Transform>().position = Vector3(-1, 0, 0);
 		eSuzane2.add(MeshFilter(suzane, cobble2));
 		eSuzane2.add(Rotate(0.01));
+		eSuzane2.get<MeshFilter>().normal = cobble2N;
 
 		Entity eLightA = Entity::create();
 		eLightA.add(Transform());
@@ -91,9 +95,11 @@ public:
 		Entity floor = Entity::create();
 		floor.add(Transform());
 		floor.add(MeshFilter(cube, cobble2));
+		floor.get<MeshFilter>().normal = cobble2N;
 		Transform& ft = floor.get<Transform>();
-		ft.scale = Vector3(100, 0.1, 100);
-		ft.position = Vector3(0, -1, 0);
+		ft.scale = Vector3(20, 20, 20);
+		ft.position = Vector3(0, -11, 0);
+
 
 	}
 

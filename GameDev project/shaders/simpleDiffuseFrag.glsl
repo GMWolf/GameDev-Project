@@ -5,11 +5,12 @@ layout (location = 0) out vec3 FragOut;
 in Vertex {
 	vec3 Position;
 	vec3 Normal;
+	vec3 Tangent;
+	vec3 Bitangent;
 	vec2 TexCoord;
 } IN;
 
 uniform vec2 screenSize;
-
 uniform sampler2D diffuseTex;
 uniform sampler2D lightTex;
 

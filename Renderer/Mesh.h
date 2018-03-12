@@ -42,8 +42,6 @@ public:
 		MeshData data;
 	};
 
-
-
 	static MeshData Triangle(const Vector3& p0, const Vector3& p1, const Vector3& p2,
 		const Vector2& t0, const Vector2& t1, const Vector2& t2,
 		const Vector3& n0, const Vector3& n1, const Vector3& n2);
@@ -60,9 +58,16 @@ public:
 		static const wagl::VertexAttribute TEXTURE_COORDINATES;
 		static const wagl::VertexAttribute COLOUR;
 		static const wagl::VertexAttribute NORMAL;
+		static const wagl::VertexAttribute TANGENT;
+		static const wagl::VertexAttribute BITANGENT;
 	};
 
 private:
+
+	std::vector<Vector3> tangents;
+	std::vector<Vector3> bitangents;
+
+	void computeTangents();
 
 	void combine_internal(Mesh& other);
 

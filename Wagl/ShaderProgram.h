@@ -76,7 +76,7 @@ namespace wagl {
 		GLuint fragmentShader;
 		GLuint geometryShader;
 
-		GLuint program;
+		GLuint program{};
 	};
 
 }

@@ -29,7 +29,7 @@ public:
 	}
 
 	inline Vector3 operator-(const Vector3 &rhs) const {
-		return Vector3(x - rhs.y, y - rhs.y, z - rhs.z);
+		return Vector3(x - rhs.x, y - rhs.y, z - rhs.z);
 	}
 
 	inline Vector3 operator-(const float rhs) const {
@@ -132,6 +132,11 @@ public:
 			y *= l;
 			z *= l;
 		}
+	}
+
+	static float Dot(const Vector3& lhs, const Vector3& rhs)
+	{
+		return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z;
 	}
 
 	static Vector3 Cross(const Vector3& lhs, const Vector3& rhs) {
