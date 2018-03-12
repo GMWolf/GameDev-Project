@@ -7,6 +7,7 @@
 #include <iterator>
 #include "../json/json.hpp"
 #include "Event.h"
+#include "EntityEvents.h"
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 COMPONENT(component1, 16) {
@@ -241,15 +242,23 @@ namespace ECSTest
 
 			Logger::WriteMessage(std::to_string(sub12.entities.size()).c_str());
 			Assert::IsTrue(sub12.entities.empty());
-			//Assert::IsTrue(sub2.entities.empty());
+			Assert::IsTrue(sub2.entities.empty());
 
 			Entity e1 = Entity::create();
 			Entity e2 = Entity::create();
 
-			//e1.add(component1(0,0));
+			e1.add(component2(0,0));
+			SubscriptionManager::update();
+			Assert::IsTrue(sub12.entities.empty());
+			std::ostringstream oss1;
 
-			/*Assert::IsTrue(sub12.entities.empty());
-			Assert::IsTrue(sub2.entities == std::vector<int>{e1.getId()});*/
+			oss1 << "foo:";
+			for(auto e : sub2.entities)
+			{
+				oss1 << e << " , ";
+			}
+			Logger::WriteMessage(oss1.str().c_str());
+			Assert::IsTrue(sub2.entities == std::vector<int>{e1.getId()});
 
 		}
 
@@ -282,6 +291,8 @@ namespace ECSTest
 			Assert::IsTrue(e.get<component1>().y == 409);
 			Assert::IsTrue(e.get<component2>().foo == -34);
 			Assert::IsTrue(e.get<component2>().bar == 88);
+
+			Entity::destroy(e);
 		}
 
 		EVENT(event1)
@@ -313,6 +324,42 @@ namespace ECSTest
 			Assert::IsTrue(queue.events.size() == 1);
 			Assert::IsTrue(queue.events.front().x = 4);
 			Assert::IsTrue(queue.events.front().y = 5);
+		}
+
+		TEST_METHOD(entity_events)
+		{
+			EventQueue<EntityInserted<component1, component3>> inqueue;
+			EventQueue<EntityRemoved<component1, component3>> outqueue;
+			
+			Logger::WriteMessage(std::to_string(inqueue.events.size()).c_str());
+			Assert::IsTrue(inqueue.events.empty());
+
+			Entity e = Entity::create();
+			e.add(component1(1, 2));
+			
+			SubscriptionManager::update();
+			Assert::IsTrue(inqueue.events.empty());
+
+			e.add(component3());
+			SubscriptionManager::update();
+			
+			Assert::IsTrue(inqueue.events.size() == 1);
+			
+			e.add(component2(3, 1));
+			SubscriptionManager::update();
+			Assert::IsTrue(inqueue.events.size() == 1);
+		
+			Assert::IsTrue(outqueue.events.empty());
+			
+			e.remove<component3>();
+			SubscriptionManager::update();
+			Assert::IsTrue(outqueue.events.size() == 1);
+			e.remove<component1>();
+			Assert::IsTrue(outqueue.events.size() == 1);
+
+			Entity::destroy(e);
+
+
 		}
 		
 

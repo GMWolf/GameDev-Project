@@ -11,14 +11,28 @@ EntitySubscription::EntitySubscription() : aspect(0) {
 
 void EntitySubscription::update()
 {
-	if (dirtyEntityIds.size() > 0 /*|| deadEntityIds.size() > 0*/) {
+	if (dirtyEntityIds.size() > 0) {
 		for (int i = 0; i < dirtyEntityIds.size(); i++) {
 
 			if (dirtyEntityIds[i]) {
 				if (Entity(i).has(aspect)) {
+					if (!entityIds[i])
+					{
+						for(auto o : observers)
+						{
+							o->onInsert(i);
+						}
+					}
 					entityIds.set(i);
 				}
 				else {
+					if (entityIds[i])
+					{
+						for (auto o : observers)
+						{
+							o->onRemove(i);
+						}
+					}
 					entityIds.reset(i);
 				}
 			}

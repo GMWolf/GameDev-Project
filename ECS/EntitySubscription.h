@@ -5,7 +5,10 @@
 
 class EntitySubscriptionObserver
 {
-	
+public:
+	virtual ~EntitySubscriptionObserver() = default;
+	virtual void onInsert(int entityId) = 0;
+	virtual void onRemove(int entityId) = 0;
 };
 
 class EntitySubscription
@@ -31,6 +34,8 @@ public:
 	}
 
 	void markDirty(int entityId);
+
+	std::vector<EntitySubscriptionObserver*> observers;
 
 	const Aspect aspect;
 private:

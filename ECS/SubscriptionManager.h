@@ -1,5 +1,6 @@
 #pragma once
 #include "EntitySubscription.h"
+#include <map>
 
 class SubscriptionManager
 {
@@ -7,8 +8,7 @@ public:
 
 	static void update();
 
-	static void bitTouched(int entityId, unsigned bit);
-
+	static void bitTouched(int entityId, unsigned int bit);
 
 	static EntitySubscription& getSubscription(const Aspect aspect);
 
