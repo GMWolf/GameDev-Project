@@ -25,4 +25,6 @@ private:
 	EntitySubscription & playerControled;
 	GLFWwindow* window;
 	Vector2 mousePrevious;
+
+	bool SpaceReleased;
 };

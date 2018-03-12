@@ -86,7 +86,7 @@ void Renderer::update()
 
 void Renderer::render() const
 {
-	glClearColor(0, 0, 0, 1);
+	glClearColor(0, 0, 0, 0);
 
 	geometryPass();
 	lightPass();
@@ -104,7 +104,7 @@ void Renderer::GenerateFBO()
 {
 	geometryBuffer = new wagl::FrameBuffer(width, height);
 	normalTexture = geometryBuffer->createTexture(GL_RGB16F, GL_RGB, GL_HALF_FLOAT, GL_COLOR_ATTACHMENT0, true);
-	depthTexture = geometryBuffer->createTexture(GL_DEPTH_COMPONENT16, GL_DEPTH_COMPONENT, GL_HALF_FLOAT, GL_DEPTH_ATTACHMENT, false);
+	depthTexture = geometryBuffer->createTexture(GL_DEPTH_COMPONENT32F, GL_DEPTH_COMPONENT, GL_HALF_FLOAT, GL_DEPTH_ATTACHMENT, false);
 	
 	GLenum status = geometryBuffer->status();
 	if (status != GL_FRAMEBUFFER_COMPLETE) {
@@ -114,7 +114,7 @@ void Renderer::GenerateFBO()
 	std::cout << "geometry FB all good" << std::endl;
 
 	lightBuffer = new wagl::FrameBuffer(width, height);
-	lightTexture = lightBuffer->createTexture(GL_RGB32F, GL_RGB, GL_FLOAT, GL_COLOR_ATTACHMENT0, true);
+	lightTexture = lightBuffer->createTexture(GL_RGBA32F, GL_RGBA, GL_FLOAT, GL_COLOR_ATTACHMENT0, true);
 
 	status = lightBuffer->status();
 	if (status != GL_FRAMEBUFFER_COMPLETE) {

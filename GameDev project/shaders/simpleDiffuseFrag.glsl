@@ -18,9 +18,9 @@ void main()
 
 	vec2 texCoord = gl_FragCoord.xy / screenSize;
 	
-	vec3 light = texture(lightTex, texCoord).xyz;
+	vec4 light = texture(lightTex, texCoord);
 	vec3 diffuse = texture(diffuseTex, IN.TexCoord).xyz;
 	
-	FragOut = diffuse * light;
+	FragOut = (diffuse * light.rgb) + (light.a * vec3(1.0f, 1.0f, 1.0f));
 	//FragOut = vec3(0.5, 0.5, 0.5);
 }
