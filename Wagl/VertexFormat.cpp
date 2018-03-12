@@ -2,7 +2,7 @@
 #include <iostream>
 
 
-wagl::VertexFormat::VertexFormat()
+wagl::VertexFormat::VertexFormat() : offsets(nullptr)
 {
 	markDirty();
 }
@@ -12,7 +12,7 @@ wagl::VertexFormat::~VertexFormat()
 {
 }
 
-wagl::VertexFormat::VertexFormat(std::initializer_list<const VertexAttribute> attributes) {
+wagl::VertexFormat::VertexFormat(std::initializer_list<const VertexAttribute> attributes)  : offsets(nullptr){
 	for (VertexAttribute a : attributes) {
 		add(a);
 	}
@@ -28,7 +28,7 @@ wagl::VertexFormat & wagl::VertexFormat::add(VertexAttribute attribute)
 
 const wagl::VertexAttribute & wagl::VertexFormat::findAttribute(std::string alias, bool& found) const
 {
-	for (VertexAttribute attribute : attributes) {
+	for (const VertexAttribute& attribute : attributes) {
 		if (attribute.alias == alias) {
 			found = true;
 			return attribute;
