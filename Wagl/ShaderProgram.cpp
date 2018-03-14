@@ -139,6 +139,17 @@ wagl::ShaderProgram::Uniform::Uniform(GLuint program, GLint location, GLenum typ
 {
 }
 
+void wagl::ShaderProgram::Uniform::operator=(bool rhs) const
+{
+	if (location == -1) return;
+	if(type != GL_BOOL)
+	{
+		std::cout << "Cannot assign GLboolean to uniform" << std::endl;
+		return;
+	}
+	glProgramUniform1i(program, location, rhs);
+}
+
 void wagl::ShaderProgram::Uniform::operator=(GLint rhs) const
 {
 	if (location == -1) return;

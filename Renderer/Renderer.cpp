@@ -42,6 +42,7 @@ void Renderer::init()
 	u_geometry_model = geometryProgram->Getuniform("model");
 	u_geometry_normal = geometryProgram->Getuniform("normalTex");
 	u_geometry_roughness = geometryProgram->Getuniform("roughnessTex");
+	u_geometry_flipNormals = geometryProgram->Getuniform("flipNormals");
 	std::cout << "light\n";
 	u_light_MVP = lightProgram->Getuniform("MVP");
 	u_light_invView = lightProgram->Getuniform("invView");
@@ -52,7 +53,6 @@ void Renderer::init()
 	u_resolve_light_texture = resolveProgram->Getuniform("lightTex");
 	u_resolve_diffuse_texture = resolveProgram->Getuniform("diffuseTex");
 	u_resolve_MVP = resolveProgram->Getuniform("MVP");
-	u_resolve_model = resolveProgram->Getuniform("model");
 
 
 	projection = Matrix4::Perspective(0.01, 1000, width / ((float) height), 60);
@@ -125,6 +125,8 @@ void Renderer::geometryPass() const
 	u_geometry_normal = 0;
 	u_geometry_roughness = 1;
 
+	u_geometry_flipNormals = true;
+
 	const Matrix4 mv = projection * view;
 	for (Entity e : renderEntities) {
 		const Matrix4 model = e.get<Transform>().getMatrix();
@@ -196,7 +198,6 @@ void Renderer::resolvePass() const
 	for (Entity e : renderEntities) {
 		const Matrix4 model = e.get<Transform>().getMatrix();
 		u_resolve_MVP = mv * model;
-		u_resolve_model = model;
 		//std::cout << e.getId() << '\n';
 		e.get<MeshFilter>().texture->bind(1);
 		e.get<MeshFilter>().mesh->draw();

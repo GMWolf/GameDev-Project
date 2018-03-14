@@ -12,14 +12,19 @@ layout (location = 0) out vec4 NROut;
 
 uniform sampler2D normalTex; 
 uniform sampler2D roughnessTex;
+uniform bool flipNormals;
 
 void main() 
 {
 
 	mat3 TBN = mat3(IN.Tangent, IN.Bitangent, IN.Normal);
 	
-    //DiffuseOut = texture(diffuseTex, IN.TexCoord).xyz; 
-    NROut.xyz = TBN * normalize(texture(normalTex, IN.TexCoord).rgb * 2.0 - 1.0);
+	
+	vec3 normal = normalize(texture(normalTex, IN.TexCoord).rgb * 2.0 - 1.0);
+	if (flipNormals) { //Dynamically uniform
+		normal *= vec3(1, -1, 1);
+	}
+	
+    NROut.xyz = TBN * normal;
 	NROut.a = texture(roughnessTex, IN.TexCoord).r;
-	//NormalOut = normalize(IN.Tangent);
 }

@@ -20,6 +20,7 @@ namespace wagl {
 
 			Uniform(GLuint program, GLint location, GLenum type, GLsizei size);
 
+			void operator=(bool rhs) const;
 			void operator=(GLint rhs) const;
 			void operator=(GLuint rhs) const;
 			void operator=(GLfloat rhs) const;

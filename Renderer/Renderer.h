@@ -51,6 +51,7 @@ private:
 	wagl::ShaderProgram::Uniform u_geometry_model;
 	wagl::ShaderProgram::Uniform u_geometry_normal;
 	wagl::ShaderProgram::Uniform u_geometry_roughness;
+	wagl::ShaderProgram::Uniform u_geometry_flipNormals;
 
 	wagl::ShaderProgram::Uniform u_light_MVP;
 	wagl::ShaderProgram::Uniform u_light_invView;
@@ -61,7 +62,6 @@ private:
 	wagl::ShaderProgram::Uniform u_resolve_light_texture;
 	wagl::ShaderProgram::Uniform u_resolve_diffuse_texture;
 	wagl::ShaderProgram::Uniform u_resolve_MVP;
-	wagl::ShaderProgram::Uniform u_resolve_model;
 
 
 	Matrix4 projection;
