@@ -358,8 +358,6 @@ namespace ECSTest
 			Assert::IsTrue(outqueue.events.size() == 1);
 
 			Entity::destroy(e);
-
-
 		}
 		
 

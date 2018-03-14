@@ -34,6 +34,8 @@ namespace wagl {
 			GLenum type;
 			GLsizei size;
 			GLint location;
+
+			static Uniform invalid;
 		};
 
 		struct Attribute {

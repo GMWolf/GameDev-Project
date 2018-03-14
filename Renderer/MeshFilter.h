@@ -15,4 +15,5 @@ COMPONENT(MeshFilter, 16) {
 	Mesh* mesh;
 	wagl::Texture* texture;
 	wagl::Texture* normal;
+	wagl::Texture* roughness;
 };

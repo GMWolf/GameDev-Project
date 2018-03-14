@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "AssetManager.h"
-#include "../Renderer/meshLoader.h"
-#include "../Wagl-io/ImageLoader.h"
+#include "MeshLoader.h"
+#include "ImageLoader.h"
+#include "ShaderProgramLoader.h"
 
 
 AssetManager::AssetManager()
@@ -52,5 +53,18 @@ wagl::Texture* AssetManager::getTexture(std::string file)
 	else
 	{
 		return textureMap[file];
+	}
+}
+
+wagl::ShaderProgram* AssetManager::getShaderProgram(std::string file)
+{
+	if (shaderPrograms.find(file) == shaderPrograms.end())
+	{
+		wagl::ShaderProgram* shader = ShaderProgramLoader::Load(file);
+		shaderPrograms[file] = shader;
+		return shader;
+	} else
+	{
+		return shaderPrograms[file];
 	}
 }

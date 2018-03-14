@@ -20,6 +20,7 @@
 #include "MovementSystem.h"
 #include "../Assets/AssetManager.h"
 #include "VelocitySystem.h"
+#include "Mesh.h"
 
 class Game : public wagl::ApplicationAdapter{
 
@@ -48,6 +49,7 @@ public:
 		wagl::Texture* cobble1 = assetManager.getTexture("textures/texture.jpg");
 		wagl::Texture* cobble2 = assetManager.getTexture("textures/Cobblestone5_albedo.tga");
 		wagl::Texture* cobble2N = assetManager.getTexture("textures/Cobblestone5_normal.tga");
+		wagl::Texture* cobble2R = assetManager.getTexture("textures/Cobblestone5_roughness.tga");
 
 
 		
@@ -64,6 +66,7 @@ public:
 		eSuzane.get<Transform>().position = Vector3(1, 0, 0);
 		eSuzane.add(MeshFilter(suzane, cobble2));
 		eSuzane.get<MeshFilter>().normal = cobble2N;
+		eSuzane.get<MeshFilter>().roughness = cobble2R;
 
 		Entity eSuzane2 = Entity::create();
 		eSuzane2.add(Transform());
@@ -71,6 +74,7 @@ public:
 		eSuzane2.add(MeshFilter(suzane, cobble2));
 		eSuzane2.add(Rotate(0.01));
 		eSuzane2.get<MeshFilter>().normal = cobble2N;
+		eSuzane2.get<MeshFilter>().roughness = cobble2R;
 
 		Entity eLightA = Entity::create();
 		eLightA.add(Transform());
@@ -96,6 +100,7 @@ public:
 		floor.add(Transform());
 		floor.add(MeshFilter(cube, cobble2));
 		floor.get<MeshFilter>().normal = cobble2N;
+		floor.get<MeshFilter>().roughness = cobble2R;
 		Transform& ft = floor.get<Transform>();
 		ft.scale = Vector3(20, 20, 20);
 		ft.position = Vector3(0, -11, 0);

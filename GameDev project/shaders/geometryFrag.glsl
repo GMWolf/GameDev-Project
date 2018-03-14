@@ -8,9 +8,10 @@ in Vertex {
 	vec2 TexCoord;
 } IN;
 
-layout (location = 0) out vec3 NormalOut;
+layout (location = 0) out vec4 NROut;
 
 uniform sampler2D normalTex; 
+uniform sampler2D roughnessTex;
 
 void main() 
 {
@@ -18,6 +19,7 @@ void main()
 	mat3 TBN = mat3(IN.Tangent, IN.Bitangent, IN.Normal);
 	
     //DiffuseOut = texture(diffuseTex, IN.TexCoord).xyz; 
-    NormalOut = TBN * normalize(texture(normalTex, IN.TexCoord).rgb * 2.0 - 1.0);
+    NROut.xyz = TBN * normalize(texture(normalTex, IN.TexCoord).rgb * 2.0 - 1.0);
+	NROut.a = texture(roughnessTex, IN.TexCoord).r;
 	//NormalOut = normalize(IN.Tangent);
 }

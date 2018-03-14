@@ -94,14 +94,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)soil\src;$(SolutionDir)wagl;$(SolutionDir)Math;$(SolutionDir)glad\include;$(SolutionDir)Wagl-io;$(SolutionDir)ECS;$(SolutionDir)Memory;$(SolutionDir)Common;$(SolutionDir)Json;$(SolutionDir)Typestring;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)soil\src;$(SolutionDir)wagl;$(SolutionDir)Math;$(SolutionDir)glad\include;$(SolutionDir)ECS;$(SolutionDir)Memory;$(SolutionDir)Common;$(SolutionDir)Json;$(SolutionDir)Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl_io.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -112,14 +112,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)soil\src;$(SolutionDir)wagl;$(SolutionDir)Math;$(SolutionDir)glad\include;$(SolutionDir)Wagl-io;$(SolutionDir)ECS;$(SolutionDir)Memory;$(SolutionDir)Common;$(SolutionDir)Json;$(SolutionDir)Typestring;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)soil\src;$(SolutionDir)wagl;$(SolutionDir)Math;$(SolutionDir)glad\include;$(SolutionDir)ECS;$(SolutionDir)Memory;$(SolutionDir)Common;$(SolutionDir)Json;$(SolutionDir)Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl_io.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -132,7 +132,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)soil\src;$(SolutionDir)wagl;$(SolutionDir)Math;$(SolutionDir)glad\include;$(SolutionDir)Wagl-io;$(SolutionDir)ECS;$(SolutionDir)Memory;$(SolutionDir)Common;$(SolutionDir)Json;$(SolutionDir)Typestring;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)soil\src;$(SolutionDir)wagl;$(SolutionDir)Math;$(SolutionDir)glad\include;$(SolutionDir)ECS;$(SolutionDir)Memory;$(SolutionDir)Common;$(SolutionDir)Json;$(SolutionDir)Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -141,7 +141,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl_io.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -154,7 +154,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)soil\src;$(SolutionDir)wagl;$(SolutionDir)Math;$(SolutionDir)glad\include;$(SolutionDir)Wagl-io;$(SolutionDir)ECS;$(SolutionDir)Memory;$(SolutionDir)Common;$(SolutionDir)Json;$(SolutionDir)Typestring;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)soil\src;$(SolutionDir)wagl;$(SolutionDir)Math;$(SolutionDir)glad\include;$(SolutionDir)ECS;$(SolutionDir)Memory;$(SolutionDir)Common;$(SolutionDir)Json;$(SolutionDir)Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -163,7 +163,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl_io.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -172,10 +172,7 @@
     <ClInclude Include="Icosphere.h" />
     <ClInclude Include="LightMesh.h" />
     <ClInclude Include="Lights.h" />
-    <ClInclude Include="Material.h" />
-    <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshFilter.h" />
-    <ClInclude Include="MeshLoader.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -184,9 +181,6 @@
     <ClCompile Include="CameraTransformSystem.cpp" />
     <ClCompile Include="Icosphere.cpp" />
     <ClCompile Include="LightMesh.cpp" />
-    <ClCompile Include="Material.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="MeshLoader.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

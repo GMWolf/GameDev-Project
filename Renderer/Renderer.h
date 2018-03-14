@@ -4,12 +4,10 @@
 #include <ShaderProgram.h>
 #include <Texture.h>
 #include <Matrix4.h>
-#include "Mesh.h"
 #include <FrameBuffer.h>
 #include <System.h>
 #include <EntitySubscription.h>
 #include "LightMesh.h"
-#include "Vector2.h"
 
 class Renderer : public System
 {
@@ -35,7 +33,7 @@ private:
 	wagl::FrameBuffer* geometryBuffer{};
 	wagl::FrameBuffer* lightBuffer{};
 
-	wagl::Texture* normalTexture{};
+	wagl::Texture* NRTexture{}; //Normal + roughness
 	wagl::Texture* depthTexture{};
 	wagl::Texture* lightTexture{};
 
@@ -47,9 +45,24 @@ private:
 	EntitySubscription& lights;
 	EntitySubscription& camera;
 
-	Mesh* quad{};
-
 	mutable LightMesh lightMesh;
+
+	wagl::ShaderProgram::Uniform u_geometry_MVP;
+	wagl::ShaderProgram::Uniform u_geometry_model;
+	wagl::ShaderProgram::Uniform u_geometry_normal;
+	wagl::ShaderProgram::Uniform u_geometry_roughness;
+
+	wagl::ShaderProgram::Uniform u_light_MVP;
+	wagl::ShaderProgram::Uniform u_light_invView;
+	wagl::ShaderProgram::Uniform u_light_invProjection;
+	wagl::ShaderProgram::Uniform u_light_depth_texture;
+	wagl::ShaderProgram::Uniform u_light_nr_texture;
+
+	wagl::ShaderProgram::Uniform u_resolve_light_texture;
+	wagl::ShaderProgram::Uniform u_resolve_diffuse_texture;
+	wagl::ShaderProgram::Uniform u_resolve_MVP;
+	wagl::ShaderProgram::Uniform u_resolve_model;
+
 
 	Matrix4 projection;
 	Matrix4 view;

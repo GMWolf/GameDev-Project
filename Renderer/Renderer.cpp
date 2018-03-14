@@ -2,14 +2,12 @@
 #include "Renderer.h"
 #include <iostream>
 #include <Vector3.h>
-#include <DeltaTime.h>
-#include <ShaderProgramLoader.h>
-#include <ImageLoader.h>
-#include "meshLoader.h"
 #include <Transform.h>
 #include "MeshFilter.h"
 #include "Lights.h"
 #include "Camera.h"
+#include "ShaderProgramLoader.h"
+
 
 Renderer::Renderer(int width, int height)
 	: width(width), height(height),
@@ -33,18 +31,29 @@ void Renderer::init()
 
 	geometryProgram = ShaderProgramLoader::Load("shaders/geometry.shd");
 	
-	resolveProgram = ShaderProgramLoader::Load("shaders/simpleDiffuse.shd");
+	resolveProgram = ShaderProgramLoader::Load("shaders/resolve.shd");
 	resolveProgram->Getuniform("screenSize") = Vector2(width, height);
 	
 	lightProgram = ShaderProgramLoader::Load("shaders/light.shd");
 	lightProgram->Getuniform("screenSize") = Vector2(width, height);
 
-	quad = new Mesh(Mesh::Quad(Vector3(-1, -1, 0), Vector3(1, -1, 0), Vector3(1, 1, 0), Vector3(-1, 1, 0),
-		Vector2(0, 0), Vector2(0, 1), Vector2(1, 1), Vector2(0, 1),
-		Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0)));
+	std::cout << "geometry\n";
+	u_geometry_MVP = geometryProgram->Getuniform("MVP");
+	u_geometry_model = geometryProgram->Getuniform("model");
+	u_geometry_normal = geometryProgram->Getuniform("normalTex");
+	u_geometry_roughness = geometryProgram->Getuniform("roughnessTex");
+	std::cout << "light\n";
+	u_light_MVP = lightProgram->Getuniform("MVP");
+	u_light_invView = lightProgram->Getuniform("invView");
+	u_light_invProjection = lightProgram->Getuniform("invProjection");
+	u_light_depth_texture = lightProgram->Getuniform("depthTex");
+	u_light_nr_texture = lightProgram->Getuniform("NRTex");
+	std::cout << "resolve\n";
+	u_resolve_light_texture = resolveProgram->Getuniform("lightTex");
+	u_resolve_diffuse_texture = resolveProgram->Getuniform("diffuseTex");
+	u_resolve_MVP = resolveProgram->Getuniform("MVP");
+	u_resolve_model = resolveProgram->Getuniform("model");
 
-	/*texture->bind(0);
-	geometryProgram->Getuniform("diffuseTex") = 0;*/
 
 	projection = Matrix4::Perspective(0.01, 1000, width / ((float) height), 60);
 	view = Matrix4::ViewMatrix(Vector3(0, 0, 3), Vector3(0, 0, 0), Vector3(0, 1, 0));
@@ -52,33 +61,6 @@ void Renderer::init()
 
 void Renderer::update()
 {
-	/*Vector3 pos = view.position;
-	bool left = glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS;
-	if (left) {
-		pos += (view.left * DeltaTime::delta * 2);
-	}
-	bool right = glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS;
-	if (right) {
-		pos += -(view.left * DeltaTime::delta * 2);
-	}
-	bool up = glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS;
-	if (up) {
-		pos += -(view.up * DeltaTime::delta * 2);
-	}
-	bool down = glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS;
-	if (down) {
-		pos += (view.up * DeltaTime::delta * 2);
-	}
-	bool forward = glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS;
-	if (forward) {
-		pos += (view.forward * DeltaTime::delta * 2);
-	}
-	bool backward = glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS;
-	if (backward) {
-		pos += -(view.forward * DeltaTime::delta * 2);
-	}
-	view.position = pos.xyz;*/
-
 	Entity camEntity = camera.getFirst();
 	view = camEntity.get<Camera>().view;
 
@@ -104,7 +86,7 @@ void Renderer::end()
 void Renderer::GenerateFBO()
 {
 	geometryBuffer = new wagl::FrameBuffer(width, height);
-	normalTexture = geometryBuffer->createTexture(GL_RGB16F, GL_RGB, GL_HALF_FLOAT, GL_COLOR_ATTACHMENT0, true);
+	NRTexture = geometryBuffer->createTexture(GL_RGB16F, GL_RGBA, GL_HALF_FLOAT, GL_COLOR_ATTACHMENT0, true);
 	depthTexture = geometryBuffer->createTexture(GL_DEPTH_COMPONENT32F, GL_DEPTH_COMPONENT, GL_HALF_FLOAT, GL_DEPTH_ATTACHMENT, false);
 	
 	GLenum status = geometryBuffer->status();
@@ -140,14 +122,16 @@ void Renderer::geometryPass() const
 	
 	geometryProgram->use();
 
-//	geometryProgram->Getuniform("normalTex") = 0;
+	u_geometry_normal = 0;
+	u_geometry_roughness = 1;
 
 	const Matrix4 mv = projection * view;
 	for (Entity e : renderEntities) {
 		const Matrix4 model = e.get<Transform>().getMatrix();
-		geometryProgram->Getuniform("MVP") = mv * model ;
-		geometryProgram->Getuniform("model") = model;
+		u_geometry_MVP = mv * model ;
+		u_geometry_model = model;
 		e.get<MeshFilter>().normal->bind(0);
+		e.get<MeshFilter>().roughness->bind(1);
 		//std::cout << e.getId() << std::endl;
 		e.get<MeshFilter>().mesh->draw();
 	}
@@ -177,15 +161,15 @@ void Renderer::lightPass() const
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	//lightProgram->Getuniform("view") = view;
-	lightProgram->Getuniform("MVP") = projection * view;
-	lightProgram->Getuniform("invView") = view.inverse();
-	lightProgram->Getuniform("invProjection") = projection.inverse();
+	u_light_MVP = projection * view;
+	u_light_invView = view.inverse();
+	u_light_invProjection = projection.inverse();
 
 	depthTexture->bind(0);
-	lightProgram->Getuniform("depthTex") = 0;
+	u_light_depth_texture = 0;
 
-	normalTexture->bind(2);
-	lightProgram->Getuniform("normalTex") = 2;
+	NRTexture->bind(2);
+	u_light_nr_texture = 2;
 	
 	lightProgram->use();
 
@@ -202,17 +186,17 @@ void Renderer::resolvePass() const
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	lightTexture->bind(0);
-	resolveProgram->Getuniform("lightTex") = 0;
+	u_resolve_light_texture = 0;
 
 	//texture->bind(1);
-	resolveProgram->Getuniform("diffuseTex") = 1;
+	u_resolve_diffuse_texture = 1;
 
 	resolveProgram->use();
 	const Matrix4 mv = projection * view;
 	for (Entity e : renderEntities) {
 		const Matrix4 model = e.get<Transform>().getMatrix();
-		resolveProgram->Getuniform("MVP") = mv * model;
-		resolveProgram->Getuniform("model") = model;
+		u_resolve_MVP = mv * model;
+		u_resolve_model = model;
 		//std::cout << e.getId() << '\n';
 		e.get<MeshFilter>().texture->bind(1);
 		e.get<MeshFilter>().mesh->draw();

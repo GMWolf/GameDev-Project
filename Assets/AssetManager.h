@@ -1,7 +1,7 @@
 #pragma once
 #include <map>
-#include "../Renderer/Mesh.h"
 #include "Texture.h"
+#include "Mesh.h"
 
 class AssetManager
 {
@@ -14,8 +14,11 @@ public:
 
 	wagl::Texture* getTexture(std::string file);
 
+	wagl::ShaderProgram* getShaderProgram(std::string file);
+
 private:
 	std::map<std::string, Mesh*> meshMap;
 	std::map<std::string, wagl::Texture*> textureMap;
+	std::map<std::string, wagl::ShaderProgram*> shaderPrograms;
 };
 

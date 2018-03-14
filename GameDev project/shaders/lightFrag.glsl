@@ -9,7 +9,7 @@ uniform mat4 invProjection;
 
 
 uniform sampler2D depthTex;
-uniform sampler2D normalTex;
+uniform sampler2D NRTex;
 
 in Vertex {
 	vec3 Position;
@@ -37,7 +37,9 @@ void main()
 	float depth = texture(depthTex, texCoord).r;
 	vec4 viewVertPos = ViewPosFromDepth(depth, texCoord);
 	vec4 worldVertPos = invView * viewVertPos;
-	vec3 normal = normalize(texture(normalTex, texCoord).xyz);
+	vec4 NR = texture(NRTex, texCoord);
+	vec3 normal = normalize(NR.xyz);
+	float roughness = NR.a;
 	
 	
 	vec3 lightDir = IN.Position - worldVertPos.xyz;
@@ -58,7 +60,7 @@ void main()
 	//phong
 	vec3 reflectDir = reflect(-lightDir, normal);
 	float specAngle = max(dot(reflectDir, normalize(-viewVertPos.xyz)), 0.0f);
-	float specular = pow(specAngle, 4.f) * apparentLight * 0.25;
+	float specular = pow(specAngle, 4.f) * apparentLight / (8.f * roughness);
 	
 	
 	

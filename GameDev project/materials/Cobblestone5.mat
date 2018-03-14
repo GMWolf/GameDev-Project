@@ -1,4 +1,5 @@
 {
 	"diffuse" : "textures/Cobblestone5_albedo.tga",
-	"normal" :  "textures/Cobblestone5_normal.tga"
+	"normal" :  "textures/Cobblestone5_normal.tga",
+	"roughness":"textures/Cobblestone5_roughness.tga"
 }
