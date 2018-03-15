@@ -132,10 +132,10 @@ void Renderer::geometryPass() const
 		const Matrix4 model = e.get<Transform>().getMatrix();
 		u_geometry_MVP = mv * model ;
 		u_geometry_model = model;
-		e.get<MeshFilter>().normal->bind(0);
-		e.get<MeshFilter>().roughness->bind(1);
+		e.get<MeshFilter>().normal().bind(0);
+		e.get<MeshFilter>().roughness().bind(1);
 		//std::cout << e.getId() << std::endl;
-		e.get<MeshFilter>().mesh->draw();
+		e.get<MeshFilter>().mesh().draw();
 	}
 }
 
@@ -199,7 +199,7 @@ void Renderer::resolvePass() const
 		const Matrix4 model = e.get<Transform>().getMatrix();
 		u_resolve_MVP = mv * model;
 		//std::cout << e.getId() << '\n';
-		e.get<MeshFilter>().texture->bind(1);
-		e.get<MeshFilter>().mesh->draw();
+		e.get<MeshFilter>().texture().bind(1);
+		e.get<MeshFilter>().mesh().draw();
 	}
 }

@@ -1,15 +1,16 @@
 #include "stdafx.h"
-#include "meshLoader.h"
+#include "AssetLoader.h"
+#include "MeshLoader.h"
 #include <cstdio>
 #include <iostream>
 
-Mesh * MeshLoader::LoadObj(std::string fileName)
+void AssetLoader<Mesh>::load(std::string fileName, Mesh& mesh)
 {
 	FILE * file;
 	fopen_s(&file, fileName.c_str(), "r");
 	if (file == nullptr) {
 		std::cout << "Could not open file " << fileName;
-		return nullptr;
+		return;
 	}
 
 	std::vector<Vector3> obj_vertices;
@@ -42,7 +43,9 @@ Mesh * MeshLoader::LoadObj(std::string fileName)
 			obj_normals.push_back(normal);
 		}
 		else if (strcmp(lineHeader, "f") == 0) {
-			vertexData v0, v1, v2;
+			vertexData v0;
+			vertexData v1;
+			vertexData v2;
 
 			fscanf_s(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n",
 				&v0.position, &v0.uv, &v0.normal,
@@ -65,31 +68,29 @@ Mesh * MeshLoader::LoadObj(std::string fileName)
 		uvs.push_back(obj_uvs[vertices[i].uv - 1]);
 	}
 
-	Mesh * mesh = new Mesh();
-	mesh->positions = positions;
-	mesh->normals = normals;
-	mesh->UVs = uvs;
-	mesh->indices = elements;
 
-	mesh->update();
-
-	return mesh;
+	mesh.positions = positions;
+	mesh.normals = normals;
+	mesh.UVs = uvs;
+	mesh.indices = elements;
+		
+	mesh.update();
 }
 
-MeshLoader::vertexData::vertexData()
+AssetLoader<Mesh>::vertexData::vertexData()
 {
 }
 
-MeshLoader::vertexData::vertexData(int position, int uv, int normal): position(position), uv(uv), normal(normal)
+AssetLoader<Mesh>::vertexData::vertexData(int position, int uv, int normal): position(position), uv(uv), normal(normal)
 {
 }
 
-bool MeshLoader::vertexData::operator==(const vertexData& rhs) const
+bool AssetLoader<Mesh>::vertexData::operator==(const vertexData& rhs) const
 {
 	return position == (rhs.position) && (uv == rhs.uv) && (normal == rhs.normal);
 }
 
-void MeshLoader::addVertexData(vertexData & data, std::vector<vertexData>& vertices, std::vector<int>& elements)
+void AssetLoader<Mesh>::addVertexData(vertexData & data, std::vector<vertexData>& vertices, std::vector<int>& elements)
 {
 	/*auto fv0 = std::find(vertices.begin(), vertices.end(), data);
 	if (fv0 == vertices.end()) {*/
@@ -101,12 +102,6 @@ void MeshLoader::addVertexData(vertexData & data, std::vector<vertexData>& verti
 	}*/
 }
 
-MeshLoader::MeshLoader()
+AssetLoader<Mesh>::AssetLoader(Assets& assets) : assets(assets)
 {
 }
-
-
-MeshLoader::~MeshLoader()
-{
-}
-

@@ -21,6 +21,7 @@
 #include "../Assets/AssetManager.h"
 #include "VelocitySystem.h"
 #include "Mesh.h"
+#include "Assets.h"
 
 class Game : public wagl::ApplicationAdapter{
 
@@ -42,15 +43,14 @@ public:
 
 	void init() override
 	{
-		Mesh* suzane = assetManager.getMesh("models/suzane.obj");
-		Mesh* cube = new Mesh(Mesh::Cube(Vector3(1, 1, 1)));
-		assetManager.manage("cube", cube);
+		AssetHandle<Mesh> suzane = assets.meshs.get("models/suzane.obj");
+		Mesh cubeMesh = Mesh(Mesh::Cube(Vector3(1, 1, 1)));
+		AssetHandle<Mesh> cube = assets.meshs.manage(cubeMesh, "cube");
 
-		wagl::Texture* cobble1 = assetManager.getTexture("textures/texture.jpg");
-		wagl::Texture* cobble2 = assetManager.getTexture("textures/Cobblestone5_albedo.tga");
-		wagl::Texture* cobble2N = assetManager.getTexture("textures/Cobblestone5_normal.tga");
-		wagl::Texture* cobble2R = assetManager.getTexture("textures/Cobblestone5_roughness.tga");
-
+		AssetHandle<wagl::Texture> cobble1 = assets.textures.get("textures/texture.jpg");
+		AssetHandle<wagl::Texture> cobble2 = assets.textures.get("textures/Cobblestone5_albedo.tga");
+		AssetHandle<wagl::Texture> cobble2N = assets.textures.get("textures/Cobblestone5_normal.tga");
+		AssetHandle<wagl::Texture> cobble2R = assets.textures.get("textures/Cobblestone5_roughness.tga");
 
 		
 		SystemManager::addSystem(new PlayerControlSystem(window));
@@ -122,7 +122,7 @@ private:
 	int width;
 	int height;
 
-	AssetManager assetManager;
+	Assets assets;
 };
 
 int main(void) {

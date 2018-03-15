@@ -1,19 +1,20 @@
 #pragma once
 #include <Component.h>
 #include "Mesh.h"
+#include "AssetHandle.h"
 
 COMPONENT(MeshFilter, 16) {
 
-	MeshFilter() : mesh(nullptr), texture(nullptr)
+	MeshFilter()
 	{
 	};
 
-	MeshFilter(Mesh* mesh, wagl::Texture* texture) : mesh(mesh), texture(texture)
+	MeshFilter(AssetHandle<Mesh> mesh, AssetHandle<wagl::Texture> texture) : mesh(mesh), texture(texture)
 	{
 	};
 
-	Mesh* mesh;
-	wagl::Texture* texture;
-	wagl::Texture* normal;
-	wagl::Texture* roughness;
+	AssetHandle<Mesh> mesh;
+	AssetHandle<wagl::Texture> texture;
+	AssetHandle<wagl::Texture> normal;
+	AssetHandle<wagl::Texture> roughness;
 };

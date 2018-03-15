@@ -11,7 +11,7 @@ public:
 	~Pool();
 
 	template<typename... Ts>
-	T* create(Ts... args);
+	T* create(Ts&&... args);
 	
 	void free(T* o);
 
@@ -97,7 +97,7 @@ inline void Pool<T>::freeBlock(T * block)
 
 template<class T>
 template<typename ...Ts>
-inline T * Pool<T>::create(Ts ...args)
+inline T * Pool<T>::create(Ts&& ...args)
 {
 	if (available.empty()) {
 		addBlock();
@@ -106,7 +106,7 @@ inline T * Pool<T>::create(Ts ...args)
 	T* newT = available.back();
 	available.pop_back();
 
-	new (newT) T(args...);
+	new (newT) T(std::forward<Ts>(args)...);
 
 	return newT;
 }

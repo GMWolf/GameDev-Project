@@ -1,16 +1,20 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "AssetLoader.h"
 #include "Mesh.h"
-class MeshLoader
+
+class AssetLoader<Mesh>
 {
 public:
-	static Mesh* LoadObj(std::string file);
+	AssetLoader(Assets& assets);
+
+	void load(std::string file, Mesh& location);
 
 private:
 
 	struct vertexData {
-		vertexData();;
+		vertexData();
 
 		vertexData(int position, int uv, int normal);;
 
@@ -23,9 +27,8 @@ private:
 		int normal;
 	};
 
-	static void addVertexData(vertexData& data, std::vector<vertexData>& vertices, std::vector<int>& elements);
+	void addVertexData(vertexData& data, std::vector<vertexData>& vertices, std::vector<int>& elements);
 
-	MeshLoader();
-	~MeshLoader();
+	Assets& assets;
 };
 

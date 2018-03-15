@@ -126,6 +126,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Bin.h" />
     <ClInclude Include="DynBitset.h" />
     <ClInclude Include="FlatSet.h" />
     <ClInclude Include="HashedArrayTree.h" />

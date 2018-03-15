@@ -7,6 +7,7 @@ namespace wagl {
 	class Texture
 	{
 	public:
+		Texture();
 		Texture(int width, int height, GLenum formatInternal, GLenum format, GLenum type);
 		Texture(GLint glTex);
 		~Texture();

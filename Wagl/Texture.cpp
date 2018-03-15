@@ -3,6 +3,10 @@
 
 wagl::Texture* wagl::Texture::bound;
 
+wagl::Texture::Texture(): glTex(-1)
+{
+}
+
 wagl::Texture::Texture(int width, int height, GLenum formatInternal, GLenum format, GLenum type)
 {
 	Texture* preBound = bound;

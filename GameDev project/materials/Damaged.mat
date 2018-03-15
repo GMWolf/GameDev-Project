@@ -1,0 +1,5 @@
+{
+	"diffuse" : "textures/DamagedConcrete_albedo.tga",
+	"normal" :  "textures/DamagedConcrete_normal.tga",
+	"roughness":"textures/DamagedConcrete_roughness.tga"
+}
