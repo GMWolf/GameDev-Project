@@ -29,7 +29,10 @@ private:
 
 		void put(int i, T& o);
 
-		T data[chunkSize];
+		union {
+			char data_raw[chunkSize * sizeof(T)];
+				T data[chunkSize];
+		};
 		std::bitset<chunkSize> usage;
 	};
 
@@ -136,6 +139,7 @@ inline void HashedArrayTree<chunkSize, T>::Chunk::emplace(const int i, Args && .
 	if (usage[i]) {
 		data[i].~T();
 	}
+	std::cout << "newing at " << data + i << std::endl;;
 	new (data + i) T(std::forward<Args>(args)...);
 	usage.set(i);
 }
@@ -164,6 +168,12 @@ inline T & HashedArrayTree<chunkSize, T>::Chunk::at(int i)
 template<int chunkSize, class T>
 inline void HashedArrayTree<chunkSize, T>::Chunk::put(const int i, T & o)
 {
-	data[i] = o;
+	if (usage[i])
+	{
+		data[i] = o;
+	} else
+	{
+		new (data + i) T(o);
+	}
 	usage.set(i);
 }

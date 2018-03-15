@@ -4,6 +4,7 @@
 #include "HashedArrayTree.h"
 #include "AssetLoader.h"
 #include <vector>
+#include <iostream>
 
 template<class T>
 class AssetManager
@@ -41,6 +42,7 @@ AssetHandle<T> AssetManager<T>::get(std::string file)
 		int assetId = nextId++;
 
 		items.emplace(assetId);
+		std::cout << "emplace at " << &items[assetId] << std::endl;
 		loader.load(file, items[assetId]);
 
 		//itemMap[file] = AssetHandle<T>(this, assetId);

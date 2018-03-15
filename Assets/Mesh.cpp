@@ -29,12 +29,12 @@ void Mesh::update()
 	computeTangents();
 
 	wagl::VBBuilder builder(format);
-	builder.set(Attributes::POSITION, positions);
-	builder.set(Attributes::TEXTURE_COORDINATES, UVs);
-	builder.set(Attributes::NORMAL, normals);
+	builder.set(Attributes::POSITION, data.positions);
+	builder.set(Attributes::TEXTURE_COORDINATES, data.UVs);
+	builder.set(Attributes::NORMAL, data.normals);
 	builder.set(Attributes::TANGENT, tangents);
 	builder.set(Attributes::BITANGENT, bitangents);
-	builder.setElems(indices);
+	builder.setElems(data.indices);
 	builder.update(vertexBuffer);
 }
 
@@ -120,23 +120,23 @@ void Mesh::computeTangents()
 {
 	tangents.clear();
 	bitangents.clear();
-	tangents.resize(positions.size(), Vector3(0, 0, 0));
-	bitangents.resize(positions.size(), Vector3(0, 0, 0));
+	tangents.resize(data.positions.size(), Vector3(0, 0, 0));
+	bitangents.resize(data.positions.size(), Vector3(0, 0, 0));
 	//http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-13-normal-mapping/
-	for(int i = 0; i < indices.size(); i+=3)
+	for(int i = 0; i < data.indices.size(); i+=3)
 	{
-		int i0 = indices[i];
-		int i1 = indices[i + 1];
-		int i2 = indices[i + 2];
+		int i0 = data.indices[i];
+		int i1 = data.indices[i + 1];
+		int i2 = data.indices[i + 2];
 
 
-		Vector3& v0 = positions[i0];
-		Vector3& v1 = positions[i1];
-		Vector3& v2 = positions[i2];
+		Vector3& v0 = data.positions[i0];
+		Vector3& v1 = data.positions[i1];
+		Vector3& v2 = data.positions[i2];
 
-		Vector2& uv0 = UVs[i0];
-		Vector2& uv1 = UVs[i1];
-		Vector2& uv2 = UVs[i2];
+		Vector2& uv0 = data.UVs[i0];
+		Vector2& uv1 = data.UVs[i1];
+		Vector2& uv2 = data.UVs[i2];
 
 		Vector3 deltaPos1 = v1 - v0;
 		Vector3 deltaPos2 = v2 - v0;
@@ -148,7 +148,7 @@ void Mesh::computeTangents()
 		Vector3 tangent = ((deltaPos1 * deltaUV2.y) - (deltaPos2 * deltaUV1.y)) * r;
 		Vector3 bitangent = ((deltaPos2 * deltaUV1.x) - (deltaPos1 * deltaUV2.x)) * r;
 
-		if (Vector3::Dot(Vector3::Cross(normals[i0], tangent), bitangent) < 0.0f)
+		if (Vector3::Dot(Vector3::Cross(data.normals[i0], tangent), bitangent) < 0.0f)
 		{
 			tangents[i0] += -tangent;
 		} else
@@ -156,7 +156,7 @@ void Mesh::computeTangents()
 			tangents[i0] += tangent;
 		}
 
-		if (Vector3::Dot(Vector3::Cross(normals[i1], tangent), bitangent) < 0.0f)
+		if (Vector3::Dot(Vector3::Cross(data.normals[i1], tangent), bitangent) < 0.0f)
 		{
 			tangents[i1] += -tangent;
 		}
@@ -165,7 +165,7 @@ void Mesh::computeTangents()
 			tangents[i1] += tangent;
 		}
 
-		if (Vector3::Dot(Vector3::Cross(normals[i2], tangent), bitangent) < 0.0f)
+		if (Vector3::Dot(Vector3::Cross(data.normals[i2], tangent), bitangent) < 0.0f)
 		{
 			tangents[i2] += -tangent;
 		}
@@ -188,7 +188,7 @@ void Mesh::combine_internal(Mesh & other)
 void Mesh::draw()
 {
 	vertexArray.bind();
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, (void*)0);
+	glDrawElements(GL_TRIANGLES, data.indices.size(), GL_UNSIGNED_INT, (void*)0);
 	wagl::VertexArray::unbind();
 }
 

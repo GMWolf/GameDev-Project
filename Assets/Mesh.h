@@ -35,15 +35,8 @@ public:
 
 	wagl::VertexBuffer vertexBuffer;
 
-	union {
-		struct {
-			std::vector<Vector3> positions;
-			std::vector<Vector2> UVs;
-			std::vector<Vector3> normals;
-			std::vector<int> indices;
-		};
-		MeshData data;
-	};
+	MeshData data;
+		
 
 	static MeshData Triangle(const Vector3& p0, const Vector3& p1, const Vector3& p2,
 		const Vector2& t0, const Vector2& t1, const Vector2& t2,
