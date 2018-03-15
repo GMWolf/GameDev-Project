@@ -39,13 +39,9 @@ AssetHandle<T> AssetManager<T>::get(std::string file)
 	if (itemMap.find(file) == itemMap.end())
 	{
 		int assetId = nextId++;
-		
-		//items[assetId] = T();
-		
-		
-		T t;
-		loader.load(file, t);
-		items.emplace(assetId, t);
+
+		items.emplace(assetId);
+		loader.load(file, items[assetId]);
 
 		//itemMap[file] = AssetHandle<T>(this, assetId);
 		itemMap.insert({ file, AssetHandle<T>(this, assetId) });

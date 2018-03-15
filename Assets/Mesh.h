@@ -75,7 +75,5 @@ private:
 	void combine_internal(Mesh& other);
 
 	wagl::VertexArray vertexArray;
-	
-	int vertexCount;
 };
 

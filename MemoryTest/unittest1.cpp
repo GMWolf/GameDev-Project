@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include <DynBitset.h>
+#include "HashedArrayTree.h"
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace MemoryTest
@@ -22,5 +23,14 @@ namespace MemoryTest
 			Assert::IsTrue(bs[65]);
 		}
 
+
+		TEST_METHOD(TestArrayTree)
+		{
+			HashedArrayTree<16, int> ints;
+
+			ints.emplace(5, 4);
+
+			Assert::IsTrue(ints[5] == 4);
+		}
 	};
 }

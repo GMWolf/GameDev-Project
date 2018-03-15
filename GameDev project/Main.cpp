@@ -52,6 +52,14 @@ public:
 		AssetHandle<wagl::Texture> cobble2N = assets.textures.get("textures/Cobblestone5_normal.tga");
 		AssetHandle<wagl::Texture> cobble2R = assets.textures.get("textures/Cobblestone5_roughness.tga");
 
+		std::cout << cobble2.assetId << std::endl;
+		std::cout << cobble2N.assetId << std::endl;
+		std::cout << cobble2R.assetId << std::endl;
+
+		std::cout << cobble2().glTex << std::endl;
+		std::cout << cobble2N().glTex << std::endl;
+		std::cout << cobble2R().glTex << std::endl;
+
 		
 		SystemManager::addSystem(new PlayerControlSystem(window));
 		SystemManager::addSystem(new CameraTransformSystem());

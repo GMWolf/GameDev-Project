@@ -3,7 +3,7 @@
 #include "VBBuilder.h"
 #include <iostream>
 
-Mesh::Mesh() : vertexBuffer(format, GL_STATIC_DRAW), vertexArray(vertexBuffer), vertexCount(0)
+Mesh::Mesh() : vertexBuffer(format, GL_STATIC_DRAW), vertexArray(vertexBuffer)
 {
 	std::cout << "Mesh constructor!" << std::endl;
 }
