@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -23,7 +23,7 @@
     <ProjectGuid>{E6FD0B41-D8C6-44C7-AD70-648B8FA96EA0}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Assets</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -101,7 +101,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Renderer.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl_io.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -119,7 +119,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Renderer.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl_io.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -132,7 +132,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)Renderer;$(SolutionDir)Common;$(SolutionDir)json;$(SolutionDir)soil/src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)json;$(SolutionDir)soil/src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -141,7 +141,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Renderer.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl_io.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -163,7 +163,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Renderer.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl_io.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>

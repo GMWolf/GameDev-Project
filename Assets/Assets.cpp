@@ -2,7 +2,7 @@
 #include "Assets.h"
 
 
-Assets::Assets() : materials(*this), textures(*this), meshs(*this)
+Assets::Assets() : materialLoader(textures), materials(materialLoader), textures(textureLoader), meshs(meshLoader)
 {
 }
 

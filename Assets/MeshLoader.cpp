@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include "AssetLoader.h"
 #include "MeshLoader.h"
 #include <cstdio>
 #include <iostream>
@@ -62,18 +61,23 @@ void AssetLoader<Mesh>::load(std::string fileName, Mesh& mesh)
 	std::vector<Vector3> normals;
 	std::vector<Vector2> uvs;
 
+
 	for (int i = 0; i < vertices.size(); i++) {
 		positions.push_back(obj_vertices[vertices[i].position - 1]);
 		normals.push_back(obj_normals[vertices[i].normal - 1]);
 		uvs.push_back(obj_uvs[vertices[i].uv - 1]);
 	}
 
-
+	/*
 	mesh.positions = positions;
 	mesh.normals = normals;
 	mesh.UVs = uvs;
-	mesh.indices = elements;
-		
+	mesh.indices = elements;*/
+	mesh.positions.swap(positions);
+	mesh.normals.swap(normals);
+	mesh.UVs.swap(uvs);
+	mesh.indices.swap(elements);
+	
 	mesh.update();
 }
 
@@ -100,8 +104,4 @@ void AssetLoader<Mesh>::addVertexData(vertexData & data, std::vector<vertexData>
 	else {
 		elements.push_back(std::distance(vertices.begin(), fv0));
 	}*/
-}
-
-AssetLoader<Mesh>::AssetLoader(Assets& assets) : assets(assets)
-{
 }

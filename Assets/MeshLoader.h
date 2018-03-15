@@ -1,13 +1,13 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "AssetLoader.h"
 #include "Mesh.h"
+#include "AssetLoader.h"
 
+template<>
 class AssetLoader<Mesh>
 {
 public:
-	AssetLoader(Assets& assets);
 
 	void load(std::string file, Mesh& location);
 
@@ -28,7 +28,5 @@ private:
 	};
 
 	void addVertexData(vertexData& data, std::vector<vertexData>& vertices, std::vector<int>& elements);
-
-	Assets& assets;
 };
 

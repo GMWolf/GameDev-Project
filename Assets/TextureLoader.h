@@ -4,4 +4,9 @@
 #include <Texture.h>
 #include "AssetLoader.h"
 
-void AssetLoader<wagl::Texture>::load(std::string file, wagl::Texture& location);
+
+template<>
+class AssetLoader<wagl::Texture> {
+public:
+	void load(std::string file, wagl::Texture& location);
+};

@@ -29,7 +29,7 @@ private:
 
 		void put(int i, T& o);
 
-		T* data;
+		T data[chunkSize];
 		std::bitset<chunkSize> usage;
 	};
 
@@ -85,8 +85,9 @@ template<int chunkSize, class T>
 inline T & HashedArrayTree<chunkSize, T>::operator[](const int i)
 {
 	const int chunkIndex = i / chunkSize;
-	const int objIndex = i % chunkIndex;
-	return (*chunks[chunkIndex])[objIndex];
+	const int objIndex = i % chunkSize;
+	//ensureChunk(chunkIndex);
+	return (*(chunks[chunkIndex]))[objIndex];
 }
 
 
@@ -132,13 +133,16 @@ inline void HashedArrayTree<chunkSize, T>::emplace(const int i, Args && ...args)
 template<int chunkSize, class T>
 template<class ...Args>
 inline void HashedArrayTree<chunkSize, T>::Chunk::emplace(const int i, Args && ...args) {
+	if (usage[i]) {
+		data[i].~T();
+	}
 	new (data + i) T(std::forward<Args>(args)...);
 	usage.set(i);
 }
 
 template<int chunkSize, class T>
 inline HashedArrayTree<chunkSize, T>::Chunk::Chunk() {
-	data = static_cast<T*>(std::malloc(sizeof(T) * chunkSize));
+	//data = static_cast<T*>(std::malloc(sizeof(T) * chunkSize));
 }
 
 template<int chunkSize, class T>

@@ -1,17 +1,15 @@
 #pragma once
 #include <map>
-#include "MaterialLoader.h"
 #include "AssetHandle.h"
-#include "AssetLoader.h"
 #include "HashedArrayTree.h"
-
-class Assets;
+#include "AssetLoader.h"
+#include <vector>
 
 template<class T>
 class AssetManager
 {
 public:
-	AssetManager(Assets& assets);
+	AssetManager(AssetLoader<T>& loader);
 	~AssetManager();
 
 	AssetHandle<T> get(std::string file);
@@ -19,16 +17,14 @@ public:
 	T& getAsset(AssetHandle<T>& handle);
 
 private:
-	Assets & assets;
 	std::map<std::string, AssetHandle<T>> itemMap;
-	AssetLoader<T> loader;
 	HashedArrayTree<16, T> items;
 	int nextId;
-	
+	AssetLoader<T>& loader;
 };
 
 template <class T>
-AssetManager<T>::AssetManager(Assets& assets): assets(assets), nextId(0), loader(assets)
+AssetManager<T>::AssetManager(AssetLoader<T>& loader): loader(loader), nextId(0)
 {
 }
 
@@ -42,12 +38,17 @@ AssetHandle<T> AssetManager<T>::get(std::string file)
 {
 	if (itemMap.find(file) == itemMap.end())
 	{
-		const int assetId = nextId++;
-		if (items.size() <= assetId) {
-			items.resize(assetId + 1);
-		}
-		loader.load(file, items[assetId]);
-		itemMap[file] = AssetHandle<T>(*this, assetId);
+		int assetId = nextId++;
+		
+		//items[assetId] = T();
+		
+		
+		T t;
+		loader.load(file, t);
+		items.emplace(assetId, t);
+
+		//itemMap[file] = AssetHandle<T>(this, assetId);
+		itemMap.insert({ file, AssetHandle<T>(this, assetId) });
 	}
 
 	return itemMap[file];
@@ -57,12 +58,11 @@ AssetHandle<T> AssetManager<T>::get(std::string file)
 template <class T>
 AssetHandle<T> AssetManager<T>::manage(T& asset, std::string name)
 {
-	const int assetId = nextId++;
-	if (items.size() <= assetId) {
-		items.resize(assetId + 1);
-	}
-	items[assetId] = asset;
-	itemMap[name] = AssetHandle<T>(*this, assetId);
+	int assetId = nextId++;
+
+	items.emplace(assetId, asset);
+	itemMap.insert({ name, AssetHandle<T>(this, assetId) });
+
 	return itemMap[name];
 }
 

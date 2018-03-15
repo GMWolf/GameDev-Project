@@ -3,5 +3,15 @@
 #include <string>
 #include "AssetManager.h"
 #include "AssetLoader.h"
+#include <Texture.h>
 
-void AssetLoader<Material>::load(std::string file, Material& location);
+template<>
+class AssetLoader<Material> {
+public:
+
+	AssetLoader(AssetManager<wagl::Texture>& textures);
+	
+	void load(std::string file, Material& location);
+private:
+	AssetManager<wagl::Texture>& textures;
+};

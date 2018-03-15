@@ -1,5 +1,4 @@
 #pragma once
-#include "AssetManager.h"
 #include "MaterialLoader.h"
 #include "TextureLoader.h"
 #include "MeshLoader.h"
@@ -9,8 +8,15 @@ public:
 	Assets();
 	~Assets();
 
-	AssetManager<Material> materials;
+
+
+	AssetLoader<wagl::Texture> textureLoader;
 	AssetManager<wagl::Texture> textures;
+
+	AssetLoader<Material> materialLoader;
+	AssetManager<Material> materials;
+
+	AssetLoader<Mesh> meshLoader;
 	AssetManager<Mesh> meshs;
 };
 

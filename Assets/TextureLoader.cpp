@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "TextureLoader.h"
+#include "AssetLoader.h"
 #include <SOIL.h>
 
 void AssetLoader<wagl::Texture>::load(std::string file, wagl::Texture& texture)

@@ -22,6 +22,7 @@ class Mesh
 public:
 	Mesh();
 	Mesh(const MeshData& data);
+	Mesh(const Mesh& mesh);
 	~Mesh();
 
 	void update();
@@ -30,8 +31,10 @@ public:
 
 	MeshData operator+(Mesh& rhs);
 
+	Mesh& operator=(Mesh const & rhs);
 
 	wagl::VertexBuffer vertexBuffer;
+
 	union {
 		struct {
 			std::vector<Vector3> positions;

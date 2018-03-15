@@ -1,15 +1,24 @@
 #include "stdafx.h"
 #include "Mesh.h"
 #include "VBBuilder.h"
+#include <iostream>
 
 Mesh::Mesh() : vertexBuffer(format, GL_STATIC_DRAW), vertexArray(vertexBuffer), vertexCount(0)
 {
+	std::cout << "Mesh constructor!" << std::endl;
 }
 
 Mesh::Mesh(const MeshData& data) : vertexBuffer(format, GL_STATIC_DRAW), vertexArray(vertexBuffer), data(data)
 {
 	update();
 }
+
+Mesh::Mesh(const Mesh & mesh) : Mesh(mesh.data)
+{
+
+}
+
+
 
 Mesh::~Mesh()
 {
@@ -38,6 +47,13 @@ void Mesh::combine(Mesh & other)
 MeshData Mesh::operator+(Mesh & rhs)
 {
 	return data + rhs.data;
+}
+
+Mesh & Mesh::operator=(Mesh const & rhs)
+{
+	data = rhs.data;
+	update();
+	return *this;
 }
 
 MeshData Mesh::Triangle(const Vector3 & p0, const Vector3 & p1, const Vector3 & p2, 

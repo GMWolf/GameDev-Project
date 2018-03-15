@@ -44,7 +44,7 @@ public:
 	void init() override
 	{
 		AssetHandle<Mesh> suzane = assets.meshs.get("models/suzane.obj");
-		Mesh cubeMesh = Mesh(Mesh::Cube(Vector3(1, 1, 1)));
+		Mesh cubeMesh(Mesh::Cube(Vector3(1, 1, 1)));
 		AssetHandle<Mesh> cube = assets.meshs.manage(cubeMesh, "cube");
 
 		AssetHandle<wagl::Texture> cobble1 = assets.textures.get("textures/texture.jpg");
