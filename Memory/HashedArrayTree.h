@@ -139,7 +139,6 @@ inline void HashedArrayTree<chunkSize, T>::Chunk::emplace(const int i, Args && .
 	if (usage[i]) {
 		data[i].~T();
 	}
-	std::cout << "newing at " << data + i << std::endl;;
 	new (data + i) T(std::forward<Args>(args)...);
 	usage.set(i);
 }

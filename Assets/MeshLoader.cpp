@@ -73,10 +73,6 @@ void AssetLoader<Mesh>::load(std::string fileName, Mesh& mesh)
 	mesh.normals = normals;
 	mesh.UVs = uvs;
 	mesh.indices = elements;*/
-	std::cout << "Mesh at " << &mesh << std::endl;
-	std::cout << "mesh p " << mesh.data.positions.size() << std::endl;
-	std::cout << "mesh n " << mesh.data.normals.size() << std::endl;
-	std::cout << "mesh u " << mesh.data.UVs.size() << std::endl;
 	mesh.data.positions.swap(positions);
 	mesh.data.normals.swap(normals);
 	mesh.data.UVs.swap(uvs);

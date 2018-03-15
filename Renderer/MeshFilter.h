@@ -2,6 +2,7 @@
 #include <Component.h>
 #include "Mesh.h"
 #include "AssetHandle.h"
+#include "Material.h"
 
 COMPONENT(MeshFilter, 16) {
 
@@ -9,12 +10,10 @@ COMPONENT(MeshFilter, 16) {
 	{
 	};
 
-	MeshFilter(AssetHandle<Mesh> mesh, AssetHandle<wagl::Texture> texture) : mesh(mesh), texture(texture)
+	MeshFilter(AssetHandle<Mesh> mesh, AssetHandle<Material> material) : mesh(mesh), material(material)
 	{
 	};
 
 	AssetHandle<Mesh> mesh;
-	AssetHandle<wagl::Texture> texture;
-	AssetHandle<wagl::Texture> normal;
-	AssetHandle<wagl::Texture> roughness;
+	AssetHandle<Material> material;
 };

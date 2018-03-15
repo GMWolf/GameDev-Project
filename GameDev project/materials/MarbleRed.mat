@@ -1,0 +1,5 @@
+{
+	"diffuse" : "textures/MarbleRed_diffuse.tga",
+	"normal" :  "textures/MarbleRed_normal.tga",
+	"roughness":"textures/MarbleRed_roughness.tga"
+}

@@ -43,23 +43,15 @@ public:
 
 	void init() override
 	{
-		AssetHandle<Mesh> suzane = assets.meshs.get("models/suzane.obj");
+		AssetHandle<Mesh> suzane = assets.meshs.get("models/suzane.objm");
 		Mesh cubeMesh(Mesh::Cube(Vector3(1, 1, 1)));
 		AssetHandle<Mesh> cube = assets.meshs.manage(cubeMesh, "cube");
+		AssetHandle<Mesh> pillars = assets.meshs.get("models/pillars.objm");
 
-		AssetHandle<wagl::Texture> cobble1 = assets.textures.get("textures/texture.jpg");
-		AssetHandle<wagl::Texture> cobble2 = assets.textures.get("textures/Cobblestone5_albedo.tga");
-		AssetHandle<wagl::Texture> cobble2N = assets.textures.get("textures/Cobblestone5_normal.tga");
-		AssetHandle<wagl::Texture> cobble2R = assets.textures.get("textures/Cobblestone5_roughness.tga");
-
-		std::cout << cobble2.assetId << std::endl;
-		std::cout << cobble2N.assetId << std::endl;
-		std::cout << cobble2R.assetId << std::endl;
-
-		std::cout << cobble2().glTex << std::endl;
-		std::cout << cobble2N().glTex << std::endl;
-		std::cout << cobble2R().glTex << std::endl;
-
+		AssetHandle<Material> cobblestone = assets.materials.get("materials/Cobblestone5.mat");
+		AssetHandle<Material> damaged = assets.materials.get("materials/Damaged.mat");
+		AssetHandle<Material> sand = assets.materials.get("materials/SandPebbles.mat");
+		AssetHandle<Material> marble = assets.materials.get("materials/MarbleRed.mat");
 		
 		SystemManager::addSystem(new PlayerControlSystem(window));
 		SystemManager::addSystem(new CameraTransformSystem());
@@ -72,17 +64,13 @@ public:
 		Entity eSuzane = Entity::create();
 		eSuzane.add(Transform());
 		eSuzane.get<Transform>().position = Vector3(1, 0, 0);
-		eSuzane.add(MeshFilter(suzane, cobble2));
-		eSuzane.get<MeshFilter>().normal = cobble2N;
-		eSuzane.get<MeshFilter>().roughness = cobble2R;
+		eSuzane.add(MeshFilter(suzane, cobblestone));
 
 		Entity eSuzane2 = Entity::create();
 		eSuzane2.add(Transform());
 		eSuzane2.get<Transform>().position = Vector3(-1, 0, 0);
-		eSuzane2.add(MeshFilter(suzane, cobble2));
+		eSuzane2.add(MeshFilter(suzane, damaged));
 		eSuzane2.add(Rotate(0.01));
-		eSuzane2.get<MeshFilter>().normal = cobble2N;
-		eSuzane2.get<MeshFilter>().roughness = cobble2R;
 
 		Entity eLightA = Entity::create();
 		eLightA.add(Transform());
@@ -106,12 +94,27 @@ public:
 
 		Entity floor = Entity::create();
 		floor.add(Transform());
-		floor.add(MeshFilter(cube, cobble2));
-		floor.get<MeshFilter>().normal = cobble2N;
-		floor.get<MeshFilter>().roughness = cobble2R;
+		floor.add(MeshFilter(cube, sand));
 		Transform& ft = floor.get<Transform>();
 		ft.scale = Vector3(20, 20, 20);
 		ft.position = Vector3(0, -11, 0);
+
+		for (int i = -10; i < 10; i++) {
+			Entity e = Entity::create();
+			e.add(Transform());
+			e.get<Transform>().position = Vector3(0,  -1, -5 * i);
+			e.add(MeshFilter(pillars, marble));
+
+			Entity lightLeft = Entity::create();
+			lightLeft.add(Transform());
+			lightLeft.get<Transform>().position = Vector3(-1, 3, -5 * i);
+			lightLeft.add(PointLight(Vector3(1, 0.8, 0.1) * 4, 4));
+
+			Entity lightRight = Entity::create();
+			lightRight.add(Transform());
+			lightRight.get<Transform>().position = Vector3(1, 3, -5 * i);
+			lightRight.add(PointLight(Vector3(1, 0.8, 0.1) * 4, 4));
+		}
 
 
 	}
