@@ -79,7 +79,7 @@ void PlayerControlSystem::update()
 				e.add(Transform());
 				e.get<Transform>().position = t.position;
 				e.add(Velocity(t.rotation.forward * -2));
-				e.add(PointLight(Vector3(0.25, 0.25, 1) * 5.f, 2.5));
+				e.add(PointLight(Vector3(0.25, 0.25, 1) , 5.f, 2.5));
 			}
 			SpaceReleased = false;
 		} else

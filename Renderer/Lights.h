@@ -9,10 +9,11 @@ COMPONENT(PointLight, 8)
 	{
 	}
 
-	PointLight(Vector3 colour, float radius) : colour(colour), radius(radius)
+	PointLight(Vector3 colour, float power, float radius) : colour(colour), power(power), radius(radius)
 	{
 	}
 
 	Vector3 colour;
 	float radius;
+	float power;
 };

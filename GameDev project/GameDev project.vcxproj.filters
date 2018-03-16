@@ -30,6 +30,9 @@
     <ClCompile Include="VelocitySystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LightWaveSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RotateSystem.h">
@@ -39,6 +42,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VelocitySystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightWave.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightWaveSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
