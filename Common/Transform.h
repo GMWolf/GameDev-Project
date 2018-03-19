@@ -28,4 +28,13 @@ COMPONENT(Transform, 128) {
 		mat.position = position.xyz;
 		return mat;
 	}
+
+	void load(const nlohmann::json& j)
+	{
+		position.x = j["position"]["x"].get<float>();
+		position.y = j["position"]["y"].get<float>();
+		position.z = j["position"]["z"].get<float>();
+	}
+
+
 };

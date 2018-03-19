@@ -24,8 +24,9 @@
 #include "Assets.h"
 #include "LightWave.h"
 #include "LightWaveSystem.h"
+#include "UISystem.h"
 
-class Game : public wagl::ApplicationAdapter{
+class Game : public wagl::ApplicationAdapter {
 
 public:
 	Game(int width, int height) : width(width), height(height)
@@ -35,12 +36,6 @@ public:
 	void render() override
 	{
 		SystemManager::update();
-
-		if (glfwGetKey(window, GLFW_KEY_ESCAPE))
-		{
-			ShouldClose = true;
-		}
-
 	}
 
 	void init() override
@@ -66,14 +61,14 @@ public:
 		AssetHandle<Material> sand = assets.materials.get("materials/SandPebbles.mat");
 		AssetHandle<Material> marble = assets.materials.get("materials/MarbleRed.mat");
 		
-		SystemManager::addSystem(new PlayerControlSystem(window));
+		SystemManager::addSystem(new UISystem(window, this));
+		SystemManager::addSystem(new PlayerControlSystem());
 		SystemManager::addSystem(new CameraTransformSystem());
 		SystemManager::addSystem(new VelocitySystem());
 		SystemManager::addSystem(new Renderer(width, height));
 		SystemManager::addSystem(new RotateSystem());
 		SystemManager::addSystem(new LightWaveSystem());
 		SystemManager::init();
-
 
 		Entity eSuzane = Entity::create();
 		eSuzane.add(Transform());
@@ -129,7 +124,7 @@ public:
 			lightRight.add(Transform());
 			lightRight.get<Transform>().position = Vector3(1, 3, -5 * i);
 			lightRight.add(PointLight(Vector3(1, 0.8, 0.1), 4, 4));
-			lightLeft.add(lightWave(3, 5, (rand() / (float) RAND_MAX) * 5, 0.1));
+			lightRight.add(lightWave(3, 5, (rand() / (float) RAND_MAX) * 5, 0.1));
 		}
 
 

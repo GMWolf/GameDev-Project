@@ -4,6 +4,7 @@
 #include "EntitySubscription.h"
 #include "ApplicationAdapter.h"
 #include "Vector2.h"
+#include "UISystem.h"
 
 COMPONENT(PlayerControl, 1)
 {
@@ -14,7 +15,7 @@ class PlayerControlSystem : public System
 {
 public:
 
-	PlayerControlSystem(GLFWwindow* window);
+	PlayerControlSystem();
 
 	~PlayerControlSystem() override;
 	void init() override;
@@ -23,8 +24,7 @@ public:
 
 private:
 	EntitySubscription & playerControled;
-	GLFWwindow* window;
-	Vector2 mousePrevious;
+	UISystem* ui;
 
 	bool SpaceReleased;
 };

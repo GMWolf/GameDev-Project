@@ -147,6 +147,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MovementSystem.cpp" />
     <ClCompile Include="RotateSystem.cpp" />
+    <ClCompile Include="UISystem.cpp" />
     <ClCompile Include="VelocitySystem.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +155,7 @@
     <ClInclude Include="LightWaveSystem.h" />
     <ClInclude Include="MovementSystem.h" />
     <ClInclude Include="RotateSystem.h" />
+    <ClInclude Include="UISystem.h" />
     <ClInclude Include="VelocitySystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

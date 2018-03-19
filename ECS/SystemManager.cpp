@@ -2,6 +2,7 @@
 
 
 std::vector<System*> SystemManager::systems;
+std::map<std::type_index, System*> SystemManager::systemMap;
 
 void SystemManager::init() {
 	for (System* system : systems) {
@@ -27,4 +28,5 @@ void SystemManager::end() {
 void SystemManager::addSystem(System * system)
 {
 	systems.push_back(system);
+	systemMap.insert({typeid(*system), system});
 }

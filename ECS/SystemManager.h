@@ -3,6 +3,8 @@
 #include "System.h"
 #include "Entity.h"
 #include "SubscriptionManager.h"
+#include <typeindex>
+
 class SystemManager
 {
 public:
@@ -14,7 +16,19 @@ public:
 	
 	static void addSystem(System* system);
 
+	template<class T>
+	static T* getSystem();
+
 	static std::vector<System*> systems;
+	
+private:
+	static std::map<std::type_index, System*> systemMap;
 
 };
+
+template <class T>
+T* SystemManager::getSystem()
+{
+	return static_cast<T*>(systemMap.at(typeid(T)));
+}
 

@@ -6,10 +6,10 @@
 #include <iostream>
 #include "VelocitySystem.h"
 #include "Lights.h"
+#include "SystemManager.h"
 
-PlayerControlSystem::PlayerControlSystem(GLFWwindow* window):
-	playerControled(SubscriptionManager::getSubscription(Aspect::getAspect<PlayerControl, Transform>())), 
-	window(window)
+PlayerControlSystem::PlayerControlSystem():
+	playerControled(SubscriptionManager::getSubscription(Aspect::getAspect<PlayerControl, Transform>()))
 {
 }
 
@@ -19,61 +19,44 @@ PlayerControlSystem::~PlayerControlSystem()
 
 void PlayerControlSystem::init()
 {
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
-	double xpos, ypos;
-	glfwGetCursorPos(window, &xpos, &ypos);
-
-	mousePrevious = Vector2(xpos, ypos);
+	ui = SystemManager::getSystem<UISystem>();
 	SpaceReleased = true;
 }
 
 void PlayerControlSystem::update()
 {
-	double xpos;
-	double ypos;
-	glfwGetCursorPos(window, &xpos, &ypos);
-
-	const Vector2 cursorPos(xpos, ypos);
-
-	const Vector2 diff = cursorPos - mousePrevious;
-	mousePrevious = cursorPos;
+	
 
 
 	for(Entity e : playerControled)
 	{
 		Transform& t = e.get<Transform>();
 		
-		bool left = glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS;
-		if (left) {
+		if (ui->getKey(UISystem::KEY_A)) {
 			t.position += -(t.rotation.left * wagl::DeltaTime::delta * 2);
 		}
-		bool right = glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS;
-		if (right) {
+		if (ui->getKey(UISystem::KEY_D)) {
 			t.position += (t.rotation.left * wagl::DeltaTime::delta * 2);
 		}
-		bool up = glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS;
-		if (up) {
+		if (ui->getKey(UISystem::KEY_LEFT_SHIFT)) {
 			t.position += (t.rotation.up * wagl::DeltaTime::delta * 2);
 		}
-		bool down = glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS;
-		if (down) {
+		if (ui->getKey(UISystem::KEY_LEFT_CTRL)) {
 			t.position += -(t.rotation.up * wagl::DeltaTime::delta * 2);
 		}
-		bool forward = glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS;
-		if (forward) {
+		if (ui->getKey(UISystem::KEY_W)) {
 			t.position += -(t.rotation.forward * wagl::DeltaTime::delta * 2);
 		}
-		bool backward = glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS;
-		if (backward) {
+		if (ui->getKey(UISystem::KEY_S)) {
 			t.position += (t.rotation.forward * wagl::DeltaTime::delta * 2);
 		}
 		
+		Vector2 diff = ui->getMouseDelta();
 		t.rotation = Matrix4::Rotation(Vector3(0, 1, 0), -diff.x / 1000) * t.rotation;
 		t.rotation = Matrix4::Rotation(t.rotation.left, -diff.y / 1000) * t.rotation;
 
-		bool shoot = glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS;
-		if (shoot) {
+		
+		if (ui->getKey(UISystem::KEY_SPACE)) {
 			if (SpaceReleased) {
 				Entity e = Entity::create();
 				e.add(Transform());
