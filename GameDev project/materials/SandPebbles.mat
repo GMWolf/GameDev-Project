@@ -1,5 +1,5 @@
 {
-	"diffuse" : "textures/SandPebbles_albedo.tga",
-	"normal" :  "textures/SandPebbles_normal.tga",
-	"roughness":"textures/SandPebbles_roughness.tga"
+	"diffuse" : "textures/SandPebbles_albedo.dds",
+	"normal" :  "textures/SandPebbles_normal.dds",
+	"roughness":"textures/SandPebbles_roughness.dds"
 }

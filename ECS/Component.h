@@ -3,9 +3,26 @@
 #include "Aspect.h"
 #include <iostream>
 
-class Components {
+namespace detail
+{
+	inline int& getCounter()
+	{
+		static int result{ 0 };
+		return result;
+	}
+}
+
+inline int nextId()
+{
+	return detail::getCounter()++;
+}
+
+class ComponentId
+{
 public:
-	static int next_component_id;
+	ComponentId();
+
+	int id;
 };
 
 
@@ -16,7 +33,6 @@ public:
 	void load(const nlohmann::json& json);
 	static const int componentId;
 	static ComponentMapper<T, chunkSize> componentMapper;
-	static const Aspect componentAspect;
 };
 
 template <class T, int chunkSize>
@@ -25,15 +41,11 @@ void Component<T, chunkSize>::load(const nlohmann::json& json)
 	std::cout << T::componentName <<" load not implemented" << std::endl;
 }
 
-
 template<class T, int chunkSize>
-const int Component<T, chunkSize>::componentId = Components::next_component_id++;
+const int Component<T, chunkSize>::componentId = nextId();
 
 template<class T, int chunkSize>
 ComponentMapper<T, chunkSize> Component<T, chunkSize>::componentMapper;
-
-template<class T, int chunkSize>
-const Aspect Component<T, chunkSize>::componentAspect = Aspect::compAspect<T>();
 
 #define COMPONENT(name, chunkSize) \
 	template<class T> \

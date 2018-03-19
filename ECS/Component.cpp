@@ -1,2 +1,5 @@
 #include "Component.h"
-int Components::next_component_id = 0;
+
+ComponentId::ComponentId() : id(nextId())
+{
+}

@@ -50,7 +50,7 @@ inline Aspect Aspect::getAspect()
 	
 	//Unpack and sum
 	auto unpacker = {
-		bits |= components::componentAspect.bits...
+		bits |= (1 << components::componentId)...
 	};
 
 	return Aspect(bits);
@@ -64,17 +64,17 @@ inline  Aspect Aspect::compAspect() {
 template<class component>
 inline void Aspect::set()
 {
-	bits |= component::componentAspect.bits;
+	bits |= 1 << component::componentId;
 }
 
 template<class component>
 inline void Aspect::unset()
 {
-	bits &= ~(component::componentAspect.bits);
+	bits &= ~(1 << component::componentId);
 }
 
 template<class component>
 inline bool Aspect::has() const
 {
-	return (bits & component::componentAspect.bits);
+	return (bits & (1 << component::componentId));
 }

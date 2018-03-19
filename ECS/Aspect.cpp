@@ -1,4 +1,5 @@
 #include "Aspect.h"
+#include <iostream>
 
 Aspect::Aspect() : bits(0)
 {

@@ -45,6 +45,17 @@ public:
 
 	void init() override
 	{
+
+		std::cout << "Transform " << Transform::componentId << std::endl;
+		std::cout << "Velocity " << Velocity::componentId << std::endl;
+		std::cout << "LightWave " << lightWave::componentId << std::endl;
+		std::cout << "PointLight " << PointLight::componentId << std::endl;
+		std::cout << "MeshFilter " << MeshFilter::componentId << std::endl;
+		std::cout << "Camera " << Camera::componentId << std::endl;
+		std::cout << "PlayerControl " << PlayerControl::componentId << std::endl;
+		std::cout << "Rotate  " << Rotate::componentId << std::endl;
+
+
 		AssetHandle<Mesh> suzane = assets.meshs.get("models/suzane.objm");
 		Mesh cubeMesh(Mesh::Cube(Vector3(1, 1, 1)));
 		AssetHandle<Mesh> cube = assets.meshs.manage(cubeMesh, "cube");
@@ -112,13 +123,13 @@ public:
 			lightLeft.add(Transform());
 			lightLeft.get<Transform>().position = Vector3(-1, 3, -5 * i);
 			lightLeft.add(PointLight(Vector3(1, 0.8, 0.1), 4, 4));
-			lightLeft.add(lightWave( 3, 5, (rand() / (float)RAND_MAX), 0.1));
+			lightLeft.add(lightWave( 3, 5, (rand() / (float)RAND_MAX) * 5, 0.1));
 
 			Entity lightRight = Entity::create();
 			lightRight.add(Transform());
 			lightRight.get<Transform>().position = Vector3(1, 3, -5 * i);
 			lightRight.add(PointLight(Vector3(1, 0.8, 0.1), 4, 4));
-			lightLeft.add(lightWave(3, 5, (rand() / (float) RAND_MAX), 0.1));
+			lightLeft.add(lightWave(3, 5, (rand() / (float) RAND_MAX) * 5, 0.1));
 		}
 
 

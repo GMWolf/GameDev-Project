@@ -12,7 +12,7 @@ public:
 	virtual ~baseComponentMapper() = default;
 	virtual void v_erase(int componentid) = 0;
 	virtual void put(int id, nlohmann::json json) = 0;
-	const virtual Aspect& getAspect() = 0;
+	const virtual Aspect getAspect() = 0;
 	virtual int getId() = 0;
 
 	//Construct On First Use (static init order fiasco)
@@ -47,7 +47,7 @@ private:
 	}
 
 public:
-	const Aspect& getAspect() override;
+	const Aspect getAspect() override;
 	int getId() override;
 private:
 	HashedArrayTree<chunkSize, T> components;
@@ -81,9 +81,9 @@ inline void ComponentMapper<T, chunkSize>::erase(int componentId)
 }
 
 template <class T, int chunkSize>
-const Aspect& ComponentMapper<T, chunkSize>::getAspect()
+const Aspect ComponentMapper<T, chunkSize>::getAspect()
 {
-	return T::componentAspect;
+	return Aspect(1 << T::componentId);
 }
 
 template <class T, int chunkSize>
