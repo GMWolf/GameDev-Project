@@ -70,6 +70,10 @@ public:
 		SystemManager::addSystem(new LightWaveSystem());
 		SystemManager::init();
 
+
+		Entity sun = Entity::create();
+		sun.add(DirectionalLight(Vector3(0, 1, 0), Vector3(0.25, 0.25, 1), 0.2));
+
 		Entity eSuzane = Entity::create();
 		eSuzane.add(Transform());
 		eSuzane.get<Transform>().position = Vector3(1, 0, 0);

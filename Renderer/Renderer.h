@@ -38,14 +38,16 @@ private:
 	wagl::Texture* lightTexture{};
 
 	wagl::ShaderProgram* geometryProgram{};
-	wagl::ShaderProgram* lightProgram{};
+	wagl::ShaderProgram* pointLightProgram{};
+	wagl::ShaderProgram* dirLightProgram{};
 	wagl::ShaderProgram* resolveProgram{};
 
 	EntitySubscription& renderEntities;
-	EntitySubscription& lights;
+	EntitySubscription& pointLights;
+	EntitySubscription& dirLights;
 	EntitySubscription& camera;
 
-	mutable LightMesh lightMesh;
+	mutable LightMesh pointLightMesh;
 
 	wagl::ShaderProgram::Uniform u_geometry_MVP;
 	wagl::ShaderProgram::Uniform u_geometry_model;
@@ -53,16 +55,26 @@ private:
 	wagl::ShaderProgram::Uniform u_geometry_roughness;
 	wagl::ShaderProgram::Uniform u_geometry_flipNormals;
 
-	wagl::ShaderProgram::Uniform u_light_MVP;
-	wagl::ShaderProgram::Uniform u_light_invView;
-	wagl::ShaderProgram::Uniform u_light_invProjection;
-	wagl::ShaderProgram::Uniform u_light_depth_texture;
-	wagl::ShaderProgram::Uniform u_light_nr_texture;
+	wagl::ShaderProgram::Uniform u_point_light_MVP;
+	wagl::ShaderProgram::Uniform u_point_light_invView;
+	wagl::ShaderProgram::Uniform u_point_light_invProjection;
+	wagl::ShaderProgram::Uniform u_point_light_depth_texture;
+	wagl::ShaderProgram::Uniform u_point_light_nr_texture;
+
+	wagl::ShaderProgram::Uniform u_dir_light_invView;
+	wagl::ShaderProgram::Uniform u_dir_light_invProjection;
+	wagl::ShaderProgram::Uniform u_dir_light_depth_texture;
+	wagl::ShaderProgram::Uniform u_dir_light_nr_texture;
+	wagl::ShaderProgram::Uniform u_dir_light_dir;
+	wagl::ShaderProgram::Uniform u_dir_light_colour;
 
 	wagl::ShaderProgram::Uniform u_resolve_light_texture;
 	wagl::ShaderProgram::Uniform u_resolve_diffuse_texture;
 	wagl::ShaderProgram::Uniform u_resolve_MVP;
 
+	wagl::VertexBuffer quad_vb;
+	wagl::VertexArray quad_va;
+	void generateQuad();
 
 	Matrix4 projection;
 	Matrix4 view;

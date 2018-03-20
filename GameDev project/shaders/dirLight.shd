@@ -1,0 +1,4 @@
+{
+	"vertex" : "shaders/dirLightVert.glsl",
+	"fragment" : "shaders/dirLightFrag.glsl"
+}

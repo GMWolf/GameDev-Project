@@ -158,6 +158,11 @@
     <ClInclude Include="UISystem.h" />
     <ClInclude Include="VelocitySystem.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Renderer\Renderer.vcxproj">
+      <Project>{e74d92b8-58f1-423b-baa6-e7937ebca131}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -57,6 +57,7 @@ public:
 
 	Vector2 getMousePos() const;
 	Vector2 getMouseDelta() const;
+
 private:
 	GLFWwindow * window;
 	wagl::ApplicationAdapter* app;

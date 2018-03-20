@@ -1,4 +1,0 @@
-{
-	"vertex" : "shaders/lightVert.glsl",
-	"fragment" : "shaders/lightFrag.glsl"
-}

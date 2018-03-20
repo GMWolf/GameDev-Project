@@ -12,8 +12,11 @@
 Renderer::Renderer(int width, int height)
 	: width(width), height(height),
 	  renderEntities(SubscriptionManager::getSubscription(Aspect::getAspect<Transform, MeshFilter>())),
-	  lights(SubscriptionManager::getSubscription(Aspect::getAspect<Transform, PointLight>())), 
-	  camera(SubscriptionManager::getSubscription(Aspect::getAspect<Camera>()))
+	  pointLights(SubscriptionManager::getSubscription(Aspect::getAspect<Transform, PointLight>())),
+	  dirLights(SubscriptionManager::getSubscription(Aspect::getAspect<DirectionalLight>())),
+	  camera(SubscriptionManager::getSubscription(Aspect::getAspect<Camera>())),
+	  quad_vb({ { GL_FLOAT, 3, "position" } }, GL_STATIC_DRAW),
+	  quad_va(quad_vb)
 {
 }
 
@@ -28,28 +31,39 @@ void Renderer::init()
 	glCullFace(GL_BACK);
 	glEnable(GL_CULL_FACE);
 	GenerateFBO();
+	generateQuad();
 
 	geometryProgram = ShaderProgramLoader::Load("shaders/geometry.shd");
 	
 	resolveProgram = ShaderProgramLoader::Load("shaders/resolve.shd");
 	resolveProgram->Getuniform("screenSize") = Vector2(width, height);
 	
-	lightProgram = ShaderProgramLoader::Load("shaders/light.shd");
-	lightProgram->Getuniform("screenSize") = Vector2(width, height);
+	pointLightProgram = ShaderProgramLoader::Load("shaders/pointLight.shd");
+	pointLightProgram->Getuniform("screenSize") = Vector2(width, height);
 
-	std::cout << "geometry\n";
+	dirLightProgram = ShaderProgramLoader::Load("shaders/dirLight.shd");
+	dirLightProgram->Getuniform("screenSize") = Vector2(width, height);
+
+	
 	u_geometry_MVP = geometryProgram->Getuniform("MVP");
 	u_geometry_model = geometryProgram->Getuniform("model");
 	u_geometry_normal = geometryProgram->Getuniform("normalTex");
 	u_geometry_roughness = geometryProgram->Getuniform("roughnessTex");
 	u_geometry_flipNormals = geometryProgram->Getuniform("flipNormals");
-	std::cout << "light\n";
-	u_light_MVP = lightProgram->Getuniform("MVP");
-	u_light_invView = lightProgram->Getuniform("invView");
-	u_light_invProjection = lightProgram->Getuniform("invProjection");
-	u_light_depth_texture = lightProgram->Getuniform("depthTex");
-	u_light_nr_texture = lightProgram->Getuniform("NRTex");
-	std::cout << "resolve\n";
+	
+	u_point_light_MVP = pointLightProgram->Getuniform("MVP");
+	u_point_light_invView = pointLightProgram->Getuniform("invView");
+	u_point_light_invProjection = pointLightProgram->Getuniform("invProjection");
+	u_point_light_depth_texture = pointLightProgram->Getuniform("depthTex");
+	u_point_light_nr_texture = pointLightProgram->Getuniform("NRTex");
+
+	u_dir_light_invView = dirLightProgram->Getuniform("invView");
+	u_dir_light_invProjection = dirLightProgram->Getuniform("invProjection");
+	u_dir_light_depth_texture = dirLightProgram->Getuniform("depthTex");
+	u_dir_light_nr_texture = dirLightProgram->Getuniform("NRTex");
+	u_dir_light_colour = dirLightProgram->Getuniform("colour");
+	u_dir_light_dir = dirLightProgram->Getuniform("lightDir");
+	
 	u_resolve_light_texture = resolveProgram->Getuniform("lightTex");
 	u_resolve_diffuse_texture = resolveProgram->Getuniform("diffuseTex");
 	u_resolve_MVP = resolveProgram->Getuniform("MVP");
@@ -143,14 +157,14 @@ void Renderer::geometryPass() const
 void Renderer::lightPass() const
 {
 
-	lightMesh.clear();
+	pointLightMesh.clear();
 
-	for(Entity light : lights)
+	for(Entity light : pointLights)
 	{
 		Transform& t = light.get<Transform>();
 		PointLight& pl = light.get<PointLight>();
 
-		lightMesh.addLight(t.position, pl.colour * pl.power, pl.radius);
+		pointLightMesh.addLight(t.position, pl.colour * pl.power, pl.radius);
 	}
 
 	glEnable(GL_BLEND);
@@ -163,20 +177,39 @@ void Renderer::lightPass() const
 	lightBuffer->bindDraw();
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	//lightProgram->Getuniform("view") = view;
-	u_light_MVP = projection * view;
-	u_light_invView = view.inverse();
-	u_light_invProjection = projection.inverse();
+	//pointLightProgram->Getuniform("view") = view;
+	u_point_light_MVP = projection * view;
+	u_point_light_invView = view.inverse();
+	u_point_light_invProjection = projection.inverse();
 
 	depthTexture->bind(0);
-	u_light_depth_texture = 0;
+	u_point_light_depth_texture = 0;
 
-	NRTexture->bind(2);
-	u_light_nr_texture = 2;
+	NRTexture->bind(1);
+	u_point_light_nr_texture = 1;
+	pointLightProgram->use();
+	pointLightMesh.draw();
+
+	u_dir_light_invView = view.inverse();
+	u_dir_light_invProjection = projection.inverse();
+	u_dir_light_depth_texture = 0;
+	u_dir_light_nr_texture = 1;
+	dirLightProgram->use();
+
+	quad_va.bind();
+	for(Entity e : dirLights)
+	{
+		DirectionalLight& light = e.get<DirectionalLight>();
+
+		u_dir_light_dir = light.dir;
+		u_dir_light_colour = light.colour * light.power;
+		
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (void*)0);
+	}
+	glBindVertexArray(0);
 	
-	lightProgram->use();
 
-	lightMesh.draw();
+
 }
 
 void Renderer::resolvePass() const
@@ -203,4 +236,21 @@ void Renderer::resolvePass() const
 		e.get<MeshFilter>().material().diffuse().bind(1);
 		e.get<MeshFilter>().mesh().draw();
 	}
+}
+
+void Renderer::generateQuad()
+{
+	Vector3 pos[] = {
+		{-1, -1, 0},
+		{1, -1, 0},
+		{-1, 1, 0},
+		{1, 1, 0}
+	};
+
+	int elems[] = {
+		0, 1,2, 2, 1, 3
+	};
+
+	quad_vb.setVertexData(4, pos);
+	quad_vb.setElementsData(6, elems);
 }
