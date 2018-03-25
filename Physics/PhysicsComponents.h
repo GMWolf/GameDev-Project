@@ -46,6 +46,15 @@ COMPONENT(Collider, 16)
 
 };
 
+COMPONENT(RigidBodyProperties, 16)
+{
+	RigidBodyProperties() : mass(1) {}
+
+	RigidBodyProperties(float mass) : mass(mass){}
+
+	float mass;
+};
+
 COMPONENT(RigidBody, 16)
 {
 

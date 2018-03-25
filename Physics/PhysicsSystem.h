@@ -1,7 +1,10 @@
 #pragma once
 #include <btBulletDynamicsCommon.h>
 
-#include "../ECS/System.h"
+#include <System.h>
+#include "EntityEvents.h"
+#include "PhysicsColliderSystem.h"
+#include <Transform.h>
 
 class PhysicsSystem : public System
 {
@@ -20,12 +23,10 @@ private:
 	btSequentialImpulseConstraintSolver* solver;
 	btDiscreteDynamicsWorld* dynamicsWorld;
 
+	EntitySubscription& rigidBodies;
 
-	btCollisionShape* groundShape;
-	btCollisionShape* fallShape;
-	btDefaultMotionState* groundMotionState;
-	btRigidBody* groundRigidBody;
-	btDefaultMotionState* fallMotionState;
-	btRigidBody* fallRigidBody;
+	EventQueue<EntityInserted<Transform, Collider>> colliderInserted;
+	
+	void addEntity(Entity& entity);
 };
 

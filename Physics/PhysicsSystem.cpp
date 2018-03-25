@@ -3,7 +3,8 @@
 #include <iostream>
 
 
-PhysicsSystem::PhysicsSystem()
+PhysicsSystem::PhysicsSystem() :
+	rigidBodies(SubscriptionManager::getSubscription(Aspect::getAspect<RigidBody, Transform>()))
 {
 }
 
@@ -19,35 +20,45 @@ void PhysicsSystem::init()
 	dispatcher = new btCollisionDispatcher(collisionConfiguration);
 	solver = new btSequentialImpulseConstraintSolver;
 	dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
-	dynamicsWorld->setGravity(btVector3(0, -10, 0));
+	dynamicsWorld->setGravity(btVector3(0, -5, 0));
 
-	groundShape = new btStaticPlaneShape(btVector3(0, 1, 0), 1);
-	fallShape = new btSphereShape(1);
-	
-	groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, -1, 0)));
-
-	btRigidBody::btRigidBodyConstructionInfo groundRigidBodyCI(0, groundMotionState, groundShape, btVector3(0, 0, 0));
-	groundRigidBody = new btRigidBody(groundRigidBodyCI);
-
-
-	dynamicsWorld->addRigidBody(groundRigidBody);
-
-	fallMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 50, 0)));
-	btScalar mass = 1;
-	btVector3 fallInertia(0, 0, 0);
-	fallShape->calculateLocalInertia(mass, fallInertia);
-
-	btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass, fallMotionState, fallShape, fallInertia);
-	fallRigidBody = new btRigidBody(fallRigidBodyCI);
-	dynamicsWorld->addRigidBody(fallRigidBody);
 }
 
 void PhysicsSystem::update()
 {
-	dynamicsWorld->stepSimulation(wagl::DeltaTime::delta, 10);
+	while(!colliderInserted.events.empty())
+	{
+		auto& e = colliderInserted.events.front();
+
+		addEntity(e.entity);
+
+		colliderInserted.events.pop();
+	}
+
 	btTransform trans;
-	fallRigidBody->getMotionState()->getWorldTransform(trans);
-	std::cout << "Sphere height " << trans.getOrigin().getY() << std::endl;
+
+	for(Entity e : rigidBodies)
+	{
+		Transform& t = e.get<Transform>();
+		RigidBody& rb = e.get<RigidBody>();
+
+		rb.rigidBody->getMotionState()->getWorldTransform(trans);
+
+		btVector3& pos = trans.getOrigin();
+		btMatrix3x3& basis = trans.getBasis();
+		t.position = Vector3(pos.x(), pos.y(), pos.z());
+
+		btVector3 c0 = basis.getColumn(0);
+		t.rotation.c0.xyz = Vector3(c0.x(), c0.y(), c0.z()).xyz;
+
+		btVector3 c1 = basis.getColumn(1);
+		t.rotation.c1.xyz = Vector3(c1.x(), c1.y(), c1.z()).xyz;
+
+		btVector3 c2 = basis.getColumn(2);
+		t.rotation.c2.xyz = Vector3(c2.x(), c2.y(), c2.z()).xyz;
+	}
+
+	dynamicsWorld->stepSimulation(wagl::DeltaTime::delta, 10);
 }
 
 void PhysicsSystem::end()
@@ -59,4 +70,32 @@ void PhysicsSystem::end()
 	delete dispatcher;
 	delete collisionConfiguration;
 	delete broadphase;
+}
+
+void PhysicsSystem::addEntity(Entity& entity)
+{
+	Transform& t = entity.get<Transform>();
+
+	float mass = 0;
+
+	
+
+	if (entity.has<RigidBodyProperties>())
+	{
+		mass = entity.get<RigidBodyProperties>().mass;
+	}
+
+	btCollisionShape* shape = entity.get<Collider>().collisionShape;
+
+	btVector3 inertia(0, 0, 0);
+	shape->calculateLocalInertia(mass, inertia);
+	
+	btDefaultMotionState* ms = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(t.position.x, t.position.y, t.position.z)));
+	btRigidBody::btRigidBodyConstructionInfo ci(mass, ms, shape, inertia);
+
+	btRigidBody* rb = new btRigidBody(ci);
+
+	entity.add(RigidBody(rb));
+	dynamicsWorld->addRigidBody(rb);
+	std::cout << "entity " << entity.getId() << " is now an RB!" << std::endl;
 }

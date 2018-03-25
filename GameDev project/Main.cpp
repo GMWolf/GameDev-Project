@@ -1,4 +1,3 @@
-#pragma once
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -43,6 +42,8 @@ public:
 	void init() override
 	{
 
+		/*
+		//Print Component IDs
 		std::cout << "Transform " << Transform::componentId << std::endl;
 		std::cout << "Velocity " << Velocity::componentId << std::endl;
 		std::cout << "LightWave " << lightWave::componentId << std::endl;
@@ -51,7 +52,7 @@ public:
 		std::cout << "Camera " << Camera::componentId << std::endl;
 		std::cout << "PlayerControl " << PlayerControl::componentId << std::endl;
 		std::cout << "Rotate  " << Rotate::componentId << std::endl;
-
+		*/
 
 		AssetHandle<Mesh> suzane = assets.meshs.get("models/suzane.objm");
 		Mesh cubeMesh(Mesh::Cube(Vector3(1, 1, 1)));
@@ -111,10 +112,11 @@ public:
 
 		Entity floor = Entity::create();
 		floor.add(Transform());
-		floor.add(MeshFilter(cube, sand));
+		floor.add(MeshFilter(assets.meshs.get("models/smoothCube.objm"), sand));
 		Transform& ft = floor.get<Transform>();
-		ft.scale = Vector3(20, 20, 20);
+		ft.scale = Vector3(10, 10, 10);
 		ft.position = Vector3(0, -11, 0);
+		floor.add(BoxCollider(Vector3(10, 10, 10)));
 
 		for (int i = -5; i < 5; i++) {
 			Entity e = Entity::create();
@@ -135,7 +137,19 @@ public:
 			lightRight.add(lightWave(3, 5, (rand() / (float) RAND_MAX) * 5, 0.1));
 		}
 
+		Entity blockA = Entity::create();
+		blockA.add(Transform());
+		blockA.get<Transform>().position = Vector3(0, 5, -3);
+		blockA.add(MeshFilter(assets.meshs.get("models/smoothCube.objm"), marble));
+		blockA.add(BoxCollider(Vector3(1, 1, 1)));
+		blockA.add(RigidBodyProperties(1));
 
+		Entity blockB = Entity::create();
+		blockB.add(Transform());
+		blockB.get<Transform>().position = Vector3(1.2, 7, -3);
+		blockB.add(MeshFilter(assets.meshs.get("models/smoothCube.objm"), marble));
+		blockB.add(BoxCollider(Vector3(1, 1, 1)));
+		blockB.add(RigidBodyProperties(1));
 	}
 
 	void end() override
