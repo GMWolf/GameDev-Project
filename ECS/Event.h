@@ -9,6 +9,10 @@ public:
 	EventQueue();
 	~EventQueue();
 
+	bool empty();
+	void pop();
+	T& front();
+
 	std::queue<T> events;
 };
 
@@ -48,6 +52,25 @@ EventQueue<T>::~EventQueue()
 	auto t = std::find(Event<T>::observers.begin(), Event<T>::observers.end(), this);
 	Event<T>::observers.erase(t);
 }
+
+template <class T>
+bool EventQueue<T>::empty()
+{
+	return events.empty();
+}
+
+template <class T>
+void EventQueue<T>::pop()
+{
+	events.pop();
+}
+
+template <class T>
+T& EventQueue<T>::front()
+{
+	return events.front();
+}
+
 
 template <class T>
 template <class ... Args>
