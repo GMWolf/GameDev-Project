@@ -52,9 +52,11 @@ void PhysicsSystem::update()
 
 void PhysicsSystem::end()
 {
-	delete broadphase;
-	delete collisionConfiguration;
-	delete dispatcher;
-	delete solver;
+
+	//Deletion order is important
 	delete dynamicsWorld;
+	delete solver;
+	delete dispatcher;
+	delete collisionConfiguration;
+	delete broadphase;
 }

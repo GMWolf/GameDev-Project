@@ -87,7 +87,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)Renderer;$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)Assets;$(SolutionDir)json;$(SolutionDir)Typestring;D:\Projects\University Projects\GameDev\Game\GameDev project\bullet3-2.87\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)Renderer;$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)Assets;$(SolutionDir)json;$(SolutionDir)Physics;D:\Projects\University Projects\GameDev\Game\GameDev project\bullet3-2.87\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Renderer.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib;$(SolutionDir)bullet3-2.87\bin\BulletCollision.lib;$(SolutionDir)bullet3-2.87\bin\BulletDynamics.lib;$(SolutionDir)bullet3-2.87\bin\LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -100,7 +100,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)Renderer;$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)Assets;$(SolutionDir)json;$(SolutionDir)Typestring;D:\Projects\University Projects\GameDev\Game\GameDev project\bullet3-2.87\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)Renderer;$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)Assets;$(SolutionDir)json;$(SolutionDir)Physics;D:\Projects\University Projects\GameDev\Game\GameDev project\bullet3-2.87\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Renderer.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib;$(SolutionDir)bullet3-2.87\bin\BulletCollision.lib;$(SolutionDir)bullet3-2.87\bin\BulletDynamics.lib;$(SolutionDir)bullet3-2.87\bin\LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -115,7 +115,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)Renderer;$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)Assets;$(SolutionDir)json;$(SolutionDir)Typestring;D:\Projects\University Projects\GameDev\Game\GameDev project\bullet3-2.87\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)Renderer;$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)Assets;$(SolutionDir)json;$(SolutionDir)Physics;D:\Projects\University Projects\GameDev\Game\GameDev project\bullet3-2.87\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -132,7 +132,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)Renderer;$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)Assets;$(SolutionDir)json;$(SolutionDir)Typestring;D:\Projects\University Projects\GameDev\Game\GameDev project\bullet3-2.87\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)Renderer;$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)Assets;$(SolutionDir)json;$(SolutionDir)Physics;D:\Projects\University Projects\GameDev\Game\GameDev project\bullet3-2.87\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

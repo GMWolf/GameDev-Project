@@ -18,14 +18,15 @@
 #include "CameraTransformSystem.h"
 #include "Camera.h"
 #include "MovementSystem.h"
-#include "../Assets/AssetManager.h"
+#include <AssetManager.h>
 #include "VelocitySystem.h"
 #include "Mesh.h"
 #include "Assets.h"
 #include "LightWave.h"
 #include "LightWaveSystem.h"
 #include "UISystem.h"
-#include "../Physics/PhysicsSystem.h"
+#include <PhysicsSystem.h>
+#include <PhysicsColliderSystem.h>
 
 class Game : public wagl::ApplicationAdapter {
 
@@ -63,13 +64,14 @@ public:
 		AssetHandle<Material> marble = assets.materials.get("materials/MarbleRed.mat");
 		
 		SystemManager::addSystem(new UISystem(window, this));
-		SystemManager::addSystem(new PhysicsSystem());
-		SystemManager::addSystem(new PlayerControlSystem());
-		SystemManager::addSystem(new CameraTransformSystem());
-		SystemManager::addSystem(new VelocitySystem());
+		SystemManager::addSystem(new PhysicsColliderSystem);
+		SystemManager::addSystem(new PhysicsSystem);
+		SystemManager::addSystem(new PlayerControlSystem);
+		SystemManager::addSystem(new CameraTransformSystem);
+		SystemManager::addSystem(new VelocitySystem);
 		SystemManager::addSystem(new Renderer(width, height));
-		SystemManager::addSystem(new RotateSystem());
-		SystemManager::addSystem(new LightWaveSystem());
+		SystemManager::addSystem(new RotateSystem);
+		SystemManager::addSystem(new LightWaveSystem);
 		SystemManager::init();
 
 
