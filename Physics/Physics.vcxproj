@@ -159,6 +159,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="PhysicsSystem.h" />
+    <ClInclude Include="PhysicsComponents.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PhysicsSystem.cpp" />

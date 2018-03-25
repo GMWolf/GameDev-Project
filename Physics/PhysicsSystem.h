@@ -20,6 +20,7 @@ private:
 	btSequentialImpulseConstraintSolver* solver;
 	btDiscreteDynamicsWorld* dynamicsWorld;
 
+
 	btCollisionShape* groundShape;
 	btCollisionShape* fallShape;
 	btDefaultMotionState* groundMotionState;

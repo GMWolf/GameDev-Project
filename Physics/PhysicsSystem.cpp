@@ -23,6 +23,7 @@ void PhysicsSystem::init()
 
 	groundShape = new btStaticPlaneShape(btVector3(0, 1, 0), 1);
 	fallShape = new btSphereShape(1);
+	
 	groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, -1, 0)));
 
 	btRigidBody::btRigidBodyConstructionInfo groundRigidBodyCI(0, groundMotionState, groundShape, btVector3(0, 0, 0));
