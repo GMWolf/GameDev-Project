@@ -150,6 +150,13 @@ public:
 		blockB.add(MeshFilter(assets.meshs.get("models/smoothCube.objm"), marble));
 		blockB.add(BoxCollider(Vector3(1, 1, 1)));
 		blockB.add(RigidBodyProperties(1));
+
+		Entity blockC = Entity::create();
+		blockC.add(Transform());
+		blockC.get<Transform>().position = Vector3(0.1, 9, -3);
+		blockC.add(MeshFilter(assets.meshs.get("models/smoothCube.objm"), marble));
+		blockC.add(BoxCollider(Vector3(1, 1, 1)));
+		blockC.add(RigidBodyProperties(1));
 	}
 
 	void end() override
