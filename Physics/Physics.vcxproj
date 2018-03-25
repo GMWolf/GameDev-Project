@@ -88,7 +88,14 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>D:\Projects\University Projects\GameDev\Game\GameDev project\bullet3-2.87\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
+    <Lib>
+      <AdditionalDependencies>$(SolutionDir)bullet3-2.87\bin\BulletCollision.lib;$(SolutionDir)bullet3-2.87\bin\BulletDynamics.lib;$(SolutionDir)bullet3-2.87\bin\LinearMath.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -97,7 +104,14 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>D:\Projects\University Projects\GameDev\Game\GameDev project\bullet3-2.87\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
+    <Lib>
+      <AdditionalDependencies>$(SolutionDir)bullet3-2.87\bin\BulletCollision.lib;$(SolutionDir)bullet3-2.87\bin\BulletDynamics.lib;$(SolutionDir)bullet3-2.87\bin\LinearMath.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -108,11 +122,18 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>D:\Projects\University Projects\GameDev\Game\GameDev project\bullet3-2.87\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <Lib>
+      <AdditionalDependencies>$(SolutionDir)bullet3-2.87\bin\BulletCollision.lib;$(SolutionDir)bullet3-2.87\bin\BulletDynamics.lib;$(SolutionDir)bullet3-2.87\bin\LinearMath.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -123,11 +144,18 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>D:\Projects\University Projects\GameDev\Game\GameDev project\bullet3-2.87\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <Lib>
+      <AdditionalDependencies>$(SolutionDir)bullet3-2.87\bin\BulletCollision.lib;$(SolutionDir)bullet3-2.87\bin\BulletDynamics.lib;$(SolutionDir)bullet3-2.87\bin\LinearMath.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="PhysicsSystem.h" />
@@ -136,11 +164,11 @@
     <ClCompile Include="PhysicsSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\bullet3-2.87\build3\vs2010\Bullet3Collision.vcxproj">
-      <Project>{ec30bef4-d829-dd46-015c-c2cbedb3bc52}</Project>
+    <ProjectReference Include="..\bullet3-2.87\build3\vs2010\BulletCollision.vcxproj">
+      <Project>{b91153c5-259d-c089-2eae-437e9ab81c8a}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\bullet3-2.87\build3\vs2010\Bullet3Dynamics.vcxproj">
-      <Project>{189748bb-8422-b67f-8d33-3974f93d1280}</Project>
+    <ProjectReference Include="..\bullet3-2.87\build3\vs2010\BulletDynamics.vcxproj">
+      <Project>{45122e0f-31e0-2115-1a74-923b06e1fd79}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

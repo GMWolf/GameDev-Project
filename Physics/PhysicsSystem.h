@@ -1,8 +1,9 @@
 #pragma once
 #include <btBulletDynamicsCommon.h>
+
 #include "../ECS/System.h"
 
-class PhysicsSystem : System
+class PhysicsSystem : public System
 {
 public:
 	PhysicsSystem();
@@ -19,6 +20,11 @@ private:
 	btSequentialImpulseConstraintSolver* solver;
 	btDiscreteDynamicsWorld* dynamicsWorld;
 
-
+	btCollisionShape* groundShape;
+	btCollisionShape* fallShape;
+	btDefaultMotionState* groundMotionState;
+	btRigidBody* groundRigidBody;
+	btDefaultMotionState* fallMotionState;
+	btRigidBody* fallRigidBody;
 };
 
