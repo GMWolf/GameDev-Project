@@ -72,6 +72,21 @@ void PhysicsSystem::end()
 	delete broadphase;
 }
 
+void PhysicsSystem::RayCastClosest(Vector3 start, Vector3 end, Hit& hit)
+{
+	const btVector3 btStart(start.x, start.y, start.z);
+	const btVector3 btEnd(end.x, end.y, end.z);
+	btCollisionWorld::ClosestRayResultCallback callback(btStart, btEnd);
+
+	dynamicsWorld->rayTest(btStart, btEnd, callback);
+
+	assignBt(hit.worldPos, callback.m_hitPointWorld);
+	assignBt(hit.normal, callback.m_hitNormalWorld);
+	hit.hasHit = callback.hasHit();
+}
+
+
+
 void PhysicsSystem::addEntity(Entity& entity)
 {
 	Transform& t = entity.get<Transform>();
