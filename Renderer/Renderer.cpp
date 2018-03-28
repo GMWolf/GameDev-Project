@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Renderer.h"
 #include <iostream>
-#include <Vector3.h>
 #include <Transform.h>
 #include "MeshFilter.h"
 #include "Lights.h"
@@ -36,13 +35,13 @@ void Renderer::init()
 	geometryProgram = ShaderProgramLoader::Load("shaders/geometry.shd");
 	
 	resolveProgram = ShaderProgramLoader::Load("shaders/resolve.shd");
-	resolveProgram->Getuniform("screenSize") = Vector2(width, height);
+	resolveProgram->Getuniform("screenSize") = glm::vec2(width, height);
 	
 	pointLightProgram = ShaderProgramLoader::Load("shaders/pointLight.shd");
-	pointLightProgram->Getuniform("screenSize") = Vector2(width, height);
+	pointLightProgram->Getuniform("screenSize") = glm::vec2(width, height);
 
 	dirLightProgram = ShaderProgramLoader::Load("shaders/dirLight.shd");
-	dirLightProgram->Getuniform("screenSize") = Vector2(width, height);
+	dirLightProgram->Getuniform("screenSize") = glm::vec2(width, height);
 
 	
 	u_geometry_MVP = geometryProgram->Getuniform("MVP");
@@ -68,9 +67,9 @@ void Renderer::init()
 	u_resolve_diffuse_texture = resolveProgram->Getuniform("diffuseTex");
 	u_resolve_MVP = resolveProgram->Getuniform("MVP");
 
-
-	projection = Matrix4::Perspective(0.01, 1000, width / ((float) height), 60);
-	view = Matrix4::ViewMatrix(Vector3(0, 0, 3), Vector3(0, 0, 0), Vector3(0, 1, 0));
+	
+	projection = glm::perspective<float>(glm::radians(60.f), width / (float)height, 0.1f, 1000.f); 
+	view = glm::lookAt(glm::vec3(0, 0, 3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 }
 
 void Renderer::update()
@@ -141,9 +140,9 @@ void Renderer::geometryPass() const
 
 	u_geometry_flipNormals = true;
 
-	const Matrix4 mv = projection * view;
+	const glm::mat4 mv = projection * view;
 	for (Entity e : renderEntities) {
-		const Matrix4 model = e.get<Transform>().getMatrix();
+		const glm::mat4 model = e.get<Transform>().getMatrix();
 		u_geometry_MVP = mv * model ;
 		u_geometry_model = model;
 		Material& material = e.get<MeshFilter>().material();
@@ -179,8 +178,8 @@ void Renderer::lightPass() const
 
 	//pointLightProgram->Getuniform("view") = view;
 	u_point_light_MVP = projection * view;
-	u_point_light_invView = view.inverse();
-	u_point_light_invProjection = projection.inverse();
+	u_point_light_invView = glm::inverse(view);
+	u_point_light_invProjection = glm::inverse(projection);
 
 	depthTexture->bind(0);
 	u_point_light_depth_texture = 0;
@@ -190,8 +189,8 @@ void Renderer::lightPass() const
 	pointLightProgram->use();
 	pointLightMesh.draw();
 
-	u_dir_light_invView = view.inverse();
-	u_dir_light_invProjection = projection.inverse();
+	u_dir_light_invView = glm::inverse(view);
+	u_dir_light_invProjection = glm::inverse(projection);
 	u_dir_light_depth_texture = 0;
 	u_dir_light_nr_texture = 1;
 	dirLightProgram->use();
@@ -228,9 +227,9 @@ void Renderer::resolvePass() const
 	u_resolve_diffuse_texture = 1;
 
 	resolveProgram->use();
-	const Matrix4 mv = projection * view;
+	const glm::mat4 mv = projection * view;
 	for (Entity e : renderEntities) {
-		const Matrix4 model = e.get<Transform>().getMatrix();
+		const glm::mat4 model = e.get<Transform>().getMatrix();
 		u_resolve_MVP = mv * model;
 		//std::cout << e.getId() << '\n';
 		e.get<MeshFilter>().material().diffuse().bind(1);
@@ -240,7 +239,7 @@ void Renderer::resolvePass() const
 
 void Renderer::generateQuad()
 {
-	Vector3 pos[] = {
+	glm::vec3 pos[] = {
 		{-1, -1, 0},
 		{1, -1, 0},
 		{-1, 1, 0},

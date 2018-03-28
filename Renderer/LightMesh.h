@@ -4,6 +4,7 @@
 #include <VertexBuffer.h>
 #include <vector>
 #include <Vector3.h>
+#include <glm/detail/type_vec3.hpp>
 
 class LightMesh
 {
@@ -13,12 +14,12 @@ public:
 
 	void draw();
 
-	void addLight(const Vector3& position, const Vector3& colour, float radius);
+	void addLight(const glm::vec3& position, const glm::vec3& colour, float radius);
 	void clear();
 
 private:
-	std::vector<Vector3> positions{};
-	std::vector<Vector3> colours{};
+	std::vector<glm::vec3> positions{};
+	std::vector<glm::vec3> colours{};
 	std::vector<float> radii{};
 	std::vector<int> elements{};
 

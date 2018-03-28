@@ -8,6 +8,7 @@
 #include <Vector2.h>
 #include <Vector3.h>
 #include <Matrix4.h>
+#include <glm/glm.hpp>
 
 namespace wagl {
 
@@ -26,10 +27,10 @@ namespace wagl {
 			void operator=(GLfloat rhs) const;
 
 
-			void operator=(const Vector3& rhs) const;
-			void operator=(const Vector2& rhs) const;
+			void operator=(const glm::vec3& rhs) const;
+			void operator=(const glm::vec2& rhs) const;
 
-			void operator=(const Matrix4& rhs) const;
+			void operator=(const glm::mat4& rhs) const;
 
 			GLuint program;
 			GLenum type;

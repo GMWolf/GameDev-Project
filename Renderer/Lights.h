@@ -1,6 +1,6 @@
 #pragma once
 #include <Component.h>
-#include <Vector3.h>
+#include <glm/glm.hpp>
 
 COMPONENT(PointLight, 8)
 {
@@ -9,11 +9,11 @@ COMPONENT(PointLight, 8)
 	{
 	}
 
-	PointLight(Vector3 colour, float power, float radius) : colour(colour), power(power), radius(radius)
+	PointLight(glm::vec3 colour, float power, float radius) : colour(colour), power(power), radius(radius)
 	{
 	}
 
-	Vector3 colour;
+	glm::vec3 colour;
 	float radius;
 	float power;
 };
@@ -25,11 +25,11 @@ COMPONENT(DirectionalLight, 1)
 	{
 	}
 
-	DirectionalLight(Vector3 dir, Vector3 colour,float power) : dir(dir), colour(colour), power(power)
+	DirectionalLight(glm::vec3 dir, glm::vec3 colour,float power) : dir(dir), colour(colour), power(power)
 	{
 	}
 
-	Vector3 colour;
-	Vector3 dir;
+	glm::vec3 colour;
+	glm::vec3 dir;
 	float power;
 };

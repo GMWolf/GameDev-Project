@@ -1,12 +1,13 @@
 #include "stdafx.h"
 #include "Icosphere.h"
 #include <array>
+#include <glm/glm.hpp>
 
 const float Icosphere::X = .525731112119133606f;
 const float Icosphere::Z = .850650808352039932f;
 const float Icosphere::N = 0.f;
 
-const std::vector<Vector3> Icosphere::icoVertices = {
+const std::vector<glm::vec3> Icosphere::icoVertices = {
 	{ -X,N,Z },{ X,N,Z },{ -X,N,-Z },{ X,N,-Z },
 	{ N,Z,X },{ N,Z,-X },{ N,-Z,X },{ N,-Z,-X },
 	{ Z,X,N },{ -Z,X, N },{ Z,-X,N },{ -Z,-X, N }
@@ -19,7 +20,7 @@ const std::vector<Icosphere::Triangle> Icosphere::icoTriangles = {
 	{ 6,1,10 },{ 9,0,11 },{ 9,11,2 },{ 9,2,5 },{ 7,2,11 }
 };
 
-void Icosphere::generate(int subdiv, std::vector<unsigned int>& elements, std::vector<Vector3>& vertices)
+void Icosphere::generate(int subdiv, std::vector<unsigned int>& elements, std::vector<glm::vec3>& vertices)
 {
 	vertices = icoVertices;
 	std::vector<Triangle> triangles = icoTriangles;
@@ -38,7 +39,7 @@ void Icosphere::generate(int subdiv, std::vector<unsigned int>& elements, std::v
 	}
 }
 
-unsigned Icosphere::vertexForEdge(Lookup& lookup, std::vector<Vector3>& vertices, index first, index second)
+unsigned Icosphere::vertexForEdge(Lookup& lookup, std::vector<glm::vec3>& vertices, index first, index second)
 {
 	Lookup::key_type key(first, second);
 	if (key.first > key.second)
@@ -50,15 +51,15 @@ unsigned Icosphere::vertexForEdge(Lookup& lookup, std::vector<Vector3>& vertices
 		auto& edge0 = vertices[first];
 		auto& edge1 = vertices[second];
 		auto point = (edge0 + edge1);
-		point.Normalize();
-
+		point = glm::normalize(point);
+		
 		vertices.push_back(point);
 	}
 
 	return inserted.first->second;
 }
 
-std::vector<Icosphere::Triangle> Icosphere::subdivide(std::vector<Vector3>& vertices, std::vector<Triangle> triangles)
+std::vector<Icosphere::Triangle> Icosphere::subdivide(std::vector<glm::vec3>& vertices, std::vector<Triangle> triangles)
 {
 	Lookup lookup;
 	std::vector<Triangle> result;

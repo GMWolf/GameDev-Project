@@ -46,12 +46,12 @@ bool UISystem::getKey(keys key) const
 	return glfwGetKey(window, key) == GLFW_PRESS;
 }
 
-Vector2 UISystem::getMousePos() const
+glm::vec2 UISystem::getMousePos() const
 {
 	return mousePos;
 }
 
-Vector2 UISystem::getMouseDelta() const
+glm::vec2 UISystem::getMouseDelta() const
 {
 	return mouseDelta;
 }

@@ -2,6 +2,7 @@
 #include "System.h"
 #include "ApplicationAdapter.h"
 #include "Vector2.h"
+#include <glm/detail/type_vec2.hpp>
 
 class UISystem : public System
 {
@@ -55,14 +56,14 @@ public:
 
 	bool getKey(keys key) const;
 
-	Vector2 getMousePos() const;
-	Vector2 getMouseDelta() const;
+	glm::vec2 getMousePos() const;
+	glm::vec2 getMouseDelta() const;
 
 private:
 	GLFWwindow * window;
 	wagl::ApplicationAdapter* app;
-	Vector2 mousePrevious;
-	Vector2 mousePos;
-	Vector2 mouseDelta;
+	glm::vec2 mousePrevious;
+	glm::vec2 mousePos;
+	glm::vec2 mouseDelta;
 };
 

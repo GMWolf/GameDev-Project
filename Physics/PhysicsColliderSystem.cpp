@@ -22,7 +22,7 @@ void PhysicsColliderSystem::update()
 	{
 		auto& e = boxColliderInserted.events.front();
 
-		Vector3& v = e.entity.get<BoxCollider>().halfSides;
+		glm::vec3& v = e.entity.get<BoxCollider>().halfSides;
 		btCollisionShape* c = new btBoxShape(btVector3(v.x, v.y, v.z));
 
 		e.entity.add(Collider(c));

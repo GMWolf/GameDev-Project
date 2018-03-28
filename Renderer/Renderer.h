@@ -1,9 +1,6 @@
 #pragma once
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <ShaderProgram.h>
 #include <Texture.h>
-#include <Matrix4.h>
 #include <FrameBuffer.h>
 #include <System.h>
 #include <EntitySubscription.h>
@@ -76,7 +73,7 @@ private:
 	wagl::VertexArray quad_va;
 	void generateQuad();
 
-	Matrix4 projection;
-	Matrix4 view;
+	glm::mat4 projection;
+	glm::mat4 view;
 };
 

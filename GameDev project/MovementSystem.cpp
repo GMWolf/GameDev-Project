@@ -2,11 +2,12 @@
 #include "SubscriptionManager.h"
 #include "Transform.h"
 #include "DeltaTime.h"
-#include "Vector2.h"
 #include <iostream>
 #include "VelocitySystem.h"
 #include "Lights.h"
 #include "SystemManager.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 PlayerControlSystem::PlayerControlSystem():
 	playerControled(SubscriptionManager::getSubscription(Aspect::getAspect<PlayerControl, Transform>()))
@@ -34,27 +35,27 @@ void PlayerControlSystem::update()
 		Transform& t = e.get<Transform>();
 		
 		if (ui->getKey(UISystem::KEY_A)) {
-			t.position += -(t.rotation.left * wagl::DeltaTime::delta * 2);
+			t.position += -glm::vec3(t.rotation[0] * (float)wagl::DeltaTime::delta * 2.f);
 		}
 		if (ui->getKey(UISystem::KEY_D)) {
-			t.position += (t.rotation.left * wagl::DeltaTime::delta * 2);
+			t.position += glm::vec3(t.rotation[0] * (float)wagl::DeltaTime::delta * 2.f);
 		}
 		if (ui->getKey(UISystem::KEY_LEFT_SHIFT)) {
-			t.position += (t.rotation.up * wagl::DeltaTime::delta * 2);
+			t.position += glm::vec3(t.rotation[1] * (float)wagl::DeltaTime::delta * 2.f);
 		}
 		if (ui->getKey(UISystem::KEY_LEFT_CTRL)) {
-			t.position += -(t.rotation.up * wagl::DeltaTime::delta * 2);
+			t.position += -glm::vec3(t.rotation[1] * (float)wagl::DeltaTime::delta * 2.f);
 		}
 		if (ui->getKey(UISystem::KEY_W)) {
-			t.position += (t.rotation.forward * wagl::DeltaTime::delta * 2);
+			t.position += -glm::vec3(t.rotation[2] * (float)wagl::DeltaTime::delta * 2.f);
 		}
 		if (ui->getKey(UISystem::KEY_S)) {
-			t.position += -(t.rotation.forward * wagl::DeltaTime::delta * 2);
+			t.position += glm::vec3(t.rotation[2] * (float)wagl::DeltaTime::delta * 2.f);
 		}
 		
-		Vector2 diff = ui->getMouseDelta();
-		t.rotation = Matrix4::Rotation(Vector3(0, 1, 0), -diff.x / 1000) *  t.rotation;
-		t.rotation = Matrix4::Rotation(t.rotation.left, -diff.y / 1000) * t.rotation;
+		glm::vec2 diff = ui->getMouseDelta();
+		t.rotation = glm::rotate(glm::mat4(1), -diff.x / 1000, glm::vec3(0, 1, 0)) * t.rotation;
+		t.rotation = glm::rotate(glm::mat4(1), -diff.y / 1000, glm::vec3(t.rotation[0])) * t.rotation;
 
 		
 		if (ui->getKey(UISystem::KEY_SPACE)) {
@@ -65,11 +66,11 @@ void PlayerControlSystem::update()
 				e.add(Velocity(t.rotation.forward * -5));
 				e.add(PointLight(Vector3(0.25, 0.25, 1) , 5.f, 2.5));*/
 				PhysicsSystem::Hit hit;
-				physics->RayCastClosest(t.position, t.position - t.rotation.forward * 100, hit);
+				physics->RayCastClosest(t.position, t.position - glm::vec3(t.rotation[2]) * 100.f, hit);
 				if(hit.hasHit)
 				{
 					std::cout << "HIT!" << std::endl;
-					PhysicsSystem::Impulse::Emit(hit.entity, -(t.rotation.forward * 5), Vector3(0, 0, 0));
+					PhysicsSystem::Impulse::Emit(hit.entity, -(t.rotation[2] * 5.f), glm::vec3(0, 0, 0));
 				}
 			}
 			SpaceReleased = false;

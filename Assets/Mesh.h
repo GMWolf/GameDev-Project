@@ -3,14 +3,12 @@
 #include <VertexFormat.h>
 #include <VertexArray.h>
 #include <vector>
-#include <Vector3.h>
-#include <Vector2.h>
 
 
 struct MeshData {
-	std::vector<Vector3> positions;
-	std::vector<Vector2> UVs;
-	std::vector<Vector3> normals;
+	std::vector<glm::vec3> positions;
+	std::vector<glm::vec2> UVs;
+	std::vector<glm::vec3> normals;
 	std::vector<int> indices;
 
 	MeshData operator+(const MeshData& rhs) const;
@@ -38,14 +36,14 @@ public:
 	MeshData data;
 		
 
-	static MeshData Triangle(const Vector3& p0, const Vector3& p1, const Vector3& p2,
-		const Vector2& t0, const Vector2& t1, const Vector2& t2,
-		const Vector3& n0, const Vector3& n1, const Vector3& n2);
-	static MeshData Quad(const Vector3& p0, const Vector3& p1, const Vector3& p2, const Vector3& p3,
-		const Vector2& t0, const Vector2& t1, const Vector2& t2, const Vector2& t3,
-		const Vector3& n0, const Vector3& n1, const Vector3& n2, const Vector3& n3);
+	static MeshData Triangle(const glm::vec3& p0, const glm::vec3& p1, const glm::vec3& p2,
+		const glm::vec2& t0, const glm::vec2& t1, const glm::vec2& t2,
+		const glm::vec3& n0, const glm::vec3& n1, const glm::vec3& n2);
+	static MeshData Quad(const glm::vec3& p0, const glm::vec3& p1, const glm::vec3& p2, const glm::vec3& p3,
+		const glm::vec2& t0, const glm::vec2& t1, const glm::vec2& t2, const glm::vec2& t3,
+		const glm::vec3& n0, const glm::vec3& n1, const glm::vec3& n2, const glm::vec3& n3);
 
-	static MeshData Cube(Vector3 size);
+	static MeshData Cube(glm::vec3 size);
 
 	static const wagl::VertexFormat format;
 	
@@ -60,8 +58,8 @@ public:
 
 private:
 
-	std::vector<Vector3> tangents;
-	std::vector<Vector3> bitangents;
+	std::vector<glm::vec3> tangents;
+	std::vector<glm::vec3> bitangents;
 
 	void computeTangents();
 

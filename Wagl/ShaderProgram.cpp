@@ -1,5 +1,6 @@
 #include "ShaderProgram.h"
 #include <iostream>
+#include <glm/gtc/type_ptr.inl>
 
 wagl::ShaderProgram::Uniform wagl::ShaderProgram::Uniform::invalid = Uniform(-1, -1, -1, -1);
 
@@ -172,34 +173,34 @@ void wagl::ShaderProgram::Uniform::operator=(GLuint rhs) const
 
 
 
-void wagl::ShaderProgram::Uniform::operator=(const Vector3& rhs) const
+void wagl::ShaderProgram::Uniform::operator=(const glm::vec3& rhs) const
 {
 	if (location == -1) return;
 	if (type != GL_FLOAT_VEC3) {
-		std::cout << "Cannot assign Vector3 to uniform" << std::endl;
+		std::cout << "Cannot assign vec3 to uniform" << std::endl;
 		return;
 	}
 	glProgramUniform3f(program, location, rhs.x, rhs.y, rhs.z);
 }
 
-void wagl::ShaderProgram::Uniform::operator=(const Vector2& rhs) const
+void wagl::ShaderProgram::Uniform::operator=(const glm::vec2& rhs) const
 {
 	if (location == -1) return;
 	if (type != GL_FLOAT_VEC2) {
-		std::cout << "Cannot assign Vector2 to uniform" << std::endl;
+		std::cout << "Cannot assign vec2 to uniform" << std::endl;
 		return;
 	}
 	glProgramUniform2f(program, location, rhs.x, rhs.y);
 }
 
-void wagl::ShaderProgram::Uniform::operator=(const Matrix4 & rhs) const
+void wagl::ShaderProgram::Uniform::operator=(const glm::mat4 & rhs) const
 {
 	if (location == -1) return;
 	if (type != GL_FLOAT_MAT4) {
-		std::cout << "Cannot assign Matrix to uniform" << std::endl;
+		std::cout << "Cannot assign mat4 to uniform" << std::endl;
 		return;
 	}
-	glProgramUniformMatrix4fv(program, location, 1, false, rhs.items);
+	glProgramUniformMatrix4fv(program, location, 1, GL_FALSE, glm::value_ptr(rhs));
 }
 
 

@@ -22,7 +22,7 @@ void RotateSystem::update()
 	{
 		Transform& t = e.get<Transform> ();
 		const float rate = e.get<Rotate>().rate;
-		t.rotation = Matrix4::Rotation(Vector3(0, 1, 0), rate) * t.rotation;
+		t.rotation =glm::rotate(t.rotation, rate, glm::vec3(0, 1, 0));
 	}
 }
 

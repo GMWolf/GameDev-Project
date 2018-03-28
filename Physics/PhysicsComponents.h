@@ -3,18 +3,19 @@
 #include <BulletCollision/CollisionShapes/btCollisionShape.h>
 #include <BulletDynamics/Dynamics/btRigidBody.h>
 #include <Vector3.h>
+#include <glm/glm.hpp>
 
 COMPONENT(BoxCollider, 1)
 {
-	BoxCollider() : halfSides(Vector3(1, 1, 1))
+	BoxCollider() : halfSides(1, 1, 1)
 	{
 	}
 
-	BoxCollider(Vector3 hs) : halfSides(hs)
+	BoxCollider(glm::vec3 hs) : halfSides(hs)
 	{
 	}
 
-	Vector3 halfSides;
+	glm::vec3 halfSides;
 };
 
 COMPONENT(SphereCollider, 1)

@@ -2,30 +2,28 @@
 #include <Component.h>
 #include <Matrix4.h>
 #include <Entity.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 
 COMPONENT(Transform, 128) {
 
-	Transform() : rotation(Matrix4::Identity()), position(0,0,0), scale(1,1,1), parent(-1){
+	Transform() : rotation(glm::mat4(1)), position(0,0,0), scale(1,1,1), parent(-1){
 	}
 
-	Transform(Entity parent) : rotation(Matrix4::Identity()),  position(0, 0, 0), scale(1, 1, 1), parent(parent) {
+	Transform(Entity parent) : rotation(glm::mat4(1)),  position(0, 0, 0), scale(1, 1, 1), parent(parent) {
 	}
 
 
-	Matrix4 rotation;
-	Vector3 position;
-	Vector3 scale;
+	glm::mat4 rotation;
+	glm::vec3 position;
+	glm::vec3 scale;
 
 	Entity parent;
 
-	const Matrix4 getMatrix() const
+	const glm::mat4 getMatrix() const
 	{
-		Matrix4 mat = rotation;
-		mat.items[0] *= scale.x;
-		mat.items[5] *= scale.y;
-		mat.items[10]*= scale.z;
-		mat.position = position.xyz;
+		glm::mat4 mat = glm::translate(glm::scale(glm::mat4(1), scale), position) * rotation;
 		return mat;
 	}
 

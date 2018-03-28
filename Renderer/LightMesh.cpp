@@ -57,7 +57,7 @@ void LightMesh::draw()
 	glBindVertexArray(0);
 }
 
-void LightMesh::addLight(const Vector3& position, const Vector3& colour, const float radius)
+void LightMesh::addLight(const glm::vec3& position, const glm::vec3& colour, const float radius)
 {
 	positions.push_back(position);
 	colours.push_back(colour);
@@ -80,7 +80,7 @@ void LightMesh::clear()
 
 void LightMesh::generateSphereMesh()
 {
-	std::vector<Vector3> vertices;
+	std::vector<glm::vec3> vertices;
 	std::vector<unsigned int> elements;
 
 	Icosphere::generate(1, elements, vertices);

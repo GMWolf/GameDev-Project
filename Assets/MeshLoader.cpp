@@ -12,9 +12,9 @@ void AssetLoader<Mesh>::load(std::string fileName, Mesh& mesh)
 		return;
 	}
 
-	std::vector<Vector3> obj_vertices;
-	std::vector<Vector2> obj_uvs;
-	std::vector<Vector3> obj_normals;
+	std::vector<glm::vec3> obj_vertices;
+	std::vector<glm::vec2> obj_uvs;
+	std::vector<glm::vec3> obj_normals;
 
 	std::vector<vertexData> vertices;
 	std::vector<int> elements;
@@ -27,17 +27,17 @@ void AssetLoader<Mesh>::load(std::string fileName, Mesh& mesh)
 		}
 
 		if (strcmp(lineHeader, "v") == 0) {
-			Vector3 vertex;
+			glm::vec3 vertex;
 			fscanf_s(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z);
 			obj_vertices.push_back(vertex);
 		}
 		else if (strcmp(lineHeader, "vt") == 0) {
-			Vector2 uv;
+			glm::vec2 uv;
 			fscanf_s(file, "%f %f\n", &uv.x, &uv.y);
 			obj_uvs.push_back(uv);
 		}
 		else if (strcmp(lineHeader, "vn") == 0) {
-			Vector3 normal;
+			glm::vec3 normal;
 			fscanf_s(file, "%f %f %f\n", &normal.x, &normal.y, &normal.z);
 			obj_normals.push_back(normal);
 		}
@@ -57,9 +57,9 @@ void AssetLoader<Mesh>::load(std::string fileName, Mesh& mesh)
 		}
 	}
 
-	std::vector<Vector3> positions;
-	std::vector<Vector3> normals;
-	std::vector<Vector2> uvs;
+	std::vector<glm::vec3> positions;
+	std::vector<glm::vec3> normals;
+	std::vector<glm::vec2> uvs;
 
 
 	for (int i = 0; i < vertices.size(); i++) {

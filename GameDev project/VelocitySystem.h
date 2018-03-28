@@ -10,9 +10,9 @@
 COMPONENT(Velocity, 16)
 {
 	Velocity() : v(0,0,0) {};
-	Velocity(Vector3 v) : v(v) {};
+	Velocity(glm::vec3 v) : v(v) {};
 
-	Vector3 v;
+	glm::vec3 v;
 };
 
 class VelocitySystem : public System

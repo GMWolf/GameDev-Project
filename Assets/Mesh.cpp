@@ -56,9 +56,9 @@ Mesh & Mesh::operator=(Mesh const & rhs)
 	return *this;
 }
 
-MeshData Mesh::Triangle(const Vector3 & p0, const Vector3 & p1, const Vector3 & p2, 
-	const Vector2 & t0, const Vector2 & t1, const Vector2 & t2, 
-	const Vector3 & n0, const Vector3 & n1, const Vector3 & n2)
+MeshData Mesh::Triangle(const glm::vec3 & p0, const glm::vec3 & p1, const glm::vec3 & p2, 
+	const glm::vec2 & t0, const glm::vec2 & t1, const glm::vec2 & t2, 
+	const glm::vec3 & n0, const glm::vec3 & n1, const glm::vec3 & n2)
 {
 	MeshData temp;
 	temp.positions = { p0, p1, p2 };
@@ -69,9 +69,9 @@ MeshData Mesh::Triangle(const Vector3 & p0, const Vector3 & p1, const Vector3 & 
 	return temp;
 }
 
-MeshData Mesh::Quad(const Vector3 & p0, const Vector3 & p1, const Vector3 & p2, const Vector3 & p3,
-	const Vector2 & t0, const Vector2 & t1, const Vector2 & t2, const Vector2 & t3,
-	const Vector3 & n0, const Vector3 & n1, const Vector3 & n2, const Vector3 & n3)
+MeshData Mesh::Quad(const glm::vec3 & p0, const glm::vec3 & p1, const glm::vec3 & p2, const glm::vec3 & p3,
+	const glm::vec2 & t0, const glm::vec2 & t1, const glm::vec2 & t2, const glm::vec2 & t3,
+	const glm::vec3 & n0, const glm::vec3 & n1, const glm::vec3 & n2, const glm::vec3 & n3)
 {
 	MeshData temp;
 	temp.positions = { p0, p1, p2, p3 };
@@ -82,35 +82,35 @@ MeshData Mesh::Quad(const Vector3 & p0, const Vector3 & p1, const Vector3 & p2, 
 	return temp;
 }
 
-MeshData Mesh::Cube(Vector3 s)
+MeshData Mesh::Cube(glm::vec3 s)
 {
 	s /= 2;
 	MeshData temp;
 	
 	//z-
-	temp += Quad(Vector3(-s.x, -s.y, -s.z), Vector3(s.x, -s.y, -s.z), Vector3(s.x, s.y, -s.z), Vector3(-s.x, s.y, -s.z),
-		Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1),
-		Vector3(0, 0, -1), Vector3(0, 0, -1), Vector3(0, 0, -1), Vector3(0, 0, -1));
+	temp += Quad(glm::vec3(-s.x, -s.y, -s.z), glm::vec3(s.x, -s.y, -s.z), glm::vec3(s.x, s.y, -s.z), glm::vec3(-s.x, s.y, -s.z),
+		glm::vec2(0, 0), glm::vec2(1, 0), glm::vec2(1, 1), glm::vec2(0, 1),
+		glm::vec3(0, 0, -1), glm::vec3(0, 0, -1), glm::vec3(0, 0, -1), glm::vec3(0, 0, -1));
 	//z+
-	temp += Quad(Vector3(-s.x, -s.y, s.z), Vector3(-s.x, s.y, s.z), Vector3(s.x, s.y, s.z), Vector3(s.x, -s.y, s.z),
-		Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1),
-		Vector3(0, 0, 1), Vector3(0, 0, 1), Vector3(0, 0, 1), Vector3(0, 0, 1));
+	temp += Quad(glm::vec3(-s.x, -s.y, s.z), glm::vec3(-s.x, s.y, s.z), glm::vec3(s.x, s.y, s.z), glm::vec3(s.x, -s.y, s.z),
+		glm::vec2(0, 0), glm::vec2(1, 0), glm::vec2(1, 1), glm::vec2(0, 1),
+		glm::vec3(0, 0, 1), glm::vec3(0, 0, 1), glm::vec3(0, 0, 1), glm::vec3(0, 0, 1));
 	//x-
-	temp += Quad(Vector3(-s.x, -s.y, -s.z), Vector3(-s.x, s.y, -s.z), Vector3(-s.x, s.y, s.z), Vector3(-s.x, -s.y, s.z),
-		Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1),
-		Vector3(-1, 0, 0), Vector3(-1, 0, 0), Vector3(-1, 0, 0), Vector3(-1, 0, 0));
+	temp += Quad(glm::vec3(-s.x, -s.y, -s.z), glm::vec3(-s.x, s.y, -s.z), glm::vec3(-s.x, s.y, s.z), glm::vec3(-s.x, -s.y, s.z),
+		glm::vec2(0, 0), glm::vec2(1, 0), glm::vec2(1, 1), glm::vec2(0, 1),
+		glm::vec3(-1, 0, 0), glm::vec3(-1, 0, 0), glm::vec3(-1, 0, 0), glm::vec3(-1, 0, 0));
 	//x+
-	temp += Quad(Vector3(s.x, -s.y, -s.z), Vector3(s.x, -s.y, s.z), Vector3(s.x, s.y, s.z), Vector3(s.x, s.y, -s.z),
-		Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1),
-		Vector3(1, 0, 0), Vector3(1, 0, 0), Vector3(1, 0, 0), Vector3(1, 0, 0));
+	temp += Quad(glm::vec3(s.x, -s.y, -s.z), glm::vec3(s.x, -s.y, s.z), glm::vec3(s.x, s.y, s.z), glm::vec3(s.x, s.y, -s.z),
+		glm::vec2(0, 0), glm::vec2(1, 0), glm::vec2(1, 1), glm::vec2(0, 1),
+		glm::vec3(1, 0, 0), glm::vec3(1, 0, 0), glm::vec3(1, 0, 0), glm::vec3(1, 0, 0));
 	//y-
-	temp += Quad(Vector3(-s.x, -s.y, -s.z), Vector3(-s.x, -s.y, s.z), Vector3(s.x, -s.y, s.z), Vector3(s.x, -s.y, -s.z),
-		Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1),
-		Vector3(0, -1, 0), Vector3(0, -1, 0), Vector3(0, -1, 0), Vector3(0, -1, 0));
+	temp += Quad(glm::vec3(-s.x, -s.y, -s.z), glm::vec3(-s.x, -s.y, s.z), glm::vec3(s.x, -s.y, s.z), glm::vec3(s.x, -s.y, -s.z),
+		glm::vec2(0, 0), glm::vec2(1, 0), glm::vec2(1, 1), glm::vec2(0, 1),
+		glm::vec3(0, -1, 0), glm::vec3(0, -1, 0), glm::vec3(0, -1, 0), glm::vec3(0, -1, 0));
 	//y+
-	temp += Quad(Vector3(-s.x, s.y, -s.z), Vector3(-s.x, s.y, s.z), Vector3(s.x, s.y, s.z), Vector3(s.x, s.y, -s.z),
-		Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1),
-		Vector3(0, 1, 0), Vector3(0, 1, 0), Vector3(0, 1, 0), Vector3(0, 1, 0));
+	temp += Quad(glm::vec3(-s.x, s.y, -s.z), glm::vec3(-s.x, s.y, s.z), glm::vec3(s.x, s.y, s.z), glm::vec3(s.x, s.y, -s.z),
+		glm::vec2(0, 0), glm::vec2(1, 0), glm::vec2(1, 1), glm::vec2(0, 1),
+		glm::vec3(0, 1, 0), glm::vec3(0, 1, 0), glm::vec3(0, 1, 0), glm::vec3(0, 1, 0));
 
 
 	return temp;
@@ -120,8 +120,8 @@ void Mesh::computeTangents()
 {
 	tangents.clear();
 	bitangents.clear();
-	tangents.resize(data.positions.size(), Vector3(0, 0, 0));
-	bitangents.resize(data.positions.size(), Vector3(0, 0, 0));
+	tangents.resize(data.positions.size(), glm::vec3(0, 0, 0));
+	bitangents.resize(data.positions.size(), glm::vec3(0, 0, 0));
 	//http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-13-normal-mapping/
 	for(int i = 0; i < data.indices.size(); i+=3)
 	{
@@ -130,25 +130,25 @@ void Mesh::computeTangents()
 		int i2 = data.indices[i + 2];
 
 
-		Vector3& v0 = data.positions[i0];
-		Vector3& v1 = data.positions[i1];
-		Vector3& v2 = data.positions[i2];
+		glm::vec3& v0 = data.positions[i0];
+		glm::vec3& v1 = data.positions[i1];
+		glm::vec3& v2 = data.positions[i2];
 
-		Vector2& uv0 = data.UVs[i0];
-		Vector2& uv1 = data.UVs[i1];
-		Vector2& uv2 = data.UVs[i2];
+		glm::vec2& uv0 = data.UVs[i0];
+		glm::vec2& uv1 = data.UVs[i1];
+		glm::vec2& uv2 = data.UVs[i2];
 
-		Vector3 deltaPos1 = v1 - v0;
-		Vector3 deltaPos2 = v2 - v0;
+		glm::vec3 deltaPos1 = v1 - v0;
+		glm::vec3 deltaPos2 = v2 - v0;
 
-		Vector2 deltaUV1 = uv1 - uv0;
-		Vector2 deltaUV2 = uv2 - uv0;
+		glm::vec2 deltaUV1 = uv1 - uv0;
+		glm::vec2 deltaUV2 = uv2 - uv0;
 
 		float r = 1.0f / ((deltaUV1.x * deltaUV2.y) - (deltaUV1.y * deltaUV2.x));
-		Vector3 tangent = ((deltaPos1 * deltaUV2.y) - (deltaPos2 * deltaUV1.y)) * r;
-		Vector3 bitangent = ((deltaPos2 * deltaUV1.x) - (deltaPos1 * deltaUV2.x)) * r;
+		glm::vec3 tangent = ((deltaPos1 * deltaUV2.y) - (deltaPos2 * deltaUV1.y)) * r;
+		glm::vec3 bitangent = ((deltaPos2 * deltaUV1.x) - (deltaPos1 * deltaUV2.x)) * r;
 
-		if (Vector3::Dot(Vector3::Cross(data.normals[i0], tangent), bitangent) < 0.0f)
+		if (glm::dot(glm::cross(data.normals[i0], tangent), bitangent) < 0.0f)
 		{
 			tangents[i0] += -tangent;
 		} else
@@ -156,7 +156,7 @@ void Mesh::computeTangents()
 			tangents[i0] += tangent;
 		}
 
-		if (Vector3::Dot(Vector3::Cross(data.normals[i1], tangent), bitangent) < 0.0f)
+		if (glm::dot(glm::cross(data.normals[i1], tangent), bitangent) < 0.0f)
 		{
 			tangents[i1] += -tangent;
 		}
@@ -165,7 +165,7 @@ void Mesh::computeTangents()
 			tangents[i1] += tangent;
 		}
 
-		if (Vector3::Dot(Vector3::Cross(data.normals[i2], tangent), bitangent) < 0.0f)
+		if (glm::dot(glm::cross(data.normals[i2], tangent), bitangent) < 0.0f)
 		{
 			tangents[i2] += -tangent;
 		}

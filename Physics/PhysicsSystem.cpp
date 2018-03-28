@@ -1,7 +1,10 @@
 #include "PhysicsSystem.h"
 #include "../Wagl/DeltaTime.h"
 #include <iostream>
-
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/detail/type_mat.hpp>
+#include <glm/detail/type_mat.hpp>
 
 PhysicsSystem::PhysicsSystem() : broadphase(nullptr), collisionConfiguration(nullptr), dispatcher(nullptr),
                                  solver(nullptr), dynamicsWorld(nullptr),
@@ -40,16 +43,8 @@ void PhysicsSystem::update()
 
 		btVector3& pos = trans.getOrigin();
 		btMatrix3x3& basis = trans.getBasis();
-		t.position = Vector3(pos.x(), pos.y(), pos.z());
-
-		btVector3 c0 = basis.getColumn(0);
-		t.rotation.c0.xyz = Vector3(c0.x(), c0.y(), c0.z()).xyz;
-
-		btVector3 c1 = basis.getColumn(1);
-		t.rotation.c1.xyz = Vector3(c1.x(), c1.y(), c1.z()).xyz;
-
-		btVector3 c2 = basis.getColumn(2);
-		t.rotation.c2.xyz = Vector3(c2.x(), c2.y(), c2.z()).xyz;
+		t.position = glm::vec3(pos.x(), pos.y(), pos.z());
+		basis.getOpenGLSubMatrix(glm::value_ptr(t.rotation));
 	}
 
 	dynamicsWorld->stepSimulation(wagl::DeltaTime::delta, 10);
@@ -66,7 +61,7 @@ void PhysicsSystem::end()
 	delete broadphase;
 }
 
-void PhysicsSystem::RayCastClosest(const Vector3 start, const Vector3 end, Hit& hit)
+void PhysicsSystem::RayCastClosest(const glm::vec3 start, const glm::vec3 end, Hit& hit)
 {
 	const btVector3 btStart(start.x, start.y, start.z);
 	const btVector3 btEnd(end.x, end.y, end.z);
