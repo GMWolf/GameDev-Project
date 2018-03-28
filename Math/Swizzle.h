@@ -34,6 +34,7 @@ public:
 		return items[i];
 	};
 
+
 	template<int rs, int rA, int rB, int rC>
 	Swizzle3<size, A, B, C>& operator+=(const Swizzle3<rs, rA, rB, rC>& rhs) {
 		items[A] += rhs[rA];

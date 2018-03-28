@@ -14,6 +14,7 @@ class Entity
 {
 public:
 
+	Entity();
 	Entity(int id);
 
 	static Entity create();

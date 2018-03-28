@@ -4,6 +4,7 @@
 #include "../Math/Vector2.h"
 #include "../Math/Matrix4.h"
 #include <iostream>
+#include "../Math/Vector4.h"
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace MathTest

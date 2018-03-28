@@ -3,8 +3,9 @@
 #include <iostream>
 
 
-PhysicsSystem::PhysicsSystem() :
-	rigidBodies(SubscriptionManager::getSubscription(Aspect::getAspect<RigidBody, Transform>()))
+PhysicsSystem::PhysicsSystem() : broadphase(nullptr), collisionConfiguration(nullptr), dispatcher(nullptr),
+                                 solver(nullptr), dynamicsWorld(nullptr),
+                                 rigidBodies(SubscriptionManager::getSubscription(Aspect::getAspect<RigidBody, Transform>()))
 {
 }
 
@@ -26,14 +27,7 @@ void PhysicsSystem::init()
 
 void PhysicsSystem::update()
 {
-	while(!colliderInserted.events.empty())
-	{
-		auto& e = colliderInserted.events.front();
-
-		addEntity(e.entity);
-
-		colliderInserted.events.pop();
-	}
+	HandleEvents();
 
 	btTransform trans;
 
@@ -72,7 +66,7 @@ void PhysicsSystem::end()
 	delete broadphase;
 }
 
-void PhysicsSystem::RayCastClosest(Vector3 start, Vector3 end, Hit& hit)
+void PhysicsSystem::RayCastClosest(const Vector3 start, const Vector3 end, Hit& hit)
 {
 	const btVector3 btStart(start.x, start.y, start.z);
 	const btVector3 btEnd(end.x, end.y, end.z);
@@ -82,10 +76,11 @@ void PhysicsSystem::RayCastClosest(Vector3 start, Vector3 end, Hit& hit)
 
 	assignBt(hit.worldPos, callback.m_hitPointWorld);
 	assignBt(hit.normal, callback.m_hitNormalWorld);
-	hit.hasHit = callback.hasHit();
+	if((hit.hasHit = callback.hasHit()))
+	{
+		hit.entity = callback.m_collisionObject->getUserIndex();
+	}
 }
-
-
 
 void PhysicsSystem::addEntity(Entity& entity)
 {
@@ -111,6 +106,49 @@ void PhysicsSystem::addEntity(Entity& entity)
 	btRigidBody* rb = new btRigidBody(ci);
 
 	entity.add(RigidBody(rb));
+	rb->setUserIndex(entity.getId());
 	dynamicsWorld->addRigidBody(rb);
 	std::cout << "entity " << entity.getId() << " is now an RB!" << std::endl;
+}
+
+void PhysicsSystem::HandleColliderInserts()
+{
+	while (!colliderInserted.events.empty())
+	{
+		auto& e = colliderInserted.events.front();
+
+		addEntity(e.entity);
+
+		colliderInserted.events.pop();
+	}
+}
+
+void PhysicsSystem::HandleEvents()
+{
+	HandleImpulseEvents();
+	HandleColliderInserts();
+}
+
+void PhysicsSystem::HandleImpulseEvents()
+{
+	btVector3 btImpulse, btRelPos;
+	while(!impulseEvents.empty())
+	{
+		Impulse& i = impulseEvents.front();
+
+
+		Entity e = i.entity;
+		
+		if (e.has<RigidBody>())
+		{
+			assignVector(btImpulse, i.impulse);
+			assignVector(btRelPos, i.relPos);
+			e.get<RigidBody>().rigidBody->applyImpulse(btImpulse, btRelPos);
+		} else
+		{
+			std::cout << "Warning: entity does not have rigid body to apply impulse to\n";
+		}
+
+		impulseEvents.pop();
+	}
 }

@@ -24,7 +24,7 @@ COMPONENT(Transform, 128) {
 		Matrix4 mat = rotation;
 		mat.items[0] *= scale.x;
 		mat.items[5] *= scale.y;
-		mat.items[10] *= scale.z;
+		mat.items[10]*= scale.z;
 		mat.position = position.xyz;
 		return mat;
 	}

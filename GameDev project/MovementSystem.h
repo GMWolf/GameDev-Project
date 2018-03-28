@@ -5,6 +5,7 @@
 #include "ApplicationAdapter.h"
 #include "Vector2.h"
 #include "UISystem.h"
+#include "PhysicsSystem.h"
 
 COMPONENT(PlayerControl, 1)
 {
@@ -25,6 +26,7 @@ public:
 private:
 	EntitySubscription & playerControled;
 	UISystem* ui;
+	PhysicsSystem* physics;
 
 	bool SpaceReleased;
 };

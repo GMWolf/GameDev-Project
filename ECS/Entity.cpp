@@ -1,6 +1,10 @@
 #include "Entity.h"
 #include "Component.h"
 
+Entity::Entity() : id(-1)
+{
+}
+
 Entity::Entity(int id) : id(id)
 {
 }
