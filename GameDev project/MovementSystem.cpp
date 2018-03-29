@@ -8,9 +8,12 @@
 #include "SystemManager.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "MeshFilter.h"
 
-PlayerControlSystem::PlayerControlSystem():
-	playerControled(SubscriptionManager::getSubscription(Aspect::getAspect<PlayerControl, Transform>()))
+PlayerControlSystem::PlayerControlSystem(Assets& assets):
+	assets(assets), SpaceReleased(false),
+	playerControled(SubscriptionManager::getSubscription(Aspect::getAspect<PlayerControl, Transform>())), ui(nullptr),
+	physics(nullptr)
 {
 }
 
@@ -72,8 +75,19 @@ void PlayerControlSystem::update()
 					std::cout << "HIT!" << std::endl;
 					//glm::vec3 offset =glm::vec3( glm::inverse(hit.entity.get<Transform>().getMatrix()) * glm::vec4(hit.worldPos, 1.0));
 					glm::vec3 offset = hit.worldPos - hit.entity.get<RigidBody>().getCenterOfMassPosition();
-					//glm::vec3 offset(0, 0, 0);
-					PhysicsSystem::Impulse::Emit(hit.entity, +(glm::vec3(t.rotation[2]) * 5.f), offset);
+					PhysicsSystem::Impulse::Emit(hit.entity, +(glm::vec3(t.rotation[2]) * 2.f), offset);
+
+					glm::vec3 pos = hit.worldPos + hit.normal * 0.05f;
+
+					Entity light = Entity::create();
+					light.add(Transform());
+					light.get<Transform>().position = pos;
+					glm::vec3 T = glm::cross(hit.normal, glm::vec3(0.0, 0.0, 1.0));
+					light.get<Transform>().rotation = glm::lookAt(glm::vec3(0,0,0), T, hit.normal);
+					light.get<Transform>().scale = glm::vec3(0.1);
+					light.get<Transform>().setParent(hit.entity);
+					light.add(MeshFilter(assets.meshs.get("models/suzane.objm"), assets.materials.get("materials/MarbleRed.mat")));
+					light.add(PointLight(glm::vec3(0.25, 0.25, 1), 5.f, 2.f));
 				}
 			}
 			SpaceReleased = false;

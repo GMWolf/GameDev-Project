@@ -163,7 +163,7 @@ void Renderer::lightPass() const
 		Transform& t = light.get<Transform>();
 		PointLight& pl = light.get<PointLight>();
 
-		pointLightMesh.addLight(t.position, pl.colour * pl.power, pl.radius);
+		pointLightMesh.addLight(t.getPosition(), pl.colour * pl.power, pl.radius);
 	}
 
 	glEnable(GL_BLEND);

@@ -39,7 +39,12 @@ Aspect& Entity::getAspect() {
 	return entityManager.aspects.at(id);
 }
 
-bool Entity::has(Aspect compare)
+const Aspect& Entity::getAspect() const
+{
+	return entityManager.aspects.at(id);
+}
+
+bool Entity::has(Aspect compare) const
 {
 	return compare.subAspect(getAspect());
 }

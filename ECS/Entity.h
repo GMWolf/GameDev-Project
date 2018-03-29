@@ -22,7 +22,7 @@ public:
 	static void destroy(Entity e);
 
 	template<class T>
-	T& get();
+	T& get() const;
 
 	template<class T>
 	void add(T&& component);
@@ -34,13 +34,15 @@ public:
 	void remove();
 
 	template<class T>
-	bool has();
+	bool has() const;
 
-	bool has(Aspect compare);
+	bool has(Aspect compare) const;
 
 	void clear();
 
 	Aspect& getAspect();
+
+	const Aspect& getAspect() const;
 
 	bool operator==(const Entity& rhs) const;
 
@@ -59,7 +61,7 @@ Entity operator"" _entity(const char* s, std::size_t n);
 
 
 template<class T>
-T& Entity::get()
+T& Entity::get() const
 {
 	return T::componentMapper.get(id);
 }
@@ -89,7 +91,7 @@ inline void Entity::remove()
 }
 
 template<class T>
-bool Entity::has()
+bool Entity::has() const
 {
 	return getAspect().has<T>();
 }

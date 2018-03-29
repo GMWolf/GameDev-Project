@@ -67,7 +67,7 @@ public:
 		SystemManager::addSystem(new UISystem(window, this));
 		SystemManager::addSystem(new PhysicsColliderSystem);
 		SystemManager::addSystem(new PhysicsSystem);
-		SystemManager::addSystem(new PlayerControlSystem);
+		SystemManager::addSystem(new PlayerControlSystem(assets));
 		SystemManager::addSystem(new CameraTransformSystem);
 		SystemManager::addSystem(new VelocitySystem);
 		SystemManager::addSystem(new Renderer(width, height));

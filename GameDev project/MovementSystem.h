@@ -6,6 +6,7 @@
 #include "Vector2.h"
 #include "UISystem.h"
 #include "PhysicsSystem.h"
+#include "Assets.h"
 
 COMPONENT(PlayerControl, 1)
 {
@@ -16,7 +17,7 @@ class PlayerControlSystem : public System
 {
 public:
 
-	PlayerControlSystem();
+	PlayerControlSystem(Assets& assets);
 
 	~PlayerControlSystem() override;
 	void init() override;
@@ -27,6 +28,8 @@ private:
 	EntitySubscription & playerControled;
 	UISystem* ui;
 	PhysicsSystem* physics;
+
+	Assets& assets;
 
 	bool SpaceReleased;
 };
