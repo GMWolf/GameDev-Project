@@ -27,8 +27,12 @@ void CameraTransformSystem::update()
 		Camera& camera = camEntity.get<Camera>();
 		Transform& transform = camEntity.get<Transform>();
 
-		camera.invView = transform.getMatrix();
-		camera.view = glm::inverse(camera.invView);
+		glm::vec3 pos = transform.position;
+		glm::vec3 lookat = pos + glm::vec3(transform.rotation[2]);
+		glm::vec3 up = glm::vec3(transform.rotation[1]);
+
+		camera.view = glm::lookAt(transform.position, lookat, up);
+		camera.invView = glm::inverse(camera.view);
 
 		
 		//camera.view = camera.invView.inverse();
@@ -36,10 +40,10 @@ void CameraTransformSystem::update()
 		camera.view.up = (-Vector3(camera.invView.up)).xyz;
 		camera.view.left = (-Vector3(camera.invView.left)).xyz;
 		camera.view.position = (-Vector3(camera.invView.position)).xyz;*/
-		glm::vec3 f = camera.invView[2];
+		/*glm::vec3 f = camera.invView[2];
 		std::cout << "    face " << f.x << " " << f.y << " " << f.z << std::endl;
 		f = camera.view[2];
-		std::cout << "inv face " << f.x << " " << f.y << " " << f.z << std::endl;
+		std::cout << "inv face " << f.x << " " << f.y << " " << f.z << std::endl;*/
 	}
 }
 

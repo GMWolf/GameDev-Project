@@ -109,7 +109,7 @@ public:
 		camera.add(Transform());
 		camera.add(Camera());
 		camera.add(PlayerControl());
-		camera.add(MeshFilter(suzane, sand));
+		//camera.add(MeshFilter(suzane, sand));
 
 		Entity floor = Entity::create();
 		floor.add(Transform());

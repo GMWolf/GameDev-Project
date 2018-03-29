@@ -69,7 +69,7 @@ void Renderer::init()
 
 	
 	projection = glm::perspective<float>(glm::radians(60.f), width / (float)height, 0.1f, 1000.f); 
-	view = glm::lookAt(glm::vec3(0, 0, 3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	view = glm::lookAt(glm::vec3(0, 5, -10), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 }
 
 void Renderer::update()
