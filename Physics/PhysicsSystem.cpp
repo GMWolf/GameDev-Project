@@ -31,7 +31,6 @@ void PhysicsSystem::init()
 void PhysicsSystem::update()
 {
 	HandleEvents();
-
 	btTransform trans;
 
 	for(Entity e : rigidBodies)
@@ -103,7 +102,6 @@ void PhysicsSystem::addEntity(Entity& entity)
 	entity.add(RigidBody(rb));
 	rb->setUserIndex(entity.getId());
 	dynamicsWorld->addRigidBody(rb);
-	std::cout << "entity " << entity.getId() << " is now an RB!" << std::endl;
 }
 
 void PhysicsSystem::HandleColliderInserts()
@@ -138,10 +136,16 @@ void PhysicsSystem::HandleImpulseEvents()
 		{
 			assignVector(btImpulse, i.impulse);
 			assignVector(btRelPos, i.relPos);
-			e.get<RigidBody>().rigidBody->applyImpulse(btImpulse, btRelPos);
+			
+			RigidBody& rb = e.get<RigidBody>();
+
+			rb.rigidBody->activate(true);
+			rb.rigidBody->applyImpulse(btImpulse, btRelPos);
+			
+			std::cout << "Applied impulse of strength " << glm::length(i.impulse) << " to "<< i.entity.getId() << "!" << "\n";
 		} else
 		{
-			std::cout << "Warning: entity does not have rigid body to apply impulse to\n";
+			std::cout << "Warning: entity does not have rigid body to apply impulse to" << "\n";
 		}
 
 		impulseEvents.pop();

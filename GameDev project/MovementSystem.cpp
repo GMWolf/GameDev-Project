@@ -70,7 +70,10 @@ void PlayerControlSystem::update()
 				if(hit.hasHit)
 				{
 					std::cout << "HIT!" << std::endl;
-					PhysicsSystem::Impulse::Emit(hit.entity, +(t.rotation[2] * 5.f), glm::vec3(0, 0, 0));
+					//glm::vec3 offset =glm::vec3( glm::inverse(hit.entity.get<Transform>().getMatrix()) * glm::vec4(hit.worldPos, 1.0));
+					//glm::vec3 offset = hit.worldPos - hit.entity.get<RigidBody>().getCenterOfMassPosition();
+					glm::vec3 offset(0, 0, 0);
+					PhysicsSystem::Impulse::Emit(hit.entity, +(glm::vec3(t.rotation[2]) * 5.f), offset);
 				}
 			}
 			SpaceReleased = false;

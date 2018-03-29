@@ -23,7 +23,7 @@ COMPONENT(Transform, 128) {
 
 	const glm::mat4 getMatrix() const
 	{
-		glm::mat4 mat = glm::translate(glm::scale(glm::mat4(1), scale), position) * rotation;
+		glm::mat4 mat = glm::scale(glm::translate(glm::mat4(1), position) * rotation, scale);
 		return mat;
 	}
 

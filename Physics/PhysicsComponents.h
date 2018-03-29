@@ -68,4 +68,10 @@ COMPONENT(RigidBody, 16)
 	}
 
 	btRigidBody* rigidBody;
+
+	glm::vec3 getCenterOfMassPosition()
+	{
+		auto& com = rigidBody->getCenterOfMassPosition();
+		return glm::vec3(com.x(), com.y(), com.z());
+	}
 };
