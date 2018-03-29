@@ -96,12 +96,12 @@ bool AssetLoader<Mesh>::vertexData::operator==(const vertexData& rhs) const
 
 void AssetLoader<Mesh>::addVertexData(vertexData & data, std::vector<vertexData>& vertices, std::vector<int>& elements)
 {
-	/*auto fv0 = std::find(vertices.begin(), vertices.end(), data);
-	if (fv0 == vertices.end()) {*/
+	auto fv0 = std::find(vertices.begin(), vertices.end(), data);
+	if (fv0 == vertices.end()) {
 		elements.push_back(vertices.size());
 		vertices.push_back(data);
-	/*}
+	}
 	else {
 		elements.push_back(std::distance(vertices.begin(), fv0));
-	}*/
+	}
 }
