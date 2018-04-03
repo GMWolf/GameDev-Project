@@ -56,7 +56,7 @@ void gim_contact_array::merge_contacts(
 		keycontacts[i].m_value = i;
 	}
 
-	//sort keys
+	//sort Keys
 	gim_heap_sort(keycontacts.pointer(),keycontacts.size(),GIM_RSORT_TOKEN_COMPARATOR());
 
 	// Merge contacts

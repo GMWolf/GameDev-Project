@@ -91,7 +91,7 @@ void btContactArray::merge_contacts(
 		keycontacts.push_back(CONTACT_KEY_TOKEN(contacts[i].calc_key_contact(),i));
 	}
 
-	//sort keys
+	//sort Keys
 	keycontacts.quickSort(CONTACT_KEY_TOKEN_COMP());
 
 	// Merge contacts

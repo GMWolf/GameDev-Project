@@ -176,7 +176,7 @@ inline GUINT gim_next_prime(GUINT number)
 /*!
 A memory aligned compact hash table that coud be treated as an array.
 It could be a simple sorted array without the overhead of the hash key bucked, or could
-be a formely hash table with an array of keys.
+be a formely hash table with an array of Keys.
 You can use switch_to_hashtable() and switch_to_sorted_array for saving space or increase speed.
 </br>
 
@@ -279,7 +279,7 @@ protected:
         GUINT datasize = m_table_size*m_node_size;
         for(GUINT i=0;i<datasize;i++)
         {
-            m_hash_table[i] = GIM_INVALID_HASH;// invalidate keys
+            m_hash_table[i] = GIM_INVALID_HASH;// invalidate Keys
         }
     }
 
@@ -292,7 +292,7 @@ protected:
         m_table_size = 0;
     }
 
-    //! Invalidates the keys (Assigning GIM_INVALID_HASH to all) Reorders the hash keys
+    //! Invalidates the Keys (Assigning GIM_INVALID_HASH to all) Reorders the hash Keys
     inline void _rehash()
     {
         _invalidate_keys();
@@ -329,7 +329,7 @@ protected:
         _clear_table_memory();
         //Alloc the data
         _reserve_table_memory(newsize);
-        //Invalidate keys and rehash
+        //Invalidate Keys and rehash
         _rehash();
     }
 
@@ -685,7 +685,7 @@ public:
     	m_sorted = value;
     }
 
-    //! Retrieves the amount of keys.
+    //! Retrieves the amount of Keys.
     inline GUINT size() const
     {
         return m_nodes.size();
@@ -838,7 +838,7 @@ public:
         GUINT i;
         for(i=0;i<datasize;i++)
         {
-            m_hash_table[i] = GIM_INVALID_HASH;// invalidate keys
+            m_hash_table[i] = GIM_INVALID_HASH;// invalidate Keys
         }
 		m_sorted = false;
     }

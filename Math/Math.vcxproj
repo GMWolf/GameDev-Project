@@ -126,6 +126,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="MathUtils.h" />
     <ClInclude Include="Matrix4.h" />
     <ClInclude Include="Swizzle.h" />
     <ClInclude Include="Vector2.h" />

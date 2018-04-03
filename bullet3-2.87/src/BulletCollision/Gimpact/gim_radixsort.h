@@ -142,7 +142,7 @@ class GIM_RSORT_TOKEN_COMPARATOR
 
 
 
-///Radix sort for unsigned integer keys
+///Radix sort for unsigned integer Keys
 inline void gim_radix_sort_rtokens(
 				GIM_RSORT_TOKEN * array,
 				GIM_RSORT_TOKEN * sorted, GUINT element_count)

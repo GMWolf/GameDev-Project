@@ -709,9 +709,9 @@ json.exception.type_error.309 | cannot use insert() with | The @ref insert() mem
 json.exception.type_error.310 | cannot use swap() with number | The @ref swap() member functions can only be executed for certain JSON types.
 json.exception.type_error.311 | cannot use emplace_back() with string | The @ref emplace_back() member function can only be executed for certain JSON types.
 json.exception.type_error.312 | cannot use update() with string | The @ref update() member functions can only be executed for certain JSON types.
-json.exception.type_error.313 | invalid value to unflatten | The @ref unflatten function converts an object whose keys are JSON Pointers back into an arbitrary nested JSON value. The JSON Pointers must not overlap, because then the resulting value would not be well defined.
-json.exception.type_error.314 | only objects can be unflattened | The @ref unflatten function only works for an object whose keys are JSON Pointers.
-json.exception.type_error.315 | values in object must be primitive | The @ref unflatten function only works for an object whose keys are JSON Pointers and whose values are primitive.
+json.exception.type_error.313 | invalid value to unflatten | The @ref unflatten function converts an object whose Keys are JSON Pointers back into an arbitrary nested JSON value. The JSON Pointers must not overlap, because then the resulting value would not be well defined.
+json.exception.type_error.314 | only objects can be unflattened | The @ref unflatten function only works for an object whose Keys are JSON Pointers.
+json.exception.type_error.315 | values in object must be primitive | The @ref unflatten function only works for an object whose Keys are JSON Pointers and whose values are primitive.
 json.exception.type_error.316 | invalid UTF-8 byte at index 10: 0x7E | The @ref dump function only works with UTF-8 encoded strings; that is, if you assign a `std::string` to a JSON value, make sure it is UTF-8 encoded. |
 
 @liveexample{The following code shows how a `type_error` exception can be
@@ -743,7 +743,7 @@ class type_error : public exception
 
 This exception is thrown in case a library function is called on an input
 parameter that exceeds the expected range, for instance in case of array
-indices or nonexisting object keys.
+indices or nonexisting object Keys.
 
 Exceptions have ids 4xx.
 
@@ -8282,7 +8282,7 @@ class serializer
     additional parameter. In case of arrays and objects, the function is
     called recursively.
 
-    - strings and object keys are escaped using `escape_string()`
+    - strings and object Keys are escaped using `escape_string()`
     - integer numbers are converted implicitly via `operator<<`
     - floating-point numbers are converted to a string using `"%g"` format
 
@@ -9543,7 +9543,7 @@ class json_pointer
                 }
                 else
                 {
-                    // iterate object and use keys as reference string
+                    // iterate object and use Keys as reference string
                     for (const auto& element : *value.m_value.object)
                     {
                         flatten(reference_string + "/" + escape(element.first), element.second, result);
@@ -9681,7 +9681,7 @@ namespace nlohmann
 in @ref object_t)
 @tparam ArrayType type for JSON arrays (`std::vector` by default; will be used
 in @ref array_t)
-@tparam StringType type for JSON strings and object keys (`std::string` by
+@tparam StringType type for JSON strings and object Keys (`std::string` by
 default; will be used in @ref string_t)
 @tparam BooleanType type for JSON booleans (`bool` by default; will be used
 in @ref boolean_t)
@@ -9886,12 +9886,12 @@ class basic_json
     @return JSON object holding version information
     key         | description
     ----------- | ---------------
-    `compiler`  | Information on the used compiler. It is an object with the following keys: `c++` (the used C++ standard), `family` (the compiler family; possible values are `clang`, `icc`, `gcc`, `ilecpp`, `msvc`, `pgcpp`, `sunpro`, and `unknown`), and `version` (the compiler version).
+    `compiler`  | Information on the used compiler. It is an object with the following Keys: `c++` (the used C++ standard), `family` (the compiler family; possible values are `clang`, `icc`, `gcc`, `ilecpp`, `msvc`, `pgcpp`, `sunpro`, and `unknown`), and `version` (the compiler version).
     `copyright` | The copyright line for the library as string.
     `name`      | The name of the library as string.
     `platform`  | The used platform as string. Possible values are `win32`, `linux`, `apple`, `unix`, and `unknown`.
     `url`       | The URL of the project as string.
-    `version`   | The version of the library. It is an object with the following keys: `major`, `minor`, and `patch` as defined by [Semantic Versioning](http://semver.org), and `string` (the version string).
+    `version`   | The version of the library. It is an object with the following Keys: `major`, `minor`, and `patch` as defined by [Semantic Versioning](http://semver.org), and `string` (the version string).
 
     @liveexample{The following code shows an example output of the `meta()`
     function.,meta}
@@ -9989,7 +9989,7 @@ class basic_json
 
     @tparam ObjectType  the container to store objects (e.g., `std::map` or
     `std::unordered_map`)
-    @tparam StringType the type of the keys or names (e.g., `std::string`).
+    @tparam StringType the type of the Keys or names (e.g., `std::string`).
     The comparison function `std::less<StringType>` is used to order elements
     inside the container.
     @tparam AllocatorType the allocator to use for objects (e.g.,
@@ -10054,7 +10054,7 @@ class basic_json
     @note The order name/value pairs are added to the object is *not*
     preserved by the library. Therefore, iterating an object may return
     name/value pairs in a different order than they were originally stored. In
-    fact, keys will be traversed in alphabetical order as `std::map` with
+    fact, Keys will be traversed in alphabetical order as `std::map` with
     `std::less` is used by default. Please note this behavior conforms to [RFC
     7159](http://rfc7159.net/rfc7159), because any order implements the
     specified "unordered" nature of JSON objects.
@@ -10122,7 +10122,7 @@ class basic_json
     byte-sized characters during deserialization.
 
     @tparam StringType  the container to store strings (e.g., `std::string`).
-    Note this container is used for keys/names in objects, see @ref object_t.
+    Note this container is used for Keys/names in objects, see @ref object_t.
 
     #### Default type
 
@@ -10851,7 +10851,7 @@ class basic_json
     1. If the list is empty, an empty JSON object value `{}` is created.
     2. If the list consists of pairs whose first element is a string, a JSON
        object value is created where the first elements of the pairs are
-       treated as keys and the second elements are as values.
+       treated as Keys and the second elements are as values.
     3. In all other cases, an array is created.
 
     The rules aim to create the best fit between a C++ initializer list and
@@ -10860,7 +10860,7 @@ class basic_json
     1. The empty initializer list is written as `{}` which is exactly an empty
        JSON object.
     2. C++ has no way of describing mapped types other than to list a list of
-       pairs. As JSON requires that keys must be of type string, rule 2 is the
+       pairs. As JSON requires that Keys must be of type string, rule 2 is the
        weakest constraint one can pose on initializer lists to interpret them
        as an object.
     3. In all other cases, the initializer list could not be interpreted as
@@ -10979,7 +10979,7 @@ class basic_json
     are:
     1. creating an array whose elements are all pairs whose first element is a
     string -- in this case, the initializer list constructor would create an
-    object, taking the first elements as keys
+    object, taking the first elements as Keys
     2. creating an empty array -- passing the empty initializer list to the
     initializer list constructor yields an empty object
 
@@ -14685,9 +14685,9 @@ class basic_json
     }
 
     /*!
-    @brief updates a JSON object from another object, overwriting existing keys
+    @brief updates a JSON object from another object, overwriting existing Keys
 
-    Inserts all values from JSON object @a j and overwrites existing keys.
+    Inserts all values from JSON object @a j and overwrites existing Keys.
 
     @param[in] j  JSON object to read values from
 
@@ -14729,10 +14729,10 @@ class basic_json
     }
 
     /*!
-    @brief updates a JSON object from another object, overwriting existing keys
+    @brief updates a JSON object from another object, overwriting existing Keys
 
     Inserts all values from from range `[first, last)` and overwrites existing
-    keys.
+    Keys.
 
     @param[in] first begin of the range of elements to insert
     @param[in] last end of the range of elements to insert
@@ -16078,8 +16078,8 @@ class basic_json
              - simple values (0xE0..0xF3, 0xF8)
              - undefined (0xF7)
 
-    @warning CBOR allows map keys of any type, whereas JSON only allows
-             strings as keys in object values. Therefore, CBOR maps with keys
+    @warning CBOR allows map Keys of any type, whereas JSON only allows
+             strings as Keys in object values. Therefore, CBOR maps with Keys
              other than UTF-8 strings are rejected (parse_error.113).
 
     @note Any CBOR output created @ref to_cbor can be successfully parsed by
@@ -16447,7 +16447,7 @@ class basic_json
     /*!
     @brief return flattened JSON value
 
-    The function creates a JSON object whose keys are JSON pointers (see [RFC
+    The function creates a JSON object whose Keys are JSON pointers (see [RFC
     6901](https://tools.ietf.org/html/rfc6901)) and whose values are all
     primitive. The original JSON value can be restored using the @ref
     unflatten() function.
@@ -16460,7 +16460,7 @@ class basic_json
     @complexity Linear in the size the JSON value.
 
     @liveexample{The following code shows how a JSON object is flattened to an
-    object whose keys consist of JSON pointers.,flatten}
+    object whose Keys consist of JSON pointers.,flatten}
 
     @sa @ref unflatten() for the reverse function
 
@@ -16480,7 +16480,7 @@ class basic_json
     flattened before using the @ref flatten() function. The JSON value must
     meet certain constraints:
     1. The value must be an object.
-    2. The keys must be JSON pointers (see
+    2. The Keys must be JSON pointers (see
        [RFC 6901](https://tools.ietf.org/html/rfc6901))
     3. The mapped values must be primitive JSON types.
 
