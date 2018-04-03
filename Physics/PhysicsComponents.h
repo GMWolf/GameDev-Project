@@ -31,6 +31,19 @@ COMPONENT(SphereCollider, 1)
 	float radius;
 };
 
+COMPONENT(CapsuleCollider, 1)
+{
+	CapsuleCollider() : radius(1) , height(2)
+	{
+	}
+
+	CapsuleCollider(float r, float height) : radius(r), height(height)
+	{
+	}
+
+	float height;
+	float radius;
+};
 
 COMPONENT(Collider, 16)
 {

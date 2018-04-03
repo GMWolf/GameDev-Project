@@ -1,6 +1,7 @@
 #include "PhysicsColliderSystem.h"
 #include "BulletCollision/CollisionShapes/btBoxShape.h"
 #include "BulletCollision/CollisionShapes/btSphereShape.h"
+#include "BulletCollision/CollisionShapes/btCapsuleShape.h"
 
 
 PhysicsColliderSystem::PhysicsColliderSystem()
@@ -62,6 +63,29 @@ void PhysicsColliderSystem::update()
 		sphereColliderRemoved.events.pop();
 	}
 	
+	while(!capsuleColliderInserted.events.empty())
+	{
+		auto& e = capsuleColliderInserted.events.front();
+
+		float r = e.entity.get<CapsuleCollider>().radius;
+		float h = e.entity.get<CapsuleCollider>().height;
+
+		btCollisionShape* c = new btCapsuleShape(r, h);
+
+		e.entity.add(Collider(c));
+
+		capsuleColliderInserted.events.pop();
+	}
+
+	while(!capsuleColliderRemoved.events.empty())
+	{
+		auto& e = capsuleColliderRemoved.events.front();
+
+		delete e.entity.get<Collider>().collisionShape;
+		e.entity.remove<Collider>();
+
+		capsuleColliderRemoved.events.pop();
+	}
 }
 
 void PhysicsColliderSystem::end()

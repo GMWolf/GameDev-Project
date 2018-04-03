@@ -16,5 +16,7 @@ public:
 	EventQueue<EntityRemoved<BoxCollider>> boxColliderRemoved;
 	EventQueue<EntityInserted<SphereCollider>> sphereColliderInserted;
 	EventQueue<EntityRemoved<SphereCollider>> sphereColliderRemoved;
+	EventQueue<EntityInserted<CapsuleCollider>> capsuleColliderInserted;
+	EventQueue<EntityRemoved<CapsuleCollider>> capsuleColliderRemoved;
 };
 
