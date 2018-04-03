@@ -24,6 +24,13 @@ PlayerControlSystem::~PlayerControlSystem()
 void PlayerControlSystem::init()
 {
 	ui = SystemManager::getSystem<UISystem>();
+	horizontal = ui->getInput("horizontal");
+	vertical = ui->getInput("vertical");
+	upDown = ui->getInput("UpDown");
+	lookHorizontal = ui->getInput("LookHor");
+	lookVertical = ui->getInput("LookVert");
+	shoot = ui->getInput("Shoot");
+
 	physics = SystemManager::getSystem<PhysicsSystem>();
 	SpaceReleased = true;
 }
@@ -37,31 +44,19 @@ void PlayerControlSystem::update()
 	{
 		Transform& t = e.get<Transform>();
 		
-		if (ui->getKey(UISystem::KEY_A)) {
-			t.position += glm::vec3(t.rotation[0] * (float)wagl::DeltaTime::delta * 2.f);
-		}
-		if (ui->getKey(UISystem::KEY_D)) {
-			t.position += -glm::vec3(t.rotation[0] * (float)wagl::DeltaTime::delta * 2.f);
-		}
-		if (ui->getKey(UISystem::KEY_LEFT_SHIFT)) {
-			t.position += glm::vec3(t.rotation[1] * (float)wagl::DeltaTime::delta * 2.f);
-		}
-		if (ui->getKey(UISystem::KEY_LEFT_CTRL)) {
-			t.position += -glm::vec3(t.rotation[1] * (float)wagl::DeltaTime::delta * 2.f);
-		}
-		if (ui->getKey(UISystem::KEY_W)) {
-			t.position += glm::vec3(t.rotation[2] * (float)wagl::DeltaTime::delta * 2.f);
-		}
-		if (ui->getKey(UISystem::KEY_S)) {
-			t.position += -glm::vec3(t.rotation[2] * (float)wagl::DeltaTime::delta * 2.f);
-		}
+		t.position += glm::vec3(t.rotation[0] * (float)wagl::DeltaTime::delta * 2.f) * (*horizontal)();
+		
+		t.position += glm::vec3(t.rotation[2] * (float)wagl::DeltaTime::delta * 2.f) * (*vertical)();
+
+		t.position += glm::vec3(t.rotation[1] * (float)wagl::DeltaTime::delta * 2.f) * (*upDown)();
+		
 		
 		glm::vec2 diff = ui->getMouseDelta();
-		t.rotation = glm::rotate(glm::mat4(1), -diff.x / 1000, glm::vec3(0, 1, 0)) * t.rotation;
-		t.rotation = glm::rotate(glm::mat4(1), diff.y / 1000, glm::vec3(t.rotation[0])) * t.rotation;
+		t.rotation = glm::rotate(glm::mat4(1), -(*lookHorizontal)() / 1000, glm::vec3(0, 1, 0)) * t.rotation;
+		t.rotation = glm::rotate(glm::mat4(1), (*lookVertical)() / 1000, glm::vec3(t.rotation[0])) * t.rotation;
 
 		
-		if (ui->getKey(UISystem::KEY_SPACE)) {
+		if ((*shoot)()) {
 			if (SpaceReleased) {
 				/*Entity e = Entity::create();
 				e.add(Transform());

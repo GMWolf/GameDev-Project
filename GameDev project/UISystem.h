@@ -1,13 +1,11 @@
 #pragma once
 #include "System.h"
 #include "ApplicationAdapter.h"
-#include "Vector2.h"
 #include <glm/detail/type_vec2.hpp>
-#include <glm/detail/func_common.inl>
-#include "MathUtils.h"
 #include <vector>
 #include <set>
 #include <unordered_map>
+
 
 class UISystem;
 
@@ -54,8 +52,10 @@ enum Keys
 class Input
 {
 public:
+	virtual ~Input() = default;
 	virtual float operator()() = 0;
-	virtual void update(UISystem& ui) = 0;
+
+	virtual void update(UISystem& ui, float dt) = 0;
 };
 
 class UISystem : public System
@@ -73,7 +73,7 @@ public:
 	glm::vec2 getMousePos() const;
 	glm::vec2 getMouseDelta() const;
 
-	Input& getInput(std::string name);
+	Input* getInput(std::string name);
 	void addInput(std::string name, Input* input);
 
 private:
@@ -96,7 +96,7 @@ public:
 
 	float operator()() override;;
 
-	void update(UISystem& ui) override;
+	void update(UISystem& ui, float dt) override;
 
 private:
 	float value = 0;
@@ -112,13 +112,24 @@ public:
 
 	ButtonInput(Keys key);
 
-	float operator()() override;;
+	float operator()() override;
 
-	void update(UISystem& ui) override;;
-
-	
+	void update(UISystem& ui, float dt) override;
 
 private:
 	Keys key;
 	int value = 0;
+};
+
+class MouseDeltaInput : public Input
+{
+public:
+	MouseDeltaInput(bool hor);
+
+	float operator()() override;
+
+	void update(UISystem& ui, float dt) override;
+private:
+	bool horizontal; //true for horizontal mouse delta, false for vertical
+	float value = 0;
 };

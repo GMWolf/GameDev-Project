@@ -64,7 +64,15 @@ public:
 		AssetHandle<Material> sand = assets.materials.get("materials/SandPebbles.mat");
 		AssetHandle<Material> marble = assets.materials.get("materials/MarbleRed.mat");
 		
-		SystemManager::addSystem(new UISystem(window, this));
+		UISystem* ui = new UISystem(window, this);
+		ui->addInput("horizontal", new AxisInput(KEY_A, KEY_D, 4, 6));
+		ui->addInput("vertical", new AxisInput(KEY_W, KEY_S, 4, 6));
+		ui->addInput("UpDown", new AxisInput(KEY_LEFT_SHIFT, KEY_LEFT_CTRL, 3, 3));
+		ui->addInput("LookHor", new MouseDeltaInput(true));
+		ui->addInput("LookVert", new MouseDeltaInput(false));
+		ui->addInput("Shoot", new ButtonInput(KEY_SPACE));
+
+		SystemManager::addSystem(ui);
 		SystemManager::addSystem(new PhysicsColliderSystem);
 		SystemManager::addSystem(new PhysicsSystem);
 		SystemManager::addSystem(new PlayerControlSystem(assets));

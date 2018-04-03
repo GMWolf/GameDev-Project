@@ -1,5 +1,7 @@
 #include "UISystem.h"
-
+#include "DeltaTime.h"
+#include <MathUtils.h>
+#include <iostream>
 
 
 UISystem::UISystem(GLFWwindow* window, wagl::ApplicationAdapter* app) : window(window), app(app)
@@ -38,7 +40,7 @@ void UISystem::update()
 
 	for(Input* input : inputs)
 	{
-		input->update(*this);
+		input->update(*this, wagl::DeltaTime::delta);
 	}
 }
 
@@ -61,9 +63,9 @@ glm::vec2 UISystem::getMouseDelta() const
 	return mouseDelta;
 }
 
-Input& UISystem::getInput(std::string name)
+Input* UISystem::getInput(std::string name)
 {
-	return *inputsByname[name];
+	return inputsByname[name];
 }
 
 void UISystem::addInput(std::string name, Input* input)
@@ -82,19 +84,21 @@ float AxisInput::operator()()
 	return value;
 }
 
-void AxisInput::update(UISystem& ui)
+void AxisInput::update(UISystem& ui, float dt)
 {
 	int i = ui.getKey(positiveKey) - ui.getKey(negativeKey);
+	
 	if (i != 0)
 	{
-		value += acc * i;
+		value += acc * i * dt;
 	}
 	else
 	{
-		value -= min(sgn(value) * restitution, value);
+		value -= sgn(value) * min(restitution * dt, abs(value));
 	}
 
-	value = clamp(value, 0.f, 1.f);
+
+	value = clamp(value, -1.f, 1.f);
 }
 
 ButtonInput::ButtonInput(Keys key): key(key)
@@ -106,7 +110,21 @@ float ButtonInput::operator()()
 	return value;
 }
 
-void ButtonInput::update(UISystem& ui)
+void ButtonInput::update(UISystem& ui, float dt)
 {
 	value = ui.getKey(key);
+}
+
+MouseDeltaInput::MouseDeltaInput(bool hor): horizontal(hor)
+{
+}
+
+float MouseDeltaInput::operator()()
+{
+	return value;
+}
+
+void MouseDeltaInput::update(UISystem& ui, float dt)
+{
+	value = horizontal ? ui.getMouseDelta().x : ui.getMouseDelta().y;
 }

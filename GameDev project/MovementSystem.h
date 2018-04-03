@@ -2,8 +2,6 @@
 #include "Component.h"
 #include "System.h"
 #include "EntitySubscription.h"
-#include "ApplicationAdapter.h"
-#include "Vector2.h"
 #include "UISystem.h"
 #include "PhysicsSystem.h"
 #include "Assets.h"
@@ -28,6 +26,13 @@ private:
 	EntitySubscription & playerControled;
 	UISystem* ui;
 	PhysicsSystem* physics;
+
+	Input* horizontal;
+	Input* vertical;
+	Input* upDown;
+	Input* lookHorizontal;
+	Input* lookVertical;
+	Input* shoot;
 
 	Assets& assets;
 

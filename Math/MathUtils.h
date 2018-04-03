@@ -1,7 +1,8 @@
 #pragma once
-//https://stackoverflow.com/a/4609795/6702489
+
 template <typename T> 
 inline int sgn(T val) {
+	//https://stackoverflow.com/a/4609795/6702489
 	return (T(0) < val) - (val < T(0));
 }
 
@@ -18,7 +19,19 @@ inline T max(T a, T b)
 }
 
 template <typename T> 
-inline T clamp(T x, T min, T max)
+inline T clamp(T x, T vmin, T vmax)
 {
-	return min(max(x, min), max);
+	return min(max(x, vmin), vmax);
+}
+
+template <typename T>
+inline T absmin(T a, T b)
+{
+	return (abs(a) < abs(b)) ? a : b;
+}
+
+template <typename T>
+inline T absmax(T a, T b)
+{
+	return (abs(a) > abs(b)) ? a : b;
 }
