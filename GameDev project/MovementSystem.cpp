@@ -50,9 +50,8 @@ void PlayerControlSystem::update()
 
 		t.position += glm::vec3(t.rotation[1] * (float)wagl::DeltaTime::delta * 2.f) * (*upDown)();
 		
-		
-		glm::vec2 diff = ui->getMouseDelta();
 		t.rotation = glm::rotate(glm::mat4(1), -(*lookHorizontal)() / 1000, glm::vec3(0, 1, 0)) * t.rotation;
+		
 		t.rotation = glm::rotate(glm::mat4(1), (*lookVertical)() / 1000, glm::vec3(t.rotation[0])) * t.rotation;
 
 		
@@ -67,7 +66,6 @@ void PlayerControlSystem::update()
 				physics->RayCastClosest(t.position, t.position + glm::vec3(t.rotation[2]) * 100.f, hit);
 				if(hit.hasHit)
 				{
-					std::cout << "HIT!" << std::endl;
 					//glm::vec3 offset =glm::vec3( glm::inverse(hit.entity.get<Transform>().getMatrix()) * glm::vec4(hit.worldPos, 1.0));
 					glm::vec3 offset = hit.worldPos - hit.entity.get<RigidBody>().getCenterOfMassPosition();
 					PhysicsSystem::Impulse::Emit(hit.entity, +(glm::vec3(t.rotation[2]) * 2.f), offset);

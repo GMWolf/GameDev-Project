@@ -82,8 +82,6 @@ void PhysicsSystem::addEntity(Entity& entity)
 
 	float mass = 0;
 
-	
-
 	if (entity.has<RigidBodyProperties>())
 	{
 		mass = entity.get<RigidBodyProperties>().mass;
@@ -141,8 +139,6 @@ void PhysicsSystem::HandleImpulseEvents()
 
 			rb.rigidBody->activate(true);
 			rb.rigidBody->applyImpulse(btImpulse, btRelPos);
-			
-			std::cout << "Applied impulse of strength " << glm::length(i.impulse) << " to "<< i.entity.getId() << "!" << "\n";
 		} else
 		{
 			std::cout << "Warning: entity does not have rigid body to apply impulse to" << "\n";
