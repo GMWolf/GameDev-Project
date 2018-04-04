@@ -1,0 +1,26 @@
+{
+	"Horizontal" : {
+		"type" : "axis",
+		"positive" : "KEY_A",
+		"negative" : "KEY_D",
+		"acceleration" : 4,
+		"restitution" : 6
+	},
+	
+	"Vertical" : {
+		"type" : "axis",
+		"positive" : "KEY_W",
+		"negative" : "KEY_S",
+		"acceleration" : 4,
+		"restitution" : 6
+	},
+	
+	"UpDown" : {
+		"type" : "axis",
+		"positive" : "KEY_LEFT_SHIFT",
+		"negative" : "KEY_LEFT_CTRL",
+		"acceleration" : 3,
+		"restitution" : 3
+	}
+
+}

@@ -5,6 +5,7 @@
 #include <vector>
 #include <set>
 #include <unordered_map>
+#include "json.hpp"
 
 
 class UISystem;
@@ -48,6 +49,7 @@ enum Keys
 	KEY_RIGHT = GLFW_KEY_RIGHT,
 	KEY_SPACE = GLFW_KEY_SPACE
 };
+//const std::unordered_map<std::string, Keys> keysByName;
 
 class Input
 {
@@ -77,6 +79,9 @@ public:
 	void addInput(std::string name, Input* input);
 
 private:
+
+	void loadInputs(std::string file);
+
 	GLFWwindow * window;
 	wagl::ApplicationAdapter* app;
 	glm::vec2 mousePrevious;
@@ -87,12 +92,19 @@ private:
 	std::unordered_map<std::string, Input*> inputsByname;
 };
 
+class DummyInput : public Input
+{
+public:
+	float operator()() override;
+	void update(UISystem& ui, float dt) override;
+};
 
 class AxisInput : public Input
 {
 public:
 
 	AxisInput(Keys positive, Keys negative, float acc, float rest);
+	AxisInput(nlohmann::json js);
 
 	float operator()() override;;
 
@@ -102,7 +114,7 @@ private:
 	float value = 0;
 	Keys positiveKey;
 	Keys negativeKey;
-	float acc;
+	float acceleration;
 	float restitution;
 };
 

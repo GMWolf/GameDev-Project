@@ -24,8 +24,8 @@ PlayerControlSystem::~PlayerControlSystem()
 void PlayerControlSystem::init()
 {
 	ui = SystemManager::getSystem<UISystem>();
-	horizontal = ui->getInput("horizontal");
-	vertical = ui->getInput("vertical");
+	horizontal = ui->getInput("Horizontal");
+	vertical = ui->getInput("Vertical");
 	upDown = ui->getInput("UpDown");
 	lookHorizontal = ui->getInput("LookHor");
 	lookVertical = ui->getInput("LookVert");
@@ -54,7 +54,6 @@ void PlayerControlSystem::update()
 		
 		t.rotation = glm::rotate(glm::mat4(1), (*lookVertical)() / 1000, glm::vec3(t.rotation[0])) * t.rotation;
 
-		
 		if ((*shoot)()) {
 			if (SpaceReleased) {
 				/*Entity e = Entity::create();
