@@ -3,6 +3,7 @@
 #include <MathUtils.h>
 #include "json.hpp"
 #include <fstream>
+#include <iostream>
 
 std::unordered_map<std::string, Keys> keysByName =
 {
@@ -110,6 +111,7 @@ glm::vec2 UISystem::getMouseDelta() const
 Input* UISystem::getInput(std::string name)
 {
 	if (inputsByname.find(name) == inputsByname.end()) {
+		std::cout << "Unknown input " << name << std::endl;
 		return new DummyInput;
 	}
 
@@ -122,22 +124,35 @@ void UISystem::addInput(std::string name, Input* input)
 	inputsByname.insert({ name, input });
 }
 
+void UISystem::addInput(nlohmann::json& js)
+{
+	std::string name = js["name"];
+	std::string type = js["type"];
+
+	if (type == "axis")
+	{
+		addInput(name, new AxisInput(js));
+	}
+	if (type == "multiplexed")
+	{
+		addInput(name, new MultiplexedInput(*this, js));
+	}
+}
+
+bool UISystem::hasInput(std::string name)
+{
+	return inputsByname.find(name) != inputsByname.end();
+}
+
 void UISystem::loadInputs(std::string file)
 {
 	std::ifstream in("inputs.json");
 	nlohmann::json j;
 	in >> j;
 
-	for(auto i = j.begin(); i != j.end(); ++i)
+	for(auto& js : j)
 	{
-		std::string name = i.key();
-		std::string type = i.value()["type"];
-		
-		if (type == "axis")
-		{
-			addInput(name, new AxisInput(i.value()));
-			continue;
-		}
+		addInput(js);
 	}
 
 }
@@ -213,4 +228,45 @@ float MouseDeltaInput::operator()()
 void MouseDeltaInput::update(UISystem& ui, float dt)
 {
 	value = horizontal ? ui.getMouseDelta().x : ui.getMouseDelta().y;
+}
+
+MultiplexedInput::MultiplexedInput(std::initializer_list<Input*> ins)
+{
+	for (Input* input : ins)
+	{
+		inputs.emplace_back(input);
+	}
+}
+
+MultiplexedInput::MultiplexedInput(UISystem& ui, nlohmann::json& js)
+{
+	for (auto& e : js["inputs"])
+	{
+		std::string name = e.get<std::string>();
+
+		inputs.emplace_back(ui.getInput(name));
+	}
+}
+
+float MultiplexedInput::operator()()
+{
+	return value;
+}
+
+void MultiplexedInput::update(UISystem& ui, float dt)
+{
+	float absMax = 0;
+	float best = 0;
+	for (Input* i : inputs)
+	{
+		float v = (*i)();
+		if (abs(v) > absMax)
+		{
+			best = v;
+			absMax = abs(v);
+		}
+	}
+
+
+	value = best;
 }

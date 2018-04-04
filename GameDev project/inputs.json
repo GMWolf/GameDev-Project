@@ -1,5 +1,6 @@
-{
-	"Horizontal" : {
+[
+	{
+		"name" : "Horizontal_WASD",
 		"type" : "axis",
 		"positive" : "KEY_A",
 		"negative" : "KEY_D",
@@ -7,7 +8,8 @@
 		"restitution" : 6
 	},
 	
-	"Vertical" : {
+	{
+		"name" : "Vertical_WASD",
 		"type" : "axis",
 		"positive" : "KEY_W",
 		"negative" : "KEY_S",
@@ -15,7 +17,44 @@
 		"restitution" : 6
 	},
 	
-	"UpDown" : {
+	{
+		"name" : "Horizontal_AROWS",
+		"type" : "axis",
+		"positive" : "KEY_LEFT",
+		"negative" : "KEY_RIGHT",
+		"acceleration" : 4,
+		"restitution" : 6
+	},
+	
+	{
+		"name" : "Vertical_ARROWS",
+		"type" : "axis",
+		"positive" : "KEY_UP",
+		"negative" : "KEY_DOWN",
+		"acceleration" : 4,
+		"restitution" : 6
+	},
+	
+	{
+		"name" : "Horizontal",
+		"type" : "multiplexed",
+		"inputs" : [
+			"Horizontal_WASD",
+			"Horizontal_AROWS"
+		]
+	},
+	
+	{
+		"name" : "Vertical",
+		"type" : "multiplexed",
+		"inputs" : [
+			"Vertical_WASD",
+			"Vertical_ARROWS"
+		]
+	},
+	
+	{
+		"name" : "UpDown",
 		"type" : "axis",
 		"positive" : "KEY_LEFT_SHIFT",
 		"negative" : "KEY_LEFT_CTRL",
@@ -23,4 +62,4 @@
 		"restitution" : 3
 	}
 
-}
+]

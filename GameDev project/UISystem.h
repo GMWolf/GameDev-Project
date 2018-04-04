@@ -6,6 +6,7 @@
 #include <set>
 #include <unordered_map>
 #include "json.hpp"
+#include <wincon.h>
 
 
 class UISystem;
@@ -77,6 +78,8 @@ public:
 
 	Input* getInput(std::string name);
 	void addInput(std::string name, Input* input);
+	void addInput(nlohmann::json& js);
+	bool hasInput(std::string name);
 
 private:
 
@@ -143,5 +146,21 @@ public:
 	void update(UISystem& ui, float dt) override;
 private:
 	bool horizontal; //true for horizontal mouse delta, false for vertical
+	float value = 0;
+};
+
+class MultiplexedInput : public Input
+{
+public:
+	MultiplexedInput(std::initializer_list<Input*> ins);;
+
+	MultiplexedInput(UISystem& ui, nlohmann::json& js);
+
+	float operator()() override;
+
+	void update(UISystem& ui, float dt) override;
+
+private:
+	std::vector<Input*> inputs;
 	float value = 0;
 };
