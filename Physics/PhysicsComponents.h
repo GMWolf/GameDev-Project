@@ -4,6 +4,7 @@
 #include <BulletDynamics/Dynamics/btRigidBody.h>
 #include <Vector3.h>
 #include <glm/glm.hpp>
+#include <AssetHandle.h>
 
 COMPONENT(BoxCollider, 1)
 {
@@ -43,6 +44,17 @@ COMPONENT(CapsuleCollider, 1)
 
 	float height;
 	float radius;
+};
+
+COMPONENT(MeshCollider, 1)
+{
+	
+	MeshCollider() : concave(false)
+	{
+	}
+
+	
+	bool concave;
 };
 
 COMPONENT(Collider, 16)

@@ -87,7 +87,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)bullet3-2.87\src;$(SolutionDir)ECS;$(SolutionDir)Math;$(SolutionDir)json;$(SolutionDir)Memory;$(SolutionDir)Common;$(SolutionDir)glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)bullet3-2.87\src;$(SolutionDir)ECS;$(SolutionDir)Math;$(SolutionDir)json;$(SolutionDir)Memory;$(SolutionDir)Common;$(SolutionDir)glm;$(SolutionDir)Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Lib>
@@ -103,7 +103,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)bullet3-2.87\src;$(SolutionDir)ECS;$(SolutionDir)Math;$(SolutionDir)json;$(SolutionDir)Memory;$(SolutionDir)Common;$(SolutionDir)glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)bullet3-2.87\src;$(SolutionDir)ECS;$(SolutionDir)Math;$(SolutionDir)json;$(SolutionDir)Memory;$(SolutionDir)Common;$(SolutionDir)glm;$(SolutionDir)Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Lib>
@@ -121,7 +121,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)bullet3-2.87\src;$(SolutionDir)ECS;$(SolutionDir)Math;$(SolutionDir)json;$(SolutionDir)Memory;$(SolutionDir)Common;$(SolutionDir)glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)bullet3-2.87\src;$(SolutionDir)ECS;$(SolutionDir)Math;$(SolutionDir)json;$(SolutionDir)Memory;$(SolutionDir)Common;$(SolutionDir)glm;$(SolutionDir)Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -143,7 +143,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)bullet3-2.87\src;$(SolutionDir)ECS;$(SolutionDir)Math;$(SolutionDir)json;$(SolutionDir)Memory;$(SolutionDir)Common;$(SolutionDir)glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)bullet3-2.87\src;$(SolutionDir)ECS;$(SolutionDir)Math;$(SolutionDir)json;$(SolutionDir)Memory;$(SolutionDir)Common;$(SolutionDir)glm;$(SolutionDir)Assets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>

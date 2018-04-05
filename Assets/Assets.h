@@ -8,8 +8,6 @@ public:
 	Assets();
 	~Assets();
 
-
-
 	AssetLoader<wagl::Texture> textureLoader;
 	AssetManager<wagl::Texture> textures;
 

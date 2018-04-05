@@ -2,6 +2,9 @@
 #include "BulletCollision/CollisionShapes/btBoxShape.h"
 #include "BulletCollision/CollisionShapes/btSphereShape.h"
 #include "BulletCollision/CollisionShapes/btCapsuleShape.h"
+#include "BulletCollision/CollisionShapes/btConvexHullShape.h"
+#include "BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h"
+#include "BulletCollision/CollisionShapes/btConvexTriangleMeshShape.h"
 
 
 PhysicsColliderSystem::PhysicsColliderSystem()
@@ -85,6 +88,37 @@ void PhysicsColliderSystem::update()
 		e.entity.remove<Collider>();
 
 		capsuleColliderRemoved.events.pop();
+	}
+
+	while(!meshColliderInserted.events.empty())
+	{
+		auto& e = meshColliderInserted.events.front();
+
+		//Mesh& mesh = e.entity.get<MeshCollider>().mesh();
+		bool concave = e.entity.get<MeshCollider>().concave;
+
+		btCollisionShape* shape;
+
+		if (concave)
+		{
+			
+			
+
+		} else
+		{
+			btConvexHullShape* c = new btConvexHullShape();
+			
+			/*for(int i : mesh.data.indices)
+			{
+				glm::vec3 v = mesh.data.positions[i];
+				c->addPoint(btVector3(v.x, v.y, v.z), false);
+			}
+			c->recalcLocalAabb();*/
+
+			shape = c;
+		}
+
+		meshColliderInserted.events.pop();
 	}
 }
 

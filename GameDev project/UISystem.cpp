@@ -126,8 +126,8 @@ void UISystem::addInput(std::string name, Input* input)
 
 void UISystem::addInput(nlohmann::json& js)
 {
-	std::string name = js["name"];
-	std::string type = js["type"];
+	const std::string name = js["name"];
+	const std::string type = js["type"];
 
 	if (type == "axis")
 	{
