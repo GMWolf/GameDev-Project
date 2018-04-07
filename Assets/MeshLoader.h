@@ -27,6 +27,6 @@ private:
 		int normal;
 	};
 
-	void addVertexData(vertexData& data, std::vector<vertexData>& vertices, std::vector<int>& elements);
+	static void addVertexData(vertexData& data, std::vector<vertexData>& vertices, std::vector<int>& elements);
 };
 

@@ -54,10 +54,11 @@ public:
 		std::cout << "Rotate  " << Rotate::componentId << std::endl;
 		*/
 
-		AssetHandle<Mesh> suzane = assets.meshs.get("models/suzane.objm");
+		AssetHandle<RenderMesh> suzane = assets.renderMeshes.get("models/suzane.objm");
 		Mesh cubeMesh(Mesh::Cube(glm::vec3(1, 1, 1)));
-		AssetHandle<Mesh> cube = assets.meshs.manage(cubeMesh, "cube");
-		AssetHandle<Mesh> pillars = assets.meshs.get("models/pillars.objm");
+		assets.meshes.manage(cubeMesh, "cube");
+		AssetHandle<RenderMesh> cube = assets.renderMeshes.get("cube");
+		AssetHandle<RenderMesh> pillars = assets.renderMeshes.get("models/pillars.objm");
 
 		AssetHandle<Material> cobblestone = assets.materials.get("materials/Cobblestone5.mat");
 		AssetHandle<Material> damaged = assets.materials.get("materials/Damaged.mat");
@@ -121,7 +122,7 @@ public:
 
 		Entity floor = Entity::create();
 		floor.add(Transform());
-		floor.add(MeshFilter(assets.meshs.get("models/smoothCube.objm"), sand));
+		floor.add(MeshFilter(assets.renderMeshes.get("models/smoothCube.objm"), sand));
 		Transform& ft = floor.get<Transform>();
 		ft.scale = glm::vec3(10, 10, 10);
 		ft.position = glm::vec3(0, -11, 0);
@@ -149,21 +150,21 @@ public:
 		Entity blockA = Entity::create();
 		blockA.add(Transform());
 		blockA.get<Transform>().position = glm::vec3(0, 5, -3);
-		blockA.add(MeshFilter(assets.meshs.get("models/smoothCube.objm"), marble));
+		blockA.add(MeshFilter(assets.renderMeshes.get("models/smoothCube.objm"), marble));
 		blockA.add(BoxCollider(glm::vec3(1, 1, 1)));
 		blockA.add(RigidBodyProperties(1));
 
 		Entity blockB = Entity::create();
 		blockB.add(Transform());
 		blockB.get<Transform>().position = glm::vec3(1.2, 7, -3);
-		blockB.add(MeshFilter(assets.meshs.get("models/smoothCube.objm"), marble));
+		blockB.add(MeshFilter(assets.renderMeshes.get("models/smoothCube.objm"), marble));
 		blockB.add(BoxCollider(glm::vec3(1, 1, 1)));
 		blockB.add(RigidBodyProperties(1));
 
 		Entity blockC = Entity::create();
 		blockC.add(Transform());
 		blockC.get<Transform>().position = glm::vec3(0.1, 9, -3);
-		blockC.add(MeshFilter(assets.meshs.get("models/smoothCube.objm"), marble));
+		blockC.add(MeshFilter(assets.renderMeshes.get("models/smoothCube.objm"), marble));
 		blockC.add(BoxCollider(glm::vec3(1, 1, 1)));
 		blockC.add(RigidBodyProperties(1));
 	}

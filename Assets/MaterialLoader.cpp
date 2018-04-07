@@ -9,7 +9,7 @@ AssetLoader<Material>::AssetLoader(AssetManager<wagl::Texture>& textures) : text
 {
 }
 
-void AssetLoader<Material>::load(std::string file, Material & mat)
+void AssetLoader<Material>::load(const std::string file, Material & mat) const
 {
 
 	std::string str;

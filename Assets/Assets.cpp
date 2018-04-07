@@ -2,7 +2,11 @@
 #include "Assets.h"
 
 
-Assets::Assets() : materialLoader(textures), materials(materialLoader), textures(textureLoader), meshs(meshLoader)
+Assets::Assets() : 
+	textures(textureLoader),
+	materialLoader(textures), materials(materialLoader),
+	meshes(meshLoader),
+	renderMeshLoader(meshes), renderMeshes(renderMeshLoader)
 {
 }
 

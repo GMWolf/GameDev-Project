@@ -2,6 +2,8 @@
 #include "MaterialLoader.h"
 #include "TextureLoader.h"
 #include "MeshLoader.h"
+#include "RenderMeshLoader.h"
+
 class Assets
 {
 public:
@@ -15,6 +17,9 @@ public:
 	AssetManager<Material> materials;
 
 	AssetLoader<Mesh> meshLoader;
-	AssetManager<Mesh> meshs;
+	AssetManager<Mesh> meshes;
+
+	AssetLoader<RenderMesh> renderMeshLoader;
+	AssetManager<RenderMesh> renderMeshes;
 };
 

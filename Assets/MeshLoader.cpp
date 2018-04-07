@@ -73,12 +73,10 @@ void AssetLoader<Mesh>::load(std::string fileName, Mesh& mesh)
 	mesh.normals = normals;
 	mesh.UVs = uvs;
 	mesh.indices = elements;*/
-	mesh.data.positions.swap(positions);
-	mesh.data.normals.swap(normals);
-	mesh.data.UVs.swap(uvs);
-	mesh.data.indices.swap(elements);
-	
-	mesh.update();
+	mesh.positions.swap(positions);
+	mesh.normals.swap(normals);
+	mesh.UVs.swap(uvs);
+	mesh.indices.swap(elements);
 }
 
 AssetLoader<Mesh>::vertexData::vertexData()

@@ -16,19 +16,19 @@ namespace wagl {
 		~VBBuilder();
 
 		template<class T>
-		void set(std::string alias, std::vector<T>& data);
+		void set(std::string alias, const std::vector<T>& data);
 
 		template<class T>
-		void set(VertexAttribute attribute, std::vector<T>& data);
+		void set(VertexAttribute attribute, const std::vector<T>& data);
 
 		template<class T>
-		void set(VertexAttribute attribute, std::initializer_list<T> data);
+		void set(VertexAttribute attribute, const std::initializer_list<T> data);
 
 		template<class T>
-		void set(int ai, std::vector<T>& data);
+		void set(int ai, const std::vector<T>& data);
 
-		void setElems(std::vector<int>& elements);
-		void setElems(std::initializer_list<int> elements);
+		void setElems(const std::vector<int>& elements);
+		void setElems(const std::initializer_list<int> elements);
 
 		VertexBuffer* build();
 
@@ -43,7 +43,7 @@ namespace wagl {
 	};
 
 	template<class T>
-	inline void VBBuilder::set(std::string alias, std::vector<T>& data)
+	inline void VBBuilder::set(std::string alias, const std::vector<T>& data)
 	{
 		bool found;
 		const VertexAttribute& va = format.findAttribute(alias, found);
@@ -53,7 +53,7 @@ namespace wagl {
 	}
 
 	template<class T>
-	inline void VBBuilder::set(VertexAttribute attribute, std::vector<T>& data)
+	inline void VBBuilder::set(VertexAttribute attribute, const std::vector<T>& data)
 	{
 		assert(attribute.size() == sizeof(T));
 
@@ -63,14 +63,14 @@ namespace wagl {
 	}
 
 	template<class T>
-	inline void VBBuilder::set(VertexAttribute attribute, std::initializer_list<T> data)
+	inline void VBBuilder::set(VertexAttribute attribute, const std::initializer_list<T> data)
 	{
 		std::vector<T> d(data);
 		set(attribute, d);
 	}
 
 	template <class T>
-	void VBBuilder::set(int ai, std::vector<T>& data)
+	void VBBuilder::set(int ai, const std::vector<T>& data)
 	{
 		VertexAttribute attribute = format.attributes[ai];
 

@@ -3,6 +3,7 @@
 #include "Mesh.h"
 #include "AssetHandle.h"
 #include "Material.h"
+#include "RenderMesh.h"
 
 COMPONENT(MeshFilter, 16) {
 
@@ -10,10 +11,10 @@ COMPONENT(MeshFilter, 16) {
 	{
 	};
 
-	MeshFilter(AssetHandle<Mesh> mesh, AssetHandle<Material> material) : mesh(mesh), material(material)
+	MeshFilter(AssetHandle<RenderMesh> mesh, AssetHandle<Material> material) : mesh(mesh), material(material)
 	{
 	};
 
-	AssetHandle<Mesh> mesh;
+	AssetHandle<RenderMesh> mesh;
 	AssetHandle<Material> material;
 };

@@ -9,9 +9,9 @@ template<>
 class AssetLoader<Material> {
 public:
 
-	AssetLoader(AssetManager<wagl::Texture>& textures);
+	explicit AssetLoader(AssetManager<wagl::Texture>& textures);
 	
-	void load(std::string file, Material& location);
+	void load(std::string file, Material& location) const;
 private:
 	AssetManager<wagl::Texture>& textures;
 };

@@ -149,8 +149,17 @@ void Renderer::geometryPass() const
 		material.normal().bind(0);
 		material.roughness().bind(1);
 		//std::cout << e.getId() << std::endl;
-		e.get<MeshFilter>().mesh().draw();
+		e.get<MeshFilter>().mesh().submit();
 	}
+	/*for(const RenderObject& o : renderPlan.renderObjects)
+	{
+		u_geometry_MVP = mv * o.modelMatrix;
+		u_geometry_model = o.modelMatrix;
+		Material& material = o.material();
+		material.normal().bind(0);
+		material.roughness().bind(1);
+		o.mesh().submit();
+	}*/
 }
 
 void Renderer::lightPass() const
@@ -233,8 +242,14 @@ void Renderer::resolvePass() const
 		u_resolve_MVP = mv * model;
 		//std::cout << e.getId() << '\n';
 		e.get<MeshFilter>().material().diffuse().bind(1);
-		e.get<MeshFilter>().mesh().draw();
+		e.get<MeshFilter>().mesh().submit();
 	}
+	/*for(const RenderObject& o : renderPlan.renderObjects)
+	{
+		u_resolve_MVP = mv * o.modelMatrix;
+		o.material().diffuse().bind(1);
+		o.mesh().draw();
+	}*/
 }
 
 void Renderer::generateQuad()

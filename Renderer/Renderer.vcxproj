@@ -174,6 +174,7 @@
     <ClInclude Include="Lights.h" />
     <ClInclude Include="MeshFilter.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="RenderPlan.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -182,6 +183,7 @@
     <ClCompile Include="Icosphere.cpp" />
     <ClCompile Include="LightMesh.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="RenderPlan.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

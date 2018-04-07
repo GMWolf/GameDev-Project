@@ -8,12 +8,12 @@ wagl::VBBuilder::~VBBuilder()
 {
 }
 
-void wagl::VBBuilder::setElems(std::vector<int>& elems)
+void wagl::VBBuilder::setElems(const std::vector<int>& elems)
 {
 	elements = elems;
 }
 
-void wagl::VBBuilder::setElems(std::initializer_list<int> elements)
+void wagl::VBBuilder::setElems(const std::initializer_list<int> elements)
 {
 	std::vector<int> v(elements);
 	setElems(v);

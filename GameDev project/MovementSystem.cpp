@@ -78,7 +78,7 @@ void PlayerControlSystem::update()
 					light.get<Transform>().rotation = glm::lookAt(glm::vec3(0,0,0), T, hit.normal);
 					light.get<Transform>().scale = glm::vec3(0.1);
 					light.get<Transform>().setParent(hit.entity);
-					light.add(MeshFilter(assets.meshs.get("models/suzane.objm"), assets.materials.get("materials/MarbleRed.mat")));
+					light.add(MeshFilter(assets.renderMeshes.get("models/suzane.objm"), assets.materials.get("materials/MarbleRed.mat")));
 					light.add(PointLight(glm::vec3(0.25, 0.25, 1), 5.f, 2.f));
 				}
 			}

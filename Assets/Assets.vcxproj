@@ -172,6 +172,8 @@
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="Assets.h" />
     <ClInclude Include="File.h" />
+    <ClInclude Include="RenderMesh.h" />
+    <ClInclude Include="RenderMeshLoader.h" />
     <ClInclude Include="TextureLoader.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MaterialLoader.h" />
@@ -185,6 +187,8 @@
   <ItemGroup>
     <ClCompile Include="Assets.cpp" />
     <ClCompile Include="File.cpp" />
+    <ClCompile Include="RenderMesh.cpp" />
+    <ClCompile Include="RenderMeshLoader.cpp" />
     <ClCompile Include="TextureLoader.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MaterialLoader.cpp" />

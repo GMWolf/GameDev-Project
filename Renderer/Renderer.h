@@ -5,6 +5,9 @@
 #include <System.h>
 #include <EntitySubscription.h>
 #include "LightMesh.h"
+#include "RenderPlan.h"
+#include "EntityEvents.h"
+#include "MeshFilter.h"
 
 class Renderer : public System
 {
@@ -39,10 +42,13 @@ private:
 	wagl::ShaderProgram* dirLightProgram{};
 	wagl::ShaderProgram* resolveProgram{};
 
+
 	EntitySubscription& renderEntities;
 	EntitySubscription& pointLights;
 	EntitySubscription& dirLights;
 	EntitySubscription& camera;
+
+	RenderPlan renderPlan;
 
 	mutable LightMesh pointLightMesh;
 
