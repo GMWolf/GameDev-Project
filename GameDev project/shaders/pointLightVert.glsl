@@ -8,6 +8,7 @@ layout (location = 3) in float Radius;
 /*uniform mat4 projection;
 uniform mat4 view;*/
 uniform mat4 MVP;
+uniform float margin = 1.2;
 
 out Vertex	{
 	vec3 Position;
@@ -17,7 +18,7 @@ out Vertex	{
 
 void main()
 { 
-   	gl_Position = MVP  * vec4((Position * Radius) + lPosition, 1.0);
+   	gl_Position = MVP  * vec4((Position * Radius * margin) + lPosition, 1.0);
 	OUT.Position = lPosition;
 	OUT.Colour = Colour;
 	OUT.Radius = Radius;
