@@ -17,6 +17,8 @@ public:
 	AssetHandle<T> manage(T& asset, std::string name);
 	T& getAsset(AssetHandle<T>& handle);
 
+	void reload(std::string file);
+
 private:
 	std::map<std::string, AssetHandle<T>> itemMap;
 	HashedArrayTree<16, T> items;
@@ -67,5 +69,14 @@ template <class T>
 T& AssetManager<T>::getAsset(AssetHandle<T>& handle)
 {
 	return items[handle.assetId];
+}
+
+template <class T>
+void AssetManager<T>::reload(std::string file)
+{
+	if (itemMap.find(file) != itemMap.end())
+	{
+		loader.load(file, get(file));
+	}
 }
 
