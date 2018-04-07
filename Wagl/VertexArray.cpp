@@ -1,7 +1,5 @@
 #include "VertexArray.h"
 
-
-
 wagl::VertexArray::VertexArray(VertexBuffer& vb)
 {
 	glGenVertexArrays(1, &vao);
@@ -55,4 +53,11 @@ void wagl::VertexArray::bind() const
 void wagl::VertexArray::unbind()
 {
 	glBindVertexArray(0);
+}
+
+void wagl::VertexArray::submit(unsigned int elementCount) const
+{
+	bind();
+	glDrawElements(GL_TRIANGLES, elementCount, GL_UNSIGNED_INT, (void*)0);
+	unbind();
 }

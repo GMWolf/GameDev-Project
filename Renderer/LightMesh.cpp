@@ -48,7 +48,7 @@ LightMesh::~LightMesh()
 {
 }
 
-void LightMesh::draw()
+void LightMesh::submit() const
 {
 	updateBuffers();
 	glBindVertexArray(va);
@@ -91,7 +91,7 @@ void LightMesh::generateSphereMesh()
 	sphereElementCount = elements.size();
 }
 
-void LightMesh::updateBuffers()
+void LightMesh::updateBuffers() const
 {
 	if (!dirty) return;
 

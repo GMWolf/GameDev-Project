@@ -16,7 +16,10 @@ namespace wagl {
 		void bind() const;
 		static void unbind();
 
+		void submit(unsigned int elementCount) const;
+
 	private:
+
 		GLuint vao{};
 	};
 

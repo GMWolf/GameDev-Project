@@ -17,9 +17,10 @@ namespace wagl {
 
 		void bind();
 
+		int elementCount;
+		
 	private:
 		int usage;
-		int vertexCount;
 		VertexFormat format;
 
 		union {

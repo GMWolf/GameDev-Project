@@ -196,7 +196,9 @@ void Renderer::lightPass() const
 	NRTexture->bind(1);
 	u_point_light_nr_texture = 1;
 	pointLightProgram->use();
-	pointLightMesh.draw();
+	pointLightMesh.submit();
+
+	//Dir light
 
 	u_dir_light_invView = glm::inverse(view);
 	u_dir_light_invProjection = glm::inverse(projection);

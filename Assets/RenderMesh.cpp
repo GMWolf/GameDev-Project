@@ -36,9 +36,10 @@ RenderMesh::~RenderMesh()
 
 void RenderMesh::submit() const
 {
-	va.bind();
+	/*va.bind();
 	glDrawElements(GL_TRIANGLES, elementCount, GL_UNSIGNED_INT, (void*)0);
-	wagl::VertexArray::unbind();
+	wagl::VertexArray::unbind();*/
+	va.submit(elementCount);
 }
 
 void RenderMesh::setData(const Mesh& data)

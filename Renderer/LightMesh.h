@@ -12,7 +12,7 @@ public:
 	LightMesh();
 	~LightMesh();
 
-	void draw();
+	void submit() const;
 
 	void addLight(const glm::vec3& position, const glm::vec3& colour, float radius);
 	void clear();
@@ -25,10 +25,10 @@ private:
 
 	
 
-	wagl::VertexBuffer instancePos_vb;
-	wagl::VertexBuffer instanceCol_vb;
-	wagl::VertexBuffer instanceR_vb;
-	wagl::VertexBuffer sphere_vb;
+	mutable wagl::VertexBuffer instancePos_vb;
+	mutable wagl::VertexBuffer instanceCol_vb;
+	mutable wagl::VertexBuffer instanceR_vb;
+	mutable wagl::VertexBuffer sphere_vb;
 	unsigned int sphereElementCount;
 
 	GLuint va;
@@ -39,9 +39,9 @@ private:
 
 	void generateSphereMesh();
 
-	void updateBuffers();
+	void updateBuffers() const;
 
-	bool dirty;
+	mutable bool dirty;
 
 	static const wagl::VertexFormat sphere_format;
 };
