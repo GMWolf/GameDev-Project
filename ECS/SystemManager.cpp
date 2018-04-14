@@ -1,4 +1,5 @@
 #include "SystemManager.h"
+#include <chrono>
 
 
 std::vector<System*> SystemManager::systems;
@@ -12,10 +13,14 @@ void SystemManager::init() {
 
 void SystemManager::update()
 {
+	
 	for (System* system : systems) {
+		auto start = std::chrono::high_resolution_clock::now();
 		system->update();
 		SubscriptionManager::update();
 		Entity::entityManager.update();
+		auto end = std::chrono::high_resolution_clock::now();
+		system->lastTime = (float)std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
 	}
 }
 

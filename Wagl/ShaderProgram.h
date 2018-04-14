@@ -5,9 +5,6 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <Vector2.h>
-#include <Vector3.h>
-#include <Matrix4.h>
 #include <glm/glm.hpp>
 
 namespace wagl {

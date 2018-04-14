@@ -94,14 +94,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)glm;$(SolutionDir)soil/src;$(SolutionDir)json</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)glm;$(SolutionDir)soil/src;$(SolutionDir)json;$(SolutionDir)bullet3-2.87\src;$(SolutionDir)BMFontParser</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\BMFontParser.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -112,14 +112,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)glm;$(SolutionDir)soil/src;$(SolutionDir)json</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)glm;$(SolutionDir)soil/src;$(SolutionDir)json;$(SolutionDir)bullet3-2.87\src;$(SolutionDir)BMFontParser</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\BMFontParser.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -132,7 +132,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)glm;$(SolutionDir)soil/src;$(SolutionDir)json</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)glm;$(SolutionDir)soil/src;$(SolutionDir)json;$(SolutionDir)bullet3-2.87\src;$(SolutionDir)BMFontParser</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -141,7 +141,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\BMFontParser.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -154,7 +154,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)glm;$(SolutionDir)soil/src;$(SolutionDir)json</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)glm;$(SolutionDir)soil/src;$(SolutionDir)json;$(SolutionDir)bullet3-2.87\src;$(SolutionDir)BMFontParser</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -163,7 +163,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\BMFontParser.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -171,6 +171,9 @@
     <ClInclude Include="AssetLoader.h" />
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="Assets.h" />
+    <ClInclude Include="FontLoader.h" />
+    <ClInclude Include="Font.h" />
+    <ClInclude Include="MeshInterfaceLoader.h" />
     <ClInclude Include="File.h" />
     <ClInclude Include="RenderMesh.h" />
     <ClInclude Include="RenderMeshLoader.h" />
@@ -186,6 +189,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Assets.cpp" />
+    <ClCompile Include="FontLoader.cpp" />
+    <ClCompile Include="Font.cpp" />
+    <ClCompile Include="MeshInterfaceLoader.cpp" />
     <ClCompile Include="File.cpp" />
     <ClCompile Include="RenderMesh.cpp" />
     <ClCompile Include="RenderMeshLoader.cpp" />

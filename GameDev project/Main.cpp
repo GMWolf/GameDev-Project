@@ -26,6 +26,8 @@
 #include "UISystem.h"
 #include <PhysicsSystem.h>
 #include <PhysicsColliderSystem.h>
+#include "GUISystem.h"
+#include "TextComponent.h"
 
 class Game : public wagl::ApplicationAdapter {
 
@@ -80,9 +82,15 @@ public:
 		SystemManager::addSystem(new CameraTransformSystem);
 		SystemManager::addSystem(new VelocitySystem);
 		SystemManager::addSystem(new Renderer(width, height));
+		SystemManager::addSystem(new GUISystem(width, height, window));
 		SystemManager::addSystem(new RotateSystem);
 		SystemManager::addSystem(new LightWaveSystem);
 		SystemManager::init();
+
+		Entity text = Entity::create();
+		text.add(Transform());
+		text.get<Transform>().position = glm::vec3(2, 2, 0);
+		text.add(TextComponent("hello, world! This is some great text!"));
 
 
 		Entity sun = Entity::create();

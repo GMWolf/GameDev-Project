@@ -48,7 +48,8 @@ enum Keys
 	KEY_DOWN = GLFW_KEY_DOWN,
 	KEY_LEFT = GLFW_KEY_LEFT,
 	KEY_RIGHT = GLFW_KEY_RIGHT,
-	KEY_SPACE = GLFW_KEY_SPACE
+	KEY_SPACE = GLFW_KEY_SPACE,
+	KEY_ALT = GLFW_KEY_LEFT_ALT
 };
 //const std::unordered_map<std::string, Keys> keysByName;
 

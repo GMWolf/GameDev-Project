@@ -9,7 +9,7 @@ namespace wagl {
 		friend class Model;
 		friend class VertexArray;
 
-		VertexBuffer(VertexFormat format, int usage);
+		VertexBuffer(const VertexFormat format, int usage);
 		~VertexBuffer();
 
 		void setVertexData(const int vertexCount, const void* data);

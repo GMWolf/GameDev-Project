@@ -3,6 +3,7 @@
 #include "TextureLoader.h"
 #include "MeshLoader.h"
 #include "RenderMeshLoader.h"
+#include "FontLoader.h"
 
 class Assets
 {
@@ -21,5 +22,8 @@ public:
 
 	AssetLoader<RenderMesh> renderMeshLoader;
 	AssetManager<RenderMesh> renderMeshes;
+
+	AssetLoader<Font> fontLoader;
+	AssetManager<Font> fonts;
 };
 

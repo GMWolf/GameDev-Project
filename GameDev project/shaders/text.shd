@@ -1,0 +1,4 @@
+{
+	"vertex" : "shaders/textVert.glsl",
+	"fragment" : "shaders/textFrag.glsl"
+}

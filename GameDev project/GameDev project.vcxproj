@@ -87,11 +87,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)Renderer;$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)Assets;$(SolutionDir)json;$(SolutionDir)Physics;$(SolutionDir)bullet3-2.87\src;$(SolutionDir)glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)Renderer;$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)Assets;$(SolutionDir)json;$(SolutionDir)Physics;$(SolutionDir)bullet3-2.87\src;$(SolutionDir)glm;$(SolutionDir)GUI;$(SolutionDir)BMFontParser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Renderer.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib;$(SolutionDir)bullet3-2.87\bin\BulletCollision.lib;$(SolutionDir)bullet3-2.87\bin\BulletDynamics.lib;$(SolutionDir)bullet3-2.87\bin\LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Renderer.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\GUI.lib;$(SolutionDir)bullet3-2.87\bin\BulletCollision.lib;$(SolutionDir)bullet3-2.87\bin\BulletDynamics.lib;$(SolutionDir)bullet3-2.87\bin\LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -100,11 +100,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)Renderer;$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)Assets;$(SolutionDir)json;$(SolutionDir)Physics;$(SolutionDir)bullet3-2.87\src;$(SolutionDir)glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)Renderer;$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)Assets;$(SolutionDir)json;$(SolutionDir)Physics;$(SolutionDir)bullet3-2.87\src;$(SolutionDir)glm;$(SolutionDir)GUI;$(SolutionDir)BMFontParser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Renderer.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib;$(SolutionDir)bullet3-2.87\bin\BulletCollision.lib;$(SolutionDir)bullet3-2.87\bin\BulletDynamics.lib;$(SolutionDir)bullet3-2.87\bin\LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Renderer.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\GUI.lib;$(SolutionDir)bullet3-2.87\bin\BulletCollision.lib;$(SolutionDir)bullet3-2.87\bin\BulletDynamics.lib;$(SolutionDir)bullet3-2.87\bin\LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -115,13 +115,13 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)Renderer;$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)Assets;$(SolutionDir)json;$(SolutionDir)Physics;$(SolutionDir)bullet3-2.87\src;$(SolutionDir)glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)Renderer;$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)Assets;$(SolutionDir)json;$(SolutionDir)Physics;$(SolutionDir)bullet3-2.87\src;$(SolutionDir)glm;$(SolutionDir)GUI;$(SolutionDir)BMFontParser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Renderer.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib;$(SolutionDir)bullet3-2.87\bin\BulletCollision.lib;$(SolutionDir)bullet3-2.87\bin\BulletDynamics.lib;$(SolutionDir)bullet3-2.87\bin\LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Renderer.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\GUI.lib;$(SolutionDir)bullet3-2.87\bin\BulletCollision.lib;$(SolutionDir)bullet3-2.87\bin\BulletDynamics.lib;$(SolutionDir)bullet3-2.87\bin\LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -132,13 +132,13 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)Renderer;$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)Assets;$(SolutionDir)json;$(SolutionDir)Physics;$(SolutionDir)bullet3-2.87\src;$(SolutionDir)glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)glfw-3.2.1\include;$(SolutionDir)glad\include;$(SolutionDir)Math;$(SolutionDir)Wagl;$(SolutionDir)Memory;$(SolutionDir)Renderer;$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)Assets;$(SolutionDir)json;$(SolutionDir)Physics;$(SolutionDir)bullet3-2.87\src;$(SolutionDir)glm;$(SolutionDir)GUI;$(SolutionDir)BMFontParser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Renderer.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib;$(SolutionDir)bullet3-2.87\bin\BulletCollision.lib;$(SolutionDir)bullet3-2.87\bin\BulletDynamics.lib;$(SolutionDir)bullet3-2.87\bin\LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Renderer.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\GUI.lib;$(SolutionDir)bullet3-2.87\bin\BulletCollision.lib;$(SolutionDir)bullet3-2.87\bin\BulletDynamics.lib;$(SolutionDir)bullet3-2.87\bin\LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -147,6 +147,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MovementSystem.cpp" />
     <ClCompile Include="RotateSystem.cpp" />
+    <ClCompile Include="SystemProfiler.cpp" />
     <ClCompile Include="UISystem.cpp" />
     <ClCompile Include="VelocitySystem.cpp" />
   </ItemGroup>
@@ -155,6 +156,7 @@
     <ClInclude Include="LightWaveSystem.h" />
     <ClInclude Include="MovementSystem.h" />
     <ClInclude Include="RotateSystem.h" />
+    <ClInclude Include="SystemProfiler.h" />
     <ClInclude Include="UISystem.h" />
     <ClInclude Include="VelocitySystem.h" />
   </ItemGroup>

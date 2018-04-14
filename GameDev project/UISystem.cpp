@@ -42,7 +42,8 @@ std::unordered_map<std::string, Keys> keysByName =
 	{ "KEY_DOWN", KEY_DOWN },
 	{ "KEY_LEFT", KEY_LEFT },
 	{ "KEY_RIGHT", KEY_RIGHT },
-	{ "KEY_SPACE", KEY_SPACE }
+	{ "KEY_SPACE", KEY_SPACE },
+	{ "KEY_ALT", KEY_ALT}
 };
 
 
@@ -80,7 +81,17 @@ void UISystem::update()
 	mousePos.x = mx;
 	mousePos.y = my;
 
-	mouseDelta = mousePos - mousePrevious;
+	if (!getKey(KEY_ALT))
+	{
+		mouseDelta = mousePos - mousePrevious;
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		
+	} else
+	{
+		mouseDelta.x = 0;
+		mouseDelta.y = 0;
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
 	mousePrevious = mousePos;
 
 	for(Input* input : inputs)
