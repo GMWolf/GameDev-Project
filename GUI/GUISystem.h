@@ -25,5 +25,11 @@ private:
 	EntitySubscription & textEntities;
 
 	wagl::ShaderProgram* textShader;
+
+	std::vector<std::vector<float>> systemPlots;
+	std::vector<float> fpsPlot;
+
+	void logSystem(int systemId, float value);
+	float getSystemSmoothed(int systemId);
 };
 

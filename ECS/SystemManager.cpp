@@ -13,7 +13,7 @@ void SystemManager::init() {
 
 void SystemManager::update()
 {
-	
+
 	for (System* system : systems) {
 		auto start = std::chrono::high_resolution_clock::now();
 		system->update();
