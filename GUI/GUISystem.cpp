@@ -65,19 +65,23 @@ void GUISystem::update()
 	avFPS /= static_cast<float>(fpsPlot.size());
 
 	ImGui::Text("FPS: %f", avFPS);
-	ImGui::PlotLines("fps: ", fpsPlot.data(), fpsPlot.size(), 0, 0);
-
+	ImGui::PlotLines("", fpsPlot.data(), fpsPlot.size(), 0, 0);
+	ImGui::BeginGroup();
 	ImGui::BeginChild("scrolling");
 	for(unsigned int i = 0; i < SystemManager::systems.size(); ++i)
 	{
 		System& system = *SystemManager::systems[i];
 		logSystem(i, system.getTimeTaken());
-
-		ImGui::Text("%s: %f", typeid(system).name(),getSystemSmoothed(i));
+		if (ImGui::Checkbox(typeid(system).name(), &(system.enabled)))
+		{
+			std::cout << system.enabled << std::endl;
+		}
+		ImGui::Text("Update Time: %f us", getSystemSmoothed(i));
 		
-		ImGui::PlotLines("", systemPlots[i].data(), systemPlots[i].size());
+		ImGui::PlotLines("", [](void*data, int idx) { return (*static_cast<std::deque<float>*>(data)).at(idx); }, &systemPlots[i], systemPlots[i].size());
 	}
 	ImGui::EndChild();
+	ImGui::EndGroup();
 	ImGui::End();
 	//ImGui::RenderText(ImVec2(0, 0), text.string.c_str());
 
@@ -98,20 +102,20 @@ void GUISystem::logSystem(int systemId, float value)
 	{
 		systemPlots.resize(systemId + 1);
 	}
-	systemPlots[systemId].push_back(value);
+	systemPlots[systemId].emplace_back(value);
 
 	if (systemPlots[systemId].size() > 240)
 	{
-		systemPlots[systemId].erase(systemPlots[systemId].begin());
+		systemPlots[systemId].pop_front();
 	}
 }
 
 float GUISystem::getSystemSmoothed(int systemId)
 {
 	float total = 0;
-	for(float f : systemPlots[systemId])
+	for(auto f = systemPlots[systemId].begin(); f != systemPlots[systemId].end(); f++)
 	{
-		total += f;
+		total += *f;
 	}
 
 	return total / systemPlots[systemId].size();

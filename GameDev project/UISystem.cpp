@@ -43,7 +43,8 @@ std::unordered_map<std::string, Keys> keysByName =
 	{ "KEY_LEFT", KEY_LEFT },
 	{ "KEY_RIGHT", KEY_RIGHT },
 	{ "KEY_SPACE", KEY_SPACE },
-	{ "KEY_ALT", KEY_ALT}
+	{ "KEY_ALT", KEY_ALT},
+	{"KEY_GRAVE", KEY_GRAVE}
 };
 
 

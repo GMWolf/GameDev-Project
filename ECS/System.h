@@ -14,6 +14,9 @@ public:
 		return lastTime;
 	}
 	friend class SystemManager;
+
+
+	bool enabled = true;
 private:
 	float lastTime = 0;
 };

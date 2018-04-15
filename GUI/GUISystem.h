@@ -2,6 +2,7 @@
 #include <System.h>
 #include "EntitySubscription.h"
 #include "ShaderProgram.h"
+#include <queue>
 
 class ImGuiIO;
 
@@ -26,7 +27,7 @@ private:
 
 	wagl::ShaderProgram* textShader;
 
-	std::vector<std::vector<float>> systemPlots;
+	std::vector<std::deque<float>> systemPlots;
 	std::vector<float> fpsPlot;
 
 	void logSystem(int systemId, float value);

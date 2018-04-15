@@ -21,6 +21,9 @@ public:
 
 	static std::vector<System*> systems;
 	
+	static void setEnabled(System* system, bool enable);
+	static bool isEnabled(System* system);
+
 private:
 	static std::map<std::type_index, System*> systemMap;
 
