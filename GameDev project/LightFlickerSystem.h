@@ -1,11 +1,11 @@
 #pragma once
 #include "System.h"
 #include "EntitySubscription.h"
-class LightWaveSystem : public System
+class LightFlickerSystem : public System
 {
 public:
-	LightWaveSystem();
-	~LightWaveSystem();
+	LightFlickerSystem();
+	~LightFlickerSystem();
 
 	void init();
 

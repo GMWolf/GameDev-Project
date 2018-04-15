@@ -21,13 +21,15 @@
 #include "VelocitySystem.h"
 #include "Mesh.h"
 #include "Assets.h"
-#include "LightWave.h"
-#include "LightWaveSystem.h"
+#include "LightFlicker.h"
+#include "LightFlickerSystem.h"
 #include "UISystem.h"
 #include <PhysicsSystem.h>
 #include <PhysicsColliderSystem.h>
 #include "GUISystem.h"
 #include "TextComponent.h"
+#include "LightFade.h"
+#include "LightFadeSystem.h"
 
 class Game : public wagl::ApplicationAdapter {
 
@@ -48,7 +50,7 @@ public:
 		//Print Component IDs
 		std::cout << "Transform " << Transform::componentId << std::endl;
 		std::cout << "Velocity " << Velocity::componentId << std::endl;
-		std::cout << "LightWave " << lightWave::componentId << std::endl;
+		std::cout << "LightWave " << lightFlicker::componentId << std::endl;
 		std::cout << "PointLight " << PointLight::componentId << std::endl;
 		std::cout << "MeshFilter " << MeshFilter::componentId << std::endl;
 		std::cout << "Camera " << Camera::componentId << std::endl;
@@ -84,7 +86,8 @@ public:
 		SystemManager::addSystem(new Renderer(width, height));
 		SystemManager::addSystem(new GUISystem(width, height, window));
 		SystemManager::addSystem(new RotateSystem);
-		SystemManager::addSystem(new LightWaveSystem);
+		SystemManager::addSystem(new LightFlickerSystem);
+		SystemManager::addSystem(new LightFadeSystem);
 		SystemManager::init();
 
 		Entity text = Entity::create();
@@ -146,13 +149,13 @@ public:
 			lightLeft.add(Transform());
 			lightLeft.get<Transform>().position = glm::vec3(-1, 3, -5 * i);
 			lightLeft.add(PointLight(glm::vec3(1, 0.8, 0.1), 4, 4));
-			lightLeft.add(lightWave( 3, 5, (rand() / (float)RAND_MAX) * 5, 0.1));
+			lightLeft.add(lightFlicker( 3, 5, (rand() / (float)RAND_MAX) * 5, 0.1));
 
 			Entity lightRight = Entity::create();
 			lightRight.add(Transform());
 			lightRight.get<Transform>().position = glm::vec3(1, 3, -5 * i);
 			lightRight.add(PointLight(glm::vec3(1, 0.8, 0.1), 4, 4));
-			lightRight.add(lightWave(3, 5, (rand() / (float) RAND_MAX) * 5, 0.1));
+			lightRight.add(lightFlicker(3, 5, (rand() / (float) RAND_MAX) * 5, 0.1));
 		}
 
 		Entity blockA = Entity::create();

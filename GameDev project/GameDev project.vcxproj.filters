@@ -30,13 +30,16 @@
     <ClCompile Include="VelocitySystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LightWaveSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="UISystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SystemProfiler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LightFadeSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LightFlickerSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -50,16 +53,22 @@
     <ClInclude Include="VelocitySystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LightWave.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LightWaveSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="UISystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SystemProfiler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightFadeSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightFade.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightFlickerSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightFlicker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

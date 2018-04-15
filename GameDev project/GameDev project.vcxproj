@@ -143,7 +143,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\glad\src\glad.c" />
-    <ClCompile Include="LightWaveSystem.cpp" />
+    <ClCompile Include="LightFadeSystem.cpp" />
+    <ClCompile Include="LightFlickerSystem.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MovementSystem.cpp" />
     <ClCompile Include="RotateSystem.cpp" />
@@ -152,8 +153,10 @@
     <ClCompile Include="VelocitySystem.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LightWave.h" />
-    <ClInclude Include="LightWaveSystem.h" />
+    <ClInclude Include="LightFade.h" />
+    <ClInclude Include="LightFadeSystem.h" />
+    <ClInclude Include="LightFlicker.h" />
+    <ClInclude Include="LightFlickerSystem.h" />
     <ClInclude Include="MovementSystem.h" />
     <ClInclude Include="RotateSystem.h" />
     <ClInclude Include="SystemProfiler.h" />

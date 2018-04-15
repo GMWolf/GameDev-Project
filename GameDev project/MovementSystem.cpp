@@ -9,6 +9,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "MeshFilter.h"
+#include "LightFade.h"
 
 PlayerControlSystem::PlayerControlSystem(Assets& assets):
 	assets(assets), SpaceReleased(false),
@@ -79,7 +80,8 @@ void PlayerControlSystem::update()
 					light.get<Transform>().scale = glm::vec3(0.1);
 					light.get<Transform>().setParent(hit.entity);
 					light.add(MeshFilter(assets.renderMeshes.get("models/suzane.objm"), assets.materials.get("materials/MarbleRed.mat")));
-					light.add(PointLight(glm::vec3(0.25, 0.25, 1), 5.f, 2.f));
+					light.add(PointLight(glm::vec3(0.25, 0.25, 1), 10.f, 2.f));
+					light.add(LightFade(10));
 				}
 			}
 			SpaceReleased = false;

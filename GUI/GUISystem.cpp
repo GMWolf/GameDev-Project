@@ -50,7 +50,7 @@ void GUISystem::update()
 	}
 
 	fpsPlot.emplace_back(1.0f / static_cast<float>(wagl::DeltaTime::delta));
-	if (fpsPlot.size() > 240)
+	if (fpsPlot.size() > 120)
 	{
 		fpsPlot.erase(fpsPlot.begin());
 	}
@@ -63,8 +63,8 @@ void GUISystem::update()
 		avFPS += f;
 	}
 	avFPS /= static_cast<float>(fpsPlot.size());
-
-	ImGui::Text("FPS: %f", avFPS);
+	float frame =static_cast<float>(wagl::DeltaTime::delta);
+	ImGui::Text("frame time: % f. FPS: %f", frame, avFPS);
 	ImGui::PlotLines("", fpsPlot.data(), fpsPlot.size(), 0, 0);
 	ImGui::BeginGroup();
 	ImGui::BeginChild("scrolling");
@@ -77,8 +77,7 @@ void GUISystem::update()
 			std::cout << system.enabled << std::endl;
 		}
 		ImGui::Text("Update Time: %f us", getSystemSmoothed(i));
-		
-		ImGui::PlotLines("", [](void*data, int idx) { return (*static_cast<std::deque<float>*>(data)).at(idx); }, &systemPlots[i], systemPlots[i].size());
+		ImGui::PlotHistogram("", [](void*data, int idx) { return (*static_cast<std::deque<float>*>(data)).at(idx); }, &systemPlots[i], systemPlots[i].size());
 	}
 	ImGui::EndChild();
 	ImGui::EndGroup();
@@ -104,7 +103,7 @@ void GUISystem::logSystem(int systemId, float value)
 	}
 	systemPlots[systemId].emplace_back(value);
 
-	if (systemPlots[systemId].size() > 240)
+	if (systemPlots[systemId].size() > 120)
 	{
 		systemPlots[systemId].pop_front();
 	}
