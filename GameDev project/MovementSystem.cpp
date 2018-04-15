@@ -11,7 +11,7 @@
 #include "MeshFilter.h"
 #include "LightFade.h"
 
-PlayerControlSystem::PlayerControlSystem(Assets& assets):
+PlayerControlSystem::PlayerControlSystem():
 	assets(assets), SpaceReleased(false),
 	playerControled(SubscriptionManager::getSubscription(Aspect::getAspect<PlayerControl, Transform>())), ui(nullptr),
 	physics(nullptr)
@@ -55,7 +55,7 @@ void PlayerControlSystem::update()
 		
 		t.rotation = glm::rotate(glm::mat4(1), (*lookVertical)() / 1000, glm::vec3(t.rotation[0])) * t.rotation;
 
-		if ((*shoot)()) {
+		/*if ((*shoot)()) {
 			if (SpaceReleased) {
 				/*Entity e = Entity::create();
 				e.add(Transform());
@@ -63,7 +63,7 @@ void PlayerControlSystem::update()
 				e.add(Velocity(t.rotation.forward * -5));
 				e.add(PointLight(Vector3(0.25, 0.25, 1) , 5.f, 2.5));*/
 				PhysicsSystem::Hit hit;
-				physics->RayCastClosest(t.position, t.position + glm::vec3(t.rotation[2]) * 100.f, hit);
+				/*physics->RayCastClosest(t.position, t.position + glm::vec3(t.rotation[2]) * 100.f, hit);
 				if(hit.hasHit)
 				{
 					//glm::vec3 offset =glm::vec3( glm::inverse(hit.entity.get<Transform>().getMatrix()) * glm::vec4(hit.worldPos, 1.0));
@@ -88,7 +88,7 @@ void PlayerControlSystem::update()
 		} else
 		{
 			SpaceReleased = true;
-		}
+		}*/
 
 	}
 }

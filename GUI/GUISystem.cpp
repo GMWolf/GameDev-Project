@@ -72,10 +72,7 @@ void GUISystem::update()
 	{
 		System& system = *SystemManager::systems[i];
 		logSystem(i, system.getTimeTaken());
-		if (ImGui::Checkbox(typeid(system).name(), &(system.enabled)))
-		{
-			std::cout << system.enabled << std::endl;
-		}
+		ImGui::Checkbox(typeid(system).name(), &(system.enabled));
 		ImGui::Text("Update Time: %f us", getSystemSmoothed(i));
 		ImGui::PlotHistogram("", [](void*data, int idx) { return (*static_cast<std::deque<float>*>(data)).at(idx); }, &systemPlots[i], systemPlots[i].size());
 	}

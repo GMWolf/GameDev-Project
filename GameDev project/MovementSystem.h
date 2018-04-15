@@ -15,7 +15,7 @@ class PlayerControlSystem : public System
 {
 public:
 
-	PlayerControlSystem(Assets& assets);
+	PlayerControlSystem();
 
 	~PlayerControlSystem() override;
 	void init() override;

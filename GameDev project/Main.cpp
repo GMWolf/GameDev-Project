@@ -30,6 +30,8 @@
 #include "TextComponent.h"
 #include "LightFade.h"
 #include "LightFadeSystem.h"
+#include "GunSystem.h"
+#include "Gun.h"
 
 class Game : public wagl::ApplicationAdapter {
 
@@ -80,7 +82,8 @@ public:
 		SystemManager::addSystem(ui);
 		SystemManager::addSystem(new PhysicsColliderSystem);
 		SystemManager::addSystem(new PhysicsSystem);
-		SystemManager::addSystem(new PlayerControlSystem(assets));
+		SystemManager::addSystem(new PlayerControlSystem);
+		SystemManager::addSystem(new GunSystem(assets));
 		SystemManager::addSystem(new CameraTransformSystem);
 		SystemManager::addSystem(new VelocitySystem);
 		SystemManager::addSystem(new Renderer(width, height));
@@ -90,10 +93,10 @@ public:
 		SystemManager::addSystem(new LightFadeSystem);
 		SystemManager::init();
 
-		Entity text = Entity::create();
+		/*Entity text = Entity::create();
 		text.add(Transform());
 		text.get<Transform>().position = glm::vec3(2, 2, 0);
-		text.add(TextComponent("hello, world! This is some great text!"));
+		text.add(TextComponent("hello, world! This is some great text!"));*/
 
 
 		Entity sun = Entity::create();
@@ -129,6 +132,7 @@ public:
 		camera.add(Transform());
 		camera.add(Camera());
 		camera.add(PlayerControl());
+		camera.add(Gun(5));
 		//camera.add(MeshFilter(suzane, sand));
 
 		Entity floor = Entity::create();
