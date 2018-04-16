@@ -34,7 +34,7 @@ public:
 	{
 		if (counter != nullptr) {
 			(*counter)--;
-		} 
+		}
 		assetId = rhs.assetId;
 		counter = rhs.counter;
 		manager = rhs.manager;
@@ -47,6 +47,7 @@ public:
 	T& operator()();
 
 	int assetId;
+
 private:
 	AssetHandle(AssetManager<T>* manager, int assetId) : manager(manager), assetId(assetId)
 	{

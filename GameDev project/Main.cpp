@@ -33,6 +33,7 @@
 #include "GunSystem.h"
 #include "Gun.h"
 #include "SystemProfiler.h"
+#include "AudioSystem.h"
 
 using namespace ECS;
 
@@ -92,6 +93,7 @@ public:
 		SystemManager::addSystem(new Renderer(width, height));
 		SystemManager::addSystem(new SystemProfiler);
 		SystemManager::addSystem(new GUISystem(width, height, window));
+		SystemManager::addSystem(new AudioSystem);
 		SystemManager::addSystem(new RotateSystem);
 		SystemManager::addSystem(new LightFlickerSystem);
 		SystemManager::addSystem(new LightFadeSystem);

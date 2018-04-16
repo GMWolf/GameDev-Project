@@ -4,6 +4,8 @@
 #include "MeshLoader.h"
 #include "RenderMeshLoader.h"
 #include "FontLoader.h"
+#include <unordered_map>
+#include <typeindex>
 
 class Assets
 {
@@ -25,5 +27,8 @@ public:
 
 	AssetLoader<Font> fontLoader;
 	AssetManager<Font> fonts;
+
+private:
+	std::unordered_map<std::type_index, void* > managers;
 };
 
