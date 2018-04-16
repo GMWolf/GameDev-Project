@@ -32,6 +32,7 @@
 #include "LightFadeSystem.h"
 #include "GunSystem.h"
 #include "Gun.h"
+#include "SystemProfiler.h"
 
 class Game : public wagl::ApplicationAdapter {
 
@@ -87,10 +88,12 @@ public:
 		SystemManager::addSystem(new CameraTransformSystem);
 		SystemManager::addSystem(new VelocitySystem);
 		SystemManager::addSystem(new Renderer(width, height));
+		SystemManager::addSystem(new SystemProfiler);
 		SystemManager::addSystem(new GUISystem(width, height, window));
 		SystemManager::addSystem(new RotateSystem);
 		SystemManager::addSystem(new LightFlickerSystem);
 		SystemManager::addSystem(new LightFadeSystem);
+		
 		SystemManager::init();
 
 		/*Entity text = Entity::create();

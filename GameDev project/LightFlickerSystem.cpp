@@ -1,7 +1,7 @@
 #include "LightFlickerSystem.h"
 #include "SubscriptionManager.h"
 #include "Lights.h"
-#include "LightWave.h"
+#include "LightFlicker.h"
 #include <Entity.h>
 #include <DeltaTime.h>
 #include "LightFlickerSystem.h"

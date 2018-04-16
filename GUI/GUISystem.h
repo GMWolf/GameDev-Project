@@ -21,16 +21,8 @@ private:
 	GLFWwindow * window;
 	ImGuiIO* io;
 
-	glm::mat4 projection;
-
 	EntitySubscription & textEntities;
 
-	wagl::ShaderProgram* textShader;
-
-	std::vector<std::deque<float>> systemPlots;
-	std::vector<float> fpsPlot;
-
-	void logSystem(int systemId, float value);
-	float getSystemSmoothed(int systemId);
+	
 };
 

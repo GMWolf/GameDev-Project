@@ -13,6 +13,10 @@ public:
 	void end() override;
 
 private:
-	Entity entity;
+	std::vector<std::deque<float>> systemPlots;
+	std::vector<float> fpsPlot;
+
+	void logSystem(int systemId, float value);
+	float getSystemSmoothed(int systemId);
 };
 
