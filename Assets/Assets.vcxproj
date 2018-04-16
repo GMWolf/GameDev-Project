@@ -24,6 +24,7 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Assets</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <ProjectName>Assets</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -171,37 +172,18 @@
     <ClInclude Include="AssetLoader.h" />
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="Assets.h" />
-    <ClInclude Include="FontLoader.h" />
     <ClInclude Include="Font.h" />
-    <ClInclude Include="MeshInterfaceLoader.h" />
     <ClInclude Include="File.h" />
-    <ClInclude Include="RenderMesh.h" />
-    <ClInclude Include="RenderMeshLoader.h" />
-    <ClInclude Include="TextureLoader.h" />
-    <ClInclude Include="Material.h" />
-    <ClInclude Include="MaterialLoader.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshLoader.h" />
-    <ClInclude Include="ShaderLoader.h" />
-    <ClInclude Include="ShaderProgramLoader.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Assets.cpp" />
-    <ClCompile Include="FontLoader.cpp" />
     <ClCompile Include="Font.cpp" />
-    <ClCompile Include="MeshInterfaceLoader.cpp" />
     <ClCompile Include="File.cpp" />
-    <ClCompile Include="RenderMesh.cpp" />
-    <ClCompile Include="RenderMeshLoader.cpp" />
-    <ClCompile Include="TextureLoader.cpp" />
-    <ClCompile Include="Material.cpp" />
-    <ClCompile Include="MaterialLoader.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshLoader.cpp" />
-    <ClCompile Include="ShaderLoader.cpp" />
-    <ClCompile Include="ShaderProgramLoader.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

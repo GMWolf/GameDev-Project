@@ -62,7 +62,7 @@ void GunSystem::update()
 				light.get<Transform>().rotation = glm::lookAt(glm::vec3(0, 0, 0), T, hit.normal);
 				light.get<Transform>().scale = glm::vec3(0.1);
 				light.get<Transform>().setParent(hit.entity);
-				light.add(MeshFilter(assets.renderMeshes.get("models/suzane.objm"), assets.materials.get("materials/MarbleRed.mat")));
+				light.add(MeshFilter(assets.get<RenderMesh>("models/suzane.objm"), assets.get<Material>("materials/MarbleRed.mat")));
 				light.add(PointLight(glm::vec3(0.25, 0.25, 1), 10.f, 2.f));
 				light.add(LightFade(10));
 			}

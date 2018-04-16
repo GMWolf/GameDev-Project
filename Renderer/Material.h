@@ -1,6 +1,6 @@
 #pragma once
-#include "Texture.h"
 #include "AssetHandle.h"
+#include <Texture.h>
 
 class Material
 {
@@ -13,3 +13,10 @@ public:
 	AssetHandle<wagl::Texture> roughness;
 };
 
+inline Material::Material()
+{
+}
+
+inline Material::~Material()
+{
+}

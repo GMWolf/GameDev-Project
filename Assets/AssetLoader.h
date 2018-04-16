@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
 
-template<class T>
 class AssetLoader {
-public: 
-	void load(std::string file, T& location);
+public:
+	virtual ~AssetLoader() = default;
+	virtual void load(std::string file, void* location) = 0;
 };

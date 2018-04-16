@@ -2,111 +2,69 @@
 #include <vector>
 #include <deque>
 #include <assert.h>
+#include <algorithm>
+
 template<class T>
 class Pool
 {
 public:
 
-	Pool(const unsigned int blockSize);
+	explicit Pool(unsigned int blockSize);
 	~Pool();
 
-	template<typename... Ts>
-	T* create(Ts&&... args);
+	T* get();
+	void free(T* t);
 	
-	void free(T* o);
-
-	void freeUnusedBlocks();
-
+	void reserve(int n);
 private:
-
-	void addBlock();
-	bool isAvailable(T* o);
-	bool blockIsFree(T* block);
-	void freeBlock(T* block);
-
-	int blockSize;
-	std::vector<T*> blocks;
+	std::deque<T*> chunks;
 	std::deque<T*> available;
+	int blockSize;
 };
 
-template<class T>
-inline Pool<T>::Pool(const unsigned int blockSize) : blockSize(blockSize)
-{
-	assert(blockSize > 0);
-}
-
-template<class T>
-inline Pool<T>::~Pool()
+template <class T>
+Pool<T>::Pool(unsigned int blockSize) : blockSize(blockSize)
 {
 }
 
-template<class T>
-inline void Pool<T>::free(T * o)
+template <class T>
+Pool<T>::~Pool()
 {
-	o->~T();
-	available.push_back(o);
+	for(T* chunk : chunks)
+	{
+		free(chunk);
+	}
 }
 
-template<class T>
-inline void Pool<T>::freeUnusedBlocks()
+template <class T>
+T* Pool<T>::get()
 {
-	for (int i = 0; i < blocks.size(); i++) {
-		if (blockIsFree(blocks[i])) {
-			freeBlock(blocks[i]);
-			blocks.erase(blocks.begin() + i);
+	reserve(1); //Ensure we have at least 1 element available
+	T* r = available.front();
+	available.pop_front();
+	return r;
+}
+
+template <class T>
+void Pool<T>::free(T* t)
+{
+	available.push_back(t);
+}
+
+template <class T>
+void Pool<T>::reserve(int n)
+{
+	int allocSize = n - available.size();
+	if (allocSize > 0) {
+
+		allocSize = std::min(n, 16); //allocate at least 16 elements;
+
+		T* newChunk = static_cast<T*>(malloc(n * sizeof(T)));
+		for(int i = 0; i < allocSize; i++)
+		{
+			available.push_back(newChunk + i);
 		}
+
+		chunks.push_back(newChunk);
 	}
-}
-
-template<class T>
-inline void Pool<T>::addBlock() {
-	T* newBlock = new T[blockSize];
-	blocks.push_back(newBlock);
-
-	for (int i = 0 ; i <= blockSize; i++) {
-		available.push_back(newBlock + i);
-	}
-}
-
-template<class T>
-inline bool Pool<T>::isAvailable(T* o)
-{
-	return (std::find(available.begin(), available.end(), o) != available.end());
-}
-
-template<class T>
-inline bool Pool<T>::blockIsFree(T * block)
-{
-	for (int i = 0; i < blockSize; i++) {
-		if (!isAvailable(block + i)) {
-			return false;
-		}
-	}
-	return true;
-}
-
-template<class T>
-inline void Pool<T>::freeBlock(T * block)
-{
-	assert(blockIsFree(block));
-	for (int i = 0; i < blockSize; i++) {
-		available.erase(std::find(available.begin(), available.end(), block + i));
-	}
-	delete[] block;
-}
-
-template<class T>
-template<typename ...Ts>
-inline T * Pool<T>::create(Ts&& ...args)
-{
-	if (available.empty()) {
-		addBlock();
-	}
-
-	T* newT = available.back();
-	available.pop_back();
-
-	new (newT) T(std::forward<Ts>(args)...);
-
-	return newT;
 }

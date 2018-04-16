@@ -4,12 +4,10 @@
 #include "Mesh.h"
 #include "AssetLoader.h"
 
-template<>
-class AssetLoader<Mesh>
+class MeshLoader : public AssetLoader
 {
 public:
-
-	void load(std::string file, Mesh& location);
+	void load(std::string file, void* location) override;
 
 private:
 
@@ -28,5 +26,6 @@ private:
 	};
 
 	static void addVertexData(vertexData& data, std::vector<vertexData>& vertices, std::vector<int>& elements);
+
 };
 

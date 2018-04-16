@@ -3,7 +3,7 @@
 #include <cstdio>
 #include <iostream>
 
-void AssetLoader<Mesh>::load(std::string fileName, Mesh& mesh)
+void MeshLoader::load(std::string fileName, void* location)
 {
 	FILE * file;
 	fopen_s(&file, fileName.c_str(), "r");
@@ -68,31 +68,29 @@ void AssetLoader<Mesh>::load(std::string fileName, Mesh& mesh)
 		uvs.push_back(obj_uvs[vertices[i].uv - 1]);
 	}
 
-	/*
-	mesh.positions = positions;
-	mesh.normals = normals;
-	mesh.UVs = uvs;
-	mesh.indices = elements;*/
-	mesh.positions.swap(positions);
-	mesh.normals.swap(normals);
-	mesh.UVs.swap(uvs);
-	mesh.indices.swap(elements);
+	
+	Mesh* mesh = new (location) Mesh;
+
+	mesh->positions.swap(positions);
+	mesh->normals.swap(normals);
+	mesh->UVs.swap(uvs);
+	mesh->indices.swap(elements);
 }
 
-AssetLoader<Mesh>::vertexData::vertexData()
+MeshLoader::vertexData::vertexData()
 {
 }
 
-AssetLoader<Mesh>::vertexData::vertexData(int position, int uv, int normal): position(position), uv(uv), normal(normal)
+MeshLoader::vertexData::vertexData(int position, int uv, int normal): position(position), uv(uv), normal(normal)
 {
 }
 
-bool AssetLoader<Mesh>::vertexData::operator==(const vertexData& rhs) const
+bool MeshLoader::vertexData::operator==(const vertexData& rhs) const
 {
 	return position == (rhs.position) && (uv == rhs.uv) && (normal == rhs.normal);
 }
 
-void AssetLoader<Mesh>::addVertexData(vertexData & data, std::vector<vertexData>& vertices, std::vector<int>& elements)
+void MeshLoader::addVertexData(vertexData & data, std::vector<vertexData>& vertices, std::vector<int>& elements)
 {
 
 	/*auto fv0 = std::find(vertices.begin(), vertices.end(), data);

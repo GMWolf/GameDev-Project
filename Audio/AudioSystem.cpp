@@ -5,7 +5,18 @@
 #include <iostream>
 #include <fmod_common.h>
 
-AudioSystem::AudioSystem(): system(nullptr)
+SoundLoader::SoundLoader(FMOD::System* system): system(system)
+{
+}
+
+void SoundLoader::load(std::string file, void* location)
+{
+	Sound* snd = new (location) Sound;
+	system->createSound(file.c_str(), FMOD_DEFAULT, 0, &snd->fmodSound);
+}
+
+AudioSystem::AudioSystem(Assets& assets): system(nullptr),
+assets(assets)
 {
 }
 
@@ -36,11 +47,12 @@ void AudioSystem::init()
 
 	FMOD::Channel    *channel = nullptr;
 
+	soundLoader = new SoundLoader(system);
+	assets.registerLoader<Sound>(soundLoader);
+
 	FMOD::Sound* sound;
 	system->createSound("audio/Laser_Shoot.wav", FMOD_DEFAULT, 0, &sound);
-
 	system->playSound(sound, 0, false, &channel);
-	
 }
 
 void AudioSystem::update()
@@ -49,9 +61,5 @@ void AudioSystem::update()
 
 void AudioSystem::end()
 {
-}
-
-void AudioSystem::loadSound(std::string file, Sound& snd)
-{
-	system->createSound(file.c_str(), FMOD_DEFAULT, 0, &snd.fmodSound);
+	delete soundLoader;
 }

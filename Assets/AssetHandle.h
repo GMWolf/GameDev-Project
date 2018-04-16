@@ -1,19 +1,14 @@
 #pragma once
 
 template<class T>
-class AssetManager;
-
-template<class T>
 class AssetHandle
 {
-
-	friend AssetManager<T>;
 public:
 	AssetHandle() : assetId(-1), counter(nullptr)
 	{
 	}
 
-	AssetHandle(const AssetHandle<T>& cpy) : assetId(cpy.assetId), counter(cpy.counter), manager(cpy.manager)
+	AssetHandle(const AssetHandle<T>& cpy) : assetId(cpy.assetId), counter(cpy.counter)
 	{
 		if (counter != nullptr) {
 			(*counter)++;
@@ -37,31 +32,19 @@ public:
 		}
 		assetId = rhs.assetId;
 		counter = rhs.counter;
-		manager = rhs.manager;
 		if (counter != nullptr) {
 			(*counter)++;
 		}
 		return *this;
 	}
 
-	T& operator()();
-
 	int assetId;
 
-private:
-	AssetHandle(AssetManager<T>* manager, int assetId) : manager(manager), assetId(assetId)
+	AssetHandle(int assetId) : assetId(assetId)
 	{
 		counter = new int(1);
 	}
 
+private:
 	int* counter;
-
-	AssetManager<T>* manager;
 };
-
-#include "AssetManager.h"
-template <class T>
-T& AssetHandle<T>::operator()()
-{
-	return manager->getAsset(*this);
-}

@@ -4,6 +4,7 @@
 class Sound
 {
 	friend class AudioSystem;
+	friend class SoundLoader;
 public:
 
 private:

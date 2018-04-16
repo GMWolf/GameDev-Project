@@ -6,16 +6,19 @@
 #include "Lights.h"
 #include "Camera.h"
 #include "ShaderProgramLoader.h"
+#include "Assets.h"
 
 
-Renderer::Renderer(int width, int height)
+Renderer::Renderer(int width, int height, Assets& assets)
 	: width(width), height(height),
 	  renderEntities(ECS::SubscriptionManager::getSubscription(ECS::Aspect::getAspect<Transform, MeshFilter>())),
 	  pointLights(ECS::SubscriptionManager::getSubscription(ECS::Aspect::getAspect<Transform, PointLight>())),
 	  dirLights(ECS::SubscriptionManager::getSubscription(ECS::Aspect::getAspect<DirectionalLight>())),
 	  camera(ECS::SubscriptionManager::getSubscription(ECS::Aspect::getAspect<Camera>())),
-	  quad_vb({ { GL_FLOAT, 3, "position" } }, GL_STATIC_DRAW),
-	  quad_va(quad_vb)
+	  quad_vb({{GL_FLOAT, 3, "position"}}, GL_STATIC_DRAW),
+	  quad_va(quad_vb),
+	  assets(assets), 
+	  textureLoader(nullptr), materialLoader(nullptr), rmLoader(nullptr)
 {
 }
 
@@ -26,21 +29,30 @@ Renderer::~Renderer()
 
 void Renderer::init()
 {
+	textureLoader = new TextureLoader;
+	assets.registerLoader<wagl::Texture>(textureLoader);
+	materialLoader = new MaterialLoader(assets);
+	assets.registerLoader<Material>(materialLoader);
+	rmLoader = new RenderMeshLoader(assets);
+	assets.registerLoader<RenderMesh>(rmLoader);
+	/*shaderLoader = new ShaderProgramLoader;
+	assets.registerLoader<ShaderProgramLoader>(shaderLoader);*/
+
 	//glEnable(GL_DEPTH_TEST);
 	glCullFace(GL_BACK);
 	glEnable(GL_CULL_FACE);
 	GenerateFBO();
 	generateQuad();
 
-	geometryProgram = ShaderProgramLoader::Load("shaders/geometry.shd");
+	geometryProgram = ShaderProgramLoader::load("shaders/geometry.shd");
 	
-	resolveProgram = ShaderProgramLoader::Load("shaders/resolve.shd");
+	resolveProgram = ShaderProgramLoader::load("shaders/resolve.shd");
 	resolveProgram->Getuniform("screenSize") = glm::vec2(width, height);
 	
-	pointLightProgram = ShaderProgramLoader::Load("shaders/pointLight.shd");
+	pointLightProgram = ShaderProgramLoader::load("shaders/pointLight.shd");
 	pointLightProgram->Getuniform("screenSize") = glm::vec2(width, height);
 
-	dirLightProgram = ShaderProgramLoader::Load("shaders/dirLight.shd");
+	dirLightProgram = ShaderProgramLoader::load("shaders/dirLight.shd");
 	dirLightProgram->Getuniform("screenSize") = glm::vec2(width, height);
 
 	
@@ -94,6 +106,9 @@ void Renderer::render() const
 
 void Renderer::end()
 {
+	delete textureLoader;
+	delete materialLoader;
+	delete rmLoader;
 }
 
 void Renderer::GenerateFBO()
@@ -145,11 +160,11 @@ void Renderer::geometryPass() const
 		const glm::mat4 model = e.get<Transform>().getMatrix();
 		u_geometry_MVP = mv * model ;
 		u_geometry_model = model;
-		Material& material = e.get<MeshFilter>().material();
-		material.normal().bind(0);
-		material.roughness().bind(1);
+		Material& material = assets.resolve(e.get<MeshFilter>().material);
+		assets.resolve(material.normal).bind(0);
+		assets.resolve(material.roughness).bind(1);
 		//std::cout << e.getId() << std::endl;
-		e.get<MeshFilter>().mesh().submit();
+		assets.resolve(e.get<MeshFilter>().mesh).submit();
 	}
 	/*for(const RenderObject& o : renderPlan.renderObjects)
 	{
@@ -243,8 +258,9 @@ void Renderer::resolvePass() const
 		const glm::mat4 model = e.get<Transform>().getMatrix();
 		u_resolve_MVP = mv * model;
 		//std::cout << e.getId() << '\n';
-		e.get<MeshFilter>().material().diffuse().bind(1);
-		e.get<MeshFilter>().mesh().submit();
+		Material& material = assets.resolve(e.get<MeshFilter>().material);
+		assets.resolve(material.diffuse).bind(1);
+		assets.resolve(e.get<MeshFilter>().mesh).submit();
 	}
 	/*for(const RenderObject& o : renderPlan.renderObjects)
 	{

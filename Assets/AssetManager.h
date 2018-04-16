@@ -1,35 +1,37 @@
 #pragma once
 #include <map>
 #include "AssetHandle.h"
-#include "HashedArrayTree.h"
 #include "AssetLoader.h"
-#include <vector>
-#include <iostream>
+#include "Pool.h"
 
-template<class T>
-class AssetManager
+class BaseAssetManager
 {
 public:
-	AssetManager(AssetLoader<T>& loader);
+	virtual ~BaseAssetManager() = default;;
+};
+
+template<class T>
+class AssetManager : public BaseAssetManager
+{
+public:
+	AssetManager(AssetLoader* loader);
 	~AssetManager();
 
 	AssetHandle<T> get(std::string file);
-	AssetHandle<T> manage(T& asset, std::string name);
+	AssetHandle<T> manage(T* asset, std::string name);
 	T& getAsset(AssetHandle<T>& handle);
 
 	void reload(std::string file);
 
 private:
-	std::map<std::string, AssetHandle<T>> itemMap;
-	HashedArrayTree<16, T> items;
-	int nextId;
-	AssetLoader<T>& loader;
-};
+	Pool<T> pool;
 
-template <class T>
-AssetManager<T>::AssetManager(AssetLoader<T>& loader): loader(loader), nextId(0)
-{
-}
+	std::map<std::string, AssetHandle<T>> itemMap;
+
+	std::vector<T*> items; //AssetID to pointer
+	int nextId;
+	AssetLoader* loader;
+};
 
 template <class T>
 AssetManager<T>::~AssetManager()
@@ -37,17 +39,21 @@ AssetManager<T>::~AssetManager()
 }
 
 template <class T>
+AssetManager<T>::AssetManager(AssetLoader* loader): loader(loader), nextId(0), pool(16)
+{
+}
+
+template <class T>
 AssetHandle<T> AssetManager<T>::get(std::string file)
 {
 	if (itemMap.find(file) == itemMap.end())
-	{
-		int assetId = nextId++;
+	{	
+		//Load into new location
+		T* location = pool.get();
+		loader->load(file, location);
 
-		items.emplace(assetId);
-		loader.load(file, items[assetId]);
-
-		//itemMap[file] = AssetHandle<T>(this, assetId);
-		itemMap.insert({ file, AssetHandle<T>(this, assetId) });
+		//Add to manager
+		manage(location, file);
 	}
 
 	return itemMap[file];
@@ -55,12 +61,12 @@ AssetHandle<T> AssetManager<T>::get(std::string file)
 }
 
 template <class T>
-AssetHandle<T> AssetManager<T>::manage(T& asset, std::string name)
+AssetHandle<T> AssetManager<T>::manage(T* asset, std::string name)
 {
 	int assetId = nextId++;
 
-	items.emplace(assetId, asset);
-	itemMap.insert({ name, AssetHandle<T>(this, assetId) });
+	items.emplace(items.begin() + assetId, asset);
+	itemMap.insert({ name, AssetHandle<T>(assetId) });
 
 	return itemMap[name];
 }
@@ -68,7 +74,7 @@ AssetHandle<T> AssetManager<T>::manage(T& asset, std::string name)
 template <class T>
 T& AssetManager<T>::getAsset(AssetHandle<T>& handle)
 {
-	return items[handle.assetId];
+	return *items[handle.assetId];
 }
 
 template <class T>
@@ -76,7 +82,6 @@ void AssetManager<T>::reload(std::string file)
 {
 	if (itemMap.find(file) != itemMap.end())
 	{
-		loader.load(file, get(file));
+		loader->load(file, items[get(file).assetId]);
 	}
 }
-

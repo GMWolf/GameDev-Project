@@ -50,30 +50,10 @@ public:
 	}
 
 	void init() override
-	{
+	{	
 
-		/*
-		//Print Component IDs
-		std::cout << "Transform " << Transform::componentId << std::endl;
-		std::cout << "Velocity " << Velocity::componentId << std::endl;
-		std::cout << "LightWave " << lightFlicker::componentId << std::endl;
-		std::cout << "PointLight " << PointLight::componentId << std::endl;
-		std::cout << "MeshFilter " << MeshFilter::componentId << std::endl;
-		std::cout << "Camera " << Camera::componentId << std::endl;
-		std::cout << "PlayerControl " << PlayerControl::componentId << std::endl;
-		std::cout << "Rotate  " << Rotate::componentId << std::endl;
-		*/
 
-		AssetHandle<RenderMesh> suzane = assets.renderMeshes.get("models/suzane.objm");
-		Mesh cubeMesh(Mesh::Cube(glm::vec3(1, 1, 1)));
-		assets.meshes.manage(cubeMesh, "cube");
-		AssetHandle<RenderMesh> cube = assets.renderMeshes.get("cube");
-		AssetHandle<RenderMesh> pillars = assets.renderMeshes.get("models/pillars.objm");
-
-		AssetHandle<Material> cobblestone = assets.materials.get("materials/Cobblestone5.mat");
-		AssetHandle<Material> damaged = assets.materials.get("materials/Damaged.mat");
-		AssetHandle<Material> sand = assets.materials.get("materials/SandPebbles.mat");
-		AssetHandle<Material> marble = assets.materials.get("materials/MarbleRed.mat");
+		assets.registerLoader<Mesh>(new MeshLoader);
 		
 		UISystem* ui = new UISystem(window, this);
 		/*ui->addInput("horizontal", new AxisInput(KEY_A, KEY_D, 4, 6));
@@ -90,15 +70,24 @@ public:
 		SystemManager::addSystem(new GunSystem(assets));
 		SystemManager::addSystem(new CameraTransformSystem);
 		SystemManager::addSystem(new VelocitySystem);
-		SystemManager::addSystem(new Renderer(width, height));
+		SystemManager::addSystem(new Renderer(width, height, assets));
 		SystemManager::addSystem(new SystemProfiler);
 		SystemManager::addSystem(new GUISystem(width, height, window));
-		SystemManager::addSystem(new AudioSystem);
+		SystemManager::addSystem(new AudioSystem(assets));
 		SystemManager::addSystem(new RotateSystem);
 		SystemManager::addSystem(new LightFlickerSystem);
 		SystemManager::addSystem(new LightFadeSystem);
 		
 		SystemManager::init();
+
+
+		AssetHandle<RenderMesh> suzane = assets.get<RenderMesh>("models/suzane.objm");
+		AssetHandle<RenderMesh> pillars = assets.get<RenderMesh>("models/pillars.objm");
+
+		AssetHandle<Material> cobblestone = assets.get<Material>("materials/Cobblestone5.mat");
+		AssetHandle<Material> damaged = assets.get<Material>("materials/Damaged.mat");
+		AssetHandle<Material> sand = assets.get<Material>("materials/SandPebbles.mat");
+		AssetHandle<Material> marble = assets.get<Material>("materials/MarbleRed.mat");
 
 		/*Entity text = Entity::create();
 		text.add(Transform());
@@ -144,7 +133,7 @@ public:
 
 		Entity floor = Entity::create();
 		floor.add(Transform());
-		floor.add(MeshFilter(assets.renderMeshes.get("models/smoothCube.objm"), sand));
+		floor.add(MeshFilter(assets.get<RenderMesh>("models/smoothCube.objm"), sand));
 		Transform& ft = floor.get<Transform>();
 		ft.scale = glm::vec3(10, 10, 10);
 		ft.position = glm::vec3(0, -11, 0);
@@ -172,21 +161,21 @@ public:
 		Entity blockA = Entity::create();
 		blockA.add(Transform());
 		blockA.get<Transform>().position = glm::vec3(0, 5, -3);
-		blockA.add(MeshFilter(assets.renderMeshes.get("models/smoothCube.objm"), marble));
+		blockA.add(MeshFilter(assets.get<RenderMesh>("models/smoothCube.objm"), marble));
 		blockA.add(BoxCollider(glm::vec3(1, 1, 1)));
 		blockA.add(RigidBodyProperties(1));
 
 		Entity blockB = Entity::create();
 		blockB.add(Transform());
 		blockB.get<Transform>().position = glm::vec3(1.2, 7, -3);
-		blockB.add(MeshFilter(assets.renderMeshes.get("models/smoothCube.objm"), marble));
+		blockB.add(MeshFilter(assets.get<RenderMesh>("models/smoothCube.objm"), marble));
 		blockB.add(BoxCollider(glm::vec3(1, 1, 1)));
 		blockB.add(RigidBodyProperties(1));
 
 		Entity blockC = Entity::create();
 		blockC.add(Transform());
 		blockC.get<Transform>().position = glm::vec3(0.1, 9, -3);
-		blockC.add(MeshFilter(assets.renderMeshes.get("models/smoothCube.objm"), marble));
+		blockC.add(MeshFilter(assets.get<RenderMesh>("models/smoothCube.objm"), marble));
 		blockC.add(BoxCollider(glm::vec3(1, 1, 1)));
 		blockC.add(RigidBodyProperties(1));
 	}

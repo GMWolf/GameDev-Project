@@ -4,7 +4,6 @@
 #include <VertexArray.h>
 #include "AssetHandle.h"
 #include "Font.h"
-#include "TextMesh.h"
 
 
 COMPONENT(TextComponent, 8)

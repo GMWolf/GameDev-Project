@@ -144,12 +144,10 @@
   <ItemGroup>
     <ClInclude Include="GUISystem.h" />
     <ClInclude Include="GuiItem.h" />
-    <ClInclude Include="TextMesh.h" />
     <ClInclude Include="TextComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GUISystem.cpp" />
-    <ClCompile Include="TextMesh.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,11 +8,16 @@
 #include "RenderPlan.h"
 #include "EntityEvents.h"
 #include "MeshFilter.h"
+#include <Assets.h>
+#include "TextureLoader.h"
+#include "MaterialLoader.h"
+#include "RenderMeshLoader.h"
+#include "ShaderProgramLoader.h"
 
 class Renderer : public ECS::System
 {
 public:
-	Renderer(int width, int height);
+	Renderer(int width, int height, Assets& assets);
 	~Renderer();
 
 	void update() override;
@@ -81,5 +86,12 @@ private:
 
 	glm::mat4 projection;
 	glm::mat4 view;
+
+	Assets& assets;
+
+	TextureLoader* textureLoader;
+	MaterialLoader* materialLoader;
+	RenderMeshLoader* rmLoader;
+	//ShaderProgramLoader* shaderLoader;
 };
 

@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 #include "VertexFormat.h"
 #include "VertexBuffer.h"
 #include "VertexArray.h"
@@ -25,7 +26,7 @@ public:
 
 	void setData(const Mesh& data);
 private:
-	
+
 	static void computeTangents(const Mesh& data, std::vector<glm::vec3>& tangents, std::vector<glm::vec3>& bitangents);
 
 	wagl::VertexBuffer vb;

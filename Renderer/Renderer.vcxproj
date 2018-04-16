@@ -24,6 +24,7 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Renderer</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <ProjectName>Graphics</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -172,24 +173,35 @@
     <ClInclude Include="Icosphere.h" />
     <ClInclude Include="LightMesh.h" />
     <ClInclude Include="Lights.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="MaterialLoader.h" />
     <ClInclude Include="MeshFilter.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="RenderMesh.h" />
+    <ClInclude Include="RenderMeshLoader.h" />
     <ClInclude Include="RenderPlan.h" />
+    <ClInclude Include="ShaderProgramLoader.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TextureLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CameraTransformSystem.cpp" />
     <ClCompile Include="Icosphere.cpp" />
     <ClCompile Include="LightMesh.cpp" />
+    <ClCompile Include="MaterialLoader.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="RenderMesh.cpp" />
+    <ClCompile Include="RenderMeshLoader.cpp" />
     <ClCompile Include="RenderPlan.cpp" />
+    <ClCompile Include="ShaderProgramLoader.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TextureLoader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

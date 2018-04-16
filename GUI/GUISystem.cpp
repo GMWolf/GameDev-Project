@@ -1,7 +1,6 @@
 #include "GUISystem.h"
 #include "SubscriptionManager.h"
 #include "Transform.h"
-#include "ShaderProgramLoader.h"
 #include "TextComponent.h"
 #include "DeltaTime.h"
 
