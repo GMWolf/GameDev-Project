@@ -2,7 +2,7 @@
 #include "EntitySubscription.h"
 #include "System.h"
 
-class LightFadeSystem : public System
+class LightFadeSystem : public ECS::System
 {
 public:
 	LightFadeSystem();
@@ -12,6 +12,6 @@ public:
 	void update() override;
 	void end() override;
 private:
-	EntitySubscription& entities;
+	ECS::EntitySubscription& entities;
 };
 

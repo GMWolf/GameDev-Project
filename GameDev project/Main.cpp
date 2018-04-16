@@ -34,6 +34,8 @@
 #include "Gun.h"
 #include "SystemProfiler.h"
 
+using namespace ECS;
+
 class Game : public wagl::ApplicationAdapter {
 
 public:

@@ -40,9 +40,9 @@ void SystemProfiler::update()
 	ImGui::PlotLines("", fpsPlot.data(), fpsPlot.size(), 0, 0);
 	ImGui::BeginGroup();
 	ImGui::BeginChild("scrolling");
-	for (unsigned int i = 0; i < SystemManager::systems.size(); ++i)
+	for (unsigned int i = 0; i < ECS::SystemManager::systems.size(); ++i)
 	{
-		System& system = *SystemManager::systems[i];
+		System& system = *ECS::SystemManager::systems[i];
 		logSystem(i, system.getTimeTaken());
 		ImGui::Checkbox(typeid(system).name(), &(system.enabled));
 		ImGui::Text("Update Time: %f us", getSystemSmoothed(i));

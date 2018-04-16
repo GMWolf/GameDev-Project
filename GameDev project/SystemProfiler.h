@@ -2,7 +2,7 @@
 #include "System.h"
 #include "Entity.h"
 
-class SystemProfiler : public System
+class SystemProfiler : public ECS::System
 {
 public:
 	SystemProfiler();

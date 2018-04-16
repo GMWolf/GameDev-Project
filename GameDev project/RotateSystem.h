@@ -18,7 +18,7 @@ COMPONENT(Rotate, 16)
 	float rate;
 };
 
-class RotateSystem : public System
+class RotateSystem : public ECS::System
 {
 public:
 	RotateSystem();
@@ -28,7 +28,7 @@ public:
 	void update() override;
 	void end() override;
 
-	EntitySubscription& entities;
+	ECS::EntitySubscription& entities;
 
 };
 

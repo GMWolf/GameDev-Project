@@ -15,7 +15,7 @@ COMPONENT(Velocity, 16)
 	glm::vec3 v;
 };
 
-class VelocitySystem : public System
+class VelocitySystem : public ECS::System
 {
 public:
 
@@ -26,6 +26,6 @@ public:
 	void end() override;
 
 private:
-	EntitySubscription & velE;
+	ECS::EntitySubscription & velE;
 };
 

@@ -5,7 +5,7 @@
 #include "PhysicsSystem.h"
 #include "Assets.h"
 
-class GunSystem : public System
+class GunSystem : public ECS::System
 {
 public:
 	GunSystem(Assets& assets);
@@ -17,7 +17,7 @@ public:
 private:
 	Assets & assets;
 
-	EntitySubscription & entities;
+	ECS::EntitySubscription & entities;
 
 	UISystem* ui;
 	PhysicsSystem* physics;

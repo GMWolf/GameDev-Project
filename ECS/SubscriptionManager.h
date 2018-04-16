@@ -1,23 +1,24 @@
 #pragma once
 #include "EntitySubscription.h"
 #include <map>
+namespace ECS {
+	class SubscriptionManager
+	{
+	public:
 
-class SubscriptionManager
-{
-public:
+		static void update();
 
-	static void update();
+		static void bitTouched(int entityId, unsigned int bit);
 
-	static void bitTouched(int entityId, unsigned int bit);
+		static EntitySubscription& getSubscription(const Aspect aspect);
 
-	static EntitySubscription& getSubscription(const Aspect aspect);
+		//Subscription store
+		static std::vector<EntitySubscription*> subscriptions;
 
-	//Subscription store
-	static std::vector<EntitySubscription*> subscriptions;
+		//used to get subscription
+		static std::map<Aspect, EntitySubscription*> aspectSubscriptions;
 
-	//used to get subscription
-	static std::map<Aspect, EntitySubscription*> aspectSubscriptions;
-
-	//Used to alert subscriptions
-	static std::vector<std::vector<EntitySubscription*>> bitSubscriptions; //componentbit -> list of subscriptions
-};
+		//Used to alert subscriptions
+		static std::vector<std::vector<EntitySubscription*>> bitSubscriptions; //componentbit -> list of subscriptions
+	};
+}

@@ -10,10 +10,10 @@
 
 Renderer::Renderer(int width, int height)
 	: width(width), height(height),
-	  renderEntities(SubscriptionManager::getSubscription(Aspect::getAspect<Transform, MeshFilter>())),
-	  pointLights(SubscriptionManager::getSubscription(Aspect::getAspect<Transform, PointLight>())),
-	  dirLights(SubscriptionManager::getSubscription(Aspect::getAspect<DirectionalLight>())),
-	  camera(SubscriptionManager::getSubscription(Aspect::getAspect<Camera>())),
+	  renderEntities(ECS::SubscriptionManager::getSubscription(ECS::Aspect::getAspect<Transform, MeshFilter>())),
+	  pointLights(ECS::SubscriptionManager::getSubscription(ECS::Aspect::getAspect<Transform, PointLight>())),
+	  dirLights(ECS::SubscriptionManager::getSubscription(ECS::Aspect::getAspect<DirectionalLight>())),
+	  camera(ECS::SubscriptionManager::getSubscription(ECS::Aspect::getAspect<Camera>())),
 	  quad_vb({ { GL_FLOAT, 3, "position" } }, GL_STATIC_DRAW),
 	  quad_va(quad_vb)
 {
@@ -74,7 +74,7 @@ void Renderer::init()
 
 void Renderer::update()
 {
-	Entity camEntity = camera.getFirst();
+	ECS::Entity camEntity = camera.getFirst();
 	view = camEntity.get<Camera>().view;
 
 	render();
@@ -141,7 +141,7 @@ void Renderer::geometryPass() const
 	u_geometry_flipNormals = true;
 
 	const glm::mat4 mv = projection * view;
-	for (Entity e : renderEntities) {
+	for (ECS::Entity e : renderEntities) {
 		const glm::mat4 model = e.get<Transform>().getMatrix();
 		u_geometry_MVP = mv * model ;
 		u_geometry_model = model;
@@ -167,7 +167,7 @@ void Renderer::lightPass() const
 
 	pointLightMesh.clear();
 
-	for(Entity light : pointLights)
+	for(ECS::Entity light : pointLights)
 	{
 		Transform& t = light.get<Transform>();
 		PointLight& pl = light.get<PointLight>();
@@ -207,7 +207,7 @@ void Renderer::lightPass() const
 	dirLightProgram->use();
 
 	quad_va.bind();
-	for(Entity e : dirLights)
+	for(ECS::Entity e : dirLights)
 	{
 		DirectionalLight& light = e.get<DirectionalLight>();
 
@@ -239,7 +239,7 @@ void Renderer::resolvePass() const
 
 	resolveProgram->use();
 	const glm::mat4 mv = projection * view;
-	for (Entity e : renderEntities) {
+	for (ECS::Entity e : renderEntities) {
 		const glm::mat4 model = e.get<Transform>().getMatrix();
 		u_resolve_MVP = mv * model;
 		//std::cout << e.getId() << '\n';

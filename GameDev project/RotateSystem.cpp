@@ -2,7 +2,7 @@
 
 
 
-RotateSystem::RotateSystem(): entities(SubscriptionManager::getSubscription(Aspect::getAspect<Transform, Rotate>()))
+RotateSystem::RotateSystem(): entities(ECS::SubscriptionManager::getSubscription(ECS::Aspect::getAspect<Transform, Rotate>()))
 {
 }
 
@@ -18,7 +18,7 @@ void RotateSystem::init()
 
 void RotateSystem::update()
 {
-	for(Entity e : entities)
+	for(ECS::Entity e : entities)
 	{
 		Transform& t = e.get<Transform> ();
 		const float rate = e.get<Rotate>().rate;

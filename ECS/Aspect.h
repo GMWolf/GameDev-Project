@@ -1,80 +1,81 @@
 #pragma once
-
+namespace ECS {
 #define ASPECT_SIZE 32
 
-class Aspect {
+	class Aspect {
 
-public:
+	public:
 
-	Aspect();
-	Aspect(unsigned int bits);
-	
-	template<class... components>
-	static Aspect getAspect();
+		Aspect();
+		Aspect(unsigned int bits);
 
-	template<class component>
-	static Aspect compAspect();
+		template<class... components>
+		static Aspect getAspect();
 
-	Aspect operator&(const Aspect& rhs) const;
+		template<class component>
+		static Aspect compAspect();
 
-	bool operator<(const Aspect& rhs) const;
+		Aspect operator&(const Aspect& rhs) const;
+
+		bool operator<(const Aspect& rhs) const;
 
 
-	bool subAspect(const Aspect& rhs) const;
-	bool intersects(const Aspect& rhs) const;
+		bool subAspect(const Aspect& rhs) const;
+		bool intersects(const Aspect& rhs) const;
 
-	void set(const unsigned int i);
+		void set(const unsigned int i);
 
-	void set(const Aspect& rhs);
-	
-	template<class component>
-	void set();
+		void set(const Aspect& rhs);
 
-	void unset(const unsigned int i);
+		template<class component>
+		void set();
 
-	template<class component>
-	void unset();
+		void unset(const unsigned int i);
 
-	template<class component>
-	bool has() const;
+		template<class component>
+		void unset();
 
-	bool has(const int i) const;
+		template<class component>
+		bool has() const;
 
-	unsigned int bits;
-};
+		bool has(const int i) const;
 
-template<class ...components>
-inline Aspect Aspect::getAspect()
-{
-	unsigned int bits = 0;
-	
-	//Unpack and sum
-	auto unpacker = {
-		bits |= (1 << components::componentId)...
+		unsigned int bits;
 	};
 
-	return Aspect(bits);
-}
+	template<class ...components>
+	inline Aspect Aspect::getAspect()
+	{
+		unsigned int bits = 0;
 
-template<class component>
-inline  Aspect Aspect::compAspect() {
-	return Aspect(1 << component::componentId);
-}
+		//Unpack and sum
+		auto unpacker = {
+			bits |= (1 << components::componentId)...
+		};
 
-template<class component>
-inline void Aspect::set()
-{
-	bits |= 1 << component::componentId;
-}
+		return Aspect(bits);
+	}
 
-template<class component>
-inline void Aspect::unset()
-{
-	bits &= ~(1 << component::componentId);
-}
+	template<class component>
+	inline  Aspect Aspect::compAspect() {
+		return Aspect(1 << component::componentId);
+	}
 
-template<class component>
-inline bool Aspect::has() const
-{
-	return (bits & (1 << component::componentId));
+	template<class component>
+	inline void Aspect::set()
+	{
+		bits |= 1 << component::componentId;
+	}
+
+	template<class component>
+	inline void Aspect::unset()
+	{
+		bits &= ~(1 << component::componentId);
+	}
+
+	template<class component>
+	inline bool Aspect::has() const
+	{
+		return (bits & (1 << component::componentId));
+	}
 }

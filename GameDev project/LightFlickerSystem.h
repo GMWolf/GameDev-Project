@@ -1,7 +1,7 @@
 #pragma once
 #include "System.h"
 #include "EntitySubscription.h"
-class LightFlickerSystem : public System
+class LightFlickerSystem : public ECS::System
 {
 public:
 	LightFlickerSystem();
@@ -14,6 +14,6 @@ public:
 	void end();
 
 private:
-	EntitySubscription& entities;
+	ECS::EntitySubscription& entities;
 };
 

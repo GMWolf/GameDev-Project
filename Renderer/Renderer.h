@@ -9,7 +9,7 @@
 #include "EntityEvents.h"
 #include "MeshFilter.h"
 
-class Renderer : public System
+class Renderer : public ECS::System
 {
 public:
 	Renderer(int width, int height);
@@ -43,10 +43,10 @@ private:
 	wagl::ShaderProgram* resolveProgram{};
 
 
-	EntitySubscription& renderEntities;
-	EntitySubscription& pointLights;
-	EntitySubscription& dirLights;
-	EntitySubscription& camera;
+	ECS::EntitySubscription& renderEntities;
+	ECS::EntitySubscription& pointLights;
+	ECS::EntitySubscription& dirLights;
+	ECS::EntitySubscription& camera;
 
 	RenderPlan renderPlan;
 

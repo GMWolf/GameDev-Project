@@ -7,7 +7,7 @@
 #include "LightFlickerSystem.h"
 
 
-LightFlickerSystem::LightFlickerSystem() : entities(SubscriptionManager::getSubscription(Aspect::getAspect<lightFlicker, PointLight>()))
+LightFlickerSystem::LightFlickerSystem() : entities(ECS::SubscriptionManager::getSubscription(ECS::Aspect::getAspect<lightFlicker, PointLight>()))
 {
 }
 
@@ -22,7 +22,7 @@ void LightFlickerSystem::init()
 
 void LightFlickerSystem::update()
 {
-	for (Entity e : entities) {
+	for (ECS::Entity e : entities) {
 
 		if (e.has<lightFlicker>()) {
 		

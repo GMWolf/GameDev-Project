@@ -6,7 +6,7 @@
 
 class ImGuiIO;
 
-class GUISystem : public System
+class GUISystem : public ECS::System
 {
 public:
 	GUISystem(int width, int height, GLFWwindow* window);
@@ -21,7 +21,7 @@ private:
 	GLFWwindow * window;
 	ImGuiIO* io;
 
-	EntitySubscription & textEntities;
+	ECS::EntitySubscription & textEntities;
 
 	
 };

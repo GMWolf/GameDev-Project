@@ -2,7 +2,7 @@
 #include "System.h"
 #include "EntitySubscription.h"
 
-class CameraTransformSystem : public System
+class CameraTransformSystem : public ECS::System
 {
 public:
 	CameraTransformSystem();
@@ -14,6 +14,6 @@ public:
 	void end() override;
 
 
-	EntitySubscription& cameras;
+	ECS::EntitySubscription& cameras;
 };
 

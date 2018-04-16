@@ -3,7 +3,7 @@
 #include "PhysicsComponents.h"
 #include "../ECS/System.h"
 
-class PhysicsColliderSystem : public System
+class PhysicsColliderSystem : public ECS::System
 {
 public:
 	PhysicsColliderSystem();
@@ -15,17 +15,17 @@ public:
 
 private:
 
-	EventQueue<EntityInserted<BoxCollider>> boxColliderInserted;
-	EventQueue<EntityRemoved<BoxCollider>> boxColliderRemoved;
+	ECS::EventQueue<ECS::EntityInserted<BoxCollider>> boxColliderInserted;
+	ECS::EventQueue<ECS::EntityRemoved<BoxCollider>> boxColliderRemoved;
 
-	EventQueue<EntityInserted<SphereCollider>> sphereColliderInserted;
-	EventQueue<EntityRemoved<SphereCollider>> sphereColliderRemoved;
+	ECS::EventQueue<ECS::EntityInserted<SphereCollider>> sphereColliderInserted;
+	ECS::EventQueue<ECS::EntityRemoved<SphereCollider>> sphereColliderRemoved;
 
-	EventQueue<EntityInserted<CapsuleCollider>> capsuleColliderInserted;
-	EventQueue<EntityRemoved<CapsuleCollider>> capsuleColliderRemoved;
+	ECS::EventQueue<ECS::EntityInserted<CapsuleCollider>> capsuleColliderInserted;
+	ECS::EventQueue<ECS::EntityRemoved<CapsuleCollider>> capsuleColliderRemoved;
 
-	EventQueue<EntityInserted<MeshCollider>> meshColliderInserted;
-	EventQueue<EntityRemoved<MeshCollider>> meshColliderRemoved;
+	ECS::EventQueue<ECS::EntityInserted<MeshCollider>> meshColliderInserted;
+	ECS::EventQueue<ECS::EntityRemoved<MeshCollider>> meshColliderRemoved;
 	
 };
 

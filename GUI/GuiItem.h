@@ -3,5 +3,5 @@
 #include "Entity.h"
 COMPONENT(GuiItem, 16)
 {
-	Entity parent;
+	ECS::Entity parent;
 };

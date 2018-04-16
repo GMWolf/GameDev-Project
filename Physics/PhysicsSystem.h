@@ -6,7 +6,7 @@
 #include "PhysicsColliderSystem.h"
 #include <Transform.h>
 
-class PhysicsSystem : public System
+class PhysicsSystem : public ECS::System
 {
 public:
 	PhysicsSystem();
@@ -21,7 +21,7 @@ public:
 		glm::vec3 worldPos;
 		bool hasHit;
 		glm::vec3 normal;
-		Entity entity;
+		ECS::Entity entity;
 	};
 
 	void RayCastClosest(const glm::vec3 start, const glm::vec3 end, Hit& hit);
@@ -31,11 +31,12 @@ public:
 		Impulse(): entity(-1), impulse(0,0,0)
 		{
 		}
-		Impulse(Entity& entity, const glm::vec3& impulse, const glm::vec3& relPos)
+		Impulse(ECS::Entity& entity, const glm::vec3& impulse, const glm::vec3& relPos)
 		: entity(entity), impulse(impulse), relPos(relPos)
 		{
 		}
-		Entity entity;
+
+		ECS::Entity entity;
 		glm::vec3 impulse;
 		glm::vec3 relPos;
 	};
@@ -47,13 +48,13 @@ private:
 	btSequentialImpulseConstraintSolver* solver;
 	btDiscreteDynamicsWorld* dynamicsWorld;
 
-	EntitySubscription& rigidBodies;
+	ECS::EntitySubscription& rigidBodies;
 
-	EventQueue<EntityInserted<Transform, Collider>> colliderInserted;
-	EventQueue<Impulse> impulseEvents;
+	ECS::EventQueue<ECS::EntityInserted<Transform, Collider>> colliderInserted;
+	ECS::EventQueue<Impulse> impulseEvents;
 
 
-	void addEntity(Entity& entity);
+	void addEntity(ECS::Entity& entity);
 	void HandleColliderInserts();
 	void HandleEvents();
 	void HandleImpulseEvents();

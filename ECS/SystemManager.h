@@ -5,33 +5,36 @@
 #include "SubscriptionManager.h"
 #include <typeindex>
 
-class SystemManager
-{
-public:
-	
-	static void update();
+namespace ECS {
 
-	static void init();
-	static void end();
-	
-	static void addSystem(System* system);
+	class SystemManager
+	{
+	public:
 
-	template<class T>
-	static T* getSystem();
+		static void update();
 
-	static std::vector<System*> systems;
-	
-	static void setEnabled(System* system, bool enable);
-	static bool isEnabled(System* system);
+		static void init();
+		static void end();
 
-private:
-	static std::map<std::type_index, System*> systemMap;
+		static void addSystem(System* system);
 
-};
+		template<class T>
+		static T* getSystem();
 
-template <class T>
-T* SystemManager::getSystem()
-{
-	return static_cast<T*>(systemMap.at(typeid(T)));
+		static std::vector<System*> systems;
+
+		static void setEnabled(System* system, bool enable);
+		static bool isEnabled(System* system);
+
+	private:
+		static std::map<std::type_index, System*> systemMap;
+
+	};
+
+	template <class T>
+	T* SystemManager::getSystem()
+	{
+		return static_cast<T*>(systemMap.at(typeid(T)));
+	}
+
 }
-

@@ -10,14 +10,14 @@ COMPONENT(Transform, 128) {
 	Transform() : rotation(glm::mat4(1)), position(0,0,0), scale(1,1,1), parent(-1){
 	}
 
-	Transform(Entity parent) : rotation(glm::mat4(1)),  position(0, 0, 0), scale(1, 1, 1), parent(parent) {
+	Transform(ECS::Entity parent) : rotation(glm::mat4(1)),  position(0, 0, 0), scale(1, 1, 1), parent(parent) {
 	}
 
 	glm::mat4 rotation;
 	glm::vec3 position;
 	glm::vec3 scale;
 
-	Entity parent;
+	ECS::Entity parent;
 
 	const glm::mat4 getMatrix() const
 	{
@@ -47,7 +47,7 @@ COMPONENT(Transform, 128) {
 		return rotation;
 	}
 
-	void setParent(Entity entity, bool relativePosition = true)
+	void setParent(ECS::Entity entity, bool relativePosition = true)
 	{
 		parent = entity;
 		if (parent.has<Transform>())

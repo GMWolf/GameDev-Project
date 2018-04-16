@@ -63,7 +63,7 @@ public:
 	virtual void update(UISystem& ui, float dt) = 0;
 };
 
-class UISystem : public System
+class UISystem : public ECS::System
 {
 public:
 

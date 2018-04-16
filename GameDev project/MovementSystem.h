@@ -11,7 +11,7 @@ COMPONENT(PlayerControl, 1)
 };
 
 
-class PlayerControlSystem : public System
+class PlayerControlSystem : public ECS::System
 {
 public:
 
@@ -23,7 +23,7 @@ public:
 	void end() override;
 
 private:
-	EntitySubscription & playerControled;
+	ECS::EntitySubscription & playerControled;
 	UISystem* ui;
 	PhysicsSystem* physics;
 

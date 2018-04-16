@@ -8,7 +8,7 @@
 
 PhysicsSystem::PhysicsSystem() : broadphase(nullptr), collisionConfiguration(nullptr), dispatcher(nullptr),
                                  solver(nullptr), dynamicsWorld(nullptr),
-                                 rigidBodies(SubscriptionManager::getSubscription(Aspect::getAspect<RigidBody, Transform>()))
+                                 rigidBodies(ECS::SubscriptionManager::getSubscription(ECS::Aspect::getAspect<RigidBody, Transform>()))
 {
 }
 
@@ -33,7 +33,7 @@ void PhysicsSystem::update()
 	HandleEvents();
 	btTransform trans;
 
-	for(Entity e : rigidBodies)
+	for(ECS::Entity e : rigidBodies)
 	{
 		Transform& t = e.get<Transform>();
 		RigidBody& rb = e.get<RigidBody>();
@@ -76,7 +76,7 @@ void PhysicsSystem::RayCastClosest(const glm::vec3 start, const glm::vec3 end, H
 	}
 }
 
-void PhysicsSystem::addEntity(Entity& entity)
+void PhysicsSystem::addEntity(ECS::Entity& entity)
 {
 	Transform& t = entity.get<Transform>();
 
@@ -128,7 +128,7 @@ void PhysicsSystem::HandleImpulseEvents()
 		Impulse& i = impulseEvents.front();
 
 
-		Entity e = i.entity;
+		ECS::Entity e = i.entity;
 		
 		if (e.has<RigidBody>())
 		{

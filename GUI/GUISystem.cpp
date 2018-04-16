@@ -13,7 +13,7 @@
 
 
 GUISystem::GUISystem(int width, int height, GLFWwindow* window) :
-	textEntities(SubscriptionManager::getSubscription(Aspect::getAspect<TextComponent, Transform>())),
+	textEntities(ECS::SubscriptionManager::getSubscription(ECS::Aspect::getAspect<TextComponent, Transform>())),
 	window(window)
 {
 }
@@ -43,7 +43,7 @@ void GUISystem::update()
 	
 	//textShader->use();
 	
-	for(Entity e : textEntities)
+	for(ECS::Entity e : textEntities)
 	{
 		TextComponent& text = e.get<TextComponent>();
 		ImGui::Text(text.string.c_str());

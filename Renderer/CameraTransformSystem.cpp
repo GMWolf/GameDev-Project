@@ -7,7 +7,7 @@
 
 
 CameraTransformSystem::CameraTransformSystem(): 
-	cameras(SubscriptionManager::getSubscription(Aspect::getAspect<Camera, Transform>()))
+	cameras(ECS::SubscriptionManager::getSubscription(ECS::Aspect::getAspect<Camera, Transform>()))
 {
 }
 
@@ -22,7 +22,7 @@ void CameraTransformSystem::init()
 
 void CameraTransformSystem::update()
 {
-	for(Entity camEntity : cameras)
+	for(ECS::Entity camEntity : cameras)
 	{
 		Camera& camera = camEntity.get<Camera>();
 		Transform& transform = camEntity.get<Transform>();

@@ -13,7 +13,7 @@
 
 PlayerControlSystem::PlayerControlSystem():
 	assets(assets), SpaceReleased(false),
-	playerControled(SubscriptionManager::getSubscription(Aspect::getAspect<PlayerControl, Transform>())), ui(nullptr),
+	playerControled(ECS::SubscriptionManager::getSubscription(ECS::Aspect::getAspect<PlayerControl, Transform>())), ui(nullptr),
 	physics(nullptr)
 {
 }
@@ -24,7 +24,7 @@ PlayerControlSystem::~PlayerControlSystem()
 
 void PlayerControlSystem::init()
 {
-	ui = SystemManager::getSystem<UISystem>();
+	ui = ECS::SystemManager::getSystem<UISystem>();
 	horizontal = ui->getInput("Horizontal");
 	vertical = ui->getInput("Vertical");
 	upDown = ui->getInput("UpDown");
@@ -32,7 +32,7 @@ void PlayerControlSystem::init()
 	lookVertical = ui->getInput("LookVert");
 	shoot = ui->getInput("Shoot");
 
-	physics = SystemManager::getSystem<PhysicsSystem>();
+	physics = ECS::SystemManager::getSystem<PhysicsSystem>();
 	SpaceReleased = true;
 }
 
@@ -41,7 +41,7 @@ void PlayerControlSystem::update()
 	
 
 
-	for(Entity e : playerControled)
+	for(ECS::Entity e : playerControled)
 	{
 		Transform& t = e.get<Transform>();
 		

@@ -4,8 +4,10 @@
 #include <fstream>
 #include "Entity.h"
 
-inline void loadScene(std::string fileName)
-{
+namespace ECS {
+
+	inline void loadScene(std::string fileName)
+	{
 
 		std::ifstream i(fileName);
 		nlohmann::json j;
@@ -15,4 +17,5 @@ inline void loadScene(std::string fileName)
 		{
 			Entity::create(jentity);
 		}
+	}
 }

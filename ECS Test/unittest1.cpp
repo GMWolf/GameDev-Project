@@ -9,7 +9,7 @@
 #include "Event.h"
 #include "EntityEvents.h"
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-
+using namespace ECS;
 COMPONENT(component1, 16) {
 	component1()
 	{

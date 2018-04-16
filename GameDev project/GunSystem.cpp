@@ -11,7 +11,7 @@
 
 
 GunSystem::GunSystem(Assets& assets) :
-	entities(SubscriptionManager::getSubscription(Aspect::getAspect<Transform, Gun>())),
+	entities(ECS::SubscriptionManager::getSubscription(ECS::Aspect::getAspect<Transform, Gun>())),
 	ui(nullptr), physics(nullptr), shoot(nullptr),
 	assets(assets)
 {
@@ -24,15 +24,15 @@ GunSystem::~GunSystem()
 
 void GunSystem::init()
 {
-	ui = SystemManager::getSystem<UISystem>();
-	physics = SystemManager::getSystem<PhysicsSystem>();
+	ui = ECS::SystemManager::getSystem<UISystem>();
+	physics = ECS::SystemManager::getSystem<PhysicsSystem>();
 
 	shoot = ui->getInput("Shoot");
 }
 
 void GunSystem::update()
 {
-	for(Entity e : entities)
+	for(ECS::Entity e : entities)
 	{
 		Transform& t = e.get<Transform>();
 		Gun& gun = e.get<Gun>();
@@ -55,7 +55,7 @@ void GunSystem::update()
 
 				glm::vec3 pos = hit.worldPos + hit.normal * 0.05f;
 
-				Entity light = Entity::create();
+				ECS::Entity light = ECS::Entity::create();
 				light.add(Transform());
 				light.get<Transform>().position = pos;
 				glm::vec3 T = glm::cross(hit.normal, glm::vec3(0.0, 0.0, 1.0));

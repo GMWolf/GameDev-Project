@@ -3,26 +3,29 @@
 #include <HashedArrayTree.h>
 #include "Aspect.h"
 
-class EntityManager
-{
-	friend class Entity;
+namespace ECS {
 
-public:
-	EntityManager();
-	~EntityManager();
-	
-	void update();
+	class EntityManager
+	{
+		friend class Entity;
 
-	Aspect& getAspect(int entity);
+	public:
+		EntityManager();
+		~EntityManager();
 
-private:
-	int nextID;
-	std::deque<int> ids;
-	std::vector<int> limbo;
-	HashedArrayTree<32, Aspect> aspects;
+		void update();
 
-	int getNewId();
-	int createEntity();
-	void destroyEntity(int entityId);
-};
+		Aspect& getAspect(int entity);
 
+	private:
+		int nextID;
+		std::deque<int> ids;
+		std::vector<int> limbo;
+		HashedArrayTree<32, Aspect> aspects;
+
+		int getNewId();
+		int createEntity();
+		void destroyEntity(int entityId);
+	};
+
+}

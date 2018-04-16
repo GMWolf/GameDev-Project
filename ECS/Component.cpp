@@ -1,5 +1,6 @@
 #include "Component.h"
-
-ComponentId::ComponentId() : id(nextId())
-{
+namespace ECS {
+	ComponentId::ComponentId() : id(nextId())
+	{
+	}
 }
