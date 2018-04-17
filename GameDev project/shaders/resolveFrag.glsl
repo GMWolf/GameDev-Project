@@ -13,9 +13,18 @@ in Vertex {
 uniform vec2 screenSize;
 uniform sampler2D diffuseTex;
 uniform sampler2D lightTex;
+uniform sampler2D alphaTex;
+uniform bool useAlpha; //Dynamicallyuniform, hopefully
 
 void main() 
 {
+
+	if (useAlpha) {
+		float alpha = texture(alphaTex, IN.TexCoord).r;
+		if (alpha < 0.1f) {
+			discard;
+		}
+	}
 
 	vec2 texCoord = gl_FragCoord.xy / screenSize;
 	

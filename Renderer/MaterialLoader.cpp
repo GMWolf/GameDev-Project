@@ -34,5 +34,15 @@ bool MaterialLoader::load(std::string file, void* location)
 	mat->diffuse = assets.get<wagl::Texture>(j["diffuse"].get<std::string>());
 	mat->normal = assets.get<wagl::Texture>(j["normal"].get<std::string>());
 	mat->roughness = assets.get<wagl::Texture>(j["roughness"].get<std::string>());
+
+	if (j.find("alpha") != j.end())
+	{
+		mat->alpha = assets.get<wagl::Texture>(j["alpha"].get<std::string>());
+		mat->useAlpha = true;
+	} else
+	{
+		mat->useAlpha = false;
+	}
+
 	return true;
 }

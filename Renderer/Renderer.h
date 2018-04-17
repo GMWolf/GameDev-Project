@@ -61,6 +61,8 @@ private:
 	wagl::ShaderProgram::Uniform u_geometry_model;
 	wagl::ShaderProgram::Uniform u_geometry_normal;
 	wagl::ShaderProgram::Uniform u_geometry_roughness;
+	wagl::ShaderProgram::Uniform u_geometry_alpha;
+	wagl::ShaderProgram::Uniform u_geometry_use_alpha;
 	wagl::ShaderProgram::Uniform u_geometry_flipNormals;
 
 	wagl::ShaderProgram::Uniform u_point_light_MVP;
@@ -78,6 +80,8 @@ private:
 
 	wagl::ShaderProgram::Uniform u_resolve_light_texture;
 	wagl::ShaderProgram::Uniform u_resolve_diffuse_texture;
+	wagl::ShaderProgram::Uniform u_resolve_alpha_texture;
+	wagl::ShaderProgram::Uniform u_resolve_use_alpha;
 	wagl::ShaderProgram::Uniform u_resolve_MVP;
 
 	wagl::VertexBuffer quad_vb;

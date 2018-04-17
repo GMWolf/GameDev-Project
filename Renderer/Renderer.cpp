@@ -60,6 +60,8 @@ void Renderer::init()
 	u_geometry_model = geometryProgram->Getuniform("model");
 	u_geometry_normal = geometryProgram->Getuniform("normalTex");
 	u_geometry_roughness = geometryProgram->Getuniform("roughnessTex");
+	u_geometry_alpha = geometryProgram->Getuniform("alphaTex");
+	u_geometry_use_alpha = geometryProgram->Getuniform("useAlpha");
 	u_geometry_flipNormals = geometryProgram->Getuniform("flipNormals");
 	
 	u_point_light_MVP = pointLightProgram->Getuniform("MVP");
@@ -77,6 +79,8 @@ void Renderer::init()
 	
 	u_resolve_light_texture = resolveProgram->Getuniform("lightTex");
 	u_resolve_diffuse_texture = resolveProgram->Getuniform("diffuseTex");
+	u_resolve_alpha_texture = resolveProgram->Getuniform("alphaTex");
+	u_resolve_use_alpha = resolveProgram->Getuniform("useAlpha");
 	u_resolve_MVP = resolveProgram->Getuniform("MVP");
 
 	
@@ -152,6 +156,7 @@ void Renderer::geometryPass() const
 
 	u_geometry_normal = 0;
 	u_geometry_roughness = 1;
+	u_geometry_alpha = 2;
 
 	u_geometry_flipNormals = true;
 
@@ -163,6 +168,15 @@ void Renderer::geometryPass() const
 		Material& material = assets.resolve(e.get<MeshFilter>().material);
 		assets.resolve(material.normal).bind(0);
 		assets.resolve(material.roughness).bind(1);
+		if (material.useAlpha) {
+			assets.resolve(material.alpha).bind(2);
+			u_geometry_use_alpha = true;
+		}
+		else
+		{
+			u_geometry_use_alpha = false;
+		}
+		
 		//std::cout << e.getId() << std::endl;
 		assets.resolve(e.get<MeshFilter>().mesh).submit();
 	}
@@ -251,6 +265,7 @@ void Renderer::resolvePass() const
 
 	//texture->bind(1);
 	u_resolve_diffuse_texture = 1;
+	u_resolve_alpha_texture = 2;
 
 	resolveProgram->use();
 	const glm::mat4 mv = projection * view;
@@ -260,6 +275,13 @@ void Renderer::resolvePass() const
 		//std::cout << e.getId() << '\n';
 		Material& material = assets.resolve(e.get<MeshFilter>().material);
 		assets.resolve(material.diffuse).bind(1);
+		if (material.useAlpha) {
+			assets.resolve(material.alpha).bind(2);
+			u_resolve_use_alpha = true;
+		} else
+		{
+			u_resolve_use_alpha = false;
+		}
 		assets.resolve(e.get<MeshFilter>().mesh).submit();
 	}
 	/*for(const RenderObject& o : renderPlan.renderObjects)

@@ -12,13 +12,20 @@ layout (location = 0) out vec4 NROut;
 
 uniform sampler2D normalTex; 
 uniform sampler2D roughnessTex;
+uniform sampler2D alphaTex;
+uniform bool useAlpha; //Dynamicallyuniform, hopefully
 uniform bool flipNormals;
 
 void main() 
 {
-
-	mat3 TBN = mat3(IN.Tangent, IN.Bitangent, IN.Normal);
+	if (useAlpha) {
+		float alpha = texture(alphaTex, IN.TexCoord).r;
+		if (alpha < 0.1f) {
+			discard;
+		}
+	}
 	
+	mat3 TBN = mat3(IN.Tangent, IN.Bitangent, IN.Normal);
 	
 	vec3 normal = normalize(texture(normalTex, IN.TexCoord).rgb * 2.0 - 1.0);
 	if (flipNormals) { //Dynamically uniform

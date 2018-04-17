@@ -11,6 +11,9 @@ public:
 	AssetHandle<wagl::Texture> diffuse;
 	AssetHandle<wagl::Texture> normal;
 	AssetHandle<wagl::Texture> roughness;
+	AssetHandle<wagl::Texture> alpha;
+
+	bool useAlpha;
 };
 
 inline Material::Material()
