@@ -74,6 +74,8 @@ void AudioSystem::update()
 		audioEvents.pop();
 	}
 
+	system->update();
+
 }
 
 void AudioSystem::end()

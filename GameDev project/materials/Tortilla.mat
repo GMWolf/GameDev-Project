@@ -1,0 +1,5 @@
+{
+	"diffuse" : "textures/Tortilla02_albedo.dds",
+	"normal" :  "textures/Tortilla02_normal.dds",
+	"roughness":"textures/Tortilla02_roughness.dds"
+}
