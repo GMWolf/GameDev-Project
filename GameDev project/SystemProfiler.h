@@ -13,10 +13,10 @@ public:
 	void end() override;
 
 private:
-	std::vector<std::deque<float>> systemPlots;
+	std::vector<std::deque<std::pair<float, float>>> systemPlots;
 	std::vector<float> fpsPlot;
 
-	void logSystem(int systemId, float value);
+	void logSystem(unsigned int systemId, float pureValue, float totalValue);
 	float getSystemSmoothed(int systemId);
 };
 

@@ -70,13 +70,13 @@ void ImGui::PlotMultiHistogram(const char* label, float(* values_getter)(void* d
 
 		for(int idg = 0; idg < data_count; idg++)
 		{
-			ImU32 col = colors[idg];
-			float value = values_getter(data, idg, idx);
+			const ImU32 col = colors[idg];
+			const float value = values_getter(data, idg, idx);
 
-			ImVec2 tp0 = ImVec2(t0, 1.0f - ImSaturate((value - scale_min) / (scale_max - scale_min)));
-			ImVec2 tp1 = ImVec2(t1, 1.0f);
+			const ImVec2 tp0 = ImVec2(t0, 1.0f - ImSaturate((value - scale_min) / (scale_max - scale_min)));
+			const ImVec2 tp1 = ImVec2(t1, 1.0f);
 
-			ImVec2 pos0 = ImLerp(inner_bb.Min, inner_bb.Max, tp0);
+			const ImVec2 pos0 = ImLerp(inner_bb.Min, inner_bb.Max, tp0);
 			ImVec2 pos1 = ImLerp(inner_bb.Min, inner_bb.Max, tp1);
 
 			if (pos1.x >= pos0.x + 2.0f)

@@ -1,5 +1,6 @@
 #include "SystemManager.h"
 #include <chrono>
+#include <iostream>
 
 namespace ECS {
 
@@ -17,15 +18,19 @@ namespace ECS {
 
 
 		for (System* system : systems) {
-			auto start = std::chrono::high_resolution_clock::now();
+			const auto start = std::chrono::high_resolution_clock::now();
+			auto pureEnd = start;
 			if (system->enabled) {
 				system->update();
+
+				pureEnd = std::chrono::high_resolution_clock::now();
 
 				SubscriptionManager::update();
 				Entity::entityManager.update();
 			}
-			auto end = std::chrono::high_resolution_clock::now();
-			system->lastTime = (float)std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+			const auto end = std::chrono::high_resolution_clock::now();
+			system->lastPureTime = (float)std::chrono::duration_cast<std::chrono::microseconds>(pureEnd - start).count();
+			system->lastTotalTime = (float)std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
 		}
 	}
 

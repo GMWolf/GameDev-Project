@@ -91,7 +91,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Renderer.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Audio.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\GUI.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\imgui.lib;$(SolutionDir)bullet3-2.87\bin\BulletCollision.lib;$(SolutionDir)bullet3-2.87\bin\BulletDynamics.lib;$(SolutionDir)bullet3-2.87\bin\LinearMath.lib;$(SolutionDir)FMOD\lib\fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Graphics.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Audio.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\GUI.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\imgui.lib;$(SolutionDir)bullet3-2.87\bin\BulletCollision.lib;$(SolutionDir)bullet3-2.87\bin\BulletDynamics.lib;$(SolutionDir)bullet3-2.87\bin\LinearMath.lib;$(SolutionDir)FMOD\lib\fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -104,7 +104,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Renderer.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Audio.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\GUI.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\imgui.lib;$(SolutionDir)bullet3-2.87\bin\BulletCollision.lib;$(SolutionDir)bullet3-2.87\bin\BulletDynamics.lib;$(SolutionDir)bullet3-2.87\bin\LinearMath.lib;$(SolutionDir)FMOD\lib\fmod64_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Graphics.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Audio.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\GUI.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\imgui.lib;$(SolutionDir)bullet3-2.87\bin\BulletCollision.lib;$(SolutionDir)bullet3-2.87\bin\BulletDynamics.lib;$(SolutionDir)bullet3-2.87\bin\LinearMath.lib;$(SolutionDir)FMOD\lib\fmod64_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -121,7 +121,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Renderer.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Audio.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\GUI.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\imgui.lib;$(SolutionDir)bullet3-2.87\bin\BulletCollision.lib;$(SolutionDir)bullet3-2.87\bin\BulletDynamics.lib;$(SolutionDir)bullet3-2.87\bin\LinearMath.lib;$(SolutionDir)FMOD\lib\fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Graphics.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Audio.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\GUI.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\imgui.lib;$(SolutionDir)bullet3-2.87\bin\BulletCollision.lib;$(SolutionDir)bullet3-2.87\bin\BulletDynamics.lib;$(SolutionDir)bullet3-2.87\bin\LinearMath.lib;$(SolutionDir)FMOD\lib\fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -138,7 +138,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Renderer.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Audio.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\GUI.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\imgui.lib;$(SolutionDir)bullet3-2.87\bin\BulletCollision.lib;$(SolutionDir)bullet3-2.87\bin\BulletDynamics.lib;$(SolutionDir)bullet3-2.87\bin\LinearMath.lib;$(SolutionDir)FMOD\lib\fmod64_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Wagl.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Graphics.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Audio.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\ECS.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\Assets.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\GUI.lib;$(SolutionDir)build\$(Platform)\$(Configuration)\lib\imgui.lib;$(SolutionDir)bullet3-2.87\bin\BulletCollision.lib;$(SolutionDir)bullet3-2.87\bin\BulletDynamics.lib;$(SolutionDir)bullet3-2.87\bin\LinearMath.lib;$(SolutionDir)FMOD\lib\fmod64_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

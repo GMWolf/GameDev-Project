@@ -12,16 +12,21 @@ namespace ECS {
 		virtual void update() = 0;
 		virtual void end() = 0;
 
-		float getTimeTaken()
+		float getTotalTimeTaken()
 		{
-			return lastTime;
+			return lastTotalTime;
+		}
+		float getPureTimeTaken()
+		{
+			return lastPureTime;
 		}
 		friend class SystemManager;
 
 
 		bool enabled = true;
 	private:
-		float lastTime = 0;
+		float lastPureTime = 0;
+		float lastTotalTime = 0;
 	};
 
 }

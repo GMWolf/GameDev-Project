@@ -44,14 +44,20 @@ void SystemProfiler::update()
 	for (unsigned int i = 0; i < ECS::SystemManager::systems.size(); ++i)
 	{
 		System& system = *ECS::SystemManager::systems[i];
-		logSystem(i, system.getTimeTaken());
+		logSystem(i, system.getPureTimeTaken(), system.getTotalTimeTaken());
 		ImGui::Checkbox(typeid(system).name(), &(system.enabled));
 		ImGui::Text("Update Time: %f us", getSystemSmoothed(i));
-		ImGui::PlotHistogram("", [](void*data, int idx) { return (*static_cast<std::deque<float>*>(data)).at(idx); }, &systemPlots[i], systemPlots[i].size());
+
+		//ImGui::PlotHistogram("", [](void*data, int idx) { return (*static_cast<std::deque<float>*>(data)).at(idx); }, &systemPlots[i], systemPlots[i].size());
 		ImColor colors[] = {
-			ImColor(255, 0, 0)
+			ImColor(255, 0, 0),
+			ImColor(255, 190, 66)
 		};
-		ImGui::PlotMultiHistogram("", [](void*data, int idg, int idx) { return (*static_cast<std::deque<float>*>(data)).at(idx); }, &systemPlots[i], systemPlots[i].size(), 1, colors);
+		ImGui::PlotMultiHistogram("", [](void*data, int idg, int idx)
+		{
+			std::pair<float, float> value = (*static_cast<std::deque<std::pair<float, float>>*>(data)).at(idx);
+			return (idg == 0) ? value.second : value.first;
+		}, &systemPlots[i], systemPlots[i].size(), 2, colors);
 	}
 	ImGui::EndChild();
 	ImGui::EndGroup();
@@ -64,13 +70,14 @@ void SystemProfiler::end()
 {
 }
 
-void SystemProfiler::logSystem(int systemId, float value)
+void SystemProfiler::logSystem(unsigned int systemId, float pureValue, float totalValue)
 {
 	if (systemId >= systemPlots.size())
 	{
 		systemPlots.resize(systemId + 1);
 	}
-	systemPlots[systemId].emplace_back(value);
+
+	systemPlots[systemId].emplace_back(pureValue, totalValue);
 
 	if (systemPlots[systemId].size() > 120)
 	{
@@ -81,9 +88,9 @@ void SystemProfiler::logSystem(int systemId, float value)
 float SystemProfiler::getSystemSmoothed(int systemId)
 {
 	float total = 0;
-	for (auto f = systemPlots[systemId].begin(); f != systemPlots[systemId].end(); f++)
+	for (auto f = systemPlots[systemId].begin(); f != systemPlots[systemId].end(); ++f)
 	{
-		total += *f;
+		total += (*f).second;
 	}
 
 	return total / systemPlots[systemId].size();
