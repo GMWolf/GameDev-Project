@@ -7,7 +7,7 @@
 class MeshLoader : public AssetLoader
 {
 public:
-	void load(std::string file, void* location) override;
+	bool load(std::string file, void* location) override;
 
 private:
 

@@ -27,8 +27,9 @@ private:
 	Pool<T> pool;
 
 	std::map<std::string, AssetHandle<T>> itemMap;
-
 	std::vector<T*> items; //AssetID to pointer
+	std::vector<bool>loaded;
+
 	int nextId;
 	AssetLoader* loader;
 };

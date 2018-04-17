@@ -8,6 +8,7 @@
 #include "MeshFilter.h"
 #include "LightFade.h"
 #include "Lights.h"
+#include "AudioEvent.h"
 
 
 GunSystem::GunSystem(Assets& assets) :
@@ -45,14 +46,14 @@ void GunSystem::update()
 		{
 			gun.coolDown += 1 / gun.fireRate;
 
+			AudioEvent::Emit(assets.get<Sound>("audio/Laser_Shoot2.wav"));
+
+			//Do ray trace and entity spawn
 			PhysicsSystem::Hit hit;
 			physics->RayCastClosest(t.position, t.position + glm::vec3(t.rotation[2]) * 100.f, hit);
 			if (hit.hasHit)
 			{
 				//glm::vec3 offset =glm::vec3( glm::inverse(hit.entity.get<Transform>().getMatrix()) * glm::vec4(hit.worldPos, 1.0));
-				glm::vec3 offset = hit.worldPos - hit.entity.get<RigidBody>().getCenterOfMassPosition();
-				PhysicsSystem::Impulse::Emit(hit.entity, +(glm::vec3(t.rotation[2]) * 2.f), offset);
-
 				glm::vec3 pos = hit.worldPos + hit.normal * 0.05f;
 
 				ECS::Entity light = ECS::Entity::create();
@@ -65,6 +66,9 @@ void GunSystem::update()
 				light.add(MeshFilter(assets.get<RenderMesh>("models/suzane.objm"), assets.get<Material>("materials/MarbleRed.mat")));
 				light.add(PointLight(glm::vec3(0.25, 0.25, 1), 10.f, 2.f));
 				light.add(LightFade(10));
+
+				glm::vec3 offset = hit.worldPos - hit.entity.get<RigidBody>().getCenterOfMassPosition();
+				PhysicsSystem::Impulse::Emit(hit.entity, +(glm::vec3(t.rotation[2]) * 2.f), offset);
 			}
 		}
 

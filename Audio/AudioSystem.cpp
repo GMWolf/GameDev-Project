@@ -4,19 +4,28 @@
 #include <fmod_errors.h>
 #include <iostream>
 #include <fmod_common.h>
+#include "AudioEvent.h"
 
 SoundLoader::SoundLoader(FMOD::System* system): system(system)
 {
 }
 
-void SoundLoader::load(std::string file, void* location)
+bool SoundLoader::load(std::string file, void* location)
 {
+	FMOD_RESULT result;
 	Sound* snd = new (location) Sound;
-	system->createSound(file.c_str(), FMOD_DEFAULT, 0, &snd->fmodSound);
+	result = system->createSound(file.c_str(), FMOD_DEFAULT, 0, &snd->fmodSound);
+	if (result != FMOD_OK)
+	{
+		std::cout << "FMOD eroor!" << result << FMOD_ErrorString(result) << std::endl;
+		return false;
+	}
+
+	return true;
 }
 
-AudioSystem::AudioSystem(Assets& assets): system(nullptr),
-assets(assets)
+AudioSystem::AudioSystem(Assets& assets): system(nullptr), soundLoader(nullptr),
+                                          assets(assets)
 {
 }
 
@@ -45,18 +54,26 @@ void AudioSystem::init()
 		return;
 	}
 
-	FMOD::Channel    *channel = nullptr;
+	
 
 	soundLoader = new SoundLoader(system);
 	assets.registerLoader<Sound>(soundLoader);
-
-	FMOD::Sound* sound;
-	system->createSound("audio/Laser_Shoot.wav", FMOD_DEFAULT, 0, &sound);
-	system->playSound(sound, 0, false, &channel);
 }
 
 void AudioSystem::update()
 {
+
+	while(!audioEvents.empty())
+	{
+		AudioEvent& ae = audioEvents.front();
+	
+		Sound& snd = assets.resolve(ae.sound);
+
+		system->playSound(snd.fmodSound, 0, false, &channel);
+
+		audioEvents.pop();
+	}
+
 }
 
 void AudioSystem::end()

@@ -3,13 +3,13 @@
 #include <cstdio>
 #include <iostream>
 
-void MeshLoader::load(std::string fileName, void* location)
+bool MeshLoader::load(std::string fileName, void* location)
 {
 	FILE * file;
 	fopen_s(&file, fileName.c_str(), "r");
 	if (file == nullptr) {
 		std::cout << "Could not open file " << fileName;
-		return;
+		return false;
 	}
 
 	std::vector<glm::vec3> obj_vertices;
@@ -75,6 +75,8 @@ void MeshLoader::load(std::string fileName, void* location)
 	mesh->normals.swap(normals);
 	mesh->UVs.swap(uvs);
 	mesh->indices.swap(elements);
+
+	return true;
 }
 
 MeshLoader::vertexData::vertexData()

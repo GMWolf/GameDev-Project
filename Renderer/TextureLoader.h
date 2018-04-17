@@ -6,6 +6,6 @@ class TextureLoader : public AssetLoader
 public:
 	TextureLoader();
 	~TextureLoader();
-	void load(std::string file, void* location) override;
+	bool load(std::string file, void* location) override;
 };
 

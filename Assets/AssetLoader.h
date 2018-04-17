@@ -4,5 +4,5 @@
 class AssetLoader {
 public:
 	virtual ~AssetLoader() = default;
-	virtual void load(std::string file, void* location) = 0;
+	virtual bool load(std::string file, void* location) = 0;
 };

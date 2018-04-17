@@ -5,13 +5,15 @@
 #include "Sound.h"
 #include <AssetLoader.h>
 #include "Assets.h"
+#include "EntityEvents.h"
+#include "AudioEvent.h"
 
 class SoundLoader : public AssetLoader
 {
 public:
 	SoundLoader(FMOD::System* system);;
 
-	void load(std::string file, void* location) override;
+	bool load(std::string file, void* location) override;
 
 private:
 	FMOD::System* system;
@@ -30,5 +32,9 @@ private:
 	FMOD::System* system;
 	SoundLoader* soundLoader;
 	Assets& assets;
+
+	FMOD::Channel *channel = nullptr;
+
+	ECS::EventQueue<AudioEvent> audioEvents;
 };
 

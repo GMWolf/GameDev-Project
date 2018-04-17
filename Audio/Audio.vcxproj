@@ -89,7 +89,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)FMOD\inc;$(SolutionDir)Assets;$(SolutionDir)Memory;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)FMOD\inc;$(SolutionDir)Assets;$(SolutionDir)Memory;$(SolutionDir)json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -105,7 +105,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)FMOD\inc;$(SolutionDir)Assets;$(SolutionDir)Memory;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)FMOD\inc;$(SolutionDir)Assets;$(SolutionDir)Memory;$(SolutionDir)json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Lib>
       <AdditionalDependencies>$(SolutionDir)FMOD\lib\fmod_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -117,7 +117,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)FMOD\inc;$(SolutionDir)Assets;$(SolutionDir)Memory;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)FMOD\inc;$(SolutionDir)Assets;$(SolutionDir)Memory;$(SolutionDir)json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Lib>
       <AdditionalDependencies>$(SolutionDir)FMOD\lib\fmod64_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -131,7 +131,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)FMOD\inc;$(SolutionDir)Assets;$(SolutionDir)Memory;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ECS;$(SolutionDir)Common;$(SolutionDir)FMOD\inc;$(SolutionDir)Assets;$(SolutionDir)Memory;$(SolutionDir)json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="AudioSystem.h" />
     <ClInclude Include="Sound.h" />
+    <ClInclude Include="AudioEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioSystem.cpp" />

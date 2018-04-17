@@ -7,7 +7,7 @@ class RenderMeshLoader : public AssetLoader
 public:
 	RenderMeshLoader(Assets& assets);
 	~RenderMeshLoader();
-	void load(std::string file, void* location) override;
+	bool load(std::string file, void* location) override;
 
 private:
 	Assets & assets;

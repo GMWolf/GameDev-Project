@@ -8,7 +8,7 @@ public:
 	MaterialLoader(Assets& assets);
 	~MaterialLoader();
 
-	void load(std::string file, void* location) override;
+	bool load(std::string file, void* location) override;
 private:
 	Assets & assets;
 };

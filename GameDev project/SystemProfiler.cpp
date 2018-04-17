@@ -4,6 +4,7 @@
 #include <DeltaTime.h>
 #include "imgui.h"
 #include "SystemManager.h"
+#include "imgui_multigraph.h"
 
 
 SystemProfiler::SystemProfiler()
@@ -47,6 +48,10 @@ void SystemProfiler::update()
 		ImGui::Checkbox(typeid(system).name(), &(system.enabled));
 		ImGui::Text("Update Time: %f us", getSystemSmoothed(i));
 		ImGui::PlotHistogram("", [](void*data, int idx) { return (*static_cast<std::deque<float>*>(data)).at(idx); }, &systemPlots[i], systemPlots[i].size());
+		ImColor colors[] = {
+			ImColor(255, 0, 0)
+		};
+		ImGui::PlotMultiHistogram("", [](void*data, int idg, int idx) { return (*static_cast<std::deque<float>*>(data)).at(idx); }, &systemPlots[i], systemPlots[i].size(), 1, colors);
 	}
 	ImGui::EndChild();
 	ImGui::EndGroup();
