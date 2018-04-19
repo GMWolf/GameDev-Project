@@ -76,7 +76,7 @@ void GunSystem::update()
 				transform.scale = glm::vec3(0.25);
 				transform.setParent(hit.entity);
 				//tortilla.add(MeshFilter(assets.get<RenderMesh>("models/Circle.objm"), assets.get<Material>("materials/Tortilla.mat")));
-				tortilla.add(PointLight(glm::vec3(0.25, 0.25, 1), 10.f, 2.f));
+				//tortilla.add(PointLight(glm::vec3(0.25, 0.25, 1), 10.f, 2.f));
 				tortilla.add(LightFade(10));
 
 				glm::vec3 offset = hit.worldPos - hit.entity.get<RigidBody>().getCenterOfMassPosition();

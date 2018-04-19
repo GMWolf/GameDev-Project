@@ -39,6 +39,7 @@ void Renderer::init()
 
 
 	ECS::registerLoader<MeshFilter>(new MeshFilterLoader(assets));
+	ECS::registerLoader<PointLight>(new PointLightLoader);
 
 	/*shaderLoader = new ShaderProgramLoader;
 	assets.registerLoader<ShaderProgramLoader>(shaderLoader);*/

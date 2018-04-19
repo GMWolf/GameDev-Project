@@ -2,5 +2,10 @@
 	"MeshFilter" :{
 		"mesh":"models/Circle.objm",
 		"material":"materials/Tortilla.mat"
+	},
+	"PointLight":{
+		"colour": [0.25, 0.25, 1],
+		"power" : 10.0,
+		"radius" : 2.0
 	}
 }
