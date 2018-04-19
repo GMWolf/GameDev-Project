@@ -60,14 +60,14 @@ private:
 	void HandleImpulseEvents();
 };
 
-inline void assignBt(glm::vec3& v, const btVector3 rhs)
+inline void assignBt(glm::vec3& v, const btVector3& rhs)
 {
 	v.x = rhs.x();
 	v.y = rhs.y();
 	v.z = rhs.z();
 }
 
-inline void assignVector(btVector3& v, const glm::vec3 rhs)
+inline void assignVector(btVector3& v, const glm::vec3& rhs)
 {
 	v.setX(rhs.x);
 	v.setY(rhs.y);

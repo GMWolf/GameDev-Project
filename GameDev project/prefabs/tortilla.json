@@ -1,0 +1,6 @@
+{
+	"MeshFilter" :{
+		"mesh":"models/Circle.objm",
+		"material":"materials/Tortilla.mat"
+	}
+}

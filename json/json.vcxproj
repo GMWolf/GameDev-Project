@@ -23,7 +23,7 @@
     <ProjectGuid>{4D5C0C9D-2B6A-4B2B-A406-B5ADEE46D9A7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>json</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

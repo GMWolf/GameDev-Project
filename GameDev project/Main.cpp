@@ -34,7 +34,8 @@
 #include "Gun.h"
 #include "SystemProfiler.h"
 #include "AudioSystem.h"
-
+#include <Prefab.h>
+#include <PrefabLoader.h>
 using namespace ECS;
 
 class Game : public wagl::ApplicationAdapter {
@@ -54,6 +55,7 @@ public:
 
 
 		assets.registerLoader<Mesh>(new MeshLoader);
+		assets.registerLoader<ECS::Prefab>(new PrefabLoader);
 		
 		UISystem* ui = new UISystem(window, this);
 		/*ui->addInput("horizontal", new AxisInput(KEY_A, KEY_D, 4, 6));

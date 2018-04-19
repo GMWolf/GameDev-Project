@@ -57,7 +57,7 @@ void Pool<T>::reserve(int n)
 	int allocSize = n - available.size();
 	if (allocSize > 0) {
 
-		allocSize = std::min(n, 16); //allocate at least 16 elements;
+		allocSize = std::min(n, blockSize); //allocate at least 16 elements;
 
 		T* newChunk = static_cast<T*>(malloc(n * sizeof(T)));
 		for(int i = 0; i < allocSize; i++)

@@ -20,14 +20,31 @@ namespace ECS {
 		Entity e = create();
 
 		for (nlohmann::json::iterator it = json.begin(); it != json.end(); ++it) {
-			baseComponentMapper* mapper = baseComponentMapper::mappersByName()->at(it.key());
-			mapper->put(e.getId(), it.value());
-			e.getAspect().set(mapper->getAspect());
-			SubscriptionManager::bitTouched(e.getId(), mapper->getId());
+			auto mappersByName = baseComponentMapper::mappersByName();
+			if (mappersByName->find(it.key()) != mappersByName->end()) {
+				baseComponentMapper* mapper = baseComponentMapper::mappersByName()->at(it.key());
+				mapper->put(e.getId(), it.value());
+				e.getAspect().set(mapper->getAspect());
+				SubscriptionManager::bitTouched(e.getId(), mapper->getId());
+			}
+			else {
+				std::cout << "could not find component " << it.key() << std::endl;
+				for (auto& e : *mappersByName) {
+					std::cout << e.first << std::endl;
+				}
+			}
+			
 		}
 
 		return e;
 	}
+
+	Entity Entity::create(Prefab& prefab)
+	{
+		return create(prefab.json);
+	}
+
+	
 
 	void Entity::destroy(Entity e)
 	{

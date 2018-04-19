@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <json.hpp>
 #include "Aspect.h"
+#include "ComponentLoader.h"
 
 namespace ECS {
 
@@ -20,6 +21,8 @@ namespace ECS {
 		//Construct On First Use (static init order fiasco)
 		static std::vector<baseComponentMapper*> * mappers();
 		static std::unordered_map<std::string, baseComponentMapper*> * mappersByName();
+
+		
 	};
 
 	template<class T, int chunkSize = 64>
@@ -60,8 +63,9 @@ namespace ECS {
 	inline ComponentMapper<T, chunkSize>::ComponentMapper()
 	{
 		mappers()->at(T::componentId) = this;
-		std::string name = T::componentName;
+		std::string name(T::componentName);
 		//mappersByName()->at(name) = this;
+		//std::cout << name << " inserted" << std::endl;
 		mappersByName()->insert({ name, this });
 	}
 
@@ -114,7 +118,8 @@ namespace ECS {
 	void ComponentMapper<T, chunkSize>::put(int id, nlohmann::json json)
 	{
 		T comp;
-		comp.load(json);
+		T::loader->load(json, &comp);
+		//comp.load(json);
 		put(id, comp);
 	}
 }

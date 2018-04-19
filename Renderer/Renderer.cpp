@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "ShaderProgramLoader.h"
 #include "Assets.h"
+#include <ECS.h>
 
 
 Renderer::Renderer(int width, int height, Assets& assets)
@@ -35,6 +36,10 @@ void Renderer::init()
 	assets.registerLoader<Material>(materialLoader);
 	rmLoader = new RenderMeshLoader(assets);
 	assets.registerLoader<RenderMesh>(rmLoader);
+
+
+	ECS::registerLoader<MeshFilter>(new MeshFilterLoader(assets));
+
 	/*shaderLoader = new ShaderProgramLoader;
 	assets.registerLoader<ShaderProgramLoader>(shaderLoader);*/
 

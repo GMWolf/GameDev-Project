@@ -23,7 +23,7 @@
     <ProjectGuid>{E74D92B8-58F1-423B-BAA6-E7937EBCA131}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Renderer</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
     <ProjectName>Graphics</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

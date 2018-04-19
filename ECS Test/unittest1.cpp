@@ -8,6 +8,7 @@
 #include "../json/json.hpp"
 #include "Event.h"
 #include "EntityEvents.h"
+#include "ECS.h"
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace ECS;
 COMPONENT(component1, 16) {
@@ -269,8 +270,30 @@ namespace ECSTest
 			Assert::IsTrue("component3" == component3::componentName);
 		}
 
+
+		class component1Loader : public ComponentLoader {
+		public:
+			void load(nlohmann::json& j, void* c) override {
+				component1* c1 = static_cast<component1*>(c);
+				c1->x = j.at("x").get<int>();
+				c1->y = j.at("y").get<int>();
+			}
+		};
+
+		class component2Loader : public component1Loader {
+		public:
+			void load(nlohmann::json& j, void* c) override {
+				component2* c2 = static_cast<component2*>(c);
+				c2->foo = j.at("foo").get<int>();
+				c2->bar = j.at("bar").get<int>();
+			}
+		};
+
 		TEST_METHOD(ecs_json)
 		{
+
+			ECS::registerLoader<component1>(new component1Loader);
+			ECS::registerLoader<component2>(new component2Loader);
 			Entity e = R"(
 				{
 					"component1" : {

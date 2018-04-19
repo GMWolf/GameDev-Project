@@ -35,6 +35,7 @@ namespace ECS {
 		void load(const nlohmann::json& json);
 		static const int componentId;
 		static ComponentMapper<T, chunkSize> componentMapper;
+		static ComponentLoader* loader;
 	};
 
 	template <class T, int chunkSize>
@@ -49,10 +50,13 @@ namespace ECS {
 	template<class T, int chunkSize>
 	ComponentMapper<T, chunkSize> Component<T, chunkSize>::componentMapper;
 
+	template<class T, int chunkSize>
+	ComponentLoader* Component<T, chunkSize>::loader = nullptr;
+
 #define COMPONENT(name, chunkSize) \
 	template<class T> \
 	struct _##name##_internal: public ECS::Component<T, chunkSize> \
-	{static const std::string componentName;};\
-	template<class T> const std::string _##name##_internal<T>::componentName = #name; \
+	{static constexpr char componentName[] = #name;};\
+	/*template<class T> const std::string _##name##_internal<T>::componentName = #name;*/\
 	struct name : public _##name##_internal<name>
 }

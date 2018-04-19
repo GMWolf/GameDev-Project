@@ -4,6 +4,7 @@
 #include "EntityManager.h"
 #include "SubscriptionManager.h"
 #include <json.hpp>
+#include "Prefab.h"
 /*
 ** A Wrapper for an entity ID
 ** Lightweight so its ok to pass it around
@@ -21,6 +22,7 @@ namespace ECS {
 
 		static Entity create();
 		static Entity create(nlohmann::json);
+		static Entity create(Prefab& prefab);
 		static void destroy(Entity e);
 
 		template<class T>
