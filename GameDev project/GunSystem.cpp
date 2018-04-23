@@ -31,6 +31,10 @@ void GunSystem::init()
 	physics = ECS::SystemManager::getSystem<PhysicsSystem>();
 
 	shoot = ui->getInput("Shoot");
+
+	
+	/*ECS::Entity e = ECS::Entity::create(assets.get<ECS::Prefab>("prefabs/tortilla.json"));
+	ECS::Entity::destroy(e);*/
 }
 
 void GunSystem::update()

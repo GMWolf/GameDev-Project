@@ -69,9 +69,9 @@ COMPONENT(Transform, 128) {
 
 	void load(const nlohmann::json& j)
 	{
-		position.x = j["position"]["x"].get<float>();
-		position.y = j["position"]["y"].get<float>();
-		position.z = j["position"]["z"].get<float>();
+		position.x = j["position"][0].get<float>();
+		position.y = j["position"][1].get<float>();
+		position.z = j["position"][2].get<float>();
 	}
 
 

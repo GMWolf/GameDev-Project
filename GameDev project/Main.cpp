@@ -36,6 +36,8 @@
 #include "AudioSystem.h"
 #include <Prefab.h>
 #include <PrefabLoader.h>
+#include "ECS.h"
+#include "CommonComponentLoader.h"
 using namespace ECS;
 
 class Game : public wagl::ApplicationAdapter {
@@ -56,6 +58,9 @@ public:
 
 		assets.registerLoader<Mesh>(new MeshLoader);
 		assets.registerLoader<ECS::Prefab>(new PrefabLoader);
+
+		ECS::registerLoader<Transform>(new CommonComponentLoader<Transform>);
+		ECS::registerLoader<Rotate>(new CommonComponentLoader<Rotate>);
 		
 		UISystem* ui = new UISystem(window, this);
 		/*ui->addInput("horizontal", new AxisInput(KEY_A, KEY_D, 4, 6));
@@ -82,6 +87,7 @@ public:
 		
 		SystemManager::init();
 
+		ECS::loadScene("prefabs/level.json");
 
 		AssetHandle<RenderMesh> suzane = assets.get<RenderMesh>("models/suzane.objm");
 		AssetHandle<RenderMesh> pillars = assets.get<RenderMesh>("models/pillars.objm");
@@ -100,16 +106,6 @@ public:
 		Entity sun = Entity::create();
 		sun.add(DirectionalLight(glm::vec3(0, 1, 0), glm::vec3(0.25, 0.25, 1), 0.2));
 
-		Entity eSuzane = Entity::create();
-		eSuzane.add(Transform());
-		eSuzane.get<Transform>().position = glm::vec3(1, 0, 0);
-		eSuzane.add(MeshFilter(suzane, cobblestone));
-
-		Entity eSuzane2 = Entity::create();
-		eSuzane2.add(Transform());
-		eSuzane2.get<Transform>().position = glm::vec3(-1, 0, 0);
-		eSuzane2.add(MeshFilter(suzane, damaged));
-		eSuzane2.add(Rotate(0.01));
 
 		Entity eLightA = Entity::create();
 		eLightA.add(Transform());
@@ -131,7 +127,6 @@ public:
 		camera.add(Camera());
 		camera.add(PlayerControl());
 		camera.add(Gun(5));
-		//camera.add(MeshFilter(suzane, sand));
 
 		Entity floor = Entity::create();
 		floor.add(Transform());
@@ -142,10 +137,10 @@ public:
 		floor.add(BoxCollider(glm::vec3(10, 10, 10)));
 
 		for (int i = -5; i < 5; i++) {
-			Entity e = Entity::create();
+			/*Entity e = Entity::create();
 			e.add(Transform());
 			e.get<Transform>().position = glm::vec3(0,  -1, -5 * i);
-			e.add(MeshFilter(pillars, marble));
+			e.add(MeshFilter(pillars, marble));*/
 
 			Entity lightLeft = Entity::create();
 			lightLeft.add(Transform());

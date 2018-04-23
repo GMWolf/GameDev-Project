@@ -16,7 +16,13 @@ namespace ECS {
 
 		for (auto& jentity : j)
 		{
-			Entity::create(jentity);
+			if (jentity.is_string())
+			{
+				loadScene(jentity.get<std::string>());
+			}
+			else {
+				Entity::create(jentity);
+			}
 		}
 	}
 

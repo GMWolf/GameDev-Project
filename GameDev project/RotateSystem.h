@@ -15,6 +15,11 @@ COMPONENT(Rotate, 16)
 	{
 	}
 
+	void load(const nlohmann::json& j)
+	{
+		rate = j["rate"].get<float>();
+	}
+
 	float rate;
 };
 
