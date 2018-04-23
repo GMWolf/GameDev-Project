@@ -2,6 +2,7 @@
 #include "Mesh.h"
 #include "VBBuilder.h"
 #include <iostream>
+#include <glm/detail/type_vec2.hpp>
 
 Mesh Mesh::Triangle(const glm::vec3 & p0, const glm::vec3 & p1, const glm::vec3 & p2, 
 	const glm::vec2 & t0, const glm::vec2 & t1, const glm::vec2 & t2, 

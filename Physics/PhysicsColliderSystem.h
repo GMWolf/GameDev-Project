@@ -2,11 +2,12 @@
 #include "../ECS/EntityEvents.h"
 #include "PhysicsComponents.h"
 #include "../ECS/System.h"
+#include "Assets.h"
 
 class PhysicsColliderSystem : public ECS::System
 {
 public:
-	PhysicsColliderSystem();
+	PhysicsColliderSystem(Assets& assets);
 	~PhysicsColliderSystem();
 
 	void init() override;
@@ -14,6 +15,8 @@ public:
 	void end() override;
 
 private:
+
+	Assets & assets;
 
 	ECS::EventQueue<ECS::EntityInserted<BoxCollider>> boxColliderInserted;
 	ECS::EventQueue<ECS::EntityRemoved<BoxCollider>> boxColliderRemoved;

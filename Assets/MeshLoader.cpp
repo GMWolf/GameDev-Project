@@ -2,6 +2,7 @@
 #include "MeshLoader.h"
 #include <cstdio>
 #include <iostream>
+#include <glm/detail/type_vec2.hpp>
 
 bool MeshLoader::load(std::string fileName, void* location)
 {

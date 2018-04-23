@@ -1,6 +1,6 @@
 #pragma once
-#include <VertexArray.h>
 #include <vector>
+#include <glm/detail/type_vec3.hpp>
 
 
 struct Mesh {

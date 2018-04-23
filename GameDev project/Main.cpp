@@ -71,7 +71,7 @@ public:
 		ui->addInput("Shoot", new ButtonInput(KEY_SPACE));
 
 		SystemManager::addSystem(ui);
-		SystemManager::addSystem(new PhysicsColliderSystem);
+		SystemManager::addSystem(new PhysicsColliderSystem(assets));
 		SystemManager::addSystem(new PhysicsSystem);
 		SystemManager::addSystem(new PlayerControlSystem);
 		SystemManager::addSystem(new GunSystem(assets));
@@ -105,6 +105,13 @@ public:
 
 		Entity sun = Entity::create();
 		sun.add(DirectionalLight(glm::vec3(0, 1, 0), glm::vec3(0.25, 0.25, 1), 0.2));
+
+		Entity physicsSuzane = Entity::create();
+		physicsSuzane.add(Transform());
+		physicsSuzane.get<Transform>().position = glm::vec3(0, 14, 1);
+		physicsSuzane.add(MeshFilter(assets.get<RenderMesh>("models/suzane.objm"), sand));
+		physicsSuzane.add(MeshCollider(assets.get<Mesh>("models/suzane.objm")));
+		physicsSuzane.add(RigidBodyProperties(1));
 
 
 		Entity eLightA = Entity::create();

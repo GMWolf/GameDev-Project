@@ -5,6 +5,7 @@
 #include <Vector3.h>
 #include <glm/glm.hpp>
 #include <AssetHandle.h>
+#include "Mesh.h"
 
 COMPONENT(BoxCollider, 1)
 {
@@ -52,8 +53,12 @@ COMPONENT(MeshCollider, 1)
 	MeshCollider() : concave(false)
 	{
 	}
+	MeshCollider(AssetHandle<Mesh> mesh) : concave(false), mesh(mesh)
+	{
+		
+	}
 
-	
+	AssetHandle<Mesh> mesh;
 	bool concave;
 };
 
