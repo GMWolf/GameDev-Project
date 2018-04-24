@@ -8,4 +8,9 @@ COMPONENT(Gun, 1)
 
 	float fireRate;
 	float coolDown;
+
+	void load(const nlohmann::json& j)
+	{
+		fireRate = j["fireRate"].get<int>();
+	}
 };

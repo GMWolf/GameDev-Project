@@ -1,0 +1,83 @@
+[
+  {
+    "MeshFilter": {
+      "mesh": "models/smoothCube.objm",
+      "material": "materials/MarbleRed.mat"
+    },
+    "Transform": {
+      "position": [ 0, 5, -3 ]
+    },
+    "BoxCollider": {
+      "sides": [ 1, 1, 1 ]
+    },
+    "RigidBodyProperties": {
+      "mass": 1
+    }
+  },
+
+
+  {
+    "MeshFilter": {
+      "mesh": "models/smoothCube.objm",
+      "material": "materials/MarbleRed.mat"
+    },
+    "Transform": {
+      "position": [ 1.2, 7, -3 ]
+    },
+    "BoxCollider": {
+      "sides": [ 1, 1, 1 ]
+    },
+    "RigidBodyProperties": {
+      "mass": 1
+    }
+  },
+
+
+  {
+    "MeshFilter": {
+      "mesh": "models/smoothCube.objm",
+      "material": "materials/MarbleRed.mat"
+    },
+    "Transform": {
+      "position": [ 0.1, 9, -3 ]
+    },
+    "BoxCollider": {
+      "sides": [ 1, 1, 1 ]
+    },
+    "RigidBodyProperties": {
+      "mass": 1
+    }
+  },
+
+  {
+    "MeshFilter": {
+      "mesh": "models/suzane.objm",
+      "material": "materials/SandPebbles.mat"
+    },
+    "Transform": {
+      "position": [ 0, 14, 1 ]
+    },
+    "MeshCollider": {
+      "mesh": "models/suzane.objm"
+    },
+    "RigidBodyProperties": {
+      "mass": 1
+    }
+  },
+
+  {
+    "MeshFilter": {
+      "mesh": "models/suzane.objm",
+      "material": "materials/SandPebbles.mat"
+    },
+    "Transform": {
+      "position": [ -1, 14, 1 ]
+    },
+    "MeshCollider": {
+      "mesh": "models/suzane.objm"
+    },
+    "RigidBodyProperties": {
+      "mass": 1
+    }
+  }
+]

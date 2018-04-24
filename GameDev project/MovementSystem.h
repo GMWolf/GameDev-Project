@@ -8,6 +8,11 @@
 
 COMPONENT(PlayerControl, 1)
 {
+	void load(const nlohmann::json& j)
+	{
+		speed = j["speed"].get<float>();
+	}
+	float speed;
 };
 
 

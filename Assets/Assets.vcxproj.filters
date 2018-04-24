@@ -48,6 +48,9 @@
     <ClInclude Include="PrefabLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AssetsComponentLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

@@ -29,6 +29,5 @@ private:
 
 	ECS::EventQueue<ECS::EntityInserted<MeshCollider>> meshColliderInserted;
 	ECS::EventQueue<ECS::EntityRemoved<MeshCollider>> meshColliderRemoved;
-	
 };
 

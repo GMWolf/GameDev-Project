@@ -7,24 +7,9 @@
 
 namespace ECS {
 
-	inline void loadScene(std::string fileName)
-	{
+	void loadScene(std::string fileName);
 
-		std::ifstream i(fileName);
-		nlohmann::json j;
-		i >> j;
-
-		for (auto& jentity : j)
-		{
-			if (jentity.is_string())
-			{
-				loadScene(jentity.get<std::string>());
-			}
-			else {
-				Entity::create(jentity);
-			}
-		}
-	}
+	void loadScene_json(nlohmann::json j);
 
 	template<class T>
 	inline void registerLoader(ComponentLoader* cl) {

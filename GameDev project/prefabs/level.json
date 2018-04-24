@@ -1,70 +1,71 @@
 [
-	{
-		"MeshFilter" :{
-			"mesh":"models/suzane.objm",
-			"material":"materials/Cobblestone5.mat"
-		},
-		"Transform":{
-			"position": [1.2, 0, 0]
-		}
-	},
-	{
-		"MeshFilter" :{
-			"mesh":"models/suzane.objm",
-			"material":"materials/Damaged.mat"
-		},
-		"Transform":{
-			"position": [-1.2, 0, 0]
-		},
-		"Rotate" :{
-			"rate": 0.01
-		}
-	},
-	
-	{
-		"MeshFilter" :{
-			"mesh":"models/pillars.objm",
-			"material":"materials/Cobblestone5.mat"
-		},
-		"Transform":{
-			"position": [0, -1, -10]
-		}
-	},
-	{
-		"MeshFilter" :{
-			"mesh":"models/pillars.objm",
-			"material":"materials/MarbleRed.mat"
-		},
-		"Transform":{
-			"position": [0, -1, -5]
-		}
-	},
-	{
-		"MeshFilter" :{
-			"mesh":"models/pillars.objm",
-			"material":"materials/MarbleRed.mat"
-		},
-		"Transform":{
-			"position": [0, -1, 0]
-		}
-	},
-	{
-		"MeshFilter" :{
-			"mesh":"models/pillars.objm",
-			"material":"materials/MarbleRed.mat"
-		},
-		"Transform":{
-			"position": [0, -1, 5]
-		}
-	},
-	{
-		"MeshFilter" :{
-			"mesh":"models/pillars.objm",
-			"material":"materials/Cobblestone5.mat"
-		},
-		"Transform":{
-			"position": [0, -1, 10]
-		}
-	}
+  "prefabs/player.json",
+  "prefabs/blocks.json",
+  {
+    "MeshFilter": {
+      "mesh": "models/suzane.objm",
+      "material": "materials/Cobblestone5.mat"
+    },
+    "Transform": {
+      "position": [ 1.2, 0, 0 ]
+    }
+  },
+  {
+    "MeshFilter": {
+      "mesh": "models/suzane.objm",
+      "material": "materials/Damaged.mat"
+    },
+    "Transform": {
+      "position": [ -1.2, 0, 0 ]
+    },
+    "Rotate": {
+      "rate": 0.01
+    }
+  },
+  {
+    "MeshFilter": {
+      "mesh": "models/pillars.objm",
+      "material": "materials/Cobblestone5.mat"
+    },
+    "Transform": {
+      "position": [ 0, -1, -10 ]
+    }
+  },
+  {
+    "MeshFilter": {
+      "mesh": "models/pillars.objm",
+      "material": "materials/MarbleRed.mat"
+    },
+    "Transform": {
+      "position": [ 0, -1, -5 ]
+    }
+  },
+  {
+    "MeshFilter": {
+      "mesh": "models/pillars.objm",
+      "material": "materials/MarbleRed.mat"
+    },
+    "Transform": {
+      "position": [ 0, -1, 0 ]
+    }
+  },
+  {
+    "MeshFilter": {
+      "mesh": "models/pillars.objm",
+      "material": "materials/MarbleRed.mat"
+    },
+    "Transform": {
+      "position": [ 0, -1, 5 ]
+    }
+  },
+  {
+    "MeshFilter": {
+      "mesh": "models/pillars.objm",
+      "material": "materials/Cobblestone5.mat"
+    },
+    "Transform": {
+      "position": [ 0, -1, 10 ]
+    }
+  }
 
 ]

@@ -113,6 +113,16 @@ void PhysicsColliderSystem::update()
 
 		meshColliderInserted.events.pop();
 	}
+
+	while (!meshColliderRemoved.events.empty())
+	{
+		auto& e = meshColliderRemoved.events.front();
+
+		delete e.entity.get<Collider>().collisionShape;
+		e.entity.remove<Collider>();
+
+		meshColliderRemoved.events.pop();
+	}
 }
 
 void PhysicsColliderSystem::end()
