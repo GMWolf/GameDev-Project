@@ -13,6 +13,7 @@ COMPONENT(PlayerControl, 1)
 	std::string upDown;
 	std::string lookHorizontal;
 	std::string lookVertical;
+	float speed;
 
 	void load(nlohmann::json& json)
 	{
@@ -21,6 +22,8 @@ COMPONENT(PlayerControl, 1)
 		upDown = json["upDown"].get<std::string>();
 		lookHorizontal = json["lookHorizontal"].get<std::string>();
 		lookVertical = json["lookVertical"].get<std::string>();
+
+		speed = json["speed"];
 	}
 };
 
@@ -40,8 +43,6 @@ private:
 	ECS::EntitySubscription & playerControled;
 	UISystem* ui;
 	PhysicsSystem* physics;
-
-	Assets& assets;
 
 	bool SpaceReleased;
 };

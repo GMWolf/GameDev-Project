@@ -17,7 +17,7 @@ bool SoundLoader::load(std::string file, void* location)
 	result = system->createSound(file.c_str(), FMOD_DEFAULT, 0, &snd->fmodSound);
 	if (result != FMOD_OK)
 	{
-		std::cout << "FMOD eroor!" << result << FMOD_ErrorString(result) << std::endl;
+		std::cout << "FMOD error!" << result << FMOD_ErrorString(result) << std::endl;
 		return false;
 	}
 
@@ -54,8 +54,6 @@ void AudioSystem::init()
 		return;
 	}
 
-	
-
 	soundLoader = new SoundLoader(system);
 	assets.registerLoader<Sound>(soundLoader);
 }
@@ -70,7 +68,7 @@ void AudioSystem::update()
 		Sound& snd = assets.resolve(ae.sound);
 
 		system->playSound(snd.fmodSound, 0, false, &channel);
-
+		channel->setVolume(0.25);
 		audioEvents.pop();
 	}
 

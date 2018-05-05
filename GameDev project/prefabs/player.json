@@ -5,6 +5,11 @@
   "Camera": {
   },
   "PlayerControl": {
+	"horizontal":"Horizontal",
+	"vertical":"Vertical",
+	"upDown":"UpDown",
+	"lookHorizontal":"LookHor",
+	"lookVertical":"LookVert",
     "speed": 2
   },
   "Gun": {
