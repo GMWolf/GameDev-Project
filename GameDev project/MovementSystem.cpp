@@ -48,12 +48,13 @@ void PlayerControlSystem::update()
 		Input* lookVertical = ui->getInput(pc.lookVertical);
 
 		Transform& t = e.get<Transform>();
+		PlayerControl& pc = e.get<PlayerControl>();
 		
-		t.position += glm::vec3(t.rotation[0] * (float)wagl::DeltaTime::delta * 2.f) * (*horizontal)();
+		t.position += glm::vec3(t.rotation[0] * (float)wagl::DeltaTime::delta) * (*horizontal)() * pc.speed;
 		
-		t.position += glm::vec3(t.rotation[2] * (float)wagl::DeltaTime::delta * 2.f) * (*vertical)();
+		t.position += glm::vec3(t.rotation[2] * (float)wagl::DeltaTime::delta) * (*vertical)() * pc.speed;
 
-		t.position += glm::vec3(t.rotation[1] * (float)wagl::DeltaTime::delta * 2.f) * (*upDown)();
+		t.position += glm::vec3(t.rotation[1] * (float)wagl::DeltaTime::delta) * (*upDown)() * pc.speed;
 		
 		t.rotation = glm::rotate(glm::mat4(1), -(*lookHorizontal)() / 1000, glm::vec3(0, 1, 0)) * t.rotation;
 		

@@ -38,6 +38,7 @@
 #include <PrefabLoader.h>
 #include "ECS.h"
 #include "CommonComponentLoader.h"
+#include "AssetsComponentLoader.h"
 using namespace ECS;
 
 class Game : public wagl::ApplicationAdapter {
@@ -54,18 +55,19 @@ public:
 
 	void init() override
 	{	
-
-
 		assets.registerLoader<Mesh>(new MeshLoader);
 		assets.registerLoader<ECS::Prefab>(new PrefabLoader);
 
 		ECS::registerLoader<Transform>(new CommonComponentLoader<Transform>);
 		ECS::registerLoader<Rotate>(new CommonComponentLoader<Rotate>);
+		ECS::registerLoader<BoxCollider>(new CommonComponentLoader<BoxCollider>);
+		ECS::registerLoader<RigidBodyProperties>(new CommonComponentLoader<RigidBodyProperties>);
+		ECS::registerLoader<MeshCollider>(new AssetsComponentLoader<MeshCollider>(assets));
+		ECS::registerLoader<Gun>(new CommonComponentLoader<Gun>);
+		ECS::registerLoader<PlayerControl>(new CommonComponentLoader<PlayerControl>);
+		ECS::registerLoader<Camera>(new CommonComponentLoader<Camera>);
 		
 		UISystem* ui = new UISystem(window, this);
-		/*ui->addInput("horizontal", new AxisInput(KEY_A, KEY_D, 4, 6));
-		ui->addInput("vertical", new AxisInput(KEY_W, KEY_S, 4, 6));
-		ui->addInput("UpDown", new AxisInput(KEY_LEFT_SHIFT, KEY_LEFT_CTRL, 3, 3));*/
 		ui->addInput("LookHor", new MouseDeltaInput(true));
 		ui->addInput("LookVert", new MouseDeltaInput(false));
 		ui->addInput("Shoot", new ButtonInput(KEY_SPACE));
@@ -89,30 +91,21 @@ public:
 
 		ECS::loadScene("prefabs/level.json");
 
-		AssetHandle<RenderMesh> suzane = assets.get<RenderMesh>("models/suzane.objm");
+		/*AssetHandle<RenderMesh> suzane = assets.get<RenderMesh>("models/suzane.objm");
 		AssetHandle<RenderMesh> pillars = assets.get<RenderMesh>("models/pillars.objm");
 
 		AssetHandle<Material> cobblestone = assets.get<Material>("materials/Cobblestone5.mat");
 		AssetHandle<Material> damaged = assets.get<Material>("materials/Damaged.mat");
 		AssetHandle<Material> sand = assets.get<Material>("materials/SandPebbles.mat");
-		AssetHandle<Material> marble = assets.get<Material>("materials/MarbleRed.mat");
+		AssetHandle<Material> marble = assets.get<Material>("materials/MarbleRed.mat");*/
 
 		/*Entity text = Entity::create();
 		text.add(Transform());
 		text.get<Transform>().position = glm::vec3(2, 2, 0);
 		text.add(TextComponent("hello, world! This is some great text!"));*/
 
-
 		Entity sun = Entity::create();
 		sun.add(DirectionalLight(glm::vec3(0, 1, 0), glm::vec3(0.25, 0.25, 1), 0.2));
-
-		Entity physicsSuzane = Entity::create();
-		physicsSuzane.add(Transform());
-		physicsSuzane.get<Transform>().position = glm::vec3(0, 14, 1);
-		physicsSuzane.add(MeshFilter(assets.get<RenderMesh>("models/suzane.objm"), sand));
-		physicsSuzane.add(MeshCollider(assets.get<Mesh>("models/suzane.objm")));
-		physicsSuzane.add(RigidBodyProperties(1));
-
 
 		Entity eLightA = Entity::create();
 		eLightA.add(Transform());
@@ -129,25 +122,21 @@ public:
 		eLightsb.get<Transform>().position = glm::vec3(1, -1, 0.5);
 		eLightsb.add(PointLight(glm::vec3(0, 0, 1), 2, 3));
 
-		Entity camera = Entity::create();
+		/*Entity camera = Entity::create();
 		camera.add(Transform());
 		camera.add(Camera());
 		camera.add(PlayerControl());
-		camera.add(Gun(5));
+		camera.add(Gun(5));*/
 
 		Entity floor = Entity::create();
 		floor.add(Transform());
-		floor.add(MeshFilter(assets.get<RenderMesh>("models/smoothCube.objm"), sand));
+		floor.add(MeshFilter(assets.get<RenderMesh>("models/smoothCube.objm"), assets.get<Material>("materials/SandPebbles.mat")));
 		Transform& ft = floor.get<Transform>();
 		ft.scale = glm::vec3(10, 10, 10);
 		ft.position = glm::vec3(0, -11, 0);
 		floor.add(BoxCollider(glm::vec3(10, 10, 10)));
 
 		for (int i = -5; i < 5; i++) {
-			/*Entity e = Entity::create();
-			e.add(Transform());
-			e.get<Transform>().position = glm::vec3(0,  -1, -5 * i);
-			e.add(MeshFilter(pillars, marble));*/
 
 			Entity lightLeft = Entity::create();
 			lightLeft.add(Transform());
@@ -161,27 +150,6 @@ public:
 			lightRight.add(PointLight(glm::vec3(1, 0.8, 0.1), 4, 4));
 			lightRight.add(lightFlicker(3, 5, (rand() / (float) RAND_MAX) * 5, 0.1));
 		}
-
-		Entity blockA = Entity::create();
-		blockA.add(Transform());
-		blockA.get<Transform>().position = glm::vec3(0, 5, -3);
-		blockA.add(MeshFilter(assets.get<RenderMesh>("models/smoothCube.objm"), marble));
-		blockA.add(BoxCollider(glm::vec3(1, 1, 1)));
-		blockA.add(RigidBodyProperties(1));
-
-		Entity blockB = Entity::create();
-		blockB.add(Transform());
-		blockB.get<Transform>().position = glm::vec3(1.2, 7, -3);
-		blockB.add(MeshFilter(assets.get<RenderMesh>("models/smoothCube.objm"), marble));
-		blockB.add(BoxCollider(glm::vec3(1, 1, 1)));
-		blockB.add(RigidBodyProperties(1));
-
-		Entity blockC = Entity::create();
-		blockC.add(Transform());
-		blockC.get<Transform>().position = glm::vec3(0.1, 9, -3);
-		blockC.add(MeshFilter(assets.get<RenderMesh>("models/smoothCube.objm"), marble));
-		blockC.add(BoxCollider(glm::vec3(1, 1, 1)));
-		blockC.add(RigidBodyProperties(1));
 	}
 
 	void end() override

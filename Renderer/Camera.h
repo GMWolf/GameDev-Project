@@ -8,4 +8,8 @@ COMPONENT(Camera, 1)
 {
 	glm::mat4 view;
 	glm::mat4 invView;
+
+	void load(const nlohmann::json& j)
+	{
+	}
 };

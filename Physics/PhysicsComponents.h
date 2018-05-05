@@ -6,6 +6,7 @@
 #include <glm/glm.hpp>
 #include <AssetHandle.h>
 #include "Mesh.h"
+#include <Assets.h>
 
 COMPONENT(BoxCollider, 1)
 {
@@ -18,6 +19,13 @@ COMPONENT(BoxCollider, 1)
 	}
 
 	glm::vec3 halfSides;
+
+	void load(const nlohmann::json& j)
+	{
+		halfSides.x = j["sides"][0].get<float>();
+		halfSides.y = j["sides"][1].get<float>();
+		halfSides.z = j["sides"][2].get<float>();
+	}
 };
 
 COMPONENT(SphereCollider, 1)
@@ -58,6 +66,10 @@ COMPONENT(MeshCollider, 1)
 		
 	}
 
+	void load(const nlohmann::json& json, Assets& assets) {
+		mesh = assets.get<Mesh>(json["mesh"].get<std::string>());
+	}
+
 	AssetHandle<Mesh> mesh;
 	bool concave;
 };
@@ -84,6 +96,11 @@ COMPONENT(RigidBodyProperties, 16)
 	RigidBodyProperties(float mass) : mass(mass){}
 
 	float mass;
+
+	void load(const nlohmann::json& j)
+	{
+		mass = j["mass"].get<float>();
+	}
 };
 
 COMPONENT(RigidBody, 16)

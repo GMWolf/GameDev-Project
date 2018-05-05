@@ -172,6 +172,7 @@
     <ClInclude Include="AssetLoader.h" />
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="Assets.h" />
+    <ClInclude Include="AssetsComponentLoader.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="File.h" />
     <ClInclude Include="Mesh.h" />
