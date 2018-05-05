@@ -8,6 +8,20 @@
 
 COMPONENT(PlayerControl, 1)
 {
+	std::string horizontal;
+	std::string vertical;
+	std::string upDown;
+	std::string lookHorizontal;
+	std::string lookVertical;
+
+	void load(nlohmann::json& json)
+	{
+		horizontal = json["horizontal"].get<std::string>();
+		vertical = json["vertical"].get<std::string>();
+		upDown = json["upDown"].get<std::string>();
+		lookHorizontal = json["lookHorizontal"].get<std::string>();
+		lookVertical = json["lookVertical"].get<std::string>();
+	}
 };
 
 
@@ -26,13 +40,6 @@ private:
 	ECS::EntitySubscription & playerControled;
 	UISystem* ui;
 	PhysicsSystem* physics;
-
-	Input* horizontal;
-	Input* vertical;
-	Input* upDown;
-	Input* lookHorizontal;
-	Input* lookVertical;
-	Input* shoot;
 
 	Assets& assets;
 

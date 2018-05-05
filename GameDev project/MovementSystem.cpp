@@ -10,6 +10,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "MeshFilter.h"
 #include "LightFade.h"
+#include "ECS.h"
+#include "CommonComponentLoader.h"
 
 PlayerControlSystem::PlayerControlSystem():
 	assets(assets), SpaceReleased(false),
@@ -24,13 +26,8 @@ PlayerControlSystem::~PlayerControlSystem()
 
 void PlayerControlSystem::init()
 {
+	ECS::registerLoader<PlayerControl>(new CommonComponentLoader<PlayerControl>());
 	ui = ECS::SystemManager::getSystem<UISystem>();
-	horizontal = ui->getInput("Horizontal");
-	vertical = ui->getInput("Vertical");
-	upDown = ui->getInput("UpDown");
-	lookHorizontal = ui->getInput("LookHor");
-	lookVertical = ui->getInput("LookVert");
-	shoot = ui->getInput("Shoot");
 
 	physics = ECS::SystemManager::getSystem<PhysicsSystem>();
 	SpaceReleased = true;
@@ -43,6 +40,13 @@ void PlayerControlSystem::update()
 
 	for(ECS::Entity e : playerControled)
 	{
+		PlayerControl& pc = e.get<PlayerControl>();
+		Input* horizontal = ui->getInput(pc.horizontal);
+		Input* vertical = ui->getInput(pc.vertical);
+		Input* upDown = ui->getInput(pc.upDown);
+		Input* lookHorizontal = ui->getInput(pc.lookHorizontal);
+		Input* lookVertical = ui->getInput(pc.lookVertical);
+
 		Transform& t = e.get<Transform>();
 		
 		t.position += glm::vec3(t.rotation[0] * (float)wagl::DeltaTime::delta * 2.f) * (*horizontal)();
