@@ -12,6 +12,7 @@ COMPONENT(PlayerControl, 1)
 	std::string vertical;
 	float speed;
 	float maxChange;
+	float maxForce;
 
 	void load(nlohmann::json& json)
 	{
@@ -20,6 +21,7 @@ COMPONENT(PlayerControl, 1)
 
 		speed = json["speed"];
 		maxChange = json["maxChange"];
+		maxForce = json["maxForce"];
 	}
 };
 
@@ -42,5 +44,4 @@ private:
 	UISystem* ui;
 	PhysicsSystem* physics;
 
-	bool SpaceReleased;
 };

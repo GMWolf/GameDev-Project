@@ -8,6 +8,9 @@
     },
     "Transform": {
       "position": [ 1.2, 0, 0 ]
+    },
+	"MeshCollider": {
+      "mesh": "models/suzane.objm"
     }
   },
   {
@@ -20,7 +23,11 @@
     },
     "Rotate": {
       "rate": 0.01
-    }
+    },
+	"MeshCollider": {
+      "mesh": "models/suzane.objm"
+    },
+	"Kinematic":{}
   },
   {
     "MeshFilter": {

@@ -58,8 +58,14 @@ void PlayerControlSystem::pretickCallback(btScalar timestep)
 		btRigidBody* rb = e.get<RigidBody>().rigidBody;
 
 		btVector3 targetVelocity;
-		targetVelocity += btVector3(t.rotation[2].x, t.rotation[2].y, t.rotation[2].z) * (*vertical)() * pc.speed;
-		targetVelocity += btVector3(t.rotation[0].x, t.rotation[0].y, t.rotation[0].z) * (*horizontal)() * pc.speed;
+		targetVelocity += btVector3(t.rotation[2].x, t.rotation[2].y, t.rotation[2].z) * (*vertical)();
+		targetVelocity += btVector3(t.rotation[0].x, t.rotation[0].y, t.rotation[0].z) * (*horizontal)();
+		if (targetVelocity.norm() > 1)
+		{
+			targetVelocity.normalize();
+		}
+		targetVelocity *= pc.speed;
+
 
 		const btVector3 velocity = rb->getVelocityInLocalPoint(btVector3(0, 0, 0));
 		btVector3 velocityDelta = targetVelocity - velocity;
@@ -71,7 +77,16 @@ void PlayerControlSystem::pretickCallback(btScalar timestep)
 			velocityDelta *= pc.maxChange;
 		}
 
-		rb->applyCentralForce((velocityDelta / rb->getInvMass()));
+		btVector3 force = (velocityDelta / rb->getInvMass()) / timestep;
+		if (force.norm() > pc.maxForce)
+		{
+			force.normalize();
+			force *= pc.maxForce;
+		}
+
+		rb->activate(true);
+		rb->applyCentralForce(force);
+		
 
 	}
 }
