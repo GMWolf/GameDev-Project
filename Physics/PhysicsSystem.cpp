@@ -27,6 +27,8 @@ void PhysicsSystem::init()
 	dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
 	dynamicsWorld->setGravity(btVector3(0, -5, 0));
 
+	dynamicsWorld->setInternalTickCallback(globalTickCallback, static_cast<void *>(this), false);
+	dynamicsWorld->setInternalTickCallback(globalPretickCallback, static_cast<void *>(this), true);
 }
 
 void PhysicsSystem::update()
@@ -147,4 +149,26 @@ void PhysicsSystem::HandleImpulseEvents()
 
 		impulseEvents.pop();
 	}
+}
+
+void PhysicsSystem::tickCallback(btScalar timestep)
+{
+	for(auto c : tickCallbacks)
+	{
+		c->tickCallback(timestep);
+	}
+}
+
+void PhysicsSystem::pretickCallback(btScalar timestep)
+{
+	//dynamicsWorld->clearForces();
+	for (auto c : tickCallbacks)
+	{
+		c->pretickCallback(timestep);
+	}
+}
+
+void PhysicsSystem::registerTickCallback(ITickCallback* callback)
+{
+	tickCallbacks.push_back(callback);
 }

@@ -11,7 +11,7 @@
       "sides": [ 1, 1, 1 ]
     },
     "RigidBodyProperties": {
-      "mass": 1
+      "mass": 500
     }
   },
 
@@ -27,7 +27,7 @@
       "sides": [ 1, 1, 1 ]
     },
     "RigidBodyProperties": {
-      "mass": 1
+      "mass": 500
     }
   },
 
@@ -44,7 +44,7 @@
       "sides": [ 1, 1, 1 ]
     },
     "RigidBodyProperties": {
-      "mass": 1
+      "mass": 500
     }
   },
 
@@ -60,7 +60,7 @@
       "mesh": "models/suzane.objm"
     },
     "RigidBodyProperties": {
-      "mass": 1
+      "mass": 250
     }
   },
 
@@ -76,7 +76,7 @@
       "mesh": "models/suzane.objm"
     },
     "RigidBodyProperties": {
-      "mass": 1
+      "mass": 250
     }
   }
 ]

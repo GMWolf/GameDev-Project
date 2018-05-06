@@ -29,53 +29,49 @@ void PlayerControlSystem::init()
 	ui = ECS::SystemManager::getSystem<UISystem>();
 
 	physics = ECS::SystemManager::getSystem<PhysicsSystem>();
-	SpaceReleased = true;
+	physics->registerTickCallback(this);
 }
 
 void PlayerControlSystem::update()
 {
-
-	for(ECS::Entity e : playerControled)
-	{
-		PlayerControl& pc = e.get<PlayerControl>();
-		
-		Input* horizontal = ui->getInput(pc.horizontal);
-		Input* vertical = ui->getInput(pc.vertical);
-
-		Transform& t = e.get<Transform>();
-		btRigidBody* rb = e.get<RigidBody>().rigidBody;
-
-		glm::vec3 force;
-		force += glm::vec3(t.rotation[2]) * (*vertical)() * 10.f;
-		force += glm::vec3(t.rotation[0]) * (*horizontal)() * 10.f;
-		rb->applyCentralForce(btVector3(force.x, force.y, force.z));
-		rb->setFriction(1.f);
-
-		/*Transform& t = e.get<Transform>();
-		
-		t.position += glm::vec3(t.rotation[0] * (float)wagl::DeltaTime::delta) * (*horizontal)() * pc.speed;
-		
-		t.position += glm::vec3(t.rotation[2] * (float)wagl::DeltaTime::delta) * (*vertical)() * pc.speed;
-
-		float u = wagl::DeltaTime::delta * (*upDown)() * pc.speed;
-		
-		t.rotation = glm::rotate(glm::mat4(1), -(*lookHorizontal)() / 1000, glm::vec3(0, 1, 0)) * t.rotation;
-		
-		t.rotation = glm::rotate(glm::mat4(1), (*lookVertical)() / 1000, glm::vec3(t.rotation[0])) * t.rotation;*/
-
-
-		/*PhysicsSystem::Hit hit;
-		glm::vec3 feet(t.position.x, t.position.y, l.y());
-		physics->RayCastClosest(feet, feet - glm::vec3(0, 0.1, 0), hit);
-
-		if (!hit.hasHit)
-		{
-			t.position -= glm::vec3(0, u, 0);
-		}*/
-
-	}
 }
 
 void PlayerControlSystem::end()
 {
+}
+
+void PlayerControlSystem::tickCallback(btScalar timestep)
+{
+}
+
+void PlayerControlSystem::pretickCallback(btScalar timestep)
+{
+	for (ECS::Entity e : playerControled)
+	{
+		PlayerControl& pc = e.get<PlayerControl>();
+
+		Input* horizontal = ui->getInput(pc.horizontal);
+		Input* vertical = ui->getInput(pc.vertical);
+
+
+		Transform& t = e.get<Transform>();
+		btRigidBody* rb = e.get<RigidBody>().rigidBody;
+
+		btVector3 targetVelocity;
+		targetVelocity += btVector3(t.rotation[2].x, t.rotation[2].y, t.rotation[2].z) * (*vertical)() * pc.speed;
+		targetVelocity += btVector3(t.rotation[0].x, t.rotation[0].y, t.rotation[0].z) * (*horizontal)() * pc.speed;
+
+		const btVector3 velocity = rb->getVelocityInLocalPoint(btVector3(0, 0, 0));
+		btVector3 velocityDelta = targetVelocity - velocity;
+		velocityDelta.setY(0);
+		const float l = velocityDelta.norm();
+		if (l > pc.maxChange)
+		{
+			velocityDelta.normalize();
+			velocityDelta *= pc.maxChange;
+		}
+
+		rb->applyCentralForce((velocityDelta / rb->getInvMass()));
+
+	}
 }

@@ -2,19 +2,20 @@
 	{
 		"tag" : "player",
 		"Transform": {
-			"position": [ 0, 0, 0 ]
+			"position": [ 0, 1, 0 ]
 		},
 		"PlayerControl": {
 			"horizontal":"Horizontal",
 			"vertical":"Vertical",
-			"speed": 2
+			"speed": 15,
+			"maxChange" : 15
 		},
 		"CapsuleCollider": {
 			"height" : 1.8,
 			"radius" : 0.5
 		},
 		"RigidBodyProperties": {
-			"mass": 1,
+			"mass": 70,
 			"angular factor" : [0,1,0]
 		}
 	},

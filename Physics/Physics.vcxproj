@@ -159,6 +159,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="EntityMotionState.h" />
+    <ClInclude Include="ITickCallback.h" />
     <ClInclude Include="PhysicsColliderSystem.h" />
     <ClInclude Include="PhysicsSystem.h" />
     <ClInclude Include="PhysicsComponents.h" />

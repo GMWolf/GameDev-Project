@@ -5,6 +5,7 @@
 #include "EntityEvents.h"
 #include "PhysicsColliderSystem.h"
 #include <Transform.h>
+#include "ITickCallback.h"
 
 class PhysicsSystem : public ECS::System
 {
@@ -41,6 +42,12 @@ public:
 		glm::vec3 relPos;
 	};
 
+
+	void tickCallback(btScalar timestep);
+	void pretickCallback(btScalar timestep);
+
+	void registerTickCallback(ITickCallback* callback);
+
 private:
 	btBroadphaseInterface * broadphase;
 	btDefaultCollisionConfiguration* collisionConfiguration;
@@ -58,6 +65,9 @@ private:
 	void HandleColliderInserts();
 	void HandleEvents();
 	void HandleImpulseEvents();
+
+	std::vector<ITickCallback*> tickCallbacks;
+
 };
 
 inline void assignBt(glm::vec3& v, const btVector3& rhs)
@@ -72,4 +82,14 @@ inline void assignVector(btVector3& v, const glm::vec3& rhs)
 	v.setX(rhs.x);
 	v.setY(rhs.y);
 	v.setZ(rhs.z);
+}
+
+inline void globalTickCallback(btDynamicsWorld* world, btScalar timestep)
+{
+	static_cast<PhysicsSystem*>(world->getWorldUserInfo())->tickCallback(timestep);
+}
+
+inline void globalPretickCallback(btDynamicsWorld* world, btScalar timestep)
+{
+	static_cast<PhysicsSystem*>(world->getWorldUserInfo())->pretickCallback(timestep);
 }

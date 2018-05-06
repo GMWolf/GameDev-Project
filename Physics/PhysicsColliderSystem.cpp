@@ -74,6 +74,7 @@ void PhysicsColliderSystem::update()
 		float h = e.entity.get<CapsuleCollider>().height;
 
 		btCollisionShape* c = new btCapsuleShape(r, h);
+		c->setMargin(0.1);
 
 		e.entity.add(Collider(c));
 

@@ -11,6 +11,7 @@ COMPONENT(PlayerControl, 1)
 	std::string horizontal;
 	std::string vertical;
 	float speed;
+	float maxChange;
 
 	void load(nlohmann::json& json)
 	{
@@ -18,11 +19,12 @@ COMPONENT(PlayerControl, 1)
 		vertical = json["vertical"].get<std::string>();
 
 		speed = json["speed"];
+		maxChange = json["maxChange"];
 	}
 };
 
 
-class PlayerControlSystem : public ECS::System
+class PlayerControlSystem : public ECS::System, public ITickCallback
 {
 public:
 
@@ -33,6 +35,8 @@ public:
 	void update() override;
 	void end() override;
 
+	void tickCallback(btScalar timestep) override;
+	void pretickCallback(btScalar timestep) override;
 private:
 	ECS::EntitySubscription & playerControled;
 	UISystem* ui;
