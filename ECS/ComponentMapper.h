@@ -118,7 +118,9 @@ namespace ECS {
 	void ComponentMapper<T, chunkSize>::put(int id, nlohmann::json json)
 	{
 		T comp;
-		T::loader->load(json, &comp);
+		if (T::loader) {
+			T::loader->load(json, &comp);
+		}
 		//comp.load(json);
 		put(id, comp);
 	}

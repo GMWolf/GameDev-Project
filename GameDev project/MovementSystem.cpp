@@ -50,11 +50,23 @@ void PlayerControlSystem::update()
 		
 		t.position += glm::vec3(t.rotation[2] * (float)wagl::DeltaTime::delta) * (*vertical)() * pc.speed;
 
-		t.position += glm::vec3(t.rotation[1] * (float)wagl::DeltaTime::delta) * (*upDown)() * pc.speed;
+		float u = wagl::DeltaTime::delta * (*upDown)() * pc.speed;
 		
 		t.rotation = glm::rotate(glm::mat4(1), -(*lookHorizontal)() / 1000, glm::vec3(0, 1, 0)) * t.rotation;
 		
 		t.rotation = glm::rotate(glm::mat4(1), (*lookVertical)() / 1000, glm::vec3(t.rotation[0])) * t.rotation;
+
+		btVector3 l, m;
+		e.get<RigidBody>().rigidBody->getAabb(l, m);
+
+		PhysicsSystem::Hit hit;
+		glm::vec3 feet(t.position.x, t.position.y, l.y());
+		physics->RayCastClosest(feet, feet - glm::vec3(0, 0.1, 0), hit);
+
+		if (!hit.hasHit)
+		{
+			t.position -= glm::vec3(0, u, 0);
+		}
 
 	}
 }

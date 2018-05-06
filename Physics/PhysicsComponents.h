@@ -51,6 +51,13 @@ COMPONENT(CapsuleCollider, 1)
 	{
 	}
 
+
+	void load(const nlohmann::json& j)
+	{
+		height = j["height"].get<float>();
+		radius = j["radius"].get<float>();
+	}
+
 	float height;
 	float radius;
 };
@@ -91,16 +98,32 @@ COMPONENT(Collider, 16)
 
 COMPONENT(RigidBodyProperties, 16)
 {
-	RigidBodyProperties() : mass(1) {}
+	RigidBodyProperties() : mass(1), angularFactor(1,1,1) {}
 
-	RigidBodyProperties(float mass) : mass(mass){}
+	RigidBodyProperties(float mass) : mass(mass), angularFactor(1,1,1) {}
 
 	float mass;
+	glm::vec3 angularFactor;
+	
 
 	void load(const nlohmann::json& j)
 	{
 		mass = j["mass"].get<float>();
+		if (j.find("angular factor") != j.end())
+		{
+			angularFactor[0] = j["angular factor"][0].get<float>();
+			angularFactor[1] = j["angular factor"][1].get<float>();
+			angularFactor[2] = j["angular factor"][2].get<float>();
+		}
 	}
+};
+
+COMPONENT(Kinematic, 1)
+{
+	Kinematic(): kinematic(true)
+	{
+	} ;
+	bool kinematic;
 };
 
 COMPONENT(RigidBody, 16)

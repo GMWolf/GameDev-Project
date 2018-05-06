@@ -14,5 +14,10 @@
   },
   "Gun": {
     "fireRate": 5
-  }
+  },
+  "CapsuleCollider": {
+	"height" : 2,
+	"radius" : 0.5
+  },
+  "Kinematic":{}
 }

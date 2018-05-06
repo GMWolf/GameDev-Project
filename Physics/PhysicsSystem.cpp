@@ -5,6 +5,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/detail/type_mat.hpp>
 #include <glm/detail/type_mat.hpp>
+#include "EntityMotionState.h"
 
 PhysicsSystem::PhysicsSystem() : broadphase(nullptr), collisionConfiguration(nullptr), dispatcher(nullptr),
                                  solver(nullptr), dynamicsWorld(nullptr),
@@ -31,21 +32,6 @@ void PhysicsSystem::init()
 void PhysicsSystem::update()
 {
 	HandleEvents();
-	btTransform trans;
-
-	for(ECS::Entity e : rigidBodies)
-	{
-		Transform& t = e.get<Transform>();
-		RigidBody& rb = e.get<RigidBody>();
-
-		rb.rigidBody->getMotionState()->getWorldTransform(trans);
-
-		btVector3& pos = trans.getOrigin();
-		btMatrix3x3& basis = trans.getBasis();
-		t.position = glm::vec3(pos.x(), pos.y(), pos.z());
-		basis.getOpenGLSubMatrix(glm::value_ptr(t.rotation));
-	}
-
 	dynamicsWorld->stepSimulation(wagl::DeltaTime::delta, 10);
 }
 
@@ -81,10 +67,13 @@ void PhysicsSystem::addEntity(ECS::Entity& entity)
 	Transform& t = entity.get<Transform>();
 
 	float mass = 0;
+	btVector3 angularFactor;
 
 	if (entity.has<RigidBodyProperties>())
 	{
-		mass = entity.get<RigidBodyProperties>().mass;
+		RigidBodyProperties& rbp = entity.get<RigidBodyProperties>();
+		mass = rbp.mass;
+		assignVector(angularFactor, rbp.angularFactor);
 	}
 
 	btCollisionShape* shape = entity.get<Collider>().collisionShape;
@@ -92,10 +81,21 @@ void PhysicsSystem::addEntity(ECS::Entity& entity)
 	btVector3 inertia(0, 0, 0);
 	shape->calculateLocalInertia(mass, inertia);
 	
-	btDefaultMotionState* ms = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(t.position.x, t.position.y, t.position.z)));
+	//btDefaultMotionState* ms = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(t.position.x, t.position.y, t.position.z)));
+	EntityMotionState* ms = new EntityMotionState(entity);
 	btRigidBody::btRigidBodyConstructionInfo ci(mass, ms, shape, inertia);
 
 	btRigidBody* rb = new btRigidBody(ci);
+	
+	rb->setAngularFactor(angularFactor);
+
+	if (entity.has<Kinematic>() && entity.get<Kinematic>().kinematic)
+	{
+		rb->setCollisionFlags(rb->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
+		rb->setActivationState(DISABLE_DEACTIVATION);
+	}
+
+	
 
 	entity.add(RigidBody(rb));
 	rb->setUserIndex(entity.getId());

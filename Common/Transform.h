@@ -26,6 +26,7 @@ COMPONENT(Transform, 128) {
 		{
 			return parent.get<Transform>().getMatrix()*mat;
 		}
+		
 		return mat;
 	}
 

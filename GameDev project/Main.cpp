@@ -61,6 +61,7 @@ public:
 		ECS::registerLoader<Transform>(new CommonComponentLoader<Transform>);
 		ECS::registerLoader<Rotate>(new CommonComponentLoader<Rotate>);
 		ECS::registerLoader<BoxCollider>(new CommonComponentLoader<BoxCollider>);
+		ECS::registerLoader<CapsuleCollider>(new CommonComponentLoader<CapsuleCollider>);
 		ECS::registerLoader<RigidBodyProperties>(new CommonComponentLoader<RigidBodyProperties>);
 		ECS::registerLoader<MeshCollider>(new AssetsComponentLoader<MeshCollider>(assets));
 		ECS::registerLoader<Gun>(new CommonComponentLoader<Gun>);
