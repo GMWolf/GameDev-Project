@@ -52,6 +52,12 @@ enum Keys
 	KEY_ALT = GLFW_KEY_LEFT_ALT,
 	KEY_GRAVE = GLFW_KEY_GRAVE_ACCENT
 };
+
+enum Buttons
+{
+	BUTTON_LEFT = GLFW_MOUSE_BUTTON_LEFT,
+	BUTTON_RIGHT = GLFW_MOUSE_BUTTON_RIGHT
+};
 //const std::unordered_map<std::string, Keys> keysByName;
 
 class Input
@@ -74,6 +80,7 @@ public:
 	void end() override;
 
 	bool getKey(Keys key) const;
+	bool getMouseButton(Buttons button) const;
 
 	glm::vec2 getMousePos() const;
 	glm::vec2 getMouseDelta() const;
@@ -149,6 +156,22 @@ public:
 private:
 	bool horizontal; //true for horizontal mouse delta, false for vertical
 	float value = 0;
+};
+
+class MouseButtonInput : public Input
+{
+public:
+	MouseButtonInput(Buttons b);
+
+	MouseButtonInput(nlohmann::json js);
+
+	float operator()() override;
+
+	void update(UISystem& ui, float dt) override;
+
+private:
+	Buttons button;
+	bool value;
 };
 
 class MultiplexedInput : public Input

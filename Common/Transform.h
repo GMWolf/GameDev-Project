@@ -80,6 +80,13 @@ COMPONENT(Transform, 128) {
 			parent = ECS::getLoadGroup().getEntity(j["parent"]);
 			std::cout << "got a parent! " << parent.getId() << std::endl;
 		}
+
+		if (j.find("scale") != j.end())
+		{
+			scale.x = j["scale"][0];
+			scale.y = j["scale"][1];
+			scale.z = j["scale"][2];
+		}
 	}
 
 

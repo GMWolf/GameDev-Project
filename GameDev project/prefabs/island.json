@@ -1,0 +1,15 @@
+[
+	{
+    "MeshFilter": {
+      "mesh": "models/smoothCube.objm",
+      "material": "materials/SandPebbles.mat"
+    },
+    "Transform": {
+      "position": [ 0, 5, -30 ],
+	  "scale" : [5,5,5]
+    },
+    "BoxCollider": {
+      "sides": [ 5, 5, 5 ]
+    }
+  }
+]

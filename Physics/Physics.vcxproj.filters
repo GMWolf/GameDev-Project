@@ -30,6 +30,9 @@
     <ClInclude Include="ITickCallback.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ClosestRayResultCallbackNotMe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PhysicsSystem.cpp">
@@ -39,6 +42,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EntityMotionState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ClosestRayResultCallbackNotMe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

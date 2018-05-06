@@ -72,7 +72,7 @@ public:
 		UISystem* ui = new UISystem(window, this);
 		ui->addInput("LookHor", new MouseDeltaInput(true));
 		ui->addInput("LookVert", new MouseDeltaInput(false));
-		ui->addInput("Shoot", new ButtonInput(KEY_SPACE));
+		ui->addInput("Jump", new ButtonInput(KEY_SPACE));
 
 		SystemManager::addSystem(ui);
 		SystemManager::addSystem(new PhysicsColliderSystem(assets));

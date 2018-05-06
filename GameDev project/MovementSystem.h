@@ -44,4 +44,6 @@ private:
 	UISystem* ui;
 	PhysicsSystem* physics;
 
+	bool onGround(ECS::Entity e);
+
 };

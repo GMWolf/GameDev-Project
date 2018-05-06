@@ -6,6 +6,7 @@
 #include <glm/detail/type_mat.hpp>
 #include <glm/detail/type_mat.hpp>
 #include "EntityMotionState.h"
+#include "ClosestRayResultCallbackNotMe.h"
 
 PhysicsSystem::PhysicsSystem() : broadphase(nullptr), collisionConfiguration(nullptr), dispatcher(nullptr),
                                  solver(nullptr), dynamicsWorld(nullptr),
@@ -60,6 +61,23 @@ void PhysicsSystem::RayCastClosest(const glm::vec3 start, const glm::vec3 end, H
 	assignBt(hit.worldPos, callback.m_hitPointWorld);
 	assignBt(hit.normal, callback.m_hitNormalWorld);
 	if((hit.hasHit = callback.hasHit()))
+	{
+		hit.entity = callback.m_collisionObject->getUserIndex();
+	}
+}
+
+void PhysicsSystem::RayCastClosestNotMe(const glm::vec3 start, const glm::vec3 end, ECS::Entity e, Hit& hit)
+{
+	const btVector3 btStart(start.x, start.y, start.z);
+	const btVector3 btEnd(end.x, end.y, end.z);
+	ClosestRayResultCallbackNotMe callback(btStart, btEnd, e.getId());
+
+	dynamicsWorld->rayTest(btStart, btEnd, callback);
+
+	
+	assignBt(hit.worldPos, callback.m_hitPointWorld);
+	assignBt(hit.normal, callback.m_hitNormalWorld);
+	if ((hit.hasHit = callback.hasHit()))
 	{
 		hit.entity = callback.m_collisionObject->getUserIndex();
 	}

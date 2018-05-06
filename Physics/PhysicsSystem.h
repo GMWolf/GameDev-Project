@@ -26,6 +26,7 @@ public:
 	};
 
 	void RayCastClosest(const glm::vec3 start, const glm::vec3 end, Hit& hit);
+	void RayCastClosestNotMe(const glm::vec3 start, const glm::vec3 end, ECS::Entity e, Hit& hit);
 
 	EVENT(Impulse)
 	{

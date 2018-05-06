@@ -47,6 +47,11 @@ std::unordered_map<std::string, Keys> keysByName =
 	{"KEY_GRAVE", KEY_GRAVE}
 };
 
+std::unordered_map<std::string, Buttons> buttonsByName {
+	{"BUTTON_LEFT", BUTTON_LEFT},
+	{"BUTTON_RIGHT", BUTTON_RIGHT}
+};
+
 
 UISystem::UISystem(GLFWwindow* window, wagl::ApplicationAdapter* app) : window(window), app(app)
 {
@@ -110,6 +115,11 @@ bool UISystem::getKey(Keys key) const
 	return glfwGetKey(window, key) == GLFW_PRESS;
 }
 
+bool UISystem::getMouseButton(Buttons button) const
+{
+	return glfwGetMouseButton(window, button) == GLFW_PRESS;
+}
+
 glm::vec2 UISystem::getMousePos() const
 {
 	return mousePos;
@@ -148,6 +158,10 @@ void UISystem::addInput(nlohmann::json& js)
 	if (type == "multiplexed")
 	{
 		addInput(name, new MultiplexedInput(*this, js));
+	}
+	if (type == "mouse button")
+	{
+		addInput(name, new MouseButtonInput(js));
 	}
 }
 
@@ -240,6 +254,25 @@ float MouseDeltaInput::operator()()
 void MouseDeltaInput::update(UISystem& ui, float dt)
 {
 	value = horizontal ? ui.getMouseDelta().x : ui.getMouseDelta().y;
+}
+
+MouseButtonInput::MouseButtonInput(Buttons b): button(b), value(false)
+{
+}
+
+MouseButtonInput::MouseButtonInput(nlohmann::json js): value(false)
+{
+	button = buttonsByName[js["button"].get<std::string>()];
+}
+
+float MouseButtonInput::operator()()
+{
+	return value;
+}
+
+void MouseButtonInput::update(UISystem& ui, float dt)
+{
+	value = ui.getMouseButton(button);
 }
 
 MultiplexedInput::MultiplexedInput(std::initializer_list<Input*> ins)

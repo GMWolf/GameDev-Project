@@ -54,12 +54,9 @@
 	},
 	
 	{
-		"name" : "UpDown",
-		"type" : "axis",
-		"positive" : "KEY_LEFT_SHIFT",
-		"negative" : "KEY_LEFT_CTRL",
-		"acceleration" : 3,
-		"restitution" : 3
+		"name" : "Shoot",
+		"type" : "mouse button",
+		"button" : "BUTTON_LEFT"
 	}
 
 ]
