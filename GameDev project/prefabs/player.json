@@ -8,8 +8,8 @@
 			"horizontal":"Horizontal",
 			"vertical":"Vertical",
 			"speed": 15,
-			"maxChange" : 30,
-			"maxForce" : 1500
+			"maxChange" : 1,
+			"maxForce" : 5500
 		},
 		"CapsuleCollider": {
 			"height" : 1.8,
