@@ -39,6 +39,7 @@
 #include "ECS.h"
 #include "CommonComponentLoader.h"
 #include "AssetsComponentLoader.h"
+#include "FPSCameraSystem.h"
 using namespace ECS;
 
 class Game : public wagl::ApplicationAdapter {
@@ -76,6 +77,7 @@ public:
 		SystemManager::addSystem(ui);
 		SystemManager::addSystem(new PhysicsColliderSystem(assets));
 		SystemManager::addSystem(new PhysicsSystem);
+		SystemManager::addSystem(new FPSCameraSystem);
 		SystemManager::addSystem(new PlayerControlSystem);
 		SystemManager::addSystem(new GunSystem(assets));
 		SystemManager::addSystem(new CameraTransformSystem);
@@ -106,7 +108,7 @@ public:
 		text.add(TextComponent("hello, world! This is some great text!"));*/
 
 		Entity sun = Entity::create();
-		sun.add(DirectionalLight(glm::vec3(0, 1, 0), glm::vec3(0.25, 0.25, 1), 0.2));
+		sun.add(DirectionalLight(glm::vec3(0, -1, 0), glm::vec3(0.25, 0.25, 1), 1.f));
 
 		Entity eLightA = Entity::create();
 		eLightA.add(Transform());
@@ -123,11 +125,6 @@ public:
 		eLightsb.get<Transform>().position = glm::vec3(1, -1, 0.5);
 		eLightsb.add(PointLight(glm::vec3(0, 0, 1), 2, 3));
 
-		/*Entity camera = Entity::create();
-		camera.add(Transform());
-		camera.add(Camera());
-		camera.add(PlayerControl());
-		camera.add(Gun(5));*/
 
 		Entity floor = Entity::create();
 		floor.add(Transform());

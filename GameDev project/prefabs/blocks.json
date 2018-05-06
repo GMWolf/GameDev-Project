@@ -15,7 +15,6 @@
     }
   },
 
-
   {
     "MeshFilter": {
       "mesh": "models/smoothCube.objm",

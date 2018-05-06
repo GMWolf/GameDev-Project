@@ -1,4 +1,13 @@
 #include "ECS.h"
+#include <fstream>
+#include <iostream>
+
+ECS::LoadGroup* currentLoadGroup = nullptr;
+
+ECS::LoadGroup& ECS::getLoadGroup()
+{
+	return *currentLoadGroup;
+}
 
 void ECS::loadScene(std::string fileName)
 {
@@ -9,15 +18,31 @@ void ECS::loadScene(std::string fileName)
 }
 
 void ECS::loadScene_json(nlohmann::json j) {
+	
+
 	if (j.is_object()) {
-		Entity::create(j);
-	} else if (j.is_array()) {
-		for (auto& jentity : j)
+		Entity e = Entity::create(j);
+		//Add to group if has a tag
+		if (j.find("tag") != j.end())
 		{
-			loadScene_json(jentity);
+			currentLoadGroup->addEntity(j["tag"], e);
+			std::cout << "adding " << j["tag"] << std::endl;
 		}
 	}
-	else if (j.is_string()) {
-		loadScene(j.get<std::string>());
+	else {
+		LoadGroup lg(currentLoadGroup);
+		currentLoadGroup = &lg;
+		if (j.is_array()) {
+			for (auto& jentity : j)
+			{
+				loadScene_json(jentity);
+			}
+		}
+		else if (j.is_string()) {
+			loadScene(j.get<std::string>());
+		}
+
+		currentLoadGroup = lg.parent;
 	}
+
 }

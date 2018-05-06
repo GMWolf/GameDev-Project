@@ -1,23 +1,37 @@
-{
-  "Transform": {
-    "position": [ 0, 0, 0 ]
-  },
-  "Camera": {
-  },
-  "PlayerControl": {
-	"horizontal":"Horizontal",
-	"vertical":"Vertical",
-	"upDown":"UpDown",
-	"lookHorizontal":"LookHor",
-	"lookVertical":"LookVert",
-    "speed": 2
-  },
-  "Gun": {
-    "fireRate": 5
-  },
-  "CapsuleCollider": {
-	"height" : 2,
-	"radius" : 0.5
-  },
-  "Kinematic":{}
-}
+[
+	{
+		"tag" : "player",
+		"Transform": {
+			"position": [ 0, 0, 0 ]
+		},
+		"PlayerControl": {
+			"horizontal":"Horizontal",
+			"vertical":"Vertical",
+			"speed": 2
+		},
+		"CapsuleCollider": {
+			"height" : 1.8,
+			"radius" : 0.5
+		},
+		"RigidBodyProperties": {
+			"mass": 1,
+			"angular factor" : [0,1,0]
+		}
+	},
+	{
+		"Transform":{
+			"position": [ 0, 0.75, 0 ],
+			"parent":"player"
+		},
+		"Camera": {
+		},
+		"FPSCamera":{
+			"horizontal":"LookHor",
+			"vertical":"LookVert",
+			"body":"player"
+		},
+		"Gun": {
+			"fireRate": 5
+		}
+	}
+]

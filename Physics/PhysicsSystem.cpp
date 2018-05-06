@@ -32,6 +32,7 @@ void PhysicsSystem::init()
 void PhysicsSystem::update()
 {
 	HandleEvents();
+	
 	dynamicsWorld->stepSimulation(wagl::DeltaTime::delta, 10);
 }
 

@@ -27,11 +27,13 @@ void CameraTransformSystem::update()
 		Camera& camera = camEntity.get<Camera>();
 		Transform& transform = camEntity.get<Transform>();
 
-		glm::vec3 pos = transform.position;
-		glm::vec3 lookat = pos + glm::vec3(transform.rotation[2]);
-		glm::vec3 up = glm::vec3(transform.rotation[1]);
 
-		camera.view = glm::lookAt(transform.position, lookat, up);
+		glm::vec3 pos = transform.getPosition();
+		glm::mat4 rot = transform.getRotation();
+		glm::vec3 lookat = pos + glm::vec3(rot[2]);
+		glm::vec3 up = glm::vec3(rot[1]);
+
+		camera.view = glm::lookAt(pos, lookat, up);
 		camera.invView = glm::inverse(camera.view);
 
 		

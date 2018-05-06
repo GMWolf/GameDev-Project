@@ -20,6 +20,8 @@ namespace ECS {
 		Entity e = create();
 
 		for (nlohmann::json::iterator it = json.begin(); it != json.end(); ++it) {
+			if (it.key() == "tag") continue; //Ignore tag! not a component
+
 			auto mappersByName = baseComponentMapper::mappersByName();
 			if (mappersByName->find(it.key()) != mappersByName->end()) {
 				baseComponentMapper* mapper = baseComponentMapper::mappersByName()->at(it.key());

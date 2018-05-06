@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
+#include "ECS.h"
 
 COMPONENT(Transform, 128) {
 
@@ -73,6 +74,12 @@ COMPONENT(Transform, 128) {
 		position.x = j["position"][0].get<float>();
 		position.y = j["position"][1].get<float>();
 		position.z = j["position"][2].get<float>();
+
+		if (j.find("parent") != j.end())
+		{
+			parent = ECS::getLoadGroup().getEntity(j["parent"]);
+			std::cout << "got a parent! " << parent.getId() << std::endl;
+		}
 	}
 
 

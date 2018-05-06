@@ -10,18 +10,12 @@ COMPONENT(PlayerControl, 1)
 {
 	std::string horizontal;
 	std::string vertical;
-	std::string upDown;
-	std::string lookHorizontal;
-	std::string lookVertical;
 	float speed;
 
 	void load(nlohmann::json& json)
 	{
 		horizontal = json["horizontal"].get<std::string>();
 		vertical = json["vertical"].get<std::string>();
-		upDown = json["upDown"].get<std::string>();
-		lookHorizontal = json["lookHorizontal"].get<std::string>();
-		lookVertical = json["lookVertical"].get<std::string>();
 
 		speed = json["speed"];
 	}

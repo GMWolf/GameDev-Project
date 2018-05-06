@@ -56,7 +56,7 @@ void GunSystem::update()
 
 			//Do ray trace and entity spawn
 			PhysicsSystem::Hit hit;
-			physics->RayCastClosest(t.position, t.position + glm::vec3(t.rotation[2]) * 100.f, hit);
+			physics->RayCastClosest(t.getPosition(), t.getPosition() + glm::vec3(t.getRotation()[2]) * 100.f, hit);
 			if (hit.hasHit)
 			{
 				//glm::vec3 offset =glm::vec3( glm::inverse(hit.entity.get<Transform>().getMatrix()) * glm::vec4(hit.worldPos, 1.0));
@@ -84,7 +84,7 @@ void GunSystem::update()
 				tortilla.add(LightFade(10));
 
 				glm::vec3 offset = hit.worldPos - hit.entity.get<RigidBody>().getCenterOfMassPosition();
-				PhysicsSystem::Impulse::Emit(hit.entity, +(glm::vec3(t.rotation[2]) * 2.f), offset);
+				PhysicsSystem::Impulse::Emit(hit.entity, +(glm::vec3(t.getRotation()[2]) * 2.f), offset);
 			}
 		}
 

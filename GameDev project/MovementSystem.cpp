@@ -38,13 +38,20 @@ void PlayerControlSystem::update()
 	for(ECS::Entity e : playerControled)
 	{
 		PlayerControl& pc = e.get<PlayerControl>();
+		
 		Input* horizontal = ui->getInput(pc.horizontal);
 		Input* vertical = ui->getInput(pc.vertical);
-		Input* upDown = ui->getInput(pc.upDown);
-		Input* lookHorizontal = ui->getInput(pc.lookHorizontal);
-		Input* lookVertical = ui->getInput(pc.lookVertical);
 
 		Transform& t = e.get<Transform>();
+		btRigidBody* rb = e.get<RigidBody>().rigidBody;
+
+		glm::vec3 force;
+		force += glm::vec3(t.rotation[2]) * (*vertical)() * 10.f;
+		force += glm::vec3(t.rotation[0]) * (*horizontal)() * 10.f;
+		rb->applyCentralForce(btVector3(force.x, force.y, force.z));
+		rb->setFriction(1.f);
+
+		/*Transform& t = e.get<Transform>();
 		
 		t.position += glm::vec3(t.rotation[0] * (float)wagl::DeltaTime::delta) * (*horizontal)() * pc.speed;
 		
@@ -54,19 +61,17 @@ void PlayerControlSystem::update()
 		
 		t.rotation = glm::rotate(glm::mat4(1), -(*lookHorizontal)() / 1000, glm::vec3(0, 1, 0)) * t.rotation;
 		
-		t.rotation = glm::rotate(glm::mat4(1), (*lookVertical)() / 1000, glm::vec3(t.rotation[0])) * t.rotation;
+		t.rotation = glm::rotate(glm::mat4(1), (*lookVertical)() / 1000, glm::vec3(t.rotation[0])) * t.rotation;*/
 
-		btVector3 l, m;
-		e.get<RigidBody>().rigidBody->getAabb(l, m);
 
-		PhysicsSystem::Hit hit;
+		/*PhysicsSystem::Hit hit;
 		glm::vec3 feet(t.position.x, t.position.y, l.y());
 		physics->RayCastClosest(feet, feet - glm::vec3(0, 0.1, 0), hit);
 
 		if (!hit.hasHit)
 		{
 			t.position -= glm::vec3(0, u, 0);
-		}
+		}*/
 
 	}
 }
