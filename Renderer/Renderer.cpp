@@ -88,6 +88,7 @@ void Renderer::init()
 	u_resolve_alpha_texture = resolveProgram->Getuniform("alphaTex");
 	u_resolve_use_alpha = resolveProgram->Getuniform("useAlpha");
 	u_resolve_MVP = resolveProgram->Getuniform("MVP");
+	u_resolve_emit = resolveProgram->Getuniform("emit");
 
 	
 	projection = glm::perspective<float>(glm::radians(60.f), width / (float)height, 0.1f, 1000.f); 
@@ -288,6 +289,8 @@ void Renderer::resolvePass() const
 		{
 			u_resolve_use_alpha = false;
 		}
+		u_resolve_emit = material.emit;
+
 		assets.resolve(e.get<MeshFilter>().mesh).submit();
 	}
 	/*for(const RenderObject& o : renderPlan.renderObjects)

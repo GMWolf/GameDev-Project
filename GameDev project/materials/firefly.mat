@@ -1,0 +1,6 @@
+{
+	"diffuse" : "noone",
+	"normal" :  "noone",
+	"roughness":"noone",
+	"emit" : [1, 0.2, 0.0]
+}

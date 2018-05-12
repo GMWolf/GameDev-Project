@@ -19,8 +19,8 @@
 	},
 	"EntityClump":{
 		"prefabs":[ "prefabs/grassClump.json"],
-		"minimum count" : 30,
-		"maximum count" : 50,
+		"minimum count" : 50,
+		"maximum count" : 60,
 		"area" : [8, 0.1,8 ]
 	}
   },

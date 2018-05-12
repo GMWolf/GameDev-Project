@@ -14,6 +14,7 @@ uniform vec2 screenSize;
 uniform sampler2D diffuseTex;
 uniform sampler2D lightTex;
 uniform sampler2D alphaTex;
+uniform vec3 emit;
 uniform bool useAlpha; //Dynamicallyuniform, hopefully
 
 void main() 
@@ -31,6 +32,6 @@ void main()
 	vec4 light = texture(lightTex, texCoord) + vec4(0.1, 0.07, 0.15, 0.0);
 	vec3 diffuse = texture(diffuseTex, IN.TexCoord).xyz;
 	
-	FragOut = (diffuse * light.rgb) + (light.a * vec3(1.0f, 1.0f, 1.0f));
+	FragOut = (diffuse * light.rgb) + (light.a * vec3(1.0f, 1.0f, 1.0f)) + emit;
 	//FragOut = vec3(0.5, 0.5, 0.5);
 }

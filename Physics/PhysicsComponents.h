@@ -2,13 +2,12 @@
 #include <Component.h>
 #include <BulletCollision/CollisionShapes/btCollisionShape.h>
 #include <BulletDynamics/Dynamics/btRigidBody.h>
-#include <Vector3.h>
 #include <glm/glm.hpp>
 #include <AssetHandle.h>
 #include "Mesh.h"
 #include <Assets.h>
 
-COMPONENT(BoxCollider, 1)
+COMPONENT(BoxCollider, 1, 14)
 {
 	BoxCollider() : halfSides(1, 1, 1)
 	{
@@ -28,7 +27,7 @@ COMPONENT(BoxCollider, 1)
 	}
 };
 
-COMPONENT(SphereCollider, 1)
+COMPONENT(SphereCollider, 1, 15)
 {
 	SphereCollider() : radius(1)
 	{
@@ -41,7 +40,7 @@ COMPONENT(SphereCollider, 1)
 	float radius;
 };
 
-COMPONENT(CapsuleCollider, 1)
+COMPONENT(CapsuleCollider, 1, 16)
 {
 	CapsuleCollider() : radius(1) , height(2)
 	{
@@ -62,7 +61,7 @@ COMPONENT(CapsuleCollider, 1)
 	float radius;
 };
 
-COMPONENT(MeshCollider, 1)
+COMPONENT(MeshCollider, 1, 17)
 {
 	
 	MeshCollider() : concave(false)
@@ -81,7 +80,7 @@ COMPONENT(MeshCollider, 1)
 	bool concave;
 };
 
-COMPONENT(Collider, 16)
+COMPONENT(Collider, 16, 18)
 {
 
 	Collider() : collisionShape(nullptr)
@@ -96,7 +95,7 @@ COMPONENT(Collider, 16)
 
 };
 
-COMPONENT(RigidBodyProperties, 16)
+COMPONENT(RigidBodyProperties, 16, 19)
 {
 	RigidBodyProperties() : mass(1), angularFactor(1,1,1) {}
 
@@ -118,7 +117,7 @@ COMPONENT(RigidBodyProperties, 16)
 	}
 };
 
-COMPONENT(Kinematic, 1)
+COMPONENT(Kinematic, 1, 20)
 {
 	Kinematic(): kinematic(true)
 	{
@@ -126,7 +125,7 @@ COMPONENT(Kinematic, 1)
 	bool kinematic;
 };
 
-COMPONENT(RigidBody, 16)
+COMPONENT(RigidBody, 16, 21)
 {
 
 	RigidBody() : rigidBody(nullptr)

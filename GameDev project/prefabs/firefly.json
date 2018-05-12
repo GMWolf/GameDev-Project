@@ -1,0 +1,17 @@
+{
+	"MeshFilter": {
+      "mesh": "models/Circle.objm",
+      "material": "materials/firefly.mat"
+    },
+    "Transform": {
+      "position": [ 0,0,0 ],
+	  "scale":[0.1,0.1,0.1]
+	},
+	"PointLight":{
+		"colour": [1, 0.25, 0],
+		"power" : 10.0,
+		"radius" : 2.0
+	},
+	"Particle" : {
+	}
+}

@@ -4,7 +4,7 @@
 #include <Component.h>
 #include <glm/mat4x4.hpp>
 
-COMPONENT(Camera, 1)
+COMPONENT(Camera, 1, 8)
 {
 	glm::mat4 view;
 	glm::mat4 invView;

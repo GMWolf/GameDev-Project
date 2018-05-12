@@ -2,6 +2,7 @@
   "prefabs/player.json",
   "prefabs/blocks.json",
   "prefabs/island.json",
+  "prefabs/partSystem.json",
   {
     "MeshFilter": {
       "mesh": "models/suzane.objm",

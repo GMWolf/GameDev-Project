@@ -74,7 +74,7 @@ inline void HashedArrayTree<chunkSize, T>::erase(const int i)
 	int objIndex = i % chunkSize;
 
 	if (chunks[chunkIndex] == nullptr) {
-		throw std::out_of_range("i");
+		throw std::out_of_range(""+i);
 	}
 
 	chunks[chunkIndex]->usage.reset(objIndex);

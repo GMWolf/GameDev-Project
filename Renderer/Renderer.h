@@ -82,6 +82,7 @@ private:
 	wagl::ShaderProgram::Uniform u_resolve_diffuse_texture;
 	wagl::ShaderProgram::Uniform u_resolve_alpha_texture;
 	wagl::ShaderProgram::Uniform u_resolve_use_alpha;
+	wagl::ShaderProgram::Uniform u_resolve_emit;
 	wagl::ShaderProgram::Uniform u_resolve_MVP;
 
 	wagl::VertexBuffer quad_vb;

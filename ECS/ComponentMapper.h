@@ -65,7 +65,7 @@ namespace ECS {
 		mappers()->at(T::componentId) = this;
 		std::string name(T::componentName);
 		//mappersByName()->at(name) = this;
-		//std::cout << name << " inserted" << std::endl;
+		std::cout << name << " inserted "  << T::componentId << std::endl;
 		mappersByName()->insert({ name, this });
 	}
 

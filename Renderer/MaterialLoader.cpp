@@ -44,5 +44,15 @@ bool MaterialLoader::load(std::string file, void* location)
 		mat->useAlpha = false;
 	}
 
+	if (j.find("emit") != j.end())
+	{
+		mat->emit.x = j["emit"][0];
+		mat->emit.y = j["emit"][1];
+		mat->emit.z = j["emit"][2];
+	} else
+	{
+		mat->emit = glm::vec3(0, 0, 0);
+	}
+
 	return true;
 }

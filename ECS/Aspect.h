@@ -1,6 +1,6 @@
 #pragma once
 namespace ECS {
-#define ASPECT_SIZE 32
+#define ASPECT_SIZE 64
 
 	class Aspect {
 

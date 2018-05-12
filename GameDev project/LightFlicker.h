@@ -1,7 +1,7 @@
 #pragma once
 #include <Component.h>
 
-COMPONENT(lightFlicker, 8) {
+COMPONENT(lightFlicker, 8, 4) {
 
 	lightFlicker() {
 	}

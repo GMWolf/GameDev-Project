@@ -41,7 +41,9 @@
 #include "AssetsComponentLoader.h"
 #include "FPSCameraSystem.h"
 #include "EntityClump.h"
+#include "ParticleSystem.h"
 using namespace ECS;
+
 
 class Game : public wagl::ApplicationAdapter {
 
@@ -91,6 +93,7 @@ public:
 		SystemManager::addSystem(new LightFlickerSystem);
 		SystemManager::addSystem(new LightFadeSystem);
 		SystemManager::addSystem(new EntityClumpSystem(assets));
+		SystemManager::addSystem(new ParticleSystem(assets));
 		
 		SystemManager::init();
 

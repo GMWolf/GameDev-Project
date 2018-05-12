@@ -5,7 +5,7 @@
 #include "System.h"
 #include "UISystem.h"
 
-COMPONENT(FPSCamera, 1)
+COMPONENT(FPSCamera, 1, 24)
 {
 	std::string horizontal;
 	std::string vertical;

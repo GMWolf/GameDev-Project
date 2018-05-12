@@ -8,7 +8,7 @@
 #include <EntityEvents.h>
 #include <Transform.h>
 
-COMPONENT(EntityClump, 8)
+COMPONENT(EntityClump, 8, 1)
 {
 	
 	int countMin;

@@ -6,7 +6,7 @@
 #include "PhysicsSystem.h"
 #include "Assets.h"
 
-COMPONENT(PlayerControl, 1)
+COMPONENT(PlayerControl, 1, 5)
 {
 	std::string horizontal;
 	std::string vertical;

@@ -1,6 +1,6 @@
 #pragma once
 #include "Component.h"
-COMPONENT(Gun, 1)
+COMPONENT(Gun, 1, 2)
 {
 	
 	Gun(): fireRate(0), coolDown(0){} ;

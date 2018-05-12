@@ -6,7 +6,7 @@
 #include "Font.h"
 
 
-COMPONENT(TextComponent, 8)
+COMPONENT(TextComponent, 8, 13)
 {
 
 	TextComponent() : string("")
