@@ -1,0 +1,5 @@
+{
+	"diffuse" : "textures/StoneSet01_Small08_albedo.dds",
+	"normal" :  "textures/StoneSet01_Small08_normal.dds",
+	"roughness":"textures/StoneSet01_Small08_albedo.dds"
+}

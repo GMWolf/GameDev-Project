@@ -1,0 +1,14 @@
+{
+	"Transform":{
+		"position": [0, 0, 0]
+	},
+	"EntityClump":{
+		"prefabs":[ 
+			"prefabs/grass11.json",
+			"prefabs/grass12.json"
+		],
+		"minimum count" : 10,
+		"maximum count" : 15,
+		"area" : [1.5, 0.3, 1.5]
+	}
+ }

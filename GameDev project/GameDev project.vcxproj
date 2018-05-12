@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\glad\src\glad.c" />
+    <ClCompile Include="EntityClump.cpp" />
     <ClCompile Include="FPSCameraSystem.cpp" />
     <ClCompile Include="GunSystem.cpp" />
     <ClCompile Include="LightFadeSystem.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="VelocitySystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EntityClump.h" />
     <ClInclude Include="FPSCameraSystem.h" />
     <ClInclude Include="Gun.h" />
     <ClInclude Include="GunSystem.h" />

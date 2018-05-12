@@ -1,0 +1,9 @@
+{
+	"Transform" : {
+		"position" : [0,0, 0]
+	},
+	"MeshFilter" : {
+		"mesh":"models/grassCross.objm",
+		"material" : "materials/Grass11.mat"
+	}
+ }

@@ -2,25 +2,62 @@
 	{
 	"tag" : "island",
     "MeshFilter": {
-      "mesh": "models/smoothCube.objm",
+      "mesh": "models/islandbase.objm",
       "material": "materials/Cobblestone5.mat"
     },
     "Transform": {
-      "position": [ 0, -3, -30 ],
-	  "scale" : [5,5,5]
+      "position": [ 0, -2, -22 ]
     },
-    "BoxCollider": {
-      "sides": [ 5, 5, 5 ]
+    "MeshCollider": {
+      "mesh" : "models/islandbase.objm"
     }
   },
   {
+	"Transform":{
+		"position": [0, 1.5, 0],
+		"parent": "island"
+	},
+	"EntityClump":{
+		"prefabs":[ "prefabs/grassClump.json"],
+		"minimum count" : 30,
+		"maximum count" : 50,
+		"area" : [8, 0.1,8 ]
+	}
+  },
+  {
 	"Transform" : {
-		"position" : [0, 9, -25]
+		"position" : [0, 9, -10]
 	},
 	"PointLight":{
 		"colour":[0.9, 1, 0.75],
 		"radius" : 35,
 		"power" : 2
+	}
+  },
+  {
+	"Transform" : {
+		"parent" : "island",
+		"position" : [7,2.8, 0]
+	},
+	"MeshFilter" : {
+		"mesh":"models/pillarB.objm",
+		"material" : "materials/MarbleRed.mat"
+	},
+	"BoxCollider" : {
+		"sides" : [0.5, 1.15, 0.5]
+	}
+  },
+  {
+	"Transform" : {
+		"parent" : "island",
+		"position" : [7,2.8, 2]
+	},
+	"MeshFilter" : {
+		"mesh":"models/pillarB.objm",
+		"material" : "materials/MarbleRed.mat"
+	},
+	"BoxCollider" : {
+		"sides" : [0.5, 1.15, 0.5]
 	}
   }
 ]

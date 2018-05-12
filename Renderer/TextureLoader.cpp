@@ -23,6 +23,12 @@ bool TextureLoader::load(std::string file, void* location)
 		std::cout << "Error loading texture " << file << std::endl;
 		return false;
 	}
-	new (location) wagl::Texture(glTex);
+	wagl::Texture* t = new (location) wagl::Texture(glTex);
+
+	t->bind();
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+
 	return true;
 }

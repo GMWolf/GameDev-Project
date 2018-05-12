@@ -98,7 +98,7 @@ void PlayerControlSystem::pretickCallback(btScalar timestep)
 		
 			if ((*jump)())
 			{
-				rb->applyCentralImpulse(btVector3(0,455, 0));
+				rb->applyCentralImpulse(btVector3(0,555, 0));
 			}
 			
 		}
@@ -118,7 +118,7 @@ bool PlayerControlSystem::onGround(ECS::Entity e)
 	glm::vec3 feet(t.position.x, aabbmin.y(), t.position.z);
 
 	PhysicsSystem::Hit hit;
-	physics->RayCastClosest(feet + glm::vec3(0, 0.1, 0), feet - glm::vec3(0,0.1, 0), hit);
+	physics->RayCastClosest(feet + glm::vec3(0, 0.1, 0), feet - glm::vec3(0,0.01, 0), hit);
 
 	return hit.hasHit;
 }

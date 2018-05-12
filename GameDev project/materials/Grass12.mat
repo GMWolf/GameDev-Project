@@ -1,0 +1,6 @@
+{
+	"diffuse"  : "textures/Grass12_albedo.dds",
+	"normal"   :  "textures/Grass12_normal.dds",
+	"roughness":"textures/Grass12_roughness.dds",
+	"alpha"    : "textures/Grass12_alpha.dds"
+}

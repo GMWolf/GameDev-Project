@@ -1,0 +1,5 @@
+{
+	"diffuse" : "textures/StoneSet01_Scatter02_albedo.dds",
+	"normal" :  "textures/StoneSet01_Scatter02_normal.dds",
+	"roughness":"textures/StoneSet01_Scatter02_albedo.dds"
+}

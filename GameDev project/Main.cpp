@@ -40,6 +40,7 @@
 #include "CommonComponentLoader.h"
 #include "AssetsComponentLoader.h"
 #include "FPSCameraSystem.h"
+#include "EntityClump.h"
 using namespace ECS;
 
 class Game : public wagl::ApplicationAdapter {
@@ -89,6 +90,7 @@ public:
 		SystemManager::addSystem(new RotateSystem);
 		SystemManager::addSystem(new LightFlickerSystem);
 		SystemManager::addSystem(new LightFadeSystem);
+		SystemManager::addSystem(new EntityClumpSystem(assets));
 		
 		SystemManager::init();
 
@@ -108,7 +110,7 @@ public:
 		text.add(TextComponent("hello, world! This is some great text!"));*/
 
 		Entity sun = Entity::create();
-		sun.add(DirectionalLight(glm::vec3(0, -1, 0), glm::vec3(0.25, 0.25, 1), 1.f));
+		sun.add(DirectionalLight(glm::vec3(0, 1, 0), glm::vec3(0.1, 0.25, 0.8), 0.15f));
 
 		Entity eLightA = Entity::create();
 		eLightA.add(Transform());

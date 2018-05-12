@@ -26,7 +26,7 @@ void PhysicsSystem::init()
 	dispatcher = new btCollisionDispatcher(collisionConfiguration);
 	solver = new btSequentialImpulseConstraintSolver;
 	dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
-	dynamicsWorld->setGravity(btVector3(0, -5, 0));
+	dynamicsWorld->setGravity(btVector3(0, -9.8, 0));
 
 	dynamicsWorld->setInternalTickCallback(globalTickCallback, static_cast<void *>(this), false);
 	dynamicsWorld->setInternalTickCallback(globalPretickCallback, static_cast<void *>(this), true);

@@ -15,6 +15,9 @@ wagl::Texture::Texture(int width, int height, GLenum formatInternal, GLenum form
 	bind();
 	glTexImage2D(GL_TEXTURE_2D, 0, formatInternal, width, height, 0, format, type, 0);
 
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
 	if (preBound) {
 		preBound->bind();
 	}
@@ -46,3 +49,4 @@ bool wagl::Texture::isBound()
 {
 	return bound == this;
 }
+

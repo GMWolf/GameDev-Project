@@ -15,7 +15,7 @@ EntityMotionState::~EntityMotionState()
 void EntityMotionState::getWorldTransform(btTransform& worldTrans) const
 {
 	Transform& t = entity.get<Transform>();
-	worldTrans.setFromOpenGLMatrix(glm::value_ptr(glm::translate(glm::mat4(1), t.position) * t.rotation));
+	worldTrans.setFromOpenGLMatrix(glm::value_ptr(glm::translate(glm::mat4(1), t.getPosition()) * t.getRotation()));
 }
 
 void EntityMotionState::setWorldTransform(const btTransform& worldTrans)
