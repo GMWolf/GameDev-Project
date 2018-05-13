@@ -4,7 +4,7 @@
 #include "AssetHandle.h"
 #include <glm/detail/type_vec3.hpp>
 #include "Assets.h"
-COMPONENT(ParticleSpawner, 8, 23)
+COMPONENT(ParticleSpawner, 8)
 {
 	float rate;
 	float carry = 0;

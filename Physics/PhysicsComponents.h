@@ -7,7 +7,7 @@
 #include "Mesh.h"
 #include <Assets.h>
 
-COMPONENT(BoxCollider, 1, 14)
+COMPONENT(BoxCollider, 1)
 {
 	BoxCollider() : halfSides(1, 1, 1)
 	{
@@ -27,7 +27,7 @@ COMPONENT(BoxCollider, 1, 14)
 	}
 };
 
-COMPONENT(SphereCollider, 1, 15)
+COMPONENT(SphereCollider, 1)
 {
 	SphereCollider() : radius(1)
 	{
@@ -40,7 +40,7 @@ COMPONENT(SphereCollider, 1, 15)
 	float radius;
 };
 
-COMPONENT(CapsuleCollider, 1, 16)
+COMPONENT(CapsuleCollider, 1)
 {
 	CapsuleCollider() : radius(1) , height(2)
 	{
@@ -61,7 +61,7 @@ COMPONENT(CapsuleCollider, 1, 16)
 	float radius;
 };
 
-COMPONENT(MeshCollider, 1, 17)
+COMPONENT(MeshCollider, 1)
 {
 	
 	MeshCollider() : concave(false)
@@ -80,7 +80,7 @@ COMPONENT(MeshCollider, 1, 17)
 	bool concave;
 };
 
-COMPONENT(Collider, 16, 18)
+COMPONENT(Collider, 16)
 {
 
 	Collider() : collisionShape(nullptr)
@@ -95,7 +95,7 @@ COMPONENT(Collider, 16, 18)
 
 };
 
-COMPONENT(RigidBodyProperties, 16, 19)
+COMPONENT(RigidBodyProperties, 16)
 {
 	RigidBodyProperties() : mass(1), angularFactor(1,1,1) {}
 
@@ -117,7 +117,7 @@ COMPONENT(RigidBodyProperties, 16, 19)
 	}
 };
 
-COMPONENT(Kinematic, 1, 20)
+COMPONENT(Kinematic, 1)
 {
 	Kinematic(): kinematic(true)
 	{
@@ -125,7 +125,7 @@ COMPONENT(Kinematic, 1, 20)
 	bool kinematic;
 };
 
-COMPONENT(RigidBody, 16, 21)
+COMPONENT(RigidBody, 16)
 {
 
 	RigidBody() : rigidBody(nullptr)

@@ -2,7 +2,7 @@
 #include "Component.h"
 #include <glm/detail/type_vec3.hpp>
 
-COMPONENT(Particle, 64, 22)
+COMPONENT(Particle, 64)
 {
 	glm::vec3 velocity;
 	glm::vec3 gravity;

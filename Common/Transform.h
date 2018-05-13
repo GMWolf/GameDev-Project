@@ -6,7 +6,7 @@
 #include <glm/gtx/matrix_decompose.hpp>
 #include "ECS.h"
 
-COMPONENT(Transform, 128, 0) {
+COMPONENT(Transform, 128) {
 
 	Transform() : rotation(glm::mat4(1)), position(0,0,0), scale(1,1,1), parent(-1){
 	}

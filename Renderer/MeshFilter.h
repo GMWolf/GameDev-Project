@@ -7,7 +7,7 @@
 #include <ComponentLoader.h>
 #include <Assets.h>
 
-COMPONENT(MeshFilter, 16, 11) {
+COMPONENT(MeshFilter, 16,) {
 
 	MeshFilter()
 	{

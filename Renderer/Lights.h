@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include <ComponentLoader.h>
 
-COMPONENT(PointLight, 8, 9)
+COMPONENT(PointLight, 8)
 {
 
 	PointLight() : colour(1, 1, 1) , radius(1)
@@ -19,7 +19,7 @@ COMPONENT(PointLight, 8, 9)
 	float power;
 };
 
-COMPONENT(DirectionalLight, 1, 10)
+COMPONENT(DirectionalLight, 1)
 {
 	
 	DirectionalLight() : colour(1,1,1), power(1)

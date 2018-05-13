@@ -27,7 +27,6 @@
 #include <PhysicsSystem.h>
 #include <PhysicsColliderSystem.h>
 #include "GUISystem.h"
-#include "TextComponent.h"
 #include "LightFade.h"
 #include "LightFadeSystem.h"
 #include "GunSystem.h"

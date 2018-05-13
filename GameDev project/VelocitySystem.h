@@ -7,7 +7,7 @@
 #include "Transform.h"
 #include "DeltaTime.h"
 
-COMPONENT(Velocity, 16, 7)
+COMPONENT(Velocity, 16)
 {
 	Velocity() : v(0,0,0) {};
 	Velocity(glm::vec3 v) : v(v) {};

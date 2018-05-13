@@ -110,6 +110,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Audio", "Audio\Audio.vcxpro
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Particles", "Particles\Particles.vcxproj", "{A0AD2266-F599-48C5-8EE7-D33C3CDE95BB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E6FD0B41-D8C6-44C7-AD70-648B8FA96EA0} = {E6FD0B41-D8C6-44C7-AD70-648B8FA96EA0}
+		{A5956D56-7B1F-4FE8-8CD5-32892E6D58FE} = {A5956D56-7B1F-4FE8-8CD5-32892E6D58FE}
+		{2346D8D2-9B6E-435F-9383-464E52CF561C} = {2346D8D2-9B6E-435F-9383-464E52CF561C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

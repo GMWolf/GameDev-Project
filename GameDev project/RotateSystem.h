@@ -5,7 +5,7 @@
 #include <EntitySubscription.h>
 #include <SubscriptionManager.h>
 
-COMPONENT(Rotate, 16, 6)
+COMPONENT(Rotate, 16)
 {
 
 	Rotate(): rate(0)

@@ -18,9 +18,6 @@
     <ClInclude Include="GUISystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TextComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GuiItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>

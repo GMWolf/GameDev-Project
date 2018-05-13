@@ -21,7 +21,7 @@ private:
 	GLFWwindow * window;
 	ImGuiIO* io;
 
-	ECS::EntitySubscription & textEntities;
+	//ECS::EntitySubscription & textEntities;
 
 	
 };

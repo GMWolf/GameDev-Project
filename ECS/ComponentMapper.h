@@ -9,6 +9,7 @@
 
 namespace ECS {
 
+
 	class baseComponentMapper
 	{
 	public:
@@ -20,6 +21,7 @@ namespace ECS {
 
 		//Construct On First Use (static init order fiasco)
 		static std::vector<baseComponentMapper*> * mappers();
+		static int* getCompCounter();
 		static std::unordered_map<std::string, baseComponentMapper*> * mappersByName();
 
 		
@@ -62,10 +64,12 @@ namespace ECS {
 	template<class T, int chunkSize>
 	inline ComponentMapper<T, chunkSize>::ComponentMapper()
 	{
+		T::componentId = (*getCompCounter())++;
 		mappers()->at(T::componentId) = this;
 		std::string name(T::componentName);
 		//mappersByName()->at(name) = this;
-		std::cout << name << " inserted "  << T::componentId << std::endl;
+		
+		std::cout << name << " inserted "  << /*getNextCompId()*/T::componentId << std::endl;
 		mappersByName()->insert({ name, this });
 	}
 

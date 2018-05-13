@@ -1,7 +1,6 @@
 #include "GUISystem.h"
 #include "SubscriptionManager.h"
 #include "Transform.h"
-#include "TextComponent.h"
 #include "DeltaTime.h"
 
 #include "imgui.h"
@@ -12,7 +11,7 @@
 
 
 GUISystem::GUISystem(int width, int height, GLFWwindow* window) :
-	textEntities(ECS::SubscriptionManager::getSubscription(ECS::Aspect::getAspect<TextComponent, Transform>())),
+	//textEntities(ECS::SubscriptionManager::getSubscription(ECS::Aspect::getAspect<TextComponent, Transform>())),
 	window(window)
 {
 }
@@ -42,11 +41,11 @@ void GUISystem::update()
 	
 	//textShader->use();
 	
-	for(ECS::Entity e : textEntities)
+	/*for(ECS::Entity e : textEntities)
 	{
 		TextComponent& text = e.get<TextComponent>();
 		ImGui::Text(text.string.c_str());
-	}
+	}*/
 	ImGui::Render();
 	ImGui_ImplGlfwGL3_RenderDrawData(ImGui::GetDrawData());
 

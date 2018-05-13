@@ -11,7 +11,7 @@
 #include "ECS.h"
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace ECS;
-COMPONENT(component1, 16) {
+COMPONENT(component1, 16, 0) {
 	component1()
 	{
 	};
@@ -35,7 +35,7 @@ COMPONENT(component1, 16) {
 
 
 
-COMPONENT(component2, 16) {
+COMPONENT(component2, 16, 1) {
 	component2() {
 	};
 	component2(int foo, int bar) : foo(foo), bar(bar) {
@@ -53,7 +53,7 @@ COMPONENT(component2, 16) {
 
 
 
-COMPONENT(component3, 16) {
+COMPONENT(component3, 16, 2) {
 	component3() {};
 	int huhu;
 	float whaa;

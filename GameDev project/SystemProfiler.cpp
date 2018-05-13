@@ -1,6 +1,5 @@
 #include "SystemProfiler.h"
 #include "Transform.h"
-#include "TextComponent.h"
 #include <DeltaTime.h>
 #include "imgui.h"
 #include "SystemManager.h"
