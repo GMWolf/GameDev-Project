@@ -78,7 +78,7 @@ COMPONENT(Transform, 128) {
 		if (j.find("parent") != j.end())
 		{
 			parent = ECS::getLoadGroup().getEntity(j["parent"]);
-			std::cout << "got a parent! " << parent.getId() << std::endl;
+			std::cout << "got a parent! " << parent.getId() << " " << j["parent"] << std::endl;
 		}
 
 		if (j.find("scale") != j.end())

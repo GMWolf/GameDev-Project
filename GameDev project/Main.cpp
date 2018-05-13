@@ -41,6 +41,10 @@
 #include "FPSCameraSystem.h"
 #include "EntityClump.h"
 #include "ParticleSystem.h"
+#include "LifeSystem.h"
+#include "BulletSystem.h"
+#include "BoidsSystem.h"
+#include "AlignVelocitySystem.h"
 using namespace ECS;
 
 
@@ -67,9 +71,9 @@ public:
 		ECS::registerLoader<CapsuleCollider>(new CommonComponentLoader<CapsuleCollider>);
 		ECS::registerLoader<RigidBodyProperties>(new CommonComponentLoader<RigidBodyProperties>);
 		ECS::registerLoader<MeshCollider>(new AssetsComponentLoader<MeshCollider>(assets));
-		ECS::registerLoader<Gun>(new CommonComponentLoader<Gun>);
 		ECS::registerLoader<PlayerControl>(new CommonComponentLoader<PlayerControl>);
 		ECS::registerLoader<Camera>(new CommonComponentLoader<Camera>);
+		
 		
 		UISystem* ui = new UISystem(window, this);
 		ui->addInput("LookHor", new MouseDeltaInput(true));
@@ -83,6 +87,7 @@ public:
 		SystemManager::addSystem(new PlayerControlSystem);
 		SystemManager::addSystem(new GunSystem(assets));
 		SystemManager::addSystem(new CameraTransformSystem);
+		SystemManager::addSystem(new BulletSystem);
 		SystemManager::addSystem(new VelocitySystem);
 		SystemManager::addSystem(new Renderer(width, height, assets));
 		SystemManager::addSystem(new SystemProfiler);
@@ -93,6 +98,10 @@ public:
 		SystemManager::addSystem(new LightFadeSystem);
 		SystemManager::addSystem(new EntityClumpSystem(assets));
 		SystemManager::addSystem(new ParticleSystem(assets));
+		SystemManager::addSystem(new LifeSystem);
+		SystemManager::addSystem(new BoidsSystem);
+		SystemManager::addSystem(new AlignVelocitySystem);
+		
 		
 		SystemManager::init();
 

@@ -143,9 +143,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\glad\src\glad.c" />
+    <ClCompile Include="AlignVelocitySystem.cpp" />
+    <ClCompile Include="BoidsSystem.cpp" />
+    <ClCompile Include="BulletSystem.cpp" />
     <ClCompile Include="EntityClump.cpp" />
     <ClCompile Include="FPSCameraSystem.cpp" />
     <ClCompile Include="GunSystem.cpp" />
+    <ClCompile Include="LifeSystem.cpp" />
     <ClCompile Include="LightFadeSystem.cpp" />
     <ClCompile Include="LightFlickerSystem.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -156,10 +160,14 @@
     <ClCompile Include="VelocitySystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AlignVelocitySystem.h" />
+    <ClInclude Include="BoidsSystem.h" />
+    <ClInclude Include="BulletSystem.h" />
     <ClInclude Include="EntityClump.h" />
     <ClInclude Include="FPSCameraSystem.h" />
     <ClInclude Include="Gun.h" />
     <ClInclude Include="GunSystem.h" />
+    <ClInclude Include="LifeSystem.h" />
     <ClInclude Include="LightFade.h" />
     <ClInclude Include="LightFadeSystem.h" />
     <ClInclude Include="LightFlicker.h" />

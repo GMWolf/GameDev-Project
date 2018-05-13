@@ -29,6 +29,10 @@ void LightFadeSystem::update()
 		{
 			e.remove<PointLight>();
 			e.remove<LightFade>();
+			/*if(e.get<LightFade>().destroyOnEnd)
+			{
+				ECS::Entity::destroy(e);
+			}*/
 		}
 	}
 }

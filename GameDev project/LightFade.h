@@ -6,4 +6,5 @@ COMPONENT(LightFade, 8)
 	LightFade(float rate) : fadeRate(rate) {};
 
 	float fadeRate;
+	bool destroyOnEnd = false;
 };

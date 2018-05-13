@@ -1,0 +1,21 @@
+{
+	"MeshFilter": {
+      "mesh": "models/IcoSphere.objm",
+      "material": "materials/bullet.mat"
+    },
+    "Transform": {
+      "position": [ 0,0,0 ],
+	  "scale":[0.025,0.025,0.025]
+	},
+	"PointLight":{
+		"colour": [0, 0.25, 1],
+		"power" : 10.0,
+		"radius" : 2.0
+	},
+	"Life":{
+		"time":2
+	},
+	"Bullet":{
+		"damage" : 1
+	}
+}

@@ -13,6 +13,13 @@ COMPONENT(Velocity, 16)
 	Velocity(glm::vec3 v) : v(v) {};
 
 	glm::vec3 v;
+
+	void load(const nlohmann::json& j)
+	{
+		v.x = j["velocity"][0];
+		v.y = j["velocity"][1];
+		v.z = j["velocity"][2];
+	}
 };
 
 class VelocitySystem : public ECS::System

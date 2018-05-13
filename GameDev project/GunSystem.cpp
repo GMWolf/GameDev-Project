@@ -11,6 +11,8 @@
 #include "AudioEvent.h"
 #include <glm/gtc/random.hpp>
 #include <Prefab.h>
+#include "AssetsComponentLoader.h"
+#include "VelocitySystem.h"
 
 
 GunSystem::GunSystem(Assets& assets) :
@@ -27,6 +29,8 @@ GunSystem::~GunSystem()
 
 void GunSystem::init()
 {
+	ECS::registerLoader<Gun>(new AssetsComponentLoader<Gun>(assets));
+
 	ui = ECS::SystemManager::getSystem<UISystem>();
 	physics = ECS::SystemManager::getSystem<PhysicsSystem>();
 
@@ -54,8 +58,14 @@ void GunSystem::update()
 
 			AudioEvent::Emit(assets.get<Sound>("audio/Laser_Shoot2.wav"));
 
+			ECS::Entity projectile = ECS::Entity::create(assets.resolve(gun.projectile));
+			projectile.add(Velocity(t.getRotation()[2] * gun.velocity));
+			projectile.get<Transform>().position = t.getPosition();
+
+
+
 			//Do ray trace and entity spawn
-			PhysicsSystem::Hit hit;
+			/*PhysicsSystem::Hit hit;
 			physics->RayCastClosest(t.getPosition(), t.getPosition() + glm::vec3(t.getRotation()[2]) * 100.f, hit);
 			if (hit.hasHit)
 			{
@@ -85,7 +95,7 @@ void GunSystem::update()
 
 				glm::vec3 offset = hit.worldPos - hit.entity.get<RigidBody>().getCenterOfMassPosition();
 				PhysicsSystem::Impulse::Emit(hit.entity, +(glm::vec3(t.getRotation()[2]) * 2.f), offset);
-			}
+			}*/
 		}
 
 		

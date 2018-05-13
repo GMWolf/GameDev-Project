@@ -21,6 +21,7 @@
 		}
 	},
 	{
+		"tag" : "cam",
 		"Transform":{
 			"position": [ 0, 0.75, 0 ],
 			"parent":"player"
@@ -31,9 +32,18 @@
 			"horizontal":"LookHor",
 			"vertical":"LookVert",
 			"body":"player"
+		}
+	},
+	{
+		"tag":"gun",
+		"Transform":{
+			"position": [ -0.15, -0.25, 0 ],
+			"parent":"cam"
 		},
 		"Gun": {
-			"fireRate": 5
+			"fireRate": 5,
+			"velocity" : 40,
+			"projectile" : "prefabs/bullet.json"
 		}
 	}
 ]

@@ -8,9 +8,13 @@ COMPONENT(Gun, 1)
 
 	float fireRate;
 	float coolDown;
+	float velocity;
+	AssetHandle<ECS::Prefab> projectile;
 
-	void load(const nlohmann::json& j)
+	void load(const nlohmann::json& j, Assets& assets)
 	{
 		fireRate = j["fireRate"].get<int>();
+		projectile = assets.get<ECS::Prefab>(j["projectile"].get<std::string>());
+		velocity = j["velocity"];
 	}
 };

@@ -42,7 +42,7 @@ void ECS::loadScene_json(nlohmann::json j) {
 			loadScene(j.get<std::string>());
 		}
 
-		currentLoadGroup = lg.parent;
+		//currentLoadGroup = lg.parent;
 	}
 
 }

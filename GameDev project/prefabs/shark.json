@@ -1,0 +1,23 @@
+{
+	"MeshFilter": {
+      "mesh": "models/Shark.objm",
+      "material": "materials/Shark.mat"
+    },
+    "Transform": {
+      "position": [ 0,0,0 ],
+	  "scale":[0.2,0.2,0.2]
+	},
+	"Velocity" : {
+		"velocity" : [0,0,0]
+	},
+	"Boid" : {
+		"separation radius" : 8,
+		"separation factor" : 1,
+		"cohesion radius" : 25,
+		"cohesion factor" : 0.5,
+		"alignment radius" : 25,
+		"alignment factor" : 0.12,
+		"max velocity" : 35
+	},
+	"AlignToVelocity" : {}
+}

@@ -1,0 +1,5 @@
+{
+	"diffuse"  : "textures/Shark/greatwhiteshark.dds",
+	"normal"   :  "textures/Shark/greatwhiteshark_n.dds",
+	"roughness":"textures/Shark/greatwhiteshark.dds"
+}
